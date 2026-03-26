@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asana Workflow Adjustment Plan — TPH Marketing</title>
+<style>
+@font-face {
+  font-family: 'Druk Text Wide';
+  src: url('../fonts/DrukTextWide-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Druk Text Wide';
+  src: url('../fonts/DrukTextWide-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Druk Text Wide';
+  src: url('../fonts/DrukTextWide-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Druk Text Wide';
+  src: url('../fonts/DrukTextWide-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F5F5F0;--surface:#0A0A0A;--card:rgba(255,255,255,0.03);
+  --border:rgba(255,255,255,0.06);--border-hover:rgba(255,255,255,0.14);
+  --text:#F9F9F9;--muted:#8a8a8a;--dim:#555555;
+  --accent:#E13422;--accent-glow:rgba(225,52,34,.08);
+  --blue:#4794BA;--blue-glow:rgba(71,148,186,.1);
+  --green:#528C72;--green-glow:rgba(82,140,114,.1);
+  --yellow:#DDBE47;--yellow-glow:rgba(221,190,71,.1);
+  --purple:#7B3467;--orange:#CB7034;
+  --radius:12px;--radius-sm:8px;--radius-xs:6px;
+  --font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --font-heading:"Druk Text Wide",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+}
+
+html{scroll-behavior:smooth;background:#F5F5F0}
+body{font-family:var(--font);-webkit-font-smoothing:antialiased;color:var(--text);background:var(--bg);line-height:1.6;overflow-x:hidden}
+::selection{background:var(--accent);color:#fff}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--dim);border-radius:3px}
+
+/* ---- NAV ---- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);background:rgba(245,245,240,.95);border-bottom:1px solid rgba(0,0,0,0.06);transition:all .3s}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:56px}
+.nav-brand{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#111}
+.nav-brand span{color:var(--accent)}
+.nav-links{display:flex;gap:4px;flex-wrap:wrap}
+.nav-links a{padding:6px 14px;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#555;text-decoration:none;border-radius:var(--radius-xs);transition:all .2s}
+.nav-links a:hover,.nav-links a.active{color:#111;background:rgba(0,0,0,0.04)}
+
+/* ---- HERO ---- */
+.hero{padding:160px 48px 100px;text-align:center;position:relative;overflow:hidden;background:#1C1C1C;border-radius:24px;margin:80px 24px 32px;color:#F9F9F9}
+.hero::before{content:'ASANA WORKFLOW';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-heading);font-size:clamp(80px,14vw,180px);font-weight:900;text-transform:uppercase;color:rgba(255,255,255,0.04);white-space:nowrap;pointer-events:none;letter-spacing:-.02em;font-style:normal}
+.hero-label{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:rgba(225,52,34,0.08);border:1px solid rgba(225,52,34,0.2);border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:24px}
+.hero-label .pulse{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:var(--font-heading);font-size:clamp(42px,7vw,84px);font-weight:900;letter-spacing:-.03em;text-transform:uppercase;line-height:.95;margin-bottom:32px;color:#FFFFFF;font-style:normal}
+.hero h1 em{font-style:normal;-webkit-text-fill-color:transparent;-webkit-text-stroke:2px var(--accent)}
+.hero-sub{font-size:18px;color:rgba(255,255,255,0.5);max-width:640px;margin:0 auto 56px;line-height:1.7;font-style:normal}
+.hero-stats{display:flex;justify-content:center;gap:64px;flex-wrap:wrap;padding-top:8px}
+.hero-stat .num{font-family:var(--font-heading);font-size:42px;font-weight:900;font-variant-numeric:tabular-nums;color:#FFFFFF;font-style:normal}
+.hero-stat .label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.hero-meta{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-top:48px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.06);font-size:13px;color:rgba(255,255,255,0.5)}
+.hero-meta strong{color:#fff}
+
+/* ---- SECTIONS ---- */
+.section{max-width:1400px;margin:0 auto;padding:100px 48px;position:relative;overflow:hidden}
+.section-header{margin-bottom:56px;position:relative;z-index:1}
+.section-tag{font-family:var(--font-heading);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+.section-title{font-family:var(--font-heading);font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:-.02em;text-transform:uppercase;line-height:1.05;margin-bottom:16px;font-style:normal;color:#FFFFFF}
+.section-desc{font-size:16px;color:var(--muted);max-width:640px;font-style:normal}
+
+/* ---- COLLAPSIBLE PANELS ---- */
+.panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:20px;transition:border-color .2s}
+.panel:hover{border-color:var(--border-hover)}
+.panel-header{padding:24px 28px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none}
+.panel-header h3{font-family:var(--font-heading);font-size:14px;font-weight:700;display:flex;align-items:center;gap:10px}
+.panel-count{font-size:12px;color:var(--muted);font-weight:600;background:rgba(255,255,255,.04);padding:2px 10px;border-radius:12px}
+.panel-chevron{width:20px;height:20px;color:var(--muted);transition:transform .3s}
+.panel.open .panel-chevron{transform:rotate(180deg)}
+.panel-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.panel.open .panel-body{max-height:4000px}
+
+/* ---- TABLES ---- */
+.gap-table{width:100%;border-collapse:collapse;font-size:14px}
+.gap-table th{font-family:var(--font-heading);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);text-align:left;padding:14px 20px;border-bottom:2px solid var(--border)}
+.gap-table td{padding:14px 20px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.6}
+.gap-table tr{transition:background .15s}
+.gap-table tr:hover td{background:rgba(255,255,255,0.02)}
+
+/* ---- CARDS ---- */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;transition:all .25s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--border-hover);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.card h3{font-family:var(--font-heading);font-size:13px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--text);margin-bottom:10px}
+.card p{font-size:14px;color:var(--muted);line-height:1.6}
+
+/* ---- BADGES ---- */
+.badge{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-heading);font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 10px;border-radius:20px}
+.badge-red{background:rgba(225,52,34,0.15);color:var(--accent)}
+.badge-yellow{background:rgba(221,190,71,0.15);color:var(--yellow)}
+.badge-green{background:rgba(82,140,114,0.15);color:var(--green)}
+.badge-blue{background:rgba(71,148,186,0.15);color:var(--blue)}
+.badge-purple{background:rgba(123,52,103,0.15);color:var(--purple)}
+.badge-orange{background:rgba(203,112,52,0.15);color:var(--orange)}
+
+/* ---- CALLOUT ---- */
+.callout{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:32px 0}
+.callout-tag{font-family:var(--font-heading);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.callout p{font-size:13px;color:var(--muted);line-height:1.7}
+
+/* ---- FLOW DIAGRAM ---- */
+.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:16px 0}
+.flow-step{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 20px;font-family:var(--font-heading);font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;transition:all .2s;cursor:default}
+.flow-step:hover{border-color:var(--accent);background:var(--accent-glow);transform:translateY(-1px)}
+.flow-arrow{color:var(--dim);font-size:18px}
+
+/* ---- INTERACTIVE STAGE PILLS ---- */
+.stage-flow{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:32px 0 48px}
+.stage-pill{padding:10px 18px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;min-width:100px;position:relative}
+.stage-pill:hover{border-color:var(--accent);background:var(--accent-glow)}
+.stage-pill.active{border-color:var(--accent);background:var(--accent-glow);color:var(--accent)}
+.stage-pill.gate{background:rgba(221,190,71,.05);border-color:rgba(221,190,71,.2);color:var(--yellow)}
+.stage-pill.gate:hover{background:rgba(221,190,71,.12)}
+.stage-pill .snum{font-size:16px;font-weight:800;display:block;margin-bottom:2px}
+.stage-pill .sname{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.stage-pill.active .sname{color:var(--accent)}
+.stage-arrow{color:var(--dim);font-size:16px;display:flex;align-items:center}
+
+/* ---- TABS ---- */
+.tab-bar{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.tab{font-family:var(--font-heading);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:10px 16px;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ---- PHASE TIMELINE ---- */
+.phase-timeline{position:relative;padding-left:32px}
+.phase-timeline::before{content:'';position:absolute;left:11px;top:0;bottom:0;width:2px;background:var(--border)}
+.phase-item{position:relative;margin-bottom:32px}
+.phase-dot{position:absolute;left:-32px;top:6px;width:22px;height:22px;border-radius:50%;border:2px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;transition:all .3s}
+.phase-item:hover .phase-dot{border-color:var(--accent);background:var(--accent-glow)}
+.phase-dot-inner{width:8px;height:8px;border-radius:50%}
+.phase-content{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:all .25s}
+.phase-item:hover .phase-content{border-color:var(--border-hover);transform:translateX(4px)}
+.phase-label{font-family:var(--font-heading);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.phase-title{font-size:16px;font-weight:700;margin-bottom:6px}
+.phase-desc{font-size:13px;color:var(--muted);line-height:1.6}
+.phase-meta{display:flex;gap:16px;margin-top:12px;font-size:12px;color:var(--muted)}
+
+/* ---- GATE ROW ---- */
+.gate-row td{background:var(--accent-glow) !important}
+
+/* ---- CODE ---- */
+code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:12px;font-family:'SF Mono',Menlo,monospace}
+
+/* ---- PROGRESS BAR ---- */
+.progress-bar{width:100%;height:4px;background:var(--border);border-radius:2px;margin:16px 0;overflow:hidden}
+.progress-fill{height:100%;border-radius:2px;transition:width 1s ease}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hero{padding:120px 24px 72px;margin:72px 16px 24px}
+  .hero h1{font-size:28px}
+  .section{padding:72px 24px}
+  .section:not(.section-light){margin-left:16px;margin-right:16px;margin-bottom:24px}
+  .section-light{margin-left:16px;margin-right:16px;margin-bottom:24px;padding:72px 0}
+  .section-light .section-header,.section-light>div:not(.section-header){padding-left:24px;padding-right:24px}
+  .card-grid{grid-template-columns:1fr}
+  .hero-stats{gap:32px}
+  .stage-flow{gap:4px}
+  .stage-pill{min-width:70px;padding:8px 12px}
+}
+
+
+/* === LIGHT SECTIONS (alternating contrast — matches RACI) === */
+.section-light{background:#fff;color:#111;position:relative;overflow:hidden;padding:100px 0;max-width:none;padding-left:0;padding-right:0;border-radius:24px;margin-left:24px;margin-right:24px;margin-bottom:32px}
+.section-light .section-header{padding:0 48px;max-width:1400px;margin-left:auto;margin-right:auto;margin-bottom:56px}
+.section-light .section-title{color:#000}
+.section-light .section-tag{color:#666}
+.section-light .section-desc{color:#666}
+.section-light::before{content:attr(data-watermark);position:absolute;top:20px;left:50%;transform:translateX(-50%);font-family:var(--font-heading);font-size:clamp(60px,12vw,160px);font-weight:900;text-transform:uppercase;color:rgba(0,0,0,0.07);white-space:nowrap;pointer-events:none;letter-spacing:-.02em;font-style:normal;z-index:0}
+.section-light>*{position:relative;z-index:1}
+.section-light .panel,.section-light .card,.section-light .gap-table{background:rgba(0,0,0,0.03);border-color:rgba(0,0,0,0.08)}
+.section-light .panel:hover,.section-light .card:hover{border-color:rgba(0,0,0,0.16)}
+.section-light .panel-header h3{color:#111}
+.section-light .panel-count{color:#666;background:rgba(0,0,0,0.05)}
+.section-light .panel-chevron{color:#999}
+.section-light .gap-table th{background:rgba(0,0,0,0.04);color:#666;border-bottom-color:rgba(0,0,0,0.08)}
+.section-light .gap-table td{color:#333;border-bottom-color:rgba(0,0,0,0.06)}
+.section-light .gap-table tr:hover td{background:rgba(0,0,0,0.02)}
+.section-light .card h3{color:#111}
+.section-light .card p{color:#555}
+.section-light .card:hover{box-shadow:0 8px 32px rgba(0,0,0,.08)}
+.section-light .badge{opacity:.9}
+.section-light .badge-red{background:rgba(225,52,34,.08);color:#E13422}
+.section-light .badge-green{background:rgba(82,140,114,.08);color:#528C72}
+.section-light .badge-blue{background:rgba(71,148,186,.08);color:#4794BA}
+.section-light .badge-yellow{background:rgba(221,190,71,.08);color:#b59a1e}
+.section-light h3{color:#111}
+.section-light p{color:#555}
+.section-light strong{color:#111}
+.section-light a{color:var(--accent)}
+.section-light .flow-step{background:rgba(0,0,0,0.03);border-color:rgba(0,0,0,0.08);color:#111}
+.section-light .flow-arrow{color:#ccc}
+.section-light .tab{background:rgba(0,0,0,0.03);border-color:rgba(0,0,0,0.08);color:#111}
+.section-light .tab:hover{border-color:rgba(0,0,0,0.2)}
+.section-light .tab.active{border-color:var(--accent);background:rgba(225,52,34,.06);color:var(--accent)}
+.section-light .phase-label{color:#666}
+.section-light .phase-title{color:#111}
+.section-light .phase-desc{color:#555}
+.section-light .phase-meta{color:#888}
+.section-light .phase-dot-inner{opacity:.9}
+.section-light table{border-color:rgba(0,0,0,0.08)}
+.section-light table th{background:rgba(0,0,0,0.04);color:#666;border-color:rgba(0,0,0,0.08)}
+.section-light table td{color:#333;border-color:rgba(0,0,0,0.06)}
+.section-light table tr:hover td{background:rgba(0,0,0,0.02)}
+.section-light .gate-row td{background:rgba(221,190,71,.06)}
+.section-light>div:not(.section-header){max-width:1400px;margin-left:auto;margin-right:auto;padding-left:48px;padding-right:48px}
+/* Light callouts */
+.section-light .callout{background:rgba(0,0,0,0.03);border-color:rgba(0,0,0,0.08)}
+.section-light .callout-tag{color:#111}
+.section-light .callout p{color:#555}
+/* Light panel body text */
+.section-light .panel-body{color:#333}
+.section-light .panel-body p{color:#555}
+.section-light .panel-body strong{color:#111}
+.section-light .panel-body div{color:#555}
+/* Light inline text overrides */
+.section-light span{color:#555}
+.section-light .section-tag{color:#666 !important}
+.section-light div[style*="color:var(--muted)"]{color:#666 !important}
+.section-light div[style*="font-size:13px"]{color:#555 !important}
+/* Light tab panels */
+.section-light .tab-panel{color:#333}
+.section-light .tab-bar{border-bottom-color:rgba(0,0,0,0.08)}
+/* Light stage detail panels */
+.section-light .stage-detail{color:#333}
+.section-light .stage-detail h3{color:#111}
+.section-light .stage-detail p{color:#555}
+/* Light phase timeline */
+.section-light .phase-timeline::before{background:linear-gradient(180deg,var(--accent),var(--green),var(--blue),var(--purple))}
+.section-light .phase-item{color:#333}
+/* Light misc */
+.section-light code{background:rgba(0,0,0,0.06);color:#c41a16}
+.section-light .num{color:#111}
+.section-light .label{color:#666}
+.section-light .hero-stat .num{color:#111}
+.section-light+.section,.section+.section-light{margin-top:0}
+
+/* === DARK SECTIONS as rounded containers on cream bg === */
+.section:not(.section-light){background:#1C1C1C;border-radius:24px;margin-left:24px;margin-right:24px;margin-bottom:32px;color:#F9F9F9}
+.section:not(.section-light) .section-title{color:#fff}
+.section:not(.section-light) .section-tag{color:rgba(255,255,255,0.5)}
+.section:not(.section-light) .section-desc{color:rgba(255,255,255,0.5)}
+.section:not(.section-light)::before{content:attr(data-watermark);position:absolute;top:20px;left:50%;transform:translateX(-50%);font-family:var(--font-heading);font-size:clamp(60px,12vw,160px);font-weight:900;text-transform:uppercase;color:rgba(255,255,255,0.025);white-space:nowrap;pointer-events:none;letter-spacing:-.02em;font-style:normal;z-index:0}
+.section:not(.section-light)>*{position:relative;z-index:1}
+.section:not(.section-light) .panel,.section:not(.section-light) .card{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08)}
+.section:not(.section-light) .gap-table th{background:rgba(255,255,255,0.03);color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.08)}
+.section:not(.section-light) .gap-table td{color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.06)}
+.section:not(.section-light) table{border-color:rgba(255,255,255,0.08)}
+.section:not(.section-light) table th{background:rgba(255,255,255,0.03);color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.08)}
+.section:not(.section-light) table td{color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.06)}
+.section:not(.section-light) h3{color:#fff}
+.section:not(.section-light) .flow-step{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);color:#F9F9F9}
+.section:not(.section-light) .flow-arrow{color:rgba(255,255,255,0.2)}
+.section:not(.section-light) .tab{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08)}
+.section:not(.section-light) .phase-title{color:#F9F9F9}
+.section:not(.section-light) .phase-desc{color:rgba(255,255,255,0.5)}
+.section:not(.section-light) .callout{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08)}
+.section:not(.section-light) .callout-tag{color:#F9F9F9}
+.section:not(.section-light) .callout p{color:rgba(255,255,255,0.6)}
+.section:not(.section-light) .panel-body{color:rgba(255,255,255,0.8)}
+.section:not(.section-light) .panel-body p{color:rgba(255,255,255,0.6)}
+.section:not(.section-light) .panel-body strong{color:#F9F9F9}
+.section:not(.section-light) .panel-body div{color:rgba(255,255,255,0.7)}
+.section:not(.section-light) .panel-header h3{color:#F9F9F9}
+.section:not(.section-light) .panel-count{color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.05)}
+.section:not(.section-light) p{color:rgba(255,255,255,0.6)}
+.section:not(.section-light) strong{color:#F9F9F9}
+.section:not(.section-light) code{background:rgba(255,255,255,0.08);color:#ff8a80}
+.section:not(.section-light) .tab-bar{border-bottom-color:rgba(255,255,255,0.08)}
+.section:not(.section-light) .gate-row td{background:rgba(225,52,34,.06) !important}
+
+/* === NAV LOGO INVERT for light nav === */
+.nav-brand img{filter:invert(1)}
+
+/* === BENTO GRID === */
+.bento-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.bento-card{background:rgba(0,0,0,0.02);border:1px solid rgba(0,0,0,0.08);border-radius:16px;padding:32px;transition:all .25s}
+.bento-card:hover{border-color:rgba(0,0,0,0.16);box-shadow:0 8px 32px rgba(0,0,0,.04)}
+.bento-wide{grid-column:1/-1}
+.bento-label{font-family:var(--font-heading);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px}
+.bento-stage-flow{display:flex;align-items:stretch;gap:12px;flex-wrap:wrap}
+.bento-stage{flex:1;min-width:140px;background:rgba(0,0,0,0.03);border:1px solid rgba(0,0,0,0.06);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:6px;transition:all .2s}
+.bento-stage:hover{border-color:rgba(0,0,0,0.16);transform:translateY(-2px)}
+.bento-stage strong{font-size:14px;color:#111;display:block}
+.bento-stage .bento-meta{font-size:12px;color:#888;line-height:1.4}
+.bento-num{font-family:var(--font-heading);font-size:28px;font-weight:900;color:rgba(0,0,0,0.08);line-height:1;margin-bottom:4px;font-style:normal}
+.bento-gate{background:rgba(221,190,71,.06);border-color:rgba(221,190,71,.25)}
+.bento-gate .bento-num{color:rgba(221,190,71,.4)}
+.bento-gate strong{color:#8a7a1e}
+.bento-arrow{display:flex;align-items:center;font-size:18px;color:#ccc;font-weight:300}
+.bento-stack{display:flex;flex-direction:column;gap:12px}
+.bento-item{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:rgba(0,0,0,0.02);border:1px solid rgba(0,0,0,0.05);border-radius:10px;transition:all .2s}
+.bento-item:hover{border-color:rgba(0,0,0,0.14);background:rgba(0,0,0,0.03)}
+.bento-item strong{font-size:14px;color:#111;display:block}
+.bento-item .bento-meta{font-size:12px;color:#888;display:block;margin-top:2px}
+.bento-num-sm{font-family:var(--font-heading);font-size:18px;font-weight:900;color:rgba(0,0,0,0.12);min-width:28px;line-height:1.2;font-style:normal}
+.bento-gate-item{background:rgba(221,190,71,.05);border-color:rgba(221,190,71,.2)}
+.bento-gate-item .bento-num-sm{color:rgba(221,190,71,.5)}
+.bento-gate-item strong{color:#8a7a1e}
+
+/* Bento Fields */
+.bento-fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.bento-field{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:rgba(0,0,0,0.02);border:1px solid rgba(0,0,0,0.06);border-radius:12px;transition:all .2s}
+.bento-field:hover{border-color:rgba(0,0,0,0.14);transform:translateY(-1px)}
+.bento-field-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:14px;font-weight:900;flex-shrink:0}
+.bento-field strong{font-size:14px;color:#111;display:block;margin-bottom:3px}
+.bento-field span{font-size:12px;color:#888;line-height:1.5}
+
+/* Bento in dark sections */
+.section:not(.section-light) .bento-card{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08)}
+.section:not(.section-light) .bento-card:hover{border-color:rgba(255,255,255,0.16);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.section:not(.section-light) .bento-stage{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.06)}
+.section:not(.section-light) .bento-stage:hover{border-color:rgba(255,255,255,0.16)}
+.section:not(.section-light) .bento-stage strong{color:#F9F9F9}
+.section:not(.section-light) .bento-stage .bento-meta{color:rgba(255,255,255,0.5)}
+.section:not(.section-light) .bento-num{color:rgba(255,255,255,0.06)}
+.section:not(.section-light) .bento-arrow{color:rgba(255,255,255,0.15)}
+.section:not(.section-light) .bento-item{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.06)}
+.section:not(.section-light) .bento-item:hover{border-color:rgba(255,255,255,0.14)}
+.section:not(.section-light) .bento-item strong{color:#F9F9F9}
+.section:not(.section-light) .bento-item .bento-meta{color:rgba(255,255,255,0.5)}
+.section:not(.section-light) .bento-num-sm{color:rgba(255,255,255,0.08)}
+.section:not(.section-light) .bento-field{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.06)}
+.section:not(.section-light) .bento-field:hover{border-color:rgba(255,255,255,0.14)}
+.section:not(.section-light) .bento-field strong{color:#F9F9F9}
+.section:not(.section-light) .bento-field span{color:rgba(255,255,255,0.5)}
+
+/* Bento responsive */
+@media(max-width:768px){
+  .bento-grid{grid-template-columns:1fr}
+  .bento-stage-flow{flex-direction:column}
+  .bento-arrow{transform:rotate(90deg);justify-content:center}
+  .bento-fields{grid-template-columns:1fr}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ==================== NAV ==================== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand"><svg style="height:28px;width:auto;display:block;color:#111" viewBox="0 0 739.78 536.76" xmlns="http://www.w3.org/2000/svg"><path d="M299.73,270.32v-131.53l27.6-28.38h36.46c-4.18-3.13-9.32-5.6-15.56-7.37-5.11-1.47-10.87-2.21-17.14-2.21-11.09,0-23.91,2.3-38.1,6.82-17.93,5.72-37.7,14.86-58.76,27.17-14.5,8.47-29.59,18.48-44.91,29.74v201.91c23.53-16.35,46.42-36.36,68.02-55.26,13.47-11.65,28.15-25.81,42.4-40.89Z" fill="currentColor"/><path d="M289.41,84.04c14.84-3.36,28.51-5.06,40.62-5.06,9.53,0,18.05,1.07,25.3,3.18,17.48,5.18,29.91,14.67,37.11,28.26h25.38l23.01,23.01v54.38c3.45-3.63,6.87-7.17,10.24-10.63,15.18-15.56,29.95-29.76,43.87-42.2,10.53-9.41,20.85-18.05,30.67-25.66,8.44-6.54,16.72-12.51,24.87-17.92v-7.82L467.66,0h-182.5l-95.85,95.85v28.83c12.76-7.33,25.71-13.95,38.69-19.74,21.21-9.45,41.87-16.48,61.41-20.9Z" fill="currentColor"/><path d="M440.82,402.57c-8.44,8.44-16.87,16.1-24.54,24.54h-87.41l-28.39-29.14c-30.63,26.24-60.4,46.59-89.44,61.11,25.97,26.13,52.19,51.91,77.95,77.67h174.83l86.64-86.65v-126.52h-109.65v78.98Z" fill="currentColor"/><path d="M495.84,183.43l-2.82,3.11c-4.67,5.15-9.42,10.49-14.2,15.91h71.65v-73.86c-16.42,14.66-34.4,32.71-54.62,54.85Z" fill="currentColor"/><path d="M189.31,397.55v39.22c35.64-20.58,72.06-51.96,110.42-91.53v-29.38c-7.34,7.48-14.82,14.58-22.31,21.16-30.67,26.37-60.09,46.56-88.11,60.53Z" fill="currentColor"/><path d="M738.19,85.93c-6.05-12.11-16.74-19.18-28.42-23.32-12.96-4.59-27.14-5.55-37.65-5.55-16.48,0-32.78,2.27-49.27,6.99-23.35,6.68-47.12,18.35-72.38,35.58-6.78,4.63-13.67,9.63-20.68,15.07-9.83,7.62-19.92,16.07-30.31,25.36-13.91,12.43-28.37,26.33-43.53,41.88-4.96,5.08-10.01,10.38-15.12,15.8-20.05,21.28-41.29,45.17-64.07,71.96-26.81,31.59-52.34,60.24-77.02,85.4-36.64,37.36-71.38,66.99-105.51,86.94-39.03,22.8-77.29,32.95-116.73,27.54-44.97-5.55-71.62-38.86-66.62-89.39,4.44-47.2,46.08-109.93,119.37-176,8.54-7.75,17.13-15.17,25.71-22.25,8.77-7.25,17.53-14.12,26.24-20.61,2.38-1.77,4.76-3.51,7.13-5.22,14.07-10.17,27.97-19.29,41.47-27.18,21.29-12.44,41.59-21.87,60.13-27.78,22.98-7.33,43.24-9.25,59.18-4.67,10.81,3.07,18.5,7.94,23.8,13.93,3.17,3.58,5.48,7.57,7.09,11.81,6.91,18.19.94,41.12-5.9,57.54-.3.71-.64,1.45-.97,2.17-12.51,27.87-43.21,65.97-74.38,98.25-12.98,13.45-26.05,25.89-37.91,36.15-24.13,21.12-48.27,41.88-72.51,58.29-29.29,19.84-58.73,33.32-88.5,33.32-14.44,0-22.76-6.66-26.09-11.1-2.78-3.88-3.33-9.99-5.55-9.44-2.22.55-3.89,5-1.67,9.44,3.33,8.88,13.88,17.21,33.87,17.21,28.02,0,57.58-8.61,87.95-24.18,27.39-14.05,55.44-33.77,83.61-57.99,9.19-8.06,18.16-16.75,26.81-25.82,38.38-40.26,70.19-88.09,84.23-122.98.16-.38.31-.77.46-1.16,6.56-16.42,11.8-39.9,5.57-59.71-1.3-4.13-3.11-8.09-5.5-11.81-6.05-9.43-15.89-17.2-31.07-21.71-15.51-4.51-37.32-3.71-62.51,1.98-18.58,4.2-38.99,11.05-60.13,20.48-13.63,6.07-27.55,13.22-41.47,21.38-4.85,2.84-9.7,5.8-14.54,8.89-16.26,10.38-32.34,22.15-47.78,35.24-3.96,3.36-7.89,6.77-11.75,10.3C28.63,265.82,6.42,327.45.87,376.87c-6.66,59.4,25.54,94.38,77.73,101.05,40.14,5.63,82.46-2.03,127.25-24.08,30.14-14.84,61.41-36.19,93.88-64.39,33.43-29.02,68.13-65.29,104.22-109.18,23.45-28.38,45.23-54.39,65.77-77.82,6.19-7.06,12.28-13.91,18.26-20.5.95-1.04,1.89-2.09,2.83-3.12,20.98-22.96,40.7-42.83,59.66-59.32,1.86-1.62,3.72-3.24,5.57-4.8,23.7-19.92,46.26-34.37,68.67-42.7,14.67-5.45,29.27-8.28,44.08-8.28,13.24,0,28.5,1.79,40.98,12.4,4.79,4.07,9.18,9.39,12.87,16.47,2.78,6.66,4.44,12.77,8.33,12.77,8.88-1.11,10.55-12.77,7.22-19.43Z" fill="currentColor"/></svg></div>
+    <div class="nav-links">
+      <a href="#current" onclick="scrollToSection(event,'current')">Current</a>
+      <a href="#gaps" onclick="scrollToSection(event,'gaps')">Gaps</a>
+      <a href="#intake" onclick="scrollToSection(event,'intake')">Intake</a>
+      <a href="#kanban" onclick="scrollToSection(event,'kanban')">Kanban</a>
+      <a href="#automations" onclick="scrollToSection(event,'automations')">Automations</a>
+      <a href="#dependencies" onclick="scrollToSection(event,'dependencies')">Dependencies</a>
+      <a href="#container" onclick="scrollToSection(event,'container')">Template</a>
+      <a href="#views" onclick="scrollToSection(event,'views')">Views</a>
+      <a href="#discuss" onclick="scrollToSection(event,'discuss')">Discuss</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<div class="hero">
+  <div class="hero-label"><span class="pulse"></span> Draft for Discussion</div>
+  <h1>Asana Workflow<br><em>Adjustment Plan</em></h1>
+  <p class="hero-sub">Restructuring Marketing Project Intake and Marketing Team Kanban Board to implement the 12-stage RACI production workflow — with automations, dependencies, naming conventions, saved views, and milestone gates.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">13</div><div class="label">Sections</div></div>
+    <div class="hero-stat"><div class="num">15</div><div class="label">Automations</div></div>
+    <div class="hero-stat"><div class="num">24</div><div class="label">Dependencies</div></div>
+    <div class="hero-stat"><div class="num">7</div><div class="label">Milestones</div></div>
+  </div>
+  <div class="hero-meta">
+    <span><strong>Prepared for:</strong> PMs + Ops Lead Meeting</span>
+    <span><strong>Author:</strong> Dexter Jakes</span>
+    <span><strong>Date:</strong> March 2026</span>
+  </div>
+</div>
+
+<!-- ==================== INTERACTIVE LIFECYCLE ==================== -->
+<div class="section" style="background:#1C1C1C;border-radius:24px;margin:0 24px 32px;color:#F9F9F9;padding:100px 48px" data-watermark="LIFECYCLE">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--accent)">12-Stage Production Lifecycle</div>
+    <div class="section-title">Click a Stage to See Its Asana Mapping</div>
+  </div>
+  <div class="stage-flow" id="stageFlow">
+    <div class="stage-pill active" onclick="showStage(this,0)"><span class="snum">1</span><span class="sname">Intake</span></div>
+    <span class="stage-arrow">→</span>
+    <div class="stage-pill" onclick="showStage(this,1)"><span class="snum">2</span><span class="sname">Strategy</span></div>
+    <span class="stage-arrow">→</span>
+    <div class="stage-pill" onclick="showStage(this,2)"><span class="snum">3</span><span class="sname">Brief</span></div>
+    <span class="stage-arrow">→</span>
+    <div class="stage-pill" onclick="showStage(this,3)"><span class="snum">4</span><span class="sname">Creative Dir</span></div>
+    <span class="stage-arrow">→</span>
+    <div class="stage-pill" onclick="showStage(this,4)"><span class="snum">5</span><span class="sname">Pre-Prod</span></div>
+    <span class="stage-arrow">→</span>
+    <div class="stage-pill" onclick="showStage(this,5)"><span class="snum">6</span><span class="sname">Production</span></div>
+    <span class="stage-arrow">→</span>
+    <div class="stage-pill gate" onclick="showStage(this,6)"><span class="snum">⬥</span><span class="sname">Gate 6.5</span></div>
+    <span class="stage-arrow">→</span>
+    <div class="stage-pill" onclick="showStage(this,7)"><span class="snum">7</span><span class="sname">Post-Prod</span></div>
+    <span class="stage-arrow">→</span>
+    <div class="stage-pill" onclick="showStage(this,8)"><span class="snum">8</span><span class="sname">Review</span></div>
+    <span class="stage-arrow">→</span>
+    <div class="stage-pill" onclick="showStage(this,9)"><span class="snum">9</span><span class="sname">Approval</span></div>
+    <span class="stage-arrow">→</span>
+    <div class="stage-pill gate" onclick="showStage(this,10)"><span class="snum">⬥</span><span class="sname">Gate 9.5</span></div>
+    <span class="stage-arrow">→</span>
+    <div class="stage-pill" onclick="showStage(this,11)"><span class="snum">10</span><span class="sname">Channels</span></div>
+    <span class="stage-arrow">→</span>
+    <div class="stage-pill gate" onclick="showStage(this,12)"><span class="snum">⬥</span><span class="sname">Gate 10.5</span></div>
+    <span class="stage-arrow">→</span>
+    <div class="stage-pill" onclick="showStage(this,13)"><span class="snum">11</span><span class="sname">Distribute</span></div>
+    <span class="stage-arrow">→</span>
+    <div class="stage-pill" onclick="showStage(this,14)"><span class="snum">12</span><span class="sname">Performance</span></div>
+  </div>
+  <div id="stageDetail" style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;transition:all .3s">
+    <div id="stageTitle" style="font-family:var(--font-heading);font-size:16px;font-weight:700;margin-bottom:8px">Stage 1 — Request Intake</div>
+    <div id="stageProject" style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:12px">INTAKE PROJECT</div>
+    <div id="stageDesc" style="font-size:14px;color:var(--muted);line-height:1.7">All requests enter through the intake form and land in "Signal Received." PM triages, assigns to pod MSD. Three intake lanes (Strategic, Operational, Rapid Support) determine routing and lifecycle complexity.</div>
+  </div>
+</div>
+
+<!-- ==================== 1. CURRENT STATE ==================== -->
+<section class="section" id="current" data-watermark="CURRENT">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--muted)">Current State</div>
+    <div class="section-title">What We Have Today</div>
+    <p class="section-desc">Two Asana projects serve distinct functions. Neither currently reflects the full 12-stage RACI lifecycle.</p>
+  </div>
+  <div class="card-grid">
+    <div class="card" style="border-top:3px solid var(--green)">
+      <h3>Marketing Project Intake</h3>
+      <p><strong style="color:var(--text)">Type:</strong> List &nbsp;|&nbsp; <strong style="color:var(--text)">Owner:</strong> Dexter Jakes &nbsp;|&nbsp; <strong style="color:var(--text)">Members:</strong> 11</p>
+      <p style="margin-top:10px"><strong style="color:var(--text)">Sections:</strong> In Review, Proposals Awaiting Approval, High Priority (3 WIP), Medium Priority (5 WIP), Low Priority (5 WIP), Perennial Graphic Request, On Hold, Declined, Complete</p>
+      <div class="progress-bar"><div class="progress-fill" style="width:25%;background:var(--green)"></div></div>
+      <div style="font-size:11px;color:var(--muted)">~25% RACI alignment</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--blue)">
+      <h3>Marketing Team Kanban Board</h3>
+      <p><strong style="color:var(--text)">Type:</strong> Board &nbsp;|&nbsp; <strong style="color:var(--text)">Owner:</strong> Kaylin Harris &nbsp;|&nbsp; <strong style="color:var(--text)">Members:</strong> 7</p>
+      <p style="margin-top:10px"><strong style="color:var(--text)">Sections:</strong> To Do, In Progress, Approved/Done</p>
+      <div class="progress-bar"><div class="progress-fill" style="width:15%;background:var(--blue)"></div></div>
+      <div style="font-size:11px;color:var(--muted)">~15% RACI alignment — 3 columns covering 12 stages</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 2. GAP ANALYSIS ==================== -->
+<section class="section section-light" id="gaps" data-watermark="GAPS">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--accent)">Gap Analysis</div>
+    <div class="section-title">Where Structure Breaks Down</div>
+    <p class="section-desc">The RACI defines 12 production stages with explicit ownership, handoffs, and quality gates. Here's where the current Asana structure doesn't support that.</p>
+  </div>
+
+  <table class="gap-table">
+    <tr><th>Gap</th><th>Impact</th><th>Severity</th></tr>
+    <tr>
+      <td><strong>No intake lane distinction</strong> — Strategic, Operational, and Rapid Support requests all enter the same queue</td>
+      <td>MSDs can't prioritize strategy-level work from routine asset requests</td>
+      <td><span class="badge badge-red">High</span></td>
+    </tr>
+    <tr>
+      <td><strong>Kanban has 3 columns, workflow has 12 stages</strong> — "In Progress" covers Stages 3–11</td>
+      <td>No visibility into where a campaign actually is</td>
+      <td><span class="badge badge-red">High</span></td>
+    </tr>
+    <tr>
+      <td><strong>No quality gates</strong> — Gate 6.5, 9.5, and 10.5 have no structural equivalent</td>
+      <td>Work advances without verification. Assets reach distribution without creative review.</td>
+      <td><span class="badge badge-red">High</span></td>
+    </tr>
+    <tr>
+      <td><strong>No Signal Gate</strong> — Intake form goes straight to sections without MSD routing</td>
+      <td>Requests skip strategy evaluation entirely</td>
+      <td><span class="badge badge-red">High</span></td>
+    </tr>
+    <tr>
+      <td><strong>No pod assignment field</strong> — Can't filter or report by pod</td>
+      <td>Capacity planning is manual guesswork</td>
+      <td><span class="badge badge-yellow">Medium</span></td>
+    </tr>
+    <tr>
+      <td><strong>No campaign tier field</strong> — Full, Moderate, Compressed, Under-30 aren't tracked</td>
+      <td>Timeline expectations aren't set at intake</td>
+      <td><span class="badge badge-yellow">Medium</span></td>
+    </tr>
+    <tr>
+      <td><strong>No dependency chains</strong> — Handoffs between stages are informal</td>
+      <td>Upstream delays don't surface downstream impact</td>
+      <td><span class="badge badge-yellow">Medium</span></td>
+    </tr>
+    <tr>
+      <td><strong>No Ops capacity check at intake</strong> — Stage 2 has no structural checkpoint</td>
+      <td>Overcommitment is invisible until it's too late</td>
+      <td><span class="badge badge-yellow">Medium</span></td>
+    </tr>
+  </table>
+</section>
+
+<!-- ==================== 3. INTAKE RESTRUCTURE ==================== -->
+<section class="section" id="intake" data-watermark="INTAKE">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--green)">Recommended Restructure</div>
+    <div class="section-title">Marketing Project Intake</div>
+    <p class="section-desc">Replaces priority-based sections with a structure mirroring RACI Stages 1–2 and the Signal Gate routing process.</p>
+  </div>
+
+  <div class="panel open" id="panelLanes">
+    <div class="panel-header" onclick="togglePanel('panelLanes')">
+      <h3><span style="width:10px;height:10px;border-radius:50%;background:var(--green);display:inline-block"></span> New Section Architecture</h3>
+      <div style="display:flex;align-items:center;gap:12px"><span class="panel-count">9 sections</span><svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div>
+    <div class="panel-body">
+      <div style="padding:0 24px 24px">
+        <table class="gap-table">
+          <tr><th>Section</th><th>Stage</th><th>Purpose</th><th>Owner</th></tr>
+          <tr><td><strong>Lane 1 — Strategic Campaigns</strong></td><td>1</td><td>Full campaigns requiring Discovery Worksheet, strategy, creative lifecycle</td><td>MSD</td></tr>
+          <tr><td><strong>Lane 2 — Operational Requests</strong></td><td>1</td><td>Known-scope deliverables: flyers, emails, web updates</td><td>PM</td></tr>
+          <tr><td><strong>Lane 3 — Rapid Support</strong></td><td>1</td><td>Same-week needs: date swaps, copy corrections. 24–72hr turnaround.</td><td>PM</td></tr>
+          <tr class="gate-row"><td><strong>Signal Received</strong></td><td>1→2</td><td>Intake form submissions land here first</td><td>PM (triage)</td></tr>
+          <tr class="gate-row"><td><strong>MSD Routing</strong></td><td>2</td><td>MSD assigns lane, completes Discovery Worksheet (Lane 1)</td><td>MSD</td></tr>
+          <tr class="gate-row"><td><strong>Capacity Confirmed</strong></td><td>2</td><td>Ops Lead verifies bandwidth, assigns pod, confirms sprint slot</td><td>Ops Lead (Kaylin)</td></tr>
+          <tr class="gate-row"><td><strong>Sprint Entry — Ready for Kanban</strong></td><td>2→3</td><td>Cleared for production. PM creates Campaign Container.</td><td>PM</td></tr>
+          <tr><td><strong>On Hold</strong></td><td>—</td><td>Paused requests awaiting information or capacity</td><td>PM</td></tr>
+          <tr><td><strong>Declined</strong></td><td>—</td><td>Requests that don't meet governance rules. Logged with reason.</td><td>MSD</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="border-left:4px solid var(--green)">
+    <div class="callout-tag" style="color:var(--green)">Signal Gate Flow</div>
+    <div class="flow" style="justify-content:center">
+      <span class="flow-step" style="border-color:var(--green)">Signal Received</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step" style="border-color:var(--green)">MSD Routes</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step" style="border-color:var(--green)">Capacity Confirmed</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step" style="border-color:var(--accent);color:var(--accent)">Sprint Entry</span>
+    </div>
+    <p style="margin-top:12px">Every request passes through all four steps. No exceptions. This is the enforcement mechanism for the 5 Intake Governance Rules.</p>
+  </div>
+
+  <div class="panel" id="panelGov">
+    <div class="panel-header" onclick="togglePanel('panelGov')">
+      <h3><span style="width:10px;height:10px;border-radius:50%;background:var(--yellow);display:inline-block"></span> 5 Intake Governance Rules</h3>
+      <div style="display:flex;align-items:center;gap:12px"><span class="panel-count">5 rules</span><svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div>
+    <div class="panel-body">
+      <div style="padding:0 24px 24px;font-size:14px;color:var(--muted);line-height:1.8">
+        <p><strong style="color:var(--text)">1. No direct requests</strong> — all work enters through the intake form.</p>
+        <p><strong style="color:var(--text)">2. Strategy enables work</strong> — MSDs route before PMs execute.</p>
+        <p><strong style="color:var(--text)">3. Sprint capacity required</strong> — Ops Lead confirms bandwidth before sprint entry.</p>
+        <p><strong style="color:var(--text)">4. Distribution requires a container</strong> — no channel output without a campaign container on the Kanban Board.</p>
+        <p><strong style="color:var(--text)">5. Bypass triggers escalation</strong> — any skip of the Signal Gate is flagged and escalated to Exec Dir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 4. KANBAN RESTRUCTURE ==================== -->
+<section class="section section-light" id="kanban" data-watermark="KANBAN">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--blue)">Recommended Restructure</div>
+    <div class="section-title">Marketing Team Kanban Board</div>
+    <p class="section-desc">Replaces "To Do / In Progress / Approved/Done" with sections mapping to RACI Stages 3–12 plus quality gates.</p>
+  </div>
+
+  <!-- Bento Grid: 13-Column Architecture -->
+  <div class="bento-grid">
+    <!-- Row 1: Production Pipeline -->
+    <div class="bento-card bento-wide" style="border-top:3px solid var(--blue)">
+      <div class="bento-label" style="color:var(--blue)">Production Pipeline</div>
+      <div class="bento-stage-flow">
+        <div class="bento-stage"><span class="bento-num">3</span><strong>Brief Creation</strong><span class="bento-meta">MSD approves brief</span></div>
+        <div class="bento-arrow">→</div>
+        <div class="bento-stage"><span class="bento-num">4</span><strong>Creative Direction</strong><span class="bento-meta">CD locks direction</span></div>
+        <div class="bento-arrow">→</div>
+        <div class="bento-stage"><span class="bento-num">5</span><strong>Pre-Production</strong><span class="bento-meta">Scripts & vendors confirmed</span></div>
+        <div class="bento-arrow">→</div>
+        <div class="bento-stage"><span class="bento-num">6</span><strong>Production</strong><span class="bento-meta">All raw assets delivered</span></div>
+        <div class="bento-arrow">→</div>
+        <div class="bento-stage bento-gate"><span class="bento-num">⬥</span><strong>Gate 6.5</strong><span class="bento-meta">PM verifies all assets</span></div>
+      </div>
+    </div>
+
+    <!-- Row 2: Review & Approval + Distribution -->
+    <div class="bento-card" style="border-top:3px solid var(--purple)">
+      <div class="bento-label" style="color:var(--purple)">Review & Approval</div>
+      <div class="bento-stack">
+        <div class="bento-item"><span class="bento-num-sm">7</span><div><strong>Post-Production</strong><span class="bento-meta">Edited assets + proofed copy</span></div></div>
+        <div class="bento-item"><span class="bento-num-sm">8</span><div><strong>Creative Review</strong><span class="bento-meta">CD + Sr. Copyeditor sign off</span></div></div>
+        <div class="bento-item"><span class="bento-num-sm">9</span><div><strong>Final Approval</strong><span class="bento-meta">MSD sign-off (+ Exec Dir for Tier 1)</span></div></div>
+        <div class="bento-item bento-gate-item"><span class="bento-num-sm">⬥</span><div><strong>Gate 9.5</strong><span class="bento-meta">Distribution Readiness</span></div></div>
+      </div>
+    </div>
+
+    <div class="bento-card" style="border-top:3px solid var(--green)">
+      <div class="bento-label" style="color:var(--green)">Distribution & Measurement</div>
+      <div class="bento-stack">
+        <div class="bento-item"><span class="bento-num-sm">10</span><div><strong>Channel Adaptation</strong><span class="bento-meta">All channel variants built + QA'd</span></div></div>
+        <div class="bento-item bento-gate-item"><span class="bento-num-sm">⬥</span><div><strong>Gate 10.5</strong><span class="bento-meta">Cross-Channel Ready</span></div></div>
+        <div class="bento-item"><span class="bento-num-sm">11</span><div><strong>Distribution</strong><span class="bento-meta">Published across channels</span></div></div>
+        <div class="bento-item"><span class="bento-num-sm">12</span><div><strong>Performance</strong><span class="bento-meta">Report delivered (14d post)</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Fields: Bento Cards Row -->
+  <div class="bento-label" style="color:var(--blue);margin:48px 0 20px;font-family:var(--font-heading);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Custom Fields Required</div>
+  <div class="bento-fields">
+    <div class="bento-field"><div class="bento-field-icon" style="background:rgba(71,148,186,.1);color:var(--blue)">T</div><div><strong>Campaign Tier</strong><span>Full (120+) · Moderate (60–90) · Compressed (30–59) · Under 30</span></div></div>
+    <div class="bento-field"><div class="bento-field-icon" style="background:rgba(82,140,114,.1);color:var(--green)">P</div><div><strong>Pod</strong><span>Pod A (Jasmine/Cheyenne) · Pod B (Nialah/Eric)</span></div></div>
+    <div class="bento-field"><div class="bento-field-icon" style="background:rgba(225,52,34,.08);color:var(--accent)">L</div><div><strong>Intake Lane</strong><span>Strategic · Operational · Rapid Support</span></div></div>
+    <div class="bento-field"><div class="bento-field-icon" style="background:rgba(221,190,71,.1);color:#b59a1e">G</div><div><strong>Gate Status</strong><span>Not Yet · Pending Review · Cleared · Blocked</span></div></div>
+    <div class="bento-field"><div class="bento-field-icon" style="background:rgba(123,52,103,.1);color:var(--purple)">M</div><div><strong>Ministry Entity</strong><span>All 25 entities from RACI pod assignments</span></div></div>
+    <div class="bento-field"><div class="bento-field-icon" style="background:rgba(203,112,52,.1);color:var(--orange)">H</div><div><strong>Hour Estimate</strong><span>Number field for capacity tracking</span></div></div>
+  </div>
+</section>
+
+<!-- ==================== 5. HANDOFF MODEL ==================== -->
+<section class="section" id="handoff" data-watermark="HANDOFF">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--accent)">Handoff Model</div>
+    <div class="section-title">Intake → Kanban Bridge</div>
+    <p class="section-desc">The Campaign Container is the bridge. When a request clears the Signal Gate, the PM creates a Campaign Container on the Kanban Board with the full subtask template.</p>
+  </div>
+
+  <div class="flow" style="justify-content:center;margin:32px 0">
+    <span class="flow-step" style="border-color:var(--green);color:var(--green)">Intake: Sprint Entry</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-step" style="border-color:var(--accent);color:var(--accent)">Campaign Container</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-step" style="border-color:var(--blue);color:var(--blue)">Kanban: Brief Creation</span>
+  </div>
+
+  <div class="card-grid">
+    <div class="card" style="border-top:3px solid var(--green)">
+      <h3>Lane 1 — Strategic</h3>
+      <p>Full Campaign Container with all 22 subtasks, dependencies, and milestone gates. MSD leads Discovery Worksheet before brief creation begins.</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--blue)">
+      <h3>Lane 2 — Operational</h3>
+      <p>Lightweight Campaign Container. Skips Stages 3–4 (brief/direction already known). Starts at Pre-Production or Production.</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--yellow)">
+      <h3>Lane 3 — Rapid Support</h3>
+      <p>No Campaign Container. Stays in Intake project. PM assigns directly to relevant specialist. 24–72hr turnaround.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 6. IMPLEMENTATION PHASES ==================== -->
+<section class="section section-light" id="phases" data-watermark="ROLLOUT">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--purple)">Implementation Phases</div>
+    <div class="section-title">Rollout Sequence</div>
+    <p class="section-desc">Build in phases so the team absorbs each layer before the next one lands.</p>
+  </div>
+
+  <div class="phase-timeline">
+    <div class="phase-item">
+      <div class="phase-dot"><div class="phase-dot-inner" style="background:var(--green)"></div></div>
+      <div class="phase-content">
+        <div class="phase-label" style="color:var(--green)">Phase 1</div>
+        <div class="phase-title">Intake Restructure</div>
+        <div class="phase-desc">New sections, Signal Gate flow, lane routing, custom fields. Intake form field additions.</div>
+        <div class="phase-meta"><span>Week 1–2</span><span>Owner: Ops Lead + PMs</span></div>
+      </div>
+    </div>
+    <div class="phase-item">
+      <div class="phase-dot"><div class="phase-dot-inner" style="background:var(--blue)"></div></div>
+      <div class="phase-content">
+        <div class="phase-label" style="color:var(--blue)">Phase 2</div>
+        <div class="phase-title">Kanban Restructure</div>
+        <div class="phase-desc">New 13-column board, custom fields, Campaign Container task template with subtasks and dependencies.</div>
+        <div class="phase-meta"><span>Week 2–3</span><span>Owner: PMs + Ops Lead</span></div>
+      </div>
+    </div>
+    <div class="phase-item">
+      <div class="phase-dot"><div class="phase-dot-inner" style="background:var(--yellow)"></div></div>
+      <div class="phase-content">
+        <div class="phase-label" style="color:var(--yellow)">Phase 3</div>
+        <div class="phase-title">Automation + Rules</div>
+        <div class="phase-desc">Deploy all 15 Asana rules. Test with 2–3 real requests before full rollout.</div>
+        <div class="phase-meta"><span>Week 3–4</span><span>Owner: Ops Lead</span></div>
+      </div>
+    </div>
+    <div class="phase-item">
+      <div class="phase-dot"><div class="phase-dot-inner" style="background:var(--accent)"></div></div>
+      <div class="phase-content">
+        <div class="phase-label" style="color:var(--accent)">Phase 4</div>
+        <div class="phase-title">Views, Milestones + Training</div>
+        <div class="phase-desc">Set up saved views per role, milestone templates, and run a 30-minute team walkthrough.</div>
+        <div class="phase-meta"><span>Week 4–5</span><span>Owner: Ops Lead + PMs</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 7. AUTOMATIONS ==================== -->
+<section class="section" id="automations" data-watermark="AUTOMATIONS">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--accent)">Automations</div>
+    <div class="section-title">15 Asana Rules</div>
+    <p class="section-desc">Automate handoffs, notifications, and field updates so the team doesn't have to remember every step manually.</p>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab active" onclick="switchTab(this,'tab-auto-intake')">Intake Rules (6)</button>
+    <button class="tab" onclick="switchTab(this,'tab-auto-kanban')">Kanban Rules (9)</button>
+  </div>
+
+  <div id="tab-auto-intake" class="tab-panel active">
+    <table class="gap-table">
+      <tr><th>#</th><th>Trigger</th><th>Action</th><th>Purpose</th></tr>
+      <tr><td>1</td><td>New task via intake form</td><td>Move to "Signal Received"; assign to pod PM by entity</td><td>Every request starts at Signal Received</td></tr>
+      <tr><td>2</td><td>Task → "MSD Routing"</td><td>Assign to pod MSD; comment: "Route to lane + Discovery Worksheet if Strategic"</td><td>MSD knows what's expected</td></tr>
+      <tr><td>3</td><td>Intake Lane = "Strategic"</td><td>Create subtask: "Discovery Worksheet" assigned to MSD; due +3 days</td><td>Auto-generated for Lane 1</td></tr>
+      <tr><td>4</td><td>Task → "Capacity Confirmed"</td><td>Assign to Kaylin; comment: "Confirm sprint capacity"</td><td>Ops check happens structurally</td></tr>
+      <tr><td>5</td><td>Task → "Sprint Entry"</td><td>Comment: "Cleared for Kanban. PM: create Campaign Container."; notify PM</td><td>Handoff trigger</td></tr>
+      <tr><td>6</td><td>Task → "Declined"</td><td>Comment template: "Declined — Reason: [fill in]"; notify requester</td><td>No request disappears silently</td></tr>
+    </table>
+  </div>
+
+  <div id="tab-auto-kanban" class="tab-panel">
+    <table class="gap-table">
+      <tr><th>#</th><th>Trigger</th><th>Action</th><th>Purpose</th></tr>
+      <tr><td>7</td><td>Container created in "Brief Creation"</td><td>Apply task template (22 subtasks + deps)</td><td>Full lifecycle pre-built in one click</td></tr>
+      <tr><td>8</td><td>All production subtasks complete</td><td>Gate 6.5 → "Pending Review"; notify PM</td><td>Gate triggers automatically</td></tr>
+      <tr><td>9</td><td>Gate 6.5 marked complete</td><td>Move to "Post-Production"; notify Videographer + Louis Marroquin</td><td>Post-prod team knows assets verified</td></tr>
+      <tr><td>10</td><td>Post-prod subtasks complete</td><td>Move to "Creative Review"; notify Shauntel Barron</td><td>Creative review starts immediately</td></tr>
+      <tr><td>11</td><td>Creative Review subtasks complete</td><td>Move to "Final Approval"; assign to MSD</td><td>MSD gets strategic sign-off prompt</td></tr>
+      <tr><td>12</td><td>Tier = "Full (120+)" + task enters Final Approval</td><td>Create subtask: "Exec Dir sign-off" assigned to Dexter; due +2 days</td><td>Tier 1 gets extra approval layer</td></tr>
+      <tr><td>13</td><td>Gate 9.5 complete</td><td>Move to "Channel Adaptation"; notify Caleb, Brittney, Krayton</td><td>All channel owners mobilized</td></tr>
+      <tr><td>14</td><td>Gate 10.5 complete</td><td>Move to "Distribution"; comment: "All channels confirmed."</td><td>Final green light</td></tr>
+      <tr><td>15</td><td>Distribution + launch date reached</td><td>Create subtask: "Performance Report" assigned to MSD; due +14 days</td><td>Measurement is baked in</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ==================== 8. DEPENDENCIES ==================== -->
+<section class="section section-light" id="dependencies" data-watermark="DEPENDENCIES">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--orange)">Dependencies</div>
+    <div class="section-title">24 Dependency Chains</div>
+    <p class="section-desc">Built into the Campaign Container template. When upstream completes, downstream unblocks automatically.</p>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab active" onclick="switchTab(this,'tab-dep-intake')">Intake (4)</button>
+    <button class="tab" onclick="switchTab(this,'tab-dep-kanban')">Kanban (20)</button>
+  </div>
+
+  <div id="tab-dep-intake" class="tab-panel active">
+    <table class="gap-table">
+      <tr><th>#</th><th>Upstream (Blocks)</th><th>Downstream (Waiting On)</th><th>Rationale</th></tr>
+      <tr><td>1</td><td>Signal Received (triage)</td><td>MSD Routing</td><td>PM triages before MSD routes</td></tr>
+      <tr><td>2</td><td>MSD Routing (lane assigned)</td><td>Capacity Confirmed</td><td>Lane set before Ops checks bandwidth</td></tr>
+      <tr><td>3</td><td>Capacity Confirmed</td><td>Sprint Entry</td><td>No sprint entry without confirmed capacity</td></tr>
+      <tr><td>4</td><td>Discovery Worksheet (subtask)</td><td>Strategy Pitchback</td><td>MSD completes discovery before presenting strategy</td></tr>
+    </table>
+  </div>
+
+  <div id="tab-dep-kanban" class="tab-panel">
+    <table class="gap-table">
+      <tr><th>#</th><th>Upstream</th><th>Downstream</th><th>Rationale</th></tr>
+      <tr><td>5</td><td>Sprint Entry (Intake)</td><td>Brief Creation (Kanban)</td><td>Cross-project link</td></tr>
+      <tr><td>6</td><td>MSD brief approval</td><td>Creative Direction</td><td>No creative without approved brief</td></tr>
+      <tr><td>7</td><td>CD direction lock</td><td>Pre-Production</td><td>Direction locked before logistics</td></tr>
+      <tr><td>8</td><td>Shoot list / scripts finalized</td><td>Production</td><td>Can't produce without deliverable list</td></tr>
+      <tr><td>9</td><td>Photo assets delivered</td><td>Gate 6.5</td><td>Parallel — photo must deliver</td></tr>
+      <tr><td>10</td><td>Video assets delivered</td><td>Gate 6.5</td><td>Parallel — video must deliver</td></tr>
+      <tr><td>11</td><td>Graphic assets delivered</td><td>Gate 6.5</td><td>Parallel — design must deliver</td></tr>
+      <tr><td>12</td><td>Copy delivered</td><td>Gate 6.5</td><td>Parallel — copy must deliver</td></tr>
+      <tr><td>13</td><td>Gate 6.5</td><td>Video/audio editing</td><td>Post-prod starts after verification</td></tr>
+      <tr><td>14</td><td>Gate 6.5</td><td>Copy proofing (Louis Marroquin)</td><td>Parallel with video editing</td></tr>
+      <tr><td>15</td><td>Video/audio editing</td><td>CD visual review (Shauntel Barron)</td><td>CD reviews final edited assets</td></tr>
+      <tr><td>16</td><td>Copy proofing</td><td>Copy alignment (Louis Marroquin)</td><td>Copyeditor reviews proofed copy</td></tr>
+      <tr><td>17</td><td>CD visual review</td><td>MSD sign-off</td><td>Both reviews must pass</td></tr>
+      <tr><td>18</td><td>Copy alignment</td><td>MSD sign-off</td><td>Both reviews must pass</td></tr>
+      <tr><td>19</td><td>MSD sign-off</td><td>Exec Dir sign-off (Tier 1)</td><td>Conditional chain</td></tr>
+      <tr><td>20</td><td>All approval subtasks</td><td>Gate 9.5</td><td>Distribution requires all approvals</td></tr>
+      <tr><td>21</td><td>Gate 9.5</td><td>Social formats (Caleb)</td><td>Parallel channel work</td></tr>
+      <tr><td>22</td><td>Gate 9.5</td><td>Email/web build (Krayton)</td><td>Parallel channel work</td></tr>
+      <tr><td>23</td><td>Gate 9.5</td><td>Paid media variants (Brittney)</td><td>Parallel channel work</td></tr>
+      <tr><td>24</td><td>All channel subtasks</td><td>Gate 10.5</td><td>Cross-channel readiness</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ==================== 9. INTAKE FORM ==================== -->
+<section class="section" id="form" data-watermark="FORM">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--green)">Intake Form Redesign</div>
+    <div class="section-title">6 Fields to Add</div>
+    <p class="section-desc">The current form already has strong conditional branching. These additions enable automatic lane routing, capacity tracking, and Kanban custom fields.</p>
+  </div>
+
+  <div class="panel open" id="panelForm">
+    <div class="panel-header" onclick="togglePanel('panelForm')">
+      <h3><span style="width:10px;height:10px;border-radius:50%;background:var(--green);display:inline-block"></span> New Form Fields</h3>
+      <div style="display:flex;align-items:center;gap:12px"><span class="panel-count">6 fields</span><svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div>
+    <div class="panel-body">
+      <div style="padding:0 24px 24px">
+        <table class="gap-table">
+          <tr><th>New Field</th><th>Type</th><th>Options / Logic</th><th>Maps To</th></tr>
+          <tr><td><strong>Request Type (Lane)</strong></td><td>Single-select</td><td>Strategic Campaign | Operational Request | Rapid Support</td><td>Intake Lane → Signal Gate routing</td></tr>
+          <tr><td><strong>Campaign Tier</strong></td><td>Single-select (conditional)</td><td>Show only when Strategic. Full (120+), Moderate (60–90), Compressed (30–59), Under 30</td><td>Campaign Tier → template selection + Exec Dir rule</td></tr>
+          <tr><td><strong>Desired Launch Date</strong></td><td>Date picker</td><td>Always visible. "All dates tentative until capacity confirmed."</td><td>Due date → Campaign Container milestones</td></tr>
+          <tr><td><strong>Distribution Channels</strong></td><td>Multi-select (conditional)</td><td>Show for Strategic/Operational. Social, Paid, Email, Website, Print, OOH, Streaming, Podcast, Merch</td><td>Channel Adaptation subtasks included</td></tr>
+          <tr><td><strong>Estimated Hours</strong></td><td>Number</td><td>Show for Operational/Rapid. "Best guess. Ops will confirm."</td><td>Hour Estimate → Capacity Overview view</td></tr>
+          <tr><td><strong>Requester's Ministry Entity</strong></td><td>Single-select</td><td>All 25 entities. Auto-routes to correct pod.</td><td>Ministry Entity → pod assignment automation</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 10. CAMPAIGN CONTAINER ==================== -->
+<section class="section section-light" id="container" data-watermark="CONTAINER">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--accent)">Campaign Container Template</div>
+    <div class="section-title">22 Pre-Built Subtasks</div>
+    <p class="section-desc">PM selects the template when creating a Campaign Container. Dependencies are baked in — they don't need to be set manually each time.</p>
+  </div>
+
+  <div class="panel open" id="panelContainer">
+    <div class="panel-header" onclick="togglePanel('panelContainer')">
+      <h3><span style="width:10px;height:10px;border-radius:50%;background:var(--accent);display:inline-block"></span> Full Subtask Template</h3>
+      <div style="display:flex;align-items:center;gap:12px"><span class="panel-count">22 subtasks</span><svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div>
+    <div class="panel-body">
+      <div style="padding:0 24px 24px">
+        <table class="gap-table">
+          <tr><th>Subtask</th><th>Stage</th><th>Default Assignee</th><th>Duration</th><th>Dependency</th></tr>
+          <tr><td><strong>Discovery Worksheet</strong></td><td>3</td><td>MSD</td><td>3 days</td><td>—</td></tr>
+          <tr><td><strong>Strategy pitchback</strong></td><td>3</td><td>MSD</td><td>2 days</td><td>Waiting on: Discovery Worksheet</td></tr>
+          <tr><td><strong>Brief approval (MSD)</strong></td><td>3</td><td>MSD</td><td>1 day</td><td>Waiting on: Strategy pitchback</td></tr>
+          <tr><td><strong>Creative direction lock</strong></td><td>4</td><td>Creative Dir (Shauntel Barron)</td><td>3 days</td><td>Waiting on: Brief approval</td></tr>
+          <tr><td><strong>Pre-production planning</strong></td><td>5</td><td>PM</td><td>3 days</td><td>Waiting on: Creative direction lock</td></tr>
+          <tr><td><strong>Photo — shoot/capture</strong></td><td>6</td><td>Elijah Smith</td><td>5 days</td><td>Waiting on: Pre-production</td></tr>
+          <tr><td><strong>Video — shoot/capture</strong></td><td>6</td><td>Ronnie Holmes / Eryon Jefferson</td><td>5 days</td><td>Waiting on: Pre-production</td></tr>
+          <tr><td><strong>Graphic — design</strong></td><td>6</td><td>Christopher Williams</td><td>5 days</td><td>Waiting on: Pre-production</td></tr>
+          <tr><td><strong>Copy — draft</strong></td><td>6</td><td>Lauren Moses</td><td>3 days</td><td>Waiting on: Pre-production</td></tr>
+          <tr class="gate-row"><td><strong>⬥ Gate 6.5</strong></td><td>6.5</td><td>PM</td><td>1 day</td><td>Waiting on: Photo + Video + Graphic + Copy</td></tr>
+          <tr><td><strong>Post-prod (video/audio)</strong></td><td>7</td><td>Videographer</td><td>5 days</td><td>Waiting on: Gate 6.5</td></tr>
+          <tr><td><strong>Copy proofing</strong></td><td>7</td><td>Louis Marroquin</td><td>2 days</td><td>Waiting on: Gate 6.5 (parallel)</td></tr>
+          <tr><td><strong>CD visual review</strong></td><td>8</td><td>Shauntel Barron</td><td>2 days</td><td>Waiting on: Post-prod + Copy proof</td></tr>
+          <tr><td><strong>Copy alignment review</strong></td><td>8</td><td>Louis Marroquin</td><td>1 day</td><td>Waiting on: Post-prod (parallel with CD)</td></tr>
+          <tr><td><strong>MSD strategy sign-off</strong></td><td>9</td><td>MSD</td><td>2 days</td><td>Waiting on: BOTH review subtasks</td></tr>
+          <tr><td><strong>Exec Dir sign-off (Tier 1)</strong></td><td>9</td><td>Dexter</td><td>2 days</td><td>Waiting on: MSD sign-off (conditional)</td></tr>
+          <tr class="gate-row"><td><strong>⬥ Gate 9.5</strong></td><td>9.5</td><td>PM</td><td>1 day</td><td>Waiting on: ALL approvals</td></tr>
+          <tr><td><strong>Social format adaptation</strong></td><td>10</td><td>Caleb Biggurs</td><td>2 days</td><td>Waiting on: Gate 9.5</td></tr>
+          <tr><td><strong>Email/web build</strong></td><td>10</td><td>Krayton Garlon</td><td>3 days</td><td>Waiting on: Gate 9.5 (parallel)</td></tr>
+          <tr><td><strong>Paid media variants</strong></td><td>10</td><td>Brittney DeVine-Daugherty</td><td>2 days</td><td>Waiting on: Gate 9.5 (parallel)</td></tr>
+          <tr class="gate-row"><td><strong>⬥ Gate 10.5</strong></td><td>10.5</td><td>PM</td><td>1 day</td><td>Waiting on: ALL channel subtasks</td></tr>
+          <tr><td><strong>Distribution / publish</strong></td><td>11</td><td>Channel Owners</td><td>1 day</td><td>Waiting on: Gate 10.5</td></tr>
+          <tr><td><strong>Performance report</strong></td><td>12</td><td>MSD</td><td>14d post</td><td>Waiting on: Distribution (date-triggered)</td></tr>
+        </table>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)">
+          <strong style="color:var(--text)">Total default timeline:</strong> ~45–50 business days for Full-tier. PM adjusts durations per Campaign Tier. Channel subtasks are conditional. Exec Dir sign-off only on Tier 1.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="border-left:4px solid var(--green)">
+    <div class="callout-tag" style="color:var(--green)">How to Build This in Asana</div>
+    <p>Create as an <strong>Asana task template</strong> in the Kanban Board project. Build one template per Campaign Tier (Full, Moderate, Compressed) with pre-adjusted durations. Dependencies bake in automatically.</p>
+  </div>
+</section>
+
+<!-- ==================== 11. NAMING CONVENTIONS ==================== -->
+<section class="section" id="naming" data-watermark="NAMING">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--purple)">Naming Conventions</div>
+    <div class="section-title">Standard Naming for Board Readability</div>
+    <p class="section-desc">Every task name tells you the entity, campaign, and timeframe at a glance.</p>
+  </div>
+
+  <table class="gap-table">
+    <tr><th>Project</th><th>Format</th><th>Example</th></tr>
+    <tr><td><strong>Intake — Strategic</strong></td><td><code>[Entity] Campaign Name — Q# YYYY</code></td><td>[First Families &amp; Youth] Summer Camp Launch — Q2 2026</td></tr>
+    <tr><td><strong>Intake — Operational</strong></td><td><code>[Entity] Asset/Deliverable — MM.DD</code></td><td>[The House Shop] April Promo Assets — 04.01</td></tr>
+    <tr><td><strong>Intake — Rapid Support</strong></td><td><code>[RS] Entity — Update — MM.DD</code></td><td>[RS] Woman Thou Art Loosed — Date Swap Flyer — 04.15</td></tr>
+    <tr><td><strong>Kanban — Container</strong></td><td><code>[Entity] Campaign Name — Q# YYYY</code></td><td>[TPH Main] Mother's Day Campaign — Q2 2026</td></tr>
+    <tr><td><strong>Kanban — Subtasks</strong></td><td><code>Stage #: Deliverable Name</code></td><td>S6: Hero graphic — Instagram carousel</td></tr>
+    <tr><td><strong>Kanban — Gates</strong></td><td><code>⬥ Gate #: Verification</code></td><td>⬥ Gate 6.5: All production assets verified</td></tr>
+  </table>
+
+  <div style="margin-top:20px;font-size:13px;color:var(--muted);line-height:1.7">
+    <strong style="color:var(--text)">Rules:</strong> Entity always in brackets. Dates use MM.DD. Quarter + year for campaigns. "RS" prefix for Rapid Support. Stage numbers on subtasks for timeline sequence.
+  </div>
+</section>
+
+<!-- ==================== 12. SAVED VIEWS ==================== -->
+<section class="section section-light" id="views" data-watermark="VIEWS">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--blue)">Saved Views Per Role</div>
+    <div class="section-title">One Board, Multiple Lenses</div>
+    <p class="section-desc">Asana saved views let each role see exactly what's relevant without cluttering the default view.</p>
+  </div>
+
+  <div class="panel open" id="panelViews">
+    <div class="panel-header" onclick="togglePanel('panelViews')">
+      <h3><span style="width:10px;height:10px;border-radius:50%;background:var(--blue);display:inline-block"></span> 12 Saved Views</h3>
+      <div style="display:flex;align-items:center;gap:12px"><span class="panel-count">12 views</span><svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div>
+    <div class="panel-body">
+      <div style="padding:0 24px 24px">
+        <table class="gap-table">
+          <tr><th>Role</th><th>View Name</th><th>Project</th><th>Filter / Sort</th><th>Answers</th></tr>
+          <tr><td><strong>Ops Lead (Kaylin)</strong></td><td>Capacity Overview</td><td>Both</td><td>Group by Pod → Sort by due → Show hours</td><td>"How loaded is each pod?"</td></tr>
+          <tr><td><strong>Ops Lead</strong></td><td>Intake Queue</td><td>Intake</td><td>"Signal Received" + "MSD Routing" → Sort by created</td><td>"What needs triaging now?"</td></tr>
+          <tr><td><strong>MSD (Jasmine, Nialah)</strong></td><td>My Pod's Work</td><td>Kanban</td><td>Pod = [mine] → Sort by section</td><td>"Where is my pod's work?"</td></tr>
+          <tr><td><strong>MSD</strong></td><td>Awaiting My Approval</td><td>Kanban</td><td>"Final Approval" + Assignee = [me]</td><td>"What's blocked on me?"</td></tr>
+          <tr><td><strong>Creative Dir (Shauntel)</strong></td><td>Creative Review Queue</td><td>Kanban</td><td>"Creative Review" → Sort by due</td><td>"What needs my eyes today?"</td></tr>
+          <tr><td><strong>Creative Dir</strong></td><td>Copy Alignment Tracker</td><td>Kanban</td><td>"Copy alignment" incomplete → Sort by due</td><td>"What hasn't been copy-checked?"</td></tr>
+          <tr><td><strong>PMs (Cheyenne, Eric)</strong></td><td>My Active Campaigns</td><td>Kanban</td><td>Assignee = [me] + incomplete → Group by section</td><td>"What stage is each campaign?"</td></tr>
+          <tr><td><strong>PMs</strong></td><td>Gate Checkpoints</td><td>Kanban</td><td>Name contains "Gate" + Status = "Pending"</td><td>"Which gates need clearing?"</td></tr>
+          <tr><td><strong>Social (Caleb)</strong></td><td>Channel Queue</td><td>Kanban</td><td>"Channel Adaptation" + assigned to me</td><td>"What needs social formatting?"</td></tr>
+          <tr><td><strong>Paid Media (Brittney)</strong></td><td>Paid Channel Queue</td><td>Kanban</td><td>"Paid media variants" assigned to me</td><td>"What ad variants to build?"</td></tr>
+          <tr><td><strong>Exec Dir (Dexter)</strong></td><td>Portfolio Health</td><td>Both</td><td>Group by Tier → incomplete → Show priority</td><td>"Where are we exposed?"</td></tr>
+          <tr><td><strong>Exec Dir</strong></td><td>Tier 1 Only</td><td>Kanban</td><td>Tier = "Full (120+)" → Sort by stage</td><td>"Where are the big bets?"</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="border-left:4px solid var(--blue)">
+    <div class="callout-tag" style="color:var(--blue)">Setup Note</div>
+    <p>Ops Lead sets up shared views (Capacity, Intake Queue) during Phase 1. Team creates personal views during a 15-minute setup session.</p>
+  </div>
+</section>
+
+<!-- ==================== 13. MILESTONES ==================== -->
+<section class="section" id="milestones" data-watermark="MILESTONES">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--orange)">Milestones at Quality Gates</div>
+    <div class="section-title">Timeline Visibility</div>
+    <p class="section-desc">Zero-duration markers on the Timeline (Gantt) view. Without them, quality gates are invisible when you zoom out.</p>
+  </div>
+
+  <div class="panel open" id="panelMilestones">
+    <div class="panel-header" onclick="togglePanel('panelMilestones')">
+      <h3><span style="width:10px;height:10px;border-radius:50%;background:var(--orange);display:inline-block"></span> 7 Milestone Markers</h3>
+      <div style="display:flex;align-items:center;gap:12px"><span class="panel-count">7 milestones</span><svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div>
+    <div class="panel-body">
+      <div style="padding:0 24px 24px">
+        <table class="gap-table">
+          <tr><th>Milestone</th><th>Placement</th><th>Date Logic</th><th>Timeline Signal</th></tr>
+          <tr><td><strong>⬥ Brief Approved</strong></td><td>End of Stage 3</td><td>= Brief approval subtask due</td><td>Strategy-to-production handoff. If this slips, everything shifts.</td></tr>
+          <tr><td><strong>⬥ Creative Direction Locked</strong></td><td>End of Stage 4</td><td>= Direction subtask due</td><td>Visual/narrative finalized. Production can begin.</td></tr>
+          <tr><td><strong>⬥ Gate 6.5 — Production Complete</strong></td><td>After Stage 6</td><td>= Gate 6.5 subtask due</td><td>All raw assets delivered. First hard gate.</td></tr>
+          <tr><td><strong>⬥ Gate 9.5 — Approved for Distribution</strong></td><td>After Stage 9</td><td>= Gate 9.5 subtask due</td><td>Creative review passed. Channel teams can start. Second hard gate.</td></tr>
+          <tr><td><strong>⬥ Gate 10.5 — Launch Ready</strong></td><td>After Stage 10</td><td>= Gate 10.5 subtask due</td><td>All channels QA'd. Last checkpoint before go-live.</td></tr>
+          <tr><td><strong>⬥ Campaign Live</strong></td><td>Stage 11</td><td>= Launch / event date</td><td>The date that matters most. Everything works backward from here.</td></tr>
+          <tr><td><strong>⬥ Performance Report Due</strong></td><td>Stage 12</td><td>= Launch + 14 days</td><td>Closes the loop. If consistently late, measurement isn't happening.</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="border-left:4px solid var(--orange)">
+    <div class="callout-tag" style="color:var(--orange)">Why This Matters for Leadership</div>
+    <p>Switch Kanban to <strong>Timeline view</strong>, filter by Tier = "Full" — milestones show where every major campaign stands at a glance. Which passed creative review, which are stuck in production, which are approaching launch. It turns the board into a portfolio-level operations map.</p>
+  </div>
+</section>
+
+<!-- ==================== 14. DISCUSSION QUESTIONS ==================== -->
+<section class="section section-light" id="discuss" data-watermark="DISCUSS">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--yellow)">Meeting Discussion Points</div>
+    <div class="section-title">Questions to Resolve</div>
+    <p class="section-desc">These need decisions before building. Bring to the meeting.</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card" style="border-left:3px solid var(--yellow)">
+      <h3>Multi-homing vs. Separate Tasks</h3>
+      <p>Multi-home (single source of truth, but cluttered) or linked Campaign Container (cleaner, but requires link discipline)?</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--yellow)">
+      <h3>Kanban Granularity</h3>
+      <p>13 columns may overwhelm board view. Group stages (e.g., "Post-Prod + Creative Review") and use subtasks for granularity?</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--yellow)">
+      <h3>Rapid Support Flow</h3>
+      <p>Does Lane 3 skip Kanban entirely and stay in Intake? Or get a lightweight path (Creative → Review → Done)?</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--yellow)">
+      <h3>Gate Enforcement</h3>
+      <p>Asana rules, manual PM enforcement, or combination? Who reviews each gate — PM, Creative Dir, or Ops Lead?</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--yellow)">
+      <h3>Existing Work Migration</h3>
+      <p>Migrate in-flight tasks to new structure or grandfather them and start fresh for new intake?</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--yellow)">
+      <h3>Reporting & Dashboards</h3>
+      <p>Who owns dashboard setup — Ops Lead? What views does leadership need beyond the 12 saved views?</p>
+    </div>
+  </div>
+</section>
+
+<div style="max-width:1200px;margin:0 auto;padding:0 32px 80px">
+  <div style="border-top:1px solid var(--border);padding-top:32px;text-align:center;font-size:12px;color:var(--dim)">
+    TPH Marketing Operations &nbsp;·&nbsp; Asana Workflow Adjustment Plan &nbsp;·&nbsp; March 2026 &nbsp;·&nbsp; Draft for Discussion
+  </div>
+</div>
+
+<script>
+// Stage data for interactive lifecycle
+const stages=[
+  {t:"Stage 1 — Request Intake",p:"INTAKE PROJECT",d:"All requests enter through the intake form and land in \"Signal Received.\" PM triages, assigns to pod MSD. Three intake lanes (Strategic, Operational, Rapid Support) determine routing and lifecycle complexity."},
+  {t:"Stage 2 — Campaign Strategy",p:"INTAKE PROJECT",d:"MSD evaluates the request, assigns lane, completes Discovery Worksheet for Strategic campaigns, and routes to Ops Lead for capacity confirmation. This is the Signal Gate — no work enters the sprint without passing through it."},
+  {t:"Stage 3 — Brief Creation",p:"KANBAN BOARD → Brief Creation column",d:"MSD leads strategy pitchback to requester, then signs off on the brief. Discovery Worksheet drives the brief. PM manages timeline and assigns creative team."},
+  {t:"Stage 4 — Creative Direction",p:"KANBAN BOARD → Creative Direction column",d:"Creative Director (Shauntel Barron) locks the visual and narrative direction. Moodboards, color direction, typography, and tone are finalized before any production begins."},
+  {t:"Stage 5 — Pre-Production",p:"KANBAN BOARD → Pre-Production column",d:"PM coordinates logistics: shoot lists, scripts, vendor confirmations, talent scheduling, and location scouting. Everything needed for production to execute without friction."},
+  {t:"Stage 6 — Production",p:"KANBAN BOARD → Production column",d:"Parallel execution: Photo (Elijah Smith), Video (Ronnie Holmes / Eryon Jefferson), Graphic Design (Christopher Williams), and Copy (Lauren Moses) all produce simultaneously."},
+  {t:"⬥ Gate 6.5 — Production Verified",p:"QUALITY GATE",d:"PM verifies all raw assets are delivered and accounted for before post-production begins. This prevents the common failure of post-production starting with incomplete assets."},
+  {t:"Stage 7 — Post-Production",p:"KANBAN BOARD → Post-Production column",d:"Two parallel tracks: Video/audio editing (Videographer) and copy proofing (Louis Marroquin, Sr. Copyeditor). Both start simultaneously after Gate 6.5 clears."},
+  {t:"Stage 8 — Creative Review",p:"KANBAN BOARD → Creative Review column",d:"Creative Director reviews visual quality. Sr. Copyeditor reviews copy alignment. Both must sign off before the campaign advances to final approval."},
+  {t:"Stage 9 — Final Approval",p:"KANBAN BOARD → Final Approval column",d:"MSD gives strategic sign-off confirming the output matches the brief intent. For Tier 1 (Full) campaigns, Exec Dir (Dexter) also reviews and approves."},
+  {t:"⬥ Gate 9.5 — Distribution Readiness",p:"QUALITY GATE",d:"PM confirms all approvals are complete and the campaign is ready for channel adaptation. This is the second hard gate — nothing reaches the audience without clearing it."},
+  {t:"Stage 10 — Channel Adaptation",p:"KANBAN BOARD → Channel Adaptation column",d:"Parallel execution: Social formatting (Caleb Biggurs), email/web build (Krayton Garlon), and paid media variants (Brittney DeVine-Daugherty) all adapt simultaneously."},
+  {t:"⬥ Gate 10.5 — Cross-Channel Ready",p:"QUALITY GATE",d:"PM verifies all channel-specific variants are built and QA'd. The last checkpoint before the world sees it."},
+  {t:"Stage 11 — Distribution",p:"KANBAN BOARD → Distribution column",d:"Content published across all designated channels simultaneously. The launch date — the date everything works backward from."},
+  {t:"Stage 12 — Performance",p:"KANBAN BOARD → Performance column",d:"MSD delivers performance report 14 days after launch. Closes the loop. If this is consistently late, measurement isn't happening."}
+];
+
+function showStage(el,i){
+  document.querySelectorAll('.stage-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  const s=stages[i];
+  document.getElementById('stageTitle').textContent=s.t;
+  document.getElementById('stageProject').textContent=s.p;
+  const desc=document.getElementById('stageDesc');
+  desc.style.opacity=0;
+  setTimeout(()=>{desc.textContent=s.d;desc.style.opacity=1},150);
+  document.getElementById('stageDetail').style.transition='all .3s';
+  document.getElementById('stageProject').style.color=s.p.includes('GATE')?'var(--yellow)':'var(--accent)';
+}
+
+function togglePanel(id){
+  document.getElementById(id).classList.toggle('open');
+}
+
+function switchTab(btn,panelId){
+  const section=btn.closest('.section');
+  section.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  section.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(panelId).classList.add('active');
+}
+
+function scrollToSection(e,id){
+  e.preventDefault();
+  document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
+  // Update active nav link
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  e.target.classList.add('active');
+}
+
+// Highlight active nav on scroll
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const id=entry.target.id;
+      document.querySelectorAll('.nav-links a').forEach(a=>{
+        a.classList.toggle('active',a.getAttribute('href')==='#'+id);
+      });
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('section[id]').forEach(s=>observer.observe(s));
+
+// Animate stageDesc opacity
+document.getElementById('stageDesc').style.transition='opacity .15s ease';
+</script>
+
+</body>
+</html>
