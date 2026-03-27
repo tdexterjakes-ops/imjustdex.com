@@ -548,11 +548,11 @@ code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:12px;
       <div style="padding:0 24px 24px">
         <table class="gap-table">
           <tr><th>Section</th><th>Stage</th><th>Purpose</th><th>Owner</th></tr>
-          <tr><td><strong>Lane 1 — Strategic Campaigns</strong></td><td>1</td><td>Full campaigns requiring Discovery Worksheet, strategy, creative lifecycle</td><td>MSD</td></tr>
+          <tr><td><strong>Lane 1 — Strategic Campaigns</strong></td><td>1</td><td>Full campaigns requiring Strategy Brief, creative direction, full production lifecycle</td><td>MSD</td></tr>
           <tr><td><strong>Lane 2 — Operational Requests</strong></td><td>1</td><td>Known-scope deliverables: flyers, emails, web updates</td><td>PM</td></tr>
           <tr><td><strong>Lane 3 — Rapid Support</strong></td><td>1</td><td>Same-week needs: date swaps, copy corrections. 24–72hr turnaround.</td><td>PM</td></tr>
           <tr class="gate-row"><td><strong>Signal Received</strong></td><td>1→2</td><td>Intake form submissions land here first</td><td>PM (triage)</td></tr>
-          <tr class="gate-row"><td><strong>MSD Routing</strong></td><td>2</td><td>MSD assigns lane, completes Discovery Worksheet (Lane 1)</td><td>MSD</td></tr>
+          <tr class="gate-row"><td><strong>MSD Routing</strong></td><td>2</td><td>MSD assigns lane, initiates Strategy Brief (Lane 1)</td><td>MSD</td></tr>
           <tr class="gate-row"><td><strong>Campaign Container Created</strong></td><td>2</td><td>PM builds container from brief — defines deliverables before capacity check</td><td>PM</td></tr>
           <tr class="gate-row"><td><strong>Capacity Confirmed</strong></td><td>2</td><td>Ops Lead verifies bandwidth using container deliverables, assigns pod</td><td>Ops Lead (Kaylin)</td></tr>
           <tr class="gate-row"><td><strong>Sprint Entry — Ready for Kanban</strong></td><td>2→3</td><td>Cleared for production. Container moves to Kanban Board.</td><td>PM</td></tr>
@@ -766,8 +766,8 @@ code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:12px;
     <table class="gap-table">
       <tr><th>#</th><th>Trigger</th><th>Action</th><th>Purpose</th></tr>
       <tr><td>1</td><td>New task via intake form</td><td>Move to "Signal Received"; assign to pod PM by entity</td><td>Every request starts at Signal Received</td></tr>
-      <tr><td>2</td><td>Task → "MSD Routing"</td><td>Assign to pod MSD; comment: "Route to lane + Discovery Worksheet if Strategic"</td><td>MSD knows what's expected</td></tr>
-      <tr><td>3</td><td>Intake Lane = "Strategic"</td><td>Create subtask: "Discovery Worksheet" assigned to MSD; due +3 days</td><td>Auto-generated for Lane 1</td></tr>
+      <tr><td>2</td><td>Task → "MSD Routing"</td><td>Assign to pod MSD; comment: "Route to lane + Strategy Brief if Strategic"</td><td>MSD knows what's expected</td></tr>
+      <tr><td>3</td><td>Intake Lane = "Strategic"</td><td>Create subtask: "Strategy Brief" assigned to MSD; due +3 days</td><td>Auto-generated for Lane 1</td></tr>
       <tr><td>4</td><td>Task → "Campaign Container Created"</td><td>Assign to PM; comment: "Build container from brief — define deliverables before capacity check"</td><td>Container must exist before Ops can confirm bandwidth</td></tr>
       <tr><td>5</td><td>Task → "Capacity Confirmed"</td><td>Assign to Kaylin; comment: "Review container deliverables and confirm capacity"</td><td>Ops checks bandwidth against defined deliverables</td></tr>
       <tr><td>6</td><td>Task → "Sprint Entry"</td><td>Comment: "Cleared for Kanban. Container multi-homes to Kanban Board."; notify PM</td><td>Handoff trigger</td></tr>
@@ -811,7 +811,7 @@ code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:12px;
       <tr><td>2</td><td>MSD Routing (lane assigned)</td><td>Campaign Container Created</td><td>Lane and brief drive the container build</td></tr>
       <tr><td>3</td><td>Campaign Container Created</td><td>Capacity Confirmed</td><td>Ops needs deliverables to confirm bandwidth</td></tr>
       <tr><td>4</td><td>Capacity Confirmed</td><td>Sprint Entry</td><td>Capacity check before sprint entry</td></tr>
-      <tr><td>5</td><td>Discovery Worksheet (subtask)</td><td>Strategy Pitchback</td><td>MSD completes discovery before presenting strategy</td></tr>
+      <tr><td>5</td><td>Strategy Brief (subtask)</td><td>Strategy Pitchback</td><td>MSD completes brief before presenting strategy</td></tr>
     </table>
   </div>
 
@@ -888,8 +888,8 @@ code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:12px;
       <div style="padding:0 24px 24px">
         <table class="gap-table">
           <tr><th>Subtask</th><th>Stage</th><th>Default Assignee</th><th>Duration</th><th>Dependency</th></tr>
-          <tr><td><strong>Discovery Worksheet</strong></td><td>3</td><td>MSD</td><td>3 days</td><td>—</td></tr>
-          <tr><td><strong>Strategy pitchback</strong></td><td>3</td><td>MSD</td><td>2 days</td><td>Waiting on: Discovery Worksheet</td></tr>
+          <tr><td><strong>Strategy Brief</strong></td><td>3</td><td>MSD</td><td>3 days</td><td>—</td></tr>
+          <tr><td><strong>Strategy pitchback</strong></td><td>3</td><td>MSD</td><td>2 days</td><td>Waiting on: Strategy Brief</td></tr>
           <tr><td><strong>Brief approval (MSD)</strong></td><td>3</td><td>MSD</td><td>1 day</td><td>Waiting on: Strategy pitchback</td></tr>
           <tr><td><strong>Creative direction lock</strong></td><td>4</td><td>Creative Dir (Shauntel Barron)</td><td>3 days</td><td>Waiting on: Brief approval</td></tr>
           <tr><td><strong>Pre-production planning</strong></td><td>5</td><td>PM</td><td>3 days</td><td>Waiting on: Creative direction lock</td></tr>
@@ -1069,8 +1069,8 @@ code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:12px;
 // Stage data for interactive lifecycle
 const stages=[
   {t:"Stage 1 — Request Intake",p:"INTAKE PROJECT",d:"All requests enter through the intake form and land in \"Signal Received.\" PM triages, assigns to pod MSD. Three intake lanes (Strategic, Operational, Rapid Support) determine routing and lifecycle complexity."},
-  {t:"Stage 2 — Campaign Strategy",p:"INTAKE PROJECT",d:"MSD evaluates the request, assigns lane, completes Discovery Worksheet for Strategic campaigns, and routes to Ops Lead for capacity confirmation. This is the Signal Gate — no work enters the sprint without passing through it."},
-  {t:"Stage 3 — Brief Creation",p:"KANBAN BOARD → Brief Creation column",d:"MSD leads strategy pitchback to requester, then signs off on the brief. Discovery Worksheet drives the brief. PM manages timeline and assigns creative team."},
+  {t:"Stage 2 — Campaign Strategy",p:"INTAKE PROJECT",d:"MSD evaluates the request, assigns lane, drafts Strategy Brief for Strategic campaigns, and routes to Ops Lead for capacity confirmation. This is the Signal Gate — no work enters the sprint without passing through it."},
+  {t:"Stage 3 — Brief Creation",p:"KANBAN BOARD → Brief Creation column",d:"MSD leads strategy pitchback to requester, then signs off on the brief. Strategy Brief drives the pitchback. PM manages timeline and assigns creative team."},
   {t:"Stage 4 — Creative Direction",p:"KANBAN BOARD → Creative Direction column",d:"Creative Director (Shauntel Barron) locks the visual and narrative direction. Moodboards, color direction, typography, and tone are finalized before any production begins."},
   {t:"Stage 5 — Pre-Production",p:"KANBAN BOARD → Pre-Production column",d:"PM coordinates logistics: shoot lists, scripts, vendor confirmations, talent scheduling, and location scouting. Everything needed for production to execute without friction."},
   {t:"Stage 6 — Production",p:"KANBAN BOARD → Production column",d:"Parallel execution: Photo (Elijah Smith), Video (Ronnie Holmes / Eryon Jefferson), Graphic Design (Christopher Williams), and Copy (Lauren Moses) all produce simultaneously."},
