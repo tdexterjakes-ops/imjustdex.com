@@ -393,13 +393,13 @@ code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:12px;
 
 <!-- ==================== HERO ==================== -->
 <div class="hero">
-  <div class="hero-label"><span class="pulse"></span> Draft for Discussion</div>
+  <div class="hero-label"><span class="pulse"></span> Decisions Captured — 3/26</div>
   <h1>Asana Workflow<br><em>Adjustment Plan</em></h1>
   <p class="hero-sub">Restructuring Marketing Project Intake and Marketing Team Kanban Board to implement the 12-stage RACI production workflow — with automations, dependencies, naming conventions, saved views, and milestone gates.</p>
   <div class="hero-stats">
     <div class="hero-stat"><div class="num">3</div><div class="label">Board Views</div></div>
-    <div class="hero-stat"><div class="num">15</div><div class="label">Automations</div></div>
-    <div class="hero-stat"><div class="num">24</div><div class="label">Dependencies</div></div>
+    <div class="hero-stat"><div class="num">16</div><div class="label">Automations</div></div>
+    <div class="hero-stat"><div class="num">25</div><div class="label">Dependencies</div></div>
     <div class="hero-stat"><div class="num">7</div><div class="label">Milestones</div></div>
   </div>
   <div class="hero-meta">
@@ -588,7 +588,7 @@ code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:12px;
       <div style="padding:0 24px 24px;font-size:14px;color:var(--muted);line-height:1.8">
         <p><strong style="color:var(--text)">1. No direct requests</strong> — all work enters through the intake form.</p>
         <p><strong style="color:var(--text)">2. Strategy enables work</strong> — MSDs route before PMs execute.</p>
-        <p><strong style="color:var(--text)">3. Sprint capacity required</strong> — Ops Lead confirms bandwidth before sprint entry.</p>
+        <p><strong style="color:var(--text)">3. Capacity check required</strong> — Ops Lead reviews bandwidth using container deliverables. If tight, Ops flags and team decides trade-offs — not a hard stop.</p>
         <p><strong style="color:var(--text)">4. Distribution requires a container</strong> — no channel output without a campaign container on the Kanban Board.</p>
         <p><strong style="color:var(--text)">5. Bypass triggers escalation</strong> — any skip of the Signal Gate is flagged and escalated to Exec Dir.</p>
       </div>
@@ -661,13 +661,17 @@ code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:12px;
   <div class="section-header">
     <div class="section-tag" style="color:var(--accent)">Handoff Model</div>
     <div class="section-title">Intake → Kanban Bridge</div>
-    <p class="section-desc">The Campaign Container is the bridge. When a request clears the Signal Gate, the PM creates a Campaign Container on the Kanban Board with the full subtask template.</p>
+    <p class="section-desc">The Campaign Container is built during intake — before capacity check. You can't confirm bandwidth without knowing the deliverables. Once capacity clears, the container multi-homes to Kanban and enters Brief Creation.</p>
   </div>
 
   <div class="flow" style="justify-content:center;margin:32px 0">
-    <span class="flow-step" style="border-color:var(--green);color:var(--green)">Intake: Sprint Entry</span>
+    <span class="flow-step" style="border-color:var(--green);color:var(--green)">MSD Routes</span>
     <span class="flow-arrow">→</span>
-    <span class="flow-step" style="border-color:var(--accent);color:var(--accent)">Campaign Container</span>
+    <span class="flow-step" style="border-color:var(--accent);color:var(--accent)">Container Built</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-step" style="border-color:var(--blue);color:var(--blue)">Capacity Confirmed</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-step" style="border-color:var(--green);color:var(--green)">Sprint Entry</span>
     <span class="flow-arrow">→</span>
     <span class="flow-step" style="border-color:var(--blue);color:var(--blue)">Kanban: Brief Creation</span>
   </div>
@@ -675,11 +679,11 @@ code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:12px;
   <div class="card-grid">
     <div class="card" style="border-top:3px solid var(--green)">
       <h3>Lane 1 — Strategic</h3>
-      <p>Full Campaign Container with all 22 subtasks, dependencies, and milestone gates. MSD leads Discovery Worksheet before brief creation begins.</p>
+      <p>Full Campaign Container with all 22 subtasks, dependencies, and milestone gates. PM builds container from the MSD-routed brief; Ops Lead uses the deliverable list to confirm capacity. Container multi-homes to Kanban at Sprint Entry.</p>
     </div>
     <div class="card" style="border-top:3px solid var(--blue)">
       <h3>Lane 2 — Operational</h3>
-      <p>Lightweight Campaign Container. Skips Stages 3–4 (brief/direction already known). Starts at Pre-Production or Production.</p>
+      <p>Lightweight Campaign Container. Skips Stages 3–4 (brief/direction already known). PM builds container before capacity check. Starts at Pre-Production or Production on Kanban.</p>
     </div>
     <div class="card" style="border-top:3px solid var(--yellow)">
       <h3>Lane 3 — Rapid Support</h3>
@@ -711,8 +715,17 @@ code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:12px;
       <div class="phase-content">
         <div class="phase-label" style="color:var(--blue)">Phase 2</div>
         <div class="phase-title">Kanban Restructure</div>
-        <div class="phase-desc">New 13-column board, custom fields, Campaign Container task template with subtasks and dependencies.</div>
+        <div class="phase-desc">Three filtered board views (Production Pipeline, Review & Approval, Distribution & Measurement), custom fields, Campaign Container task template with subtasks and dependencies.</div>
         <div class="phase-meta"><span>Week 2–3</span><span>Owner: PMs + Ops Lead</span></div>
+      </div>
+    </div>
+    <div class="phase-item">
+      <div class="phase-dot"><div class="phase-dot-inner" style="background:var(--accent)"></div></div>
+      <div class="phase-content">
+        <div class="phase-label" style="color:var(--accent)">Phase 2.5</div>
+        <div class="phase-title">Migrate Active Work</div>
+        <div class="phase-desc">Move all in-flight projects into the new structure. No grandfathering — rip the band-aid off. PMs rebuild active Campaign Containers in the new template; Ops Lead verifies nothing falls through.</div>
+        <div class="phase-meta"><span>Week 3</span><span>Owner: PMs + Ops Lead</span></div>
       </div>
     </div>
     <div class="phase-item">
@@ -720,7 +733,7 @@ code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:12px;
       <div class="phase-content">
         <div class="phase-label" style="color:var(--yellow)">Phase 3</div>
         <div class="phase-title">Automation + Rules</div>
-        <div class="phase-desc">Deploy all 15 Asana rules. Test with 2–3 real requests before full rollout.</div>
+        <div class="phase-desc">Deploy all 16 Asana rules. Test with 2–3 real requests before full rollout.</div>
         <div class="phase-meta"><span>Week 3–4</span><span>Owner: Ops Lead</span></div>
       </div>
     </div>
@@ -740,12 +753,12 @@ code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:12px;
 <section class="section" id="automations" data-watermark="AUTOMATIONS">
   <div class="section-header">
     <div class="section-tag" style="color:var(--accent)">Automations</div>
-    <div class="section-title">15 Asana Rules</div>
+    <div class="section-title">16 Asana Rules</div>
     <p class="section-desc">Automate handoffs, notifications, and field updates so the team doesn't have to remember every step manually.</p>
   </div>
 
   <div class="tab-bar">
-    <button class="tab active" onclick="switchTab(this,'tab-auto-intake')">Intake Rules (6)</button>
+    <button class="tab active" onclick="switchTab(this,'tab-auto-intake')">Intake Rules (7)</button>
     <button class="tab" onclick="switchTab(this,'tab-auto-kanban')">Kanban Rules (9)</button>
   </div>
 
@@ -755,24 +768,25 @@ code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:12px;
       <tr><td>1</td><td>New task via intake form</td><td>Move to "Signal Received"; assign to pod PM by entity</td><td>Every request starts at Signal Received</td></tr>
       <tr><td>2</td><td>Task → "MSD Routing"</td><td>Assign to pod MSD; comment: "Route to lane + Discovery Worksheet if Strategic"</td><td>MSD knows what's expected</td></tr>
       <tr><td>3</td><td>Intake Lane = "Strategic"</td><td>Create subtask: "Discovery Worksheet" assigned to MSD; due +3 days</td><td>Auto-generated for Lane 1</td></tr>
-      <tr><td>4</td><td>Task → "Capacity Confirmed"</td><td>Assign to Kaylin; comment: "Confirm sprint capacity"</td><td>Ops check happens structurally</td></tr>
-      <tr><td>5</td><td>Task → "Sprint Entry"</td><td>Comment: "Cleared for Kanban. PM: create Campaign Container."; notify PM</td><td>Handoff trigger</td></tr>
-      <tr><td>6</td><td>Task → "Declined"</td><td>Comment template: "Declined — Reason: [fill in]"; notify requester</td><td>No request disappears silently</td></tr>
+      <tr><td>4</td><td>Task → "Campaign Container Created"</td><td>Assign to PM; comment: "Build container from brief — define deliverables before capacity check"</td><td>Container must exist before Ops can confirm bandwidth</td></tr>
+      <tr><td>5</td><td>Task → "Capacity Confirmed"</td><td>Assign to Kaylin; comment: "Review container deliverables and confirm capacity"</td><td>Ops checks bandwidth against defined deliverables</td></tr>
+      <tr><td>6</td><td>Task → "Sprint Entry"</td><td>Comment: "Cleared for Kanban. Container multi-homes to Kanban Board."; notify PM</td><td>Handoff trigger</td></tr>
+      <tr><td>7</td><td>Task → "Declined"</td><td>Comment template: "Declined — Reason: [fill in]"; notify requester</td><td>No request disappears silently</td></tr>
     </table>
   </div>
 
   <div id="tab-auto-kanban" class="tab-panel">
     <table class="gap-table">
       <tr><th>#</th><th>Trigger</th><th>Action</th><th>Purpose</th></tr>
-      <tr><td>7</td><td>Container created in "Brief Creation"</td><td>Apply task template (22 subtasks + deps)</td><td>Full lifecycle pre-built in one click</td></tr>
-      <tr><td>8</td><td>All production subtasks complete</td><td>Gate 6.5 → "Pending Review"; notify PM</td><td>Gate triggers automatically</td></tr>
-      <tr><td>9</td><td>Gate 6.5 marked complete</td><td>Move to "Post-Production"; notify Videographer + Louis Marroquin</td><td>Post-prod team knows assets verified</td></tr>
-      <tr><td>10</td><td>Post-prod subtasks complete</td><td>Move to "Creative Review"; notify Shauntel Barron</td><td>Creative review starts immediately</td></tr>
-      <tr><td>11</td><td>Creative Review subtasks complete</td><td>Move to "Final Approval"; assign to MSD</td><td>MSD gets strategic sign-off prompt</td></tr>
-      <tr><td>12</td><td>Tier = "Full (120+)" + task enters Final Approval</td><td>Create subtask: "Exec Dir sign-off" assigned to Dexter; due +2 days</td><td>Tier 1 gets extra approval layer</td></tr>
-      <tr><td>13</td><td>Gate 9.5 complete</td><td>Move to "Channel Adaptation"; notify Caleb, Brittney, Krayton</td><td>All channel owners mobilized</td></tr>
-      <tr><td>14</td><td>Gate 10.5 complete</td><td>Move to "Distribution"; comment: "All channels confirmed."</td><td>Final green light</td></tr>
-      <tr><td>15</td><td>Distribution + launch date reached</td><td>Create subtask: "Performance Report" assigned to MSD; due +14 days</td><td>Measurement is baked in</td></tr>
+      <tr><td>8</td><td>Container created in "Brief Creation"</td><td>Apply task template (22 subtasks + deps)</td><td>Full lifecycle pre-built in one click</td></tr>
+      <tr><td>9</td><td>All production subtasks complete</td><td>Gate 6.5 → "Pending Review"; notify PM</td><td>Gate triggers automatically</td></tr>
+      <tr><td>10</td><td>Gate 6.5 marked complete</td><td>Move to "Post-Production"; notify Videographer + Louis Marroquin</td><td>Post-prod team knows assets verified</td></tr>
+      <tr><td>11</td><td>Post-prod subtasks complete</td><td>Move to "Creative Review"; notify Shauntel Barron</td><td>Creative review starts immediately</td></tr>
+      <tr><td>12</td><td>Creative Review subtasks complete</td><td>Move to "Final Approval"; assign to MSD</td><td>MSD gets strategic sign-off prompt</td></tr>
+      <tr><td>13</td><td>Tier = "Full (120+)" + task enters Final Approval</td><td>Create subtask: "Exec Dir sign-off" assigned to Dexter; due +2 days</td><td>Tier 1 gets extra approval layer</td></tr>
+      <tr><td>14</td><td>Gate 9.5 complete</td><td>Move to "Channel Adaptation"; notify Caleb, Brittney, Krayton</td><td>All channel owners mobilized</td></tr>
+      <tr><td>15</td><td>Gate 10.5 complete</td><td>Move to "Distribution"; comment: "All channels confirmed."</td><td>Final green light</td></tr>
+      <tr><td>16</td><td>Distribution + launch date reached</td><td>Create subtask: "Performance Report" assigned to MSD; due +14 days</td><td>Measurement is baked in</td></tr>
     </table>
   </div>
 </section>
@@ -781,48 +795,49 @@ code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:12px;
 <section class="section section-light" id="dependencies" data-watermark="DEPENDENCIES">
   <div class="section-header">
     <div class="section-tag" style="color:var(--orange)">Dependencies</div>
-    <div class="section-title">24 Dependency Chains</div>
+    <div class="section-title">25 Dependency Chains</div>
     <p class="section-desc">Built into the Campaign Container template. When upstream completes, downstream unblocks automatically.</p>
   </div>
 
   <div class="tab-bar">
-    <button class="tab active" onclick="switchTab(this,'tab-dep-intake')">Intake (4)</button>
-    <button class="tab" onclick="switchTab(this,'tab-dep-kanban')">Kanban (20)</button>
+    <button class="tab active" onclick="switchTab(this,'tab-dep-intake')">Intake (5)</button>
+    <button class="tab" onclick="switchTab(this,'tab-dep-kanban')">Kanban (20)</button><!-- 25 total -->
   </div>
 
   <div id="tab-dep-intake" class="tab-panel active">
     <table class="gap-table">
       <tr><th>#</th><th>Upstream (Blocks)</th><th>Downstream (Waiting On)</th><th>Rationale</th></tr>
       <tr><td>1</td><td>Signal Received (triage)</td><td>MSD Routing</td><td>PM triages before MSD routes</td></tr>
-      <tr><td>2</td><td>MSD Routing (lane assigned)</td><td>Capacity Confirmed</td><td>Lane set before Ops checks bandwidth</td></tr>
-      <tr><td>3</td><td>Capacity Confirmed</td><td>Sprint Entry</td><td>No sprint entry without confirmed capacity</td></tr>
-      <tr><td>4</td><td>Discovery Worksheet (subtask)</td><td>Strategy Pitchback</td><td>MSD completes discovery before presenting strategy</td></tr>
+      <tr><td>2</td><td>MSD Routing (lane assigned)</td><td>Campaign Container Created</td><td>Lane and brief drive the container build</td></tr>
+      <tr><td>3</td><td>Campaign Container Created</td><td>Capacity Confirmed</td><td>Ops needs deliverables to confirm bandwidth</td></tr>
+      <tr><td>4</td><td>Capacity Confirmed</td><td>Sprint Entry</td><td>Capacity check before sprint entry</td></tr>
+      <tr><td>5</td><td>Discovery Worksheet (subtask)</td><td>Strategy Pitchback</td><td>MSD completes discovery before presenting strategy</td></tr>
     </table>
   </div>
 
   <div id="tab-dep-kanban" class="tab-panel">
     <table class="gap-table">
       <tr><th>#</th><th>Upstream</th><th>Downstream</th><th>Rationale</th></tr>
-      <tr><td>5</td><td>Sprint Entry (Intake)</td><td>Brief Creation (Kanban)</td><td>Cross-project link</td></tr>
-      <tr><td>6</td><td>MSD brief approval</td><td>Creative Direction</td><td>No creative without approved brief</td></tr>
-      <tr><td>7</td><td>CD direction lock</td><td>Pre-Production</td><td>Direction locked before logistics</td></tr>
-      <tr><td>8</td><td>Shoot list / scripts finalized</td><td>Production</td><td>Can't produce without deliverable list</td></tr>
-      <tr><td>9</td><td>Photo assets delivered</td><td>Gate 6.5</td><td>Parallel — photo must deliver</td></tr>
-      <tr><td>10</td><td>Video assets delivered</td><td>Gate 6.5</td><td>Parallel — video must deliver</td></tr>
-      <tr><td>11</td><td>Graphic assets delivered</td><td>Gate 6.5</td><td>Parallel — design must deliver</td></tr>
-      <tr><td>12</td><td>Copy delivered</td><td>Gate 6.5</td><td>Parallel — copy must deliver</td></tr>
-      <tr><td>13</td><td>Gate 6.5</td><td>Video/audio editing</td><td>Post-prod starts after verification</td></tr>
-      <tr><td>14</td><td>Gate 6.5</td><td>Copy proofing (Louis Marroquin)</td><td>Parallel with video editing</td></tr>
-      <tr><td>15</td><td>Video/audio editing</td><td>CD visual review (Shauntel Barron)</td><td>CD reviews final edited assets</td></tr>
-      <tr><td>16</td><td>Copy proofing</td><td>Copy alignment (Louis Marroquin)</td><td>Copyeditor reviews proofed copy</td></tr>
-      <tr><td>17</td><td>CD visual review</td><td>MSD sign-off</td><td>Both reviews must pass</td></tr>
-      <tr><td>18</td><td>Copy alignment</td><td>MSD sign-off</td><td>Both reviews must pass</td></tr>
-      <tr><td>19</td><td>MSD sign-off</td><td>Exec Dir sign-off (Tier 1)</td><td>Conditional chain</td></tr>
-      <tr><td>20</td><td>All approval subtasks</td><td>Gate 9.5</td><td>Distribution requires all approvals</td></tr>
-      <tr><td>21</td><td>Gate 9.5</td><td>Social formats (Caleb)</td><td>Parallel channel work</td></tr>
-      <tr><td>22</td><td>Gate 9.5</td><td>Email/web build (Krayton)</td><td>Parallel channel work</td></tr>
-      <tr><td>23</td><td>Gate 9.5</td><td>Paid media variants (Brittney)</td><td>Parallel channel work</td></tr>
-      <tr><td>24</td><td>All channel subtasks</td><td>Gate 10.5</td><td>Cross-channel readiness</td></tr>
+      <tr><td>6</td><td>Sprint Entry (Intake)</td><td>Brief Creation (Kanban)</td><td>Cross-project link</td></tr>
+      <tr><td>7</td><td>MSD brief approval</td><td>Creative Direction</td><td>No creative without approved brief</td></tr>
+      <tr><td>8</td><td>CD direction lock</td><td>Pre-Production</td><td>Direction locked before logistics</td></tr>
+      <tr><td>9</td><td>Shoot list / scripts finalized</td><td>Production</td><td>Can't produce without deliverable list</td></tr>
+      <tr><td>10</td><td>Photo assets delivered</td><td>Gate 6.5</td><td>Parallel — photo must deliver</td></tr>
+      <tr><td>11</td><td>Video assets delivered</td><td>Gate 6.5</td><td>Parallel — video must deliver</td></tr>
+      <tr><td>12</td><td>Graphic assets delivered</td><td>Gate 6.5</td><td>Parallel — design must deliver</td></tr>
+      <tr><td>13</td><td>Copy delivered</td><td>Gate 6.5</td><td>Parallel — copy must deliver</td></tr>
+      <tr><td>14</td><td>Gate 6.5</td><td>Video/audio editing</td><td>Post-prod starts after verification</td></tr>
+      <tr><td>15</td><td>Gate 6.5</td><td>Copy proofing (Louis Marroquin)</td><td>Parallel with video editing</td></tr>
+      <tr><td>16</td><td>Video/audio editing</td><td>CD visual review (Shauntel Barron)</td><td>CD reviews final edited assets</td></tr>
+      <tr><td>17</td><td>Copy proofing</td><td>Copy alignment (Louis Marroquin)</td><td>Copyeditor reviews proofed copy</td></tr>
+      <tr><td>18</td><td>CD visual review</td><td>MSD sign-off</td><td>Both reviews must pass</td></tr>
+      <tr><td>19</td><td>Copy alignment</td><td>MSD sign-off</td><td>Both reviews must pass</td></tr>
+      <tr><td>20</td><td>MSD sign-off</td><td>Exec Dir sign-off (Tier 1)</td><td>Conditional chain</td></tr>
+      <tr><td>21</td><td>All approval subtasks</td><td>Gate 9.5</td><td>Distribution requires all approvals</td></tr>
+      <tr><td>22</td><td>Gate 9.5</td><td>Social formats (Caleb)</td><td>Parallel channel work</td></tr>
+      <tr><td>23</td><td>Gate 9.5</td><td>Email/web build (Krayton)</td><td>Parallel channel work</td></tr>
+      <tr><td>24</td><td>Gate 9.5</td><td>Paid media variants (Brittney)</td><td>Parallel channel work</td></tr>
+      <tr><td>25</td><td>All channel subtasks</td><td>Gate 10.5</td><td>Cross-channel readiness</td></tr>
     </table>
   </div>
 </section>
