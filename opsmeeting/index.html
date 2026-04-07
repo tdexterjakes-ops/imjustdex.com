@@ -3,15 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Weekly Leadership Prep — Mar 31, 2026 | TPH Dallas</title>
-<meta name="description" content="Weekly marketing leadership prep for The Potter's House of Dallas — Mar 31, 2026.">
-
-<!-- Favicon -->
+<title>Weekly Leadership Prep — Apr 7, 2026 | TPH Dallas</title>
+<meta name="description" content="Weekly marketing leadership prep for The Potter's House of Dallas — Apr 7, 2026.">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
-
-<!-- Open Graph -->
-<meta property="og:title" content="Weekly Leadership Prep — Mar 31, 2026 | TPH Dallas">
+<meta property="og:title" content="Weekly Leadership Prep — Apr 7, 2026 | TPH Dallas">
 <meta property="og:description" content="Weekly marketing leadership prep for The Potter's House of Dallas.">
 <meta property="og:image" content="https://dxjakes.com/img/og-default.png">
 <meta property="og:url" content="https://dxjakes.com/leadership-prep">
@@ -77,9 +73,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ============================================================
-   TOPBAR
-   ============================================================ */
 .topbar {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -136,9 +129,6 @@ body {
 }
 .topbar-action:hover { background: #e64f00; }
 
-/* ============================================================
-   SIDEBAR
-   ============================================================ */
 .sidebar {
   position: fixed;
   top: var(--topbar-height); left: 0; bottom: 0;
@@ -193,9 +183,6 @@ body {
 .nav-count.gray { background: rgba(249,245,244,0.07); color: var(--cream-muted); }
 .sidebar-divider { margin: 6px 20px; border: none; border-top: 1px solid var(--border); }
 
-/* ============================================================
-   CONTENT WRAP
-   ============================================================ */
 .content-wrap {
   margin-left: var(--sidebar-width);
   margin-top: var(--topbar-height);
@@ -204,9 +191,6 @@ body {
 }
 .content-wrap.expanded { margin-left: 0; }
 
-/* ============================================================
-   EXEC BAND
-   ============================================================ */
 .exec-band {
   background: var(--dark-surface);
   border-bottom: 3px solid var(--orange);
@@ -264,35 +248,11 @@ body {
   letter-spacing: 0.09em; text-transform: uppercase; color: var(--cream-muted);
 }
 
-.countdown-chip {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: var(--red-dim); border: 1px solid var(--red);
-  padding: 9px 18px; border-radius: 2px;
-}
-.countdown-pulse {
-  width: 7px; height: 7px; background: var(--red);
-  border-radius: 50%; animation: pulse 1.5s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.35; transform: scale(0.8); }
-}
-.countdown-text {
-  font-family: var(--font-heading); font-size: 10px;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--red);
-}
-
-/* ============================================================
-   SECTIONS CONTAINER
-   ============================================================ */
 .sections-container {
   padding: 40px 52px;
   display: flex; flex-direction: column; gap: 24px;
 }
 
-/* ============================================================
-   ZONE SECTION
-   ============================================================ */
 .zone-section {
   background: var(--dark-surface);
   border: 1px solid var(--border);
@@ -342,9 +302,6 @@ body {
 
 .section-body { overflow: hidden; transition: height 0.28s ease; }
 
-/* ============================================================
-   CALLOUT / TLDR
-   ============================================================ */
 .callout-list { padding: 16px 20px; display: flex; flex-direction: column; gap: 8px; }
 .callout {
   padding: 13px 17px; border-radius: 2px;
@@ -358,9 +315,6 @@ body {
 .callout.c-info   { border-left-color: var(--blue);   background: var(--blue-dim); }
 .callout.c-win    { border-left-color: var(--green);  background: var(--green-dim); }
 
-/* ============================================================
-   TASK ROWS
-   ============================================================ */
 .task-group-label {
   padding: 8px 28px 6px;
   font-family: var(--font-heading); font-size: 9px;
@@ -380,7 +334,6 @@ body {
 .workflow-step:last-child { border-bottom: none; }
 .workflow-step:hover { background: rgba(249,245,244,0.025); }
 
-/* RACI chips */
 .raci-chip {
   flex-shrink: 0;
   font-family: var(--font-heading); font-size: 9px;
@@ -426,9 +379,6 @@ body {
 }
 .tag-done { font-size: 11px; color: #A5D6A7; }
 
-/* ============================================================
-   DATA TABLE
-   ============================================================ */
 .data-table { width: 100%; border-collapse: collapse; }
 .data-table th {
   padding: 10px 24px; text-align: left;
@@ -444,14 +394,7 @@ body {
 .data-table tr:hover td { background: rgba(249,245,244,0.025); }
 .data-table a { color: var(--blue); text-decoration: none; font-weight: 500; }
 .data-table a:hover { text-decoration: underline; }
-.open-circle {
-  display: inline-block; width: 15px; height: 15px;
-  border: 1.5px solid var(--border-strong); border-radius: 50%; vertical-align: middle;
-}
 
-/* ============================================================
-   TREND GRID
-   ============================================================ */
 .trend-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 1px; background: var(--border);
@@ -481,9 +424,6 @@ body {
   color: var(--cream-dim); line-height: 1.5;
 }
 
-/* ============================================================
-   SIGNAL GRID
-   ============================================================ */
 .signal-grid {
   display: grid; grid-template-columns: repeat(2, 1fr);
   gap: 1px; background: var(--border);
@@ -494,14 +434,8 @@ body {
   letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--orange); margin-bottom: 12px;
 }
-.hashtag-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
-.hashtag {
-  font-size: 11px; color: var(--blue); background: var(--blue-dim);
-  padding: 3px 9px; border-radius: 2px; letter-spacing: 0.02em;
-}
 .signal-text { font-size: 12px; color: var(--cream-muted); line-height: 1.65; }
 
-/* Opportunity matrix */
 .opp-grid { padding: 20px 28px; display: grid; gap: 8px; border-top: 1px solid var(--border); }
 .opp-header {
   font-family: var(--font-heading); font-size: 9px;
@@ -514,26 +448,6 @@ body {
 .opp-item.opp-green  { background: var(--green-dim);  color: #A5D6A7; border-left: 2px solid var(--green); }
 .opp-item.opp-orange { background: var(--orange-dim); color: #FFCC80; border-left: 2px solid var(--orange); }
 
-/* ============================================================
-   EMAIL ACTIVITY PANEL
-   ============================================================ */
-.activity-panel { display: flex; flex-direction: column; }
-.activity-item {
-  display: flex; gap: 14px; align-items: flex-start;
-  padding: 14px 28px;
-  border-bottom: 1px solid var(--border);
-  transition: background var(--ease);
-}
-.activity-item:last-child { border-bottom: none; }
-.activity-item:hover { background: rgba(249,245,244,0.025); }
-.activity-body { flex: 1; }
-.activity-subject { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 2px; }
-.activity-from { font-size: 11px; color: var(--cream-muted); margin-bottom: 4px; }
-.activity-note { font-size: 12px; color: var(--cream-muted); line-height: 1.5; }
-
-/* ============================================================
-   BACK TO TOP
-   ============================================================ */
 .back-top {
   position: fixed; bottom: 24px; right: 24px;
   width: 40px; height: 40px; background: var(--orange); border: none;
@@ -544,9 +458,6 @@ body {
 .back-top.visible { opacity: 1; pointer-events: auto; }
 .back-top:hover { background: #e64f00; }
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
 .site-footer {
   background: var(--dark-surface); border-top: 1px solid var(--border-strong);
   padding: 18px 52px; display: flex; align-items: center;
@@ -563,20 +474,13 @@ body {
 }
 .footer-link:hover { color: var(--orange); }
 
-/* ============================================================
-   SIDEBAR OVERLAY (mobile)
-   ============================================================ */
 .sidebar-overlay {
   display: none; position: fixed; inset: 0;
   background: rgba(25,22,23,0.65); z-index: 90;
 }
 
-/* Scroll offset for anchor links */
 section[id] { scroll-margin-top: calc(var(--topbar-height) + 16px); }
 
-/* ============================================================
-   PRINT
-   ============================================================ */
 @media print {
   .topbar, .sidebar, .back-top { display: none !important; }
   .content-wrap { margin-left: 0 !important; }
@@ -584,9 +488,6 @@ section[id] { scroll-margin-top: calc(var(--topbar-height) + 16px); }
   .section-body { height: auto !important; }
 }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
 @media (max-width: 900px) {
   .stat-row { grid-template-columns: repeat(3, 1fr); }
   .trend-grid { grid-template-columns: repeat(2, 1fr); }
@@ -612,9 +513,7 @@ section[id] { scroll-margin-top: calc(var(--topbar-height) + 16px); }
 </head>
 <body>
 
-<!-- ============================================================
-     TOPBAR
-     ============================================================ -->
+<!-- TOPBAR -->
 <header class="topbar">
   <div class="topbar-left">
     <button class="menu-btn" onclick="toggleSidebar()" aria-label="Toggle sidebar">
@@ -625,7 +524,7 @@ section[id] { scroll-margin-top: calc(var(--topbar-height) + 16px); }
     <div class="topbar-doc">Weekly Leadership Prep</div>
   </div>
   <div class="topbar-right">
-    <span class="topbar-date">Mar 31, 2026</span>
+    <span class="topbar-date">Apr 7, 2026</span>
     <div class="view-toggle">
       <button class="view-btn active" onclick="setView('all',this)">All</button>
       <button class="view-btn" onclick="setView('critical',this)">Critical</button>
@@ -638,214 +537,169 @@ section[id] { scroll-margin-top: calc(var(--topbar-height) + 16px); }
 <!-- Mobile overlay -->
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
-<!-- ============================================================
-     SIDEBAR
-     ============================================================ -->
+<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-header">
     <div class="sidebar-label">Meeting Prep</div>
-    <div class="sidebar-date">Tuesday, March 31, 2026</div>
+    <div class="sidebar-date">Tuesday, April 7, 2026</div>
   </div>
   <div class="search-bar">
-    <input class="search-input" type="text" placeholder="Search report… (⌘K)" id="searchInput" oninput="handleSearch(this.value)">
+    <input class="search-input" type="text" placeholder="Search report... (&#8984;K)" id="searchInput" oninput="handleSearch(this.value)">
   </div>
   <nav class="sidebar-nav">
     <a class="nav-link active" href="#tldr" onclick="activateNav(this)">
-      <span class="nav-icon"></span>
+      <span class="nav-icon">&#9889;</span>
       <span class="nav-label">Executive Summary</span>
     </a>
-    <a class="nav-link" href="#decisions-asks" onclick="activateNav(this)">
-      <span class="nav-icon"></span>
-      <span class="nav-label">Today's Decisions</span>
-      <span class="nav-count red">4</span>
-    </a>
     <a class="nav-link" href="#critical" onclick="activateNav(this)">
-      <span class="nav-icon"></span>
+      <span class="nav-icon">&#128308;</span>
       <span class="nav-label">Critical Risks</span>
-      <span class="nav-count red">8</span>
+      <span class="nav-count red">7</span>
     </a>
     <a class="nav-link" href="#followups" onclick="activateNav(this)">
-      <span class="nav-icon"></span>
-      <span class="nav-label">Open Follow-Ups</span>
-      <span class="nav-count yellow">3</span>
+      <span class="nav-icon">&#128312;</span>
+      <span class="nav-label">Follow-Ups &amp; Open</span>
+      <span class="nav-count yellow">15</span>
     </a>
     <a class="nav-link" href="#completed" onclick="activateNav(this)">
-      <span class="nav-icon"></span>
-      <span class="nav-label">Wins This Week</span>
-      <span class="nav-count green">78</span>
+      <span class="nav-icon">&#128994;</span>
+      <span class="nav-label">Completed This Week</span>
+      <span class="nav-count green">20</span>
     </a>
     <hr class="sidebar-divider">
     <a class="nav-link" href="#decisions" onclick="activateNav(this)">
-      <span class="nav-icon"></span>
-      <span class="nav-label">Decisions Needed</span>
+      <span class="nav-icon">&#128203;</span>
+      <span class="nav-label">Key Decisions</span>
     </a>
     <a class="nav-link" href="#watchlist" onclick="activateNav(this)">
-      <span class="nav-icon"></span>
+      <span class="nav-icon">&#9888;&#65039;</span>
       <span class="nav-label">Watch List</span>
     </a>
     <a class="nav-link" href="#intake" onclick="activateNav(this)">
-      <span class="nav-icon"></span>
+      <span class="nav-icon">&#128229;</span>
       <span class="nav-label">New Intake</span>
-      <span class="nav-count gray">7</span>
+      <span class="nav-count gray">8</span>
     </a>
     <hr class="sidebar-divider">
-    <a class="nav-link" href="#email" onclick="activateNav(this)">
-      <span class="nav-icon"></span>
-      <span class="nav-label">Inbox Decisions</span>
-    </a>
     <a class="nav-link" href="#trends" onclick="activateNav(this)">
-      <span class="nav-icon"></span>
+      <span class="nav-icon">&#127758;</span>
       <span class="nav-label">Trends &amp; Strategy</span>
     </a>
   </nav>
 </aside>
 
-<!-- ============================================================
-     CONTENT WRAP
-     ============================================================ -->
+<!-- CONTENT WRAP -->
 <div class="content-wrap" id="contentWrap">
 
   <!-- EXEC BAND -->
   <section class="exec-band" id="top">
-    <div class="exec-eyebrow">TPH Dallas Marketing &nbsp;·&nbsp; Tuesday Morning Leadership Meeting</div>
-    <div class="exec-title">Weekly Leadership Prep<br>Mar 31, 2026</div>
-    <div class="exec-sub">Covering March 24–30 &nbsp;·&nbsp; 5 meeting notes &nbsp;·&nbsp; 185 Asana tasks reviewed &nbsp;·&nbsp; Outlook + live social signal</div>
+    <div class="exec-eyebrow">TPH Dallas Marketing &nbsp;&middot;&nbsp; Tuesday Morning Leadership Meeting</div>
+    <div class="exec-title">Weekly Leadership Prep<br>Apr 7, 2026</div>
+    <div class="exec-sub">Covering March 31 &ndash; April 6 &nbsp;&middot;&nbsp; 5 meeting notes &nbsp;&middot;&nbsp; 185+ Asana tasks reviewed &nbsp;&middot;&nbsp; Live social signal</div>
 
     <div class="stat-row">
       <div class="stat-block s-red">
-        <div class="stat-num red">8</div>
-        <div class="stat-label">At Risk</div>
+        <div class="stat-num red">7</div>
+        <div class="stat-label">Critical</div>
       </div>
       <div class="stat-block s-yellow">
-        <div class="stat-num yellow">3</div>
-        <div class="stat-label">Awaiting Follow-Up</div>
+        <div class="stat-num yellow">15</div>
+        <div class="stat-label">Open / Follow-Up</div>
       </div>
       <div class="stat-block s-green">
-        <div class="stat-num green">78</div>
-        <div class="stat-label">Shipped</div>
+        <div class="stat-num green">20</div>
+        <div class="stat-label">Completed</div>
       </div>
       <div class="stat-block s-orange">
-        <div class="stat-num orange">5</div>
-        <div class="stat-label">Not Logged</div>
+        <div class="stat-num orange">7</div>
+        <div class="stat-label">Overdue</div>
       </div>
       <div class="stat-block s-blue">
-        <div class="stat-num blue">7</div>
-        <div class="stat-label">New Requests</div>
+        <div class="stat-num blue">8</div>
+        <div class="stat-label">New Intake</div>
       </div>
     </div>
 
-    <div class="countdown-chip">
-      <div class="countdown-pulse"></div>
-      <span class="countdown-text">Resurrection Sunday &nbsp;·&nbsp; April 5 &nbsp;·&nbsp; 5 Days Away</span>
-    </div>
-    <div style="margin-top:20px;font-size:12px;color:var(--cream-muted);letter-spacing:0.03em;border-left:2px solid var(--orange);padding:8px 14px;background:rgba(255,90,0,0.05);line-height:1.6;">
-      <strong style="color:var(--cream);font-family:var(--font-heading);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;">Today's Focus</strong><span style="margin:0 8px;color:var(--border-strong);">|</span>Resolve Resurrection Sunday blockers, confirm ownership gaps, and clear open decisions before end of day.
+    <div style="font-size:12px;color:var(--cream-muted);letter-spacing:0.03em;border-left:2px solid var(--orange);padding:8px 14px;background:rgba(255,90,0,0.05);line-height:1.6;">
+      <strong style="color:var(--cream);font-family:var(--font-heading);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;">Today's Focus</strong><span style="margin:0 8px;color:var(--border-strong);">|</span>Resolve overdue items, triage Dexter's 49-task backlog, and confirm pod-based creative workflow rollout in Asana.
     </div>
   </section>
 
   <!-- SECTIONS -->
   <div class="sections-container">
 
-    <!-- TLDR -->
+    <!-- ====== TLDR ====== -->
     <section class="zone-section zone-orange" id="tldr">
       <div class="section-head" onclick="toggleSection(this)">
         <div class="section-head-left">
-          <span class="section-icon"></span>
-          <span class="section-title">TLDR — Executive Summary</span>
+          <span class="section-icon">&#9889;</span>
+          <span class="section-title">TLDR &mdash; Executive Summary</span>
         </div>
-        <span class="collapse-icon"></span>
+        <span class="collapse-icon">&#9660;</span>
       </div>
       <div class="section-body">
         <div class="callout-list">
-          <div class="callout c-urgent"><strong>Leadership intervention needed this morning</strong> to recover overdue Resurrection Sunday deliverables — Social + Email Templates 12 days late (Jalisa OOO), Bulletin Flyers 4 days late, Creative #4 missed yesterday. 5 days out. Requires escalation and a recovery plan confirmed in this meeting.</div>
-          <div class="callout c-win"><strong>78 tasks shipped this week</strong> — Meta ads (4 campaigns), THS Pop-Up Plan, Holy Week Carousel, Community Groups Winter Session, Eric's Handbook, Destiny World Phase 1. Strong execution week against a compressed schedule.</div>
-          <div class="callout c-warn"><strong>Paid media attribution may be compromised</strong> heading into Resurrection Sunday. Meta flagged a tracking/data-sharing issue on 3/28. Brittney D. to confirm current impact on paid campaigns today.</div>
-          <div class="callout c-info"><strong>Today's Burrell meeting (10:30 AM) is EDA only.</strong> Scope: demographic analysis results (household income, age, gender). Paid media discussion remains unresolved and needs a new meeting date. Meta vs. TikTok split is confirmed — ensure everyone in the room is aligned.</div>
-          <div class="callout c-urgent"><strong>Meeting asks:</strong> Confirm recovery plan for overdue Resurrection Sunday deliverables. Confirm Meta tracking issue status and paid media impact. Set next Burrell paid media conversation date. Confirm intake path for Resurrection Sunday postcard request.</div>
+          <div class="callout c-urgent"><strong>Most urgent:</strong> $50K Good Soil vendor liability needs Bishop-level escalation &mdash; Jaylen Bledsoe owns fact-finding.</div>
+          <div class="callout c-win"><strong>Execution momentum:</strong> 20 tasks completed this week vs. 15 open follow-ups &mdash; strong velocity.</div>
+          <div class="callout c-warn"><strong>Overdue triage needed:</strong> 7 items overdue (Pre-Service Bumper, Landing Pages, TPH 101, CMHH Campaign, Evergreen Photo, Receipt Update, 30 for 30 Testimony). All have owners assigned.</div>
+          <div class="callout c-info"><strong>Creative leadership:</strong> Shauntel Barron's Creative Director role formalization pending &mdash; schedule evaluation conversation to remove "Interim" designation.</div>
+          <div class="callout c-info"><strong>This week's load:</strong> 15 Kanban tasks due Apr 7&ndash;11. Heavy execution week for creative and comms teams.</div>
+          <div class="callout c-info"><strong>Strategic alignment:</strong> Dallas Arts Month + Spring renewal themes perfectly aligned with post-Easter momentum. Content series opportunity: creative expression as worship.</div>
+          <div class="callout c-win"><strong>Process win:</strong> Pod-based creative workflow formalized &mdash; 8-stage lifecycle now live in Asana (Intake &rarr; Routing &rarr; Strategy &rarr; Creative Direction &rarr; Production &rarr; QA &rarr; Final Review).</div>
         </div>
       </div>
     </section>
 
-    <!-- TODAY'S DECISIONS / ASKS -->
-    <section class="zone-section zone-red" id="decisions-asks">
-      <div class="section-head" onclick="toggleSection(this)">
-        <div class="section-head-left">
-          <span class="section-icon"></span>
-          <span class="section-title">Today's Decisions / Asks</span>
-          <span class="section-badge red">4 items</span>
-        </div>
-        <span class="collapse-icon"></span>
-      </div>
-      <div class="section-body">
-        <div class="callout-list">
-          <div class="callout c-urgent"><strong>Resurrection Sunday deliverables — confirm coverage owner.</strong> Jalisa is OOO with Social + Email Templates 12 days overdue. Who is picking these up? What is the revised delivery commitment? Decision needed before this meeting ends.</div>
-          <div class="callout c-warn"><strong>Meta tracking — confirm Brittney's status update.</strong> Attribution may be compromised on the highest-spend weekend of the year. Brittney D. to report current impact in this meeting. If she cannot confirm, escalate before paid media runs further.</div>
-          <div class="callout c-warn"><strong>Burrell paid media — confirm who schedules and by when.</strong> EDA meeting covers demographics only. Paid media conversation is unscheduled with a missed April 1 go-live. Dexter to confirm a new date is set today.</div>
-          <div class="callout c-info"><strong>Resurrection Sunday postcard — confirm intake path.</strong> Request from Meredith C. Marte via Kaylin (3/30). Kaylin to confirm: is this already in the pipeline or does it need formal intake before anyone starts work?</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CRITICAL -->
+    <!-- ====== CRITICAL ====== -->
     <section class="zone-section zone-red" id="critical">
       <div class="section-head" onclick="toggleSection(this)">
         <div class="section-head-left">
-          <span class="section-icon"></span>
+          <span class="section-icon">&#128308;</span>
           <span class="section-title">Critical Risks / Immediate Actions</span>
-          <span class="section-badge red">8 at risk</span>
-          <span class="section-badge yellow" style="margin-left:4px;">2 due today</span>
+          <span class="section-badge red">7 at risk</span>
+          <span class="section-badge yellow" style="margin-left:4px;">7 overdue</span>
         </div>
-        <span class="collapse-icon"></span>
+        <span class="collapse-icon">&#9660;</span>
       </div>
       <div class="section-body">
 
-        <div style="padding:16px 28px 14px;border-bottom:1px solid var(--border);background:rgba(229,57,53,0.06);">
-          <div style="font-family:var(--font-heading);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:10px;">Primary Risk Clusters</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div style="font-size:12px;color:var(--cream-muted);line-height:1.5;padding:8px 12px;background:rgba(229,57,53,0.08);border-left:2px solid var(--red);"><strong style="color:var(--cream);">Digital Comms Behind</strong> — Social templates, email templates, and announcement email all overdue.</div>
-            <div style="font-size:12px;color:var(--cream-muted);line-height:1.5;padding:8px 12px;background:rgba(229,57,53,0.08);border-left:2px solid var(--red);"><strong style="color:var(--cream);">Web/Content Behind</strong> — Microsite content updates remain open with 5 days to go.</div>
-            <div style="font-size:12px;color:var(--cream-muted);line-height:1.5;padding:8px 12px;background:rgba(229,57,53,0.08);border-left:2px solid var(--red);"><strong style="color:var(--cream);">Onsite Creative Compressed</strong> — Bulletin flyers and Desk/TV creative slipped. Chris Williams OOO 3/28.</div>
-            <div style="font-size:12px;color:var(--cream-muted);line-height:1.5;padding:8px 12px;background:rgba(249,168,37,0.08);border-left:2px solid var(--yellow);"><strong style="color:var(--cream);">Attribution Risk</strong> — Meta tracking/pixel issue unresolved. Paid media running into Resurrection Sunday.</div>
+        <div class="task-group-label">Overdue Items &mdash; Require Immediate Triage</div>
+
+        <div class="workflow-step">
+          <span class="raci-chip chip-red">Escalate</span>
+          <div class="step-body">
+            <div class="step-name">$50K Good Soil Vendor Liability</div>
+            <div class="step-meta">
+              <span>Bishop-level escalation required</span>
+              <span>Jaylen Bledsoe meeting with Jamel for fact-finding</span>
+              <span class="tag-untracked">NOT IN ASANA</span>
+            </div>
+            <div class="step-note">Systemic vendor liability pattern (Good Soil, car company, Rev). Bishop-level escalation is only remaining path.</div>
           </div>
         </div>
 
-        <div class="task-group-label">Resurrection Sunday Pipeline — 5 Days Out · Kanban Overdue</div>
-
         <div class="workflow-step">
-          <span class="raci-chip chip-red">12 days</span>
+          <span class="raci-chip chip-red">5 days</span>
           <div class="step-body">
-            <div class="step-name"><a href="https://app.asana.com/0/1211319741564015/1213544099769587" target="_blank">Social Templates</a></div>
+            <div class="step-name"><a href="https://app.asana.com/0/1208690937362856/1213532348316791" target="_blank">Pre Service Bumper Animation</a></div>
             <div class="step-meta">
-              <span> Jalisa Frankz-Mckensie</span>
-              <span> Due 3/19</span>
+              <span>Kaylin Harris</span>
+              <span>Due Apr 2</span>
               <span class="tag-overdue">OVERDUE</span>
-              <span> Kanban</span>
+              <span>Intake</span>
             </div>
           </div>
         </div>
 
         <div class="workflow-step">
-          <span class="raci-chip chip-red">12 days</span>
+          <span class="raci-chip chip-red">4 days</span>
           <div class="step-body">
-            <div class="step-name"><a href="https://app.asana.com/0/1211319741564015/1213544099769583" target="_blank">Email Templates</a></div>
+            <div class="step-name"><a href="https://app.asana.com/0/1208690937362856/1213548523478913" target="_blank">Paid Media: TPH Paid Media Landing Pages</a></div>
             <div class="step-meta">
-              <span> Jalisa Frankz-Mckensie</span>
-              <span> Due 3/19</span>
+              <span>Kaylin Harris</span>
+              <span>Due Apr 3</span>
               <span class="tag-overdue">OVERDUE</span>
-              <span> Kanban</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="workflow-step">
-          <span class="raci-chip chip-red">7 days</span>
-          <div class="step-body">
-            <div class="step-name"><a href="https://app.asana.com/0/1211319741564015/1213607606079532" target="_blank">Email #1 - Announcement Email</a></div>
-            <div class="step-meta">
-              <span> Krayton Garlon</span>
-              <span> Due 3/24</span>
-              <span class="tag-overdue">OVERDUE</span>
-              <span> Kanban</span>
+              <span>Intake</span>
             </div>
           </div>
         </div>
@@ -853,12 +707,25 @@ section[id] { scroll-margin-top: calc(var(--topbar-height) + 16px); }
         <div class="workflow-step">
           <span class="raci-chip chip-red">6 days</span>
           <div class="step-body">
-            <div class="step-name"><a href="https://app.asana.com/0/1211319741564015/1213562655836977" target="_blank">Microsite Content Updates</a></div>
+            <div class="step-name"><a href="https://app.asana.com/0/1208690937362856/1213223759468531" target="_blank">TPH 101 Presentation Recording</a></div>
             <div class="step-meta">
-              <span> Shauntel Barron</span>
-              <span> Due 3/25</span>
+              <span>Eric Parker</span>
+              <span>Due Apr 1</span>
               <span class="tag-overdue">OVERDUE</span>
-              <span> Kanban</span>
+              <span>Intake</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <span class="raci-chip chip-red">7 days</span>
+          <div class="step-body">
+            <div class="step-name"><a href="https://app.asana.com/0/1208690937362856/1213248980925008" target="_blank">CMHH Worship Your Way Campaign</a></div>
+            <div class="step-meta">
+              <span>Eric Parker</span>
+              <span>Due Mar 31</span>
+              <span class="tag-overdue">OVERDUE</span>
+              <span>Intake</span>
             </div>
           </div>
         </div>
@@ -866,275 +733,347 @@ section[id] { scroll-margin-top: calc(var(--topbar-height) + 16px); }
         <div class="workflow-step">
           <span class="raci-chip chip-red">4 days</span>
           <div class="step-body">
-            <div class="step-name"><a href="https://app.asana.com/0/1211319741564015/1213682740339436" target="_blank">Resurrection '26 – Church Bulletin Flyers</a></div>
+            <div class="step-name"><a href="https://app.asana.com/0/1211319741564015/1213555664408635" target="_blank">Evergreen Photo Op</a></div>
             <div class="step-meta">
-              <span> Tomorrow CRTV</span>
-              <span> Due 3/27</span>
+              <span>Shauntel Barron</span>
+              <span>Due Apr 3</span>
               <span class="tag-overdue">OVERDUE</span>
-              <span> Kanban</span>
+              <span>Kanban</span>
             </div>
-          </div>
-        </div>
-
-        <div class="workflow-step">
-          <span class="raci-chip chip-red">4 days</span>
-          <div class="step-body">
-            <div class="step-name"><a href="https://app.asana.com/0/1211319741564015/1213066620649479" target="_blank">The House News Prep | 03.29.26</a></div>
-            <div class="step-meta">
-              <span> Cheyenne Gray</span>
-              <span> Due 3/27</span>
-              <span class="tag-overdue">OVERDUE</span>
-              <span> Intake + Kanban</span>
-            </div>
-            <div class="step-note">Flagged in 3/26 meeting as "due TODAY (3/26)." Still incomplete 5 days later.</div>
           </div>
         </div>
 
         <div class="workflow-step">
           <span class="raci-chip chip-red">1 day</span>
           <div class="step-body">
-            <div class="step-name"><a href="https://app.asana.com/0/1211319741564015/1213682740339425" target="_blank">Creative #4 | Resurrection Sunday | Connect &amp; Atrium [Desk &amp; TVs]</a></div>
+            <div class="step-name"><a href="https://app.asana.com/0/1211319741564015/1213442612687885" target="_blank">Contact Center Donation Receipt Letter Update</a></div>
             <div class="step-meta">
-              <span> Chris Williams</span>
-              <span> Due 3/30</span>
+              <span>Chris Williams</span>
+              <span>Due Apr 6</span>
               <span class="tag-overdue">OVERDUE</span>
-              <span> Kanban</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="task-group-label">Due TODAY (3/31)</div>
-
-        <div class="workflow-step">
-          <span class="raci-chip chip-yellow">Today</span>
-          <div class="step-body">
-            <div class="step-name"><a href="https://app.asana.com/0/1211319741564015/1213682740339445" target="_blank">Creative #7 | Resurrection Sunday | Worship Video</a></div>
-            <div class="step-meta">
-              <span> Chris Williams</span>
-              <span> Due 3/31</span>
-              <span> Kanban</span>
+              <span>Kanban</span>
             </div>
           </div>
         </div>
 
         <div class="workflow-step">
-          <span class="raci-chip chip-yellow">Today</span>
+          <span class="raci-chip chip-red">5 days</span>
           <div class="step-body">
-            <div class="step-name"><a href="https://app.asana.com/0/1211319741564015/1213607606079552" target="_blank">Email #2 – Programming Email</a></div>
+            <div class="step-name"><a href="https://app.asana.com/0/1211319741564015/1213438059730138" target="_blank">30 for 30: Building the House Testimony Call</a></div>
             <div class="step-meta">
-              <span> Krayton Garlon</span>
-              <span> Due 3/31</span>
-              <span> Kanban</span>
+              <span>Nialah Baker</span>
+              <span>Due Apr 2</span>
+              <span class="tag-overdue">OVERDUE</span>
+              <span>Kanban</span>
             </div>
           </div>
         </div>
+
+        <div class="task-group-label">Additional Critical Items</div>
+
         <div class="workflow-step">
           <span class="raci-chip chip-orange">Alert</span>
           <div class="step-body">
-            <div class="step-name">Meta Pixel / Tracking Issue</div>
+            <div class="step-name">Legacy &amp; Lyft Documentary Contractor Selection</div>
             <div class="step-meta">
-              <span> Meta for Business</span>
-              <span> Email: 3/28</span>
-              <span class="tag-untracked"> NOT IN ASANA</span>
+              <span>Griffith ($10.5K&ndash;$27.5K/episode)</span>
+              <span>Marcus Hall may handle MGFX internally</span>
+              <span class="tag-untracked">NOT IN ASANA</span>
             </div>
-            <div class="step-note">Meta flagged a tracking/data-sharing issue on 3/28. Confirm current impact on paid campaigns today. Owner: Brittney D. Status required today.</div>
+            <div class="step-note">Meeting Notes 04-02. Not a revenue play &mdash; permanent institutional storytelling fixture. Awaiting final approval.</div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <span class="raci-chip chip-orange">Alert</span>
+          <div class="step-body">
+            <div class="step-name">Formalize Shauntel Barron's Creative Director Title</div>
+            <div class="step-meta">
+              <span>Remove "Interim" designation</span>
+              <span>Schedule evaluation conversation</span>
+              <span class="tag-untracked">NOT IN ASANA</span>
+            </div>
+            <div class="step-note">Meeting Notes 04-01. Manager confirmed removal pending formal evaluation and expectations alignment.</div>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- FOLLOW-UPS -->
+    <!-- ====== FOLLOW-UPS ====== -->
     <section class="zone-section zone-yellow" id="followups">
       <div class="section-head" onclick="toggleSection(this)">
         <div class="section-head-left">
-          <span class="section-icon"></span>
-          <span class="section-title">Open Follow-Ups Requiring Owner Confirmation</span>
-          <span class="section-badge yellow">3 priority items</span>
+          <span class="section-icon">&#128312;</span>
+          <span class="section-title">Follow-Ups &amp; Open Items</span>
+          <span class="section-badge yellow">15 items</span>
         </div>
-        <span class="collapse-icon"></span>
+        <span class="collapse-icon">&#9660;</span>
       </div>
       <div class="section-body">
 
-        <div class="task-group-label">Burrell / Fitzco — TODAY</div>
+        <div class="task-group-label">Meeting Note Action Items &mdash; Not In Asana</div>
 
         <div class="workflow-step">
-          <span class="raci-chip chip-blue">Today</span>
+          <span class="raci-chip chip-gray">Dexter</span>
           <div class="step-body">
-            <div class="step-name">Burrell EDA Results Review — 10:30 AM Zoom</div>
-            <div class="step-meta">
-              <span>Michael Whitaker</span>
-              <span>Scope: demographic analysis only (household income, age, gender). Paid media discussion is not covered in this meeting.</span>
-            </div>
+            <div class="step-name">Speak with Kevin (IT) re: HubDB backend access for microsite</div>
+            <div class="step-meta"><span>Meeting Notes 04-01</span><span class="tag-untracked">NOT IN ASANA</span></div>
           </div>
         </div>
 
         <div class="workflow-step">
           <span class="raci-chip chip-gray">Dexter</span>
           <div class="step-body">
-            <div class="step-name">Set new Burrell paid media meeting date</div>
-            <div class="step-meta">
-              <span>Go-live target was April 1. New meeting date must be set today.</span>
-            </div>
+            <div class="step-name">Graphic Designer Hiring: Second-round panel interviews</div>
+            <div class="step-meta"><span>Owners: Dexter / Shauntel</span><span>Meeting Notes 04-01</span><span class="tag-untracked">NOT IN ASANA</span></div>
           </div>
         </div>
 
-        <div class="task-group-label">Other Open Items</div>
+        <div class="workflow-step">
+          <span class="raci-chip chip-yellow">EOW</span>
+          <div class="step-body">
+            <div class="step-name">$500K Contractor/Vendor Budget Forecast</div>
+            <div class="step-meta"><span>Owner: Shauntel</span><span>Due: End of Week</span><span>Meeting Notes 04-01</span><span class="tag-untracked">NOT IN ASANA</span></div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <span class="raci-chip chip-gray">Shauntel</span>
+          <div class="step-body">
+            <div class="step-name">Equipment Management System</div>
+            <div class="step-meta"><span>Consolidate with Ariane/Ronnie</span><span>Meeting Notes 04-01</span><span class="tag-untracked">NOT IN ASANA</span></div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <span class="raci-chip chip-gray">Shauntel</span>
+          <div class="step-body">
+            <div class="step-name">Video Production Guidelines</div>
+            <div class="step-meta"><span>On-set standards</span><span>Meeting Notes 04-01</span><span class="tag-untracked">NOT IN ASANA</span></div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <span class="raci-chip chip-gray">Dexter</span>
+          <div class="step-body">
+            <div class="step-name">Coursera Seat Access &amp; Team Training</div>
+            <div class="step-meta"><span>Confirm with HR</span><span>Meeting Notes 04-01</span><span class="tag-untracked">NOT IN ASANA</span></div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <span class="raci-chip chip-gray">Dexter</span>
+          <div class="step-body">
+            <div class="step-name">Vibe Coding Learning Session</div>
+            <div class="step-meta"><span>Owners: Dexter / Shauntel</span><span>Meeting Notes 04-01</span><span class="tag-untracked">NOT IN ASANA</span></div>
+          </div>
+        </div>
+
+        <div class="task-group-label">Active Asana Follow-Ups</div>
+
+        <div class="workflow-step">
+          <span class="raci-chip chip-blue">Apr 26</span>
+          <div class="step-body">
+            <div class="step-name"><a href="https://app.asana.com/0/1208690937362856/1213918681388862" target="_blank">Women's Ministry Rebrand ("Hey You")</a></div>
+            <div class="step-meta"><span>Jasmine Johnson</span><span>Due: Apr 26</span></div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <span class="raci-chip chip-blue">Apr 10</span>
+          <div class="step-body">
+            <div class="step-name"><a href="https://app.asana.com/0/1211319741564015/1213887048788900" target="_blank">Creative Deliverable Strategy Doc</a></div>
+            <div class="step-meta"><span>Jasmine Johnson</span><span>Due: Apr 10</span></div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <span class="raci-chip chip-blue">Apr 10</span>
+          <div class="step-body">
+            <div class="step-name"><a href="https://app.asana.com/0/1208690937362856/1213533401368745" target="_blank">Paid Media: Digital Billboard Refresh</a></div>
+            <div class="step-meta"><span>Kaylin Harris</span><span>Due: Apr 10</span></div>
+          </div>
+        </div>
+
+        <div class="task-group-label">Process / Ongoing</div>
+
+        <div class="workflow-step">
+          <span class="raci-chip chip-gray">Jasmine</span>
+          <div class="step-body">
+            <div class="step-name">House News Monthly Batch Model</div>
+            <div class="step-meta"><span>Restructure copywriter board with PMs</span><span>Meeting Notes 04-02</span></div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <span class="raci-chip chip-gray">Jasmine</span>
+          <div class="step-body">
+            <div class="step-name">Mother's Day QR Code Bookmark Fix</div>
+            <div class="step-meta"><span>Bitly redirect</span><span>Meeting Notes 04-02</span></div>
+          </div>
+        </div>
 
         <div class="workflow-step">
           <span class="raci-chip chip-gray">Monitor</span>
           <div class="step-body">
-            <div class="step-name">Jorge Hernandez — YouTube Viewership Issue</div>
-            <div class="step-meta">
-              <span>Email: 3/29</span>
-              <span>Confirm whether the issue has been escalated and whether resolution is in progress.</span>
-            </div>
+            <div class="step-name">Communications Framework</div>
+            <div class="step-meta"><span>Agency presented updated strategy buckets; execution plan pending</span><span>Meeting Notes 04-02</span></div>
           </div>
         </div>
+
+        <div class="workflow-step">
+          <span class="raci-chip chip-gray">Monitor</span>
+          <div class="step-body">
+            <div class="step-name">TPH Rebrand Implementation</div>
+            <div class="step-meta"><span>Jalisa transitioned out; Shauntel sourcing new designers</span><span>Meeting Notes 04-01</span></div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <span class="raci-chip chip-gray">Dexter</span>
+          <div class="step-body">
+            <div class="step-name">Internal Marketing Playbook (HubSpot)</div>
+            <div class="step-meta"><span>Owners: Dexter (building); Shauntel (creative section)</span><span>Meeting Notes 04-01</span></div>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- COMPLETED -->
+    <!-- ====== COMPLETED ====== -->
     <section class="zone-section zone-green" id="completed">
       <div class="section-head" onclick="toggleSection(this)">
         <div class="section-head-left">
-          <span class="section-icon"></span>
-          <span class="section-title">Wins This Week</span>
-          <span class="section-badge green">78 tasks shipped</span>
+          <span class="section-icon">&#128994;</span>
+          <span class="section-title">Completed This Week</span>
+          <span class="section-badge green">20 tasks shipped</span>
         </div>
-        <span class="collapse-icon"></span>
+        <span class="collapse-icon">&#9660;</span>
       </div>
       <div class="section-body">
-
         <div class="callout-list" style="padding:16px 20px;">
-          <div class="callout c-win"><strong>Paid Media Launched</strong> — 4 Meta campaigns shipped on 3/30 (Brittney DeVine-Daugherty): Sales Prospecting, Brand Awareness Retargeting, Brand Awareness Prospecting, Resurrection Sunday.</div>
-          <div class="callout c-win"><strong>Resurrection Sunday Creative Advanced</strong> — Holy Week Carousel and Countdown Visuals completed by Chris Williams (3/27).</div>
-          <div class="callout c-win"><strong>Retail Planning Moved Forward</strong> — THS Streetwear Pop-Up Plan shipped (Larissa Piao Jakes, 3/30). Generational Garden Video completed (Britny Horton, 3/28).</div>
-          <div class="callout c-win"><strong>Ministry Projects Cleared</strong> — Community Groups 2026 Winter Session, Community Group Leader Handbook, Destiny World Academy Phase 1, and Pop Up Food Pantry all completed.</div>
+          <div class="callout c-win"><strong>From Intake (12):</strong> Resurrection Sunday (Jasmine, Apr 6), Stage Announcements Talking Points (Kaylin, Apr 6), Updated PHAME THEME (Cheyenne, Apr 6), THS Merch &amp; Retail Strategy (Jasmine, Apr 6), Pre-Service Reimagining (Jasmine, Apr 3), Outreach Pop Up Banner (Jalisa, Apr 1), B-Roll eChurch Mixers (Kaylin, Apr 1), CMHH Calendar Resizing (Kaylin, Apr 1), BJ Social Media Bio Update (Kaylin, Mar 31), House News Prep (Cheyenne, Mar 31), Outreach Step &amp; Repeat (Jalisa, Mar 27).</div>
+          <div class="callout c-win"><strong>From Kanban (8):</strong> Meta pulled from TOFu/MOFu, UGC Testing, and BOFu/MOFu budgets (Brittney D., Apr 6), Promotional Strategy Connect Week Q2 (Jasmine, Apr 6), Align on Deliverables &amp; Bandwidth (Kaylin, Apr 3), PHAME THEME Main Creative (Apr 3), Curate Key Campaign Messages (Nialah, Apr 2).</div>
         </div>
         <div class="workflow-step" style="padding:12px 28px;">
-          <div style="font-size:11px;color:var(--cream-muted);font-style:italic;">+ 66 additional tasks shipped on Kanban this week. Full list in <a href="https://app.asana.com/0/1211319741564015" target="_blank" style="color:var(--blue);">Asana Kanban Board</a>.</div>
+          <div style="font-size:11px;color:var(--cream-muted);font-style:italic;">+ additional tasks shipped on Kanban this week. Full list in <a href="https://app.asana.com/0/1211319741564015" target="_blank" style="color:var(--blue);">Asana Kanban Board</a>.</div>
         </div>
-
       </div>
     </section>
 
-    <!-- KEY DECISIONS -->
+    <!-- ====== KEY DECISIONS ====== -->
     <section class="zone-section zone-gray" id="decisions">
       <div class="section-head" onclick="toggleSection(this)">
         <div class="section-head-left">
-          <span class="section-icon"></span>
-          <span class="section-title">Decisions Needed This Week</span>
-          <span class="section-badge gray">3 shown · 12 open</span>
+          <span class="section-icon">&#128203;</span>
+          <span class="section-title">Key Decisions &amp; Context</span>
+          <span class="section-badge gray">7 decisions</span>
         </div>
-        <span class="collapse-icon"></span>
+        <span class="collapse-icon">&#9660;</span>
       </div>
       <div class="section-body">
-        <div style="padding:8px 24px 6px;font-size:11px;color:var(--cream-muted);border-bottom:1px solid var(--border);background:rgba(249,245,244,0.02);">Showing top 3 of 12 open decisions. Full list in <a href="https://app.asana.com/0/1208690937362856" target="_blank" style="color:var(--blue);">Asana Intake Board</a>.</div>
         <table class="data-table">
           <thead>
             <tr>
               <th>Decision</th>
-              <th>Owner</th>
-              <th>Needed By</th>
               <th>Status</th>
+              <th>Notes</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>Confirm discovery worksheet Notion comments addressed by 3/23 EOD</td><td>Kaylin</td><td>Today</td><td><span class="open-circle"></span></td></tr>
-            <tr><td>Assign quarterly channel allocation process owner + timeline</td><td>Kaylin</td><td>This week</td><td><span class="open-circle"></span></td></tr>
-            <tr><td>Set new Burrell paid media meeting date</td><td>Dexter</td><td>Today</td><td><span class="open-circle"></span></td></tr>
+            <tr><td>Pod-Based Creative Workflow Formalized</td><td style="color:#A5D6A7;">&#10003; Confirmed</td><td>8-stage lifecycle: Intake &rarr; Routing &rarr; Strategy Brief &rarr; CD &rarr; Production &rarr; QA &rarr; Final Review</td></tr>
+            <tr><td>Shauntel Barron: Creative Director Role</td><td style="color:#FFD54F;">&#9203; Pending</td><td>Remove "Interim" designation. Evaluation conversation TBD.</td></tr>
+            <tr><td>House News &rarr; Monthly Batch Model</td><td style="color:#FFD54F;">&#9203; In Progress</td><td>Jasmine and Nigel approval gate. Copywriter board restructured.</td></tr>
+            <tr><td>Pre-Service: Dual Model (eChurch + In-Person)</td><td style="color:#A5D6A7;">&#10003; Confirmed</td><td>Easter implementation successful. Continuing forward.</td></tr>
+            <tr><td>Legacy &amp; Lyft Documentary: Griffith</td><td style="color:#FFD54F;">&#9203; Awaiting Approval</td><td>$10.5K&ndash;$27.5K/ep. Marcus Hall may handle MGFX internally to reduce cost.</td></tr>
+            <tr><td>Connect Week Q2: Video Deferred to Q3</td><td style="color:#A5D6A7;">&#10003; Confirmed</td><td>Graphic/copy deliverables proceed. Q3 planning begins immediately.</td></tr>
+            <tr><td>Good Friday (Apr 10) &mdash; Observed Holiday</td><td style="color:var(--blue);">&#8505; Note</td><td>Marketing team off. Plan for Apr 7&ndash;9 completion targets.</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- WATCH LIST -->
+    <!-- ====== WATCH LIST ====== -->
     <section class="zone-section zone-orange" id="watchlist">
       <div class="section-head" onclick="toggleSection(this)">
         <div class="section-head-left">
-          <span class="section-icon"></span>
+          <span class="section-icon">&#9888;&#65039;</span>
           <span class="section-title">Watch List</span>
         </div>
-        <span class="collapse-icon"></span>
+        <span class="collapse-icon">&#9660;</span>
       </div>
       <div class="section-body">
 
-        <div class="task-group-label">Capacity Risks Today</div>
+        <div class="task-group-label">High Priority Watch Items</div>
 
         <div class="workflow-step">
-          <span class="raci-chip chip-gray">OOO</span>
+          <span class="raci-chip chip-red">Escalate</span>
           <div class="step-body">
-            <div class="step-name">Jalisa Frankz-Mckensie</div>
-            <div class="step-meta"><span style="color:var(--yellow);">Has 2 overdue tasks (Social + Email Templates, both 12 days late)</span></div>
-          </div>
-        </div>
-        <div class="workflow-step">
-          <span class="raci-chip chip-gray">OOO</span>
-          <div class="step-body">
-            <div class="step-name">Britny Horton</div>
-            <div class="step-meta"><span style="color:var(--cream-muted);">Legacy &amp; Lift and Visibility threads active — confirm nothing blocked</span></div>
-          </div>
-        </div>
-        <div class="workflow-step">
-          <span class="raci-chip chip-gray">OOO</span>
-          <div class="step-body">
-            <div class="step-name">Chris Williams</div>
-            <div class="step-meta"><span style="color:var(--yellow);">Multiple Resurrection Sunday deliverables due today. Confirm availability and recovery plan.</span></div>
+            <div class="step-name">$50K Good Soil Vendor Debt</div>
+            <div class="step-meta"><span style="color:var(--yellow);">Systemic vendor liability pattern. Bishop-level escalation only remaining path. Jaylen and Jamel meeting this week.</span></div>
           </div>
         </div>
 
-        <div class="task-group-label">Unscheduled Work Requiring Triage</div>
+        <div class="workflow-step">
+          <span class="raci-chip chip-yellow">Monitor</span>
+          <div class="step-body">
+            <div class="step-name">Resurrection Sunday Video Opener</div>
+            <div class="step-meta"><span>Active revision as of 04-02. Prayer vs. video opener slot unresolved. Confirm final direction before production lockdown.</span></div>
+          </div>
+        </div>
 
         <div class="workflow-step">
-          <span class="raci-chip chip-gray">Triage</span>
+          <span class="raci-chip chip-yellow">Monitor</span>
           <div class="step-body">
-            <div class="step-name"><a href="https://app.asana.com/0/1208690937362856/1213823529686491" target="_blank">B-Roll for April/May/June eChurch Virtual Mixers</a></div>
-            <div class="step-meta"><span> Jasmine Johnson</span></div>
+            <div class="step-name">TPH Rebrand</div>
+            <div class="step-meta"><span style="color:var(--yellow);">No active designer assigned (Jalisa departed; Tomorrow Creative at capacity). Shauntel sourcing candidates. Timeline at risk.</span></div>
           </div>
         </div>
+
         <div class="workflow-step">
-          <span class="raci-chip chip-gray">Triage</span>
+          <span class="raci-chip chip-yellow">Monitor</span>
           <div class="step-body">
-            <div class="step-name"><a href="https://app.asana.com/0/1208690937362856/1213719043940795" target="_blank">Direct Mail Q2</a></div>
-            <div class="step-meta"><span> Jasmine Johnson</span></div>
+            <div class="step-name">Merchandise in Asana</div>
+            <div class="step-meta"><span>Nothing built out yet; beta test started. Jasmine frustrated with process. May need dedicated project board.</span></div>
           </div>
         </div>
+
+        <div class="task-group-label">Operational Debt</div>
+
         <div class="workflow-step">
-          <span class="raci-chip chip-gray">Triage</span>
+          <span class="raci-chip chip-orange">Triage</span>
           <div class="step-body">
-            <div class="step-name"><a href="https://app.asana.com/0/1208690937362856/1213740146735301" target="_blank">FHY Wednesday (NIGHTS OF FIRE) April 15th</a></div>
-            <div class="step-meta"><span> Nialah Baker</span></div>
+            <div class="step-name">9 Meeting Notes Action Items Missing from Asana</div>
+            <div class="step-meta"><span>May need tasks created for proper tracking. Recommend Dexter/Shauntel triage this week.</span></div>
           </div>
         </div>
+
         <div class="workflow-step">
-          <span class="raci-chip chip-gray">Triage</span>
+          <span class="raci-chip chip-orange">Triage</span>
           <div class="step-body">
-            <div class="step-name"><a href="https://app.asana.com/0/1208690937362856/1213198594104749" target="_blank">Photography Department Development</a></div>
-            <div class="step-meta"><span> Cheyenne Gray</span></div>
+            <div class="step-name">Dexter's Asana Backlog</div>
+            <div class="step-meta"><span style="color:var(--yellow);">49 incomplete tasks (many severely overdue from 2025). Recommend focused triage session. Consolidate or close stale items.</span></div>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- INTAKE -->
+    <!-- ====== INTAKE ====== -->
     <section class="zone-section zone-blue" id="intake">
       <div class="section-head" onclick="toggleSection(this)">
         <div class="section-head-left">
-          <span class="section-icon"></span>
+          <span class="section-icon">&#128229;</span>
           <span class="section-title">New Intake Requests This Week</span>
-          <span class="section-badge blue">7 items</span>
+          <span class="section-badge blue">8 items</span>
         </div>
-        <span class="collapse-icon"></span>
+        <span class="collapse-icon">&#9660;</span>
       </div>
       <div class="section-body">
-        <div style="padding:12px 20px;border-bottom:1px solid var(--border);display:flex;gap:12px;flex-wrap:wrap;">
-          <div style="font-size:12px;color:var(--cream-muted);padding:7px 14px;background:var(--red-dim);border-radius:2px;border-left:2px solid var(--red);"><strong style="color:var(--cream);">2 due today</strong></div>
-          <div style="font-size:12px;color:var(--cream-muted);padding:7px 14px;background:var(--yellow-dim);border-radius:2px;border-left:2px solid var(--yellow);"><strong style="color:var(--cream);">3 due this week</strong></div>
-          <div style="font-size:12px;color:var(--cream-muted);padding:7px 14px;background:var(--orange-dim);border-radius:2px;border-left:2px solid var(--orange);"><strong style="color:var(--cream);">2 tied to Resurrection Sunday</strong></div>
+        <div style="padding:12px 20px;border-bottom:1px solid var(--border);font-size:12px;color:var(--cream-muted);line-height:1.6;">
+          Total Q2 intake: 7 active projects + 1 rebrand. Prioritize <strong style="color:var(--cream);">Hey You rebrand (Apr 26)</strong> and <strong style="color:var(--cream);">Direct Mail (Jun 30)</strong> for planning. Others have runway.
         </div>
-        <div style="padding:8px 24px;font-size:11px;color:var(--cream-muted);border-bottom:1px solid var(--border);font-style:italic;">Defer review unless critical items are resolved first.</div>
         <table class="data-table">
           <thead>
             <tr>
@@ -1144,123 +1083,42 @@ section[id] { scroll-margin-top: calc(var(--topbar-height) + 16px); }
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><a href="https://app.asana.com/0/1208690937362856/1213811944571037" target="_blank">TPH Outreach | Pop Up Banner Mockup</a></td>
-              <td>Jalisa Frankz-Mckensie</td>
-              <td><span class="tag-overdue">Today</span></td>
-            </tr>
-            <tr>
-              <td><a href="https://app.asana.com/0/1208690937362856/1213796732004328" target="_blank">Update BJ's Social Media Bio</a></td>
-              <td>Kaylin Harris</td>
-              <td><span class="tag-overdue">Today</span></td>
-            </tr>
-            <tr>
-              <td><a href="https://app.asana.com/0/1208690937362856/1212985349140213" target="_blank">eChurch Virtual Mixers March–April</a></td>
-              <td>Jasmine Johnson</td>
-              <td>Apr 1</td>
-            </tr>
-            <tr>
-              <td><a href="https://app.asana.com/0/1208690937362856/1213631771636466" target="_blank">Pre-Service: Reimagining the Experience</a></td>
-              <td>Jasmine Johnson</td>
-              <td>Apr 3</td>
-            </tr>
-            <tr>
-              <td><a href="https://app.asana.com/0/1208690937362856/1211982665330525" target="_blank">Main Creative: PHAME THEME for 2026</a></td>
-              <td>Maya Jackson</td>
-              <td>Apr 4</td>
-            </tr>
-            <tr>
-              <td><a href="https://app.asana.com/0/1208690937362856/1213432301139632" target="_blank">Resurrection Sunday</a></td>
-              <td>Jasmine Johnson</td>
-              <td>Apr 5</td>
-            </tr>
-            <tr>
-              <td><a href="https://app.asana.com/0/1208690937362856/1213811385716763" target="_blank">Connect Week Skate Night – April 17, 2026</a></td>
-              <td>Jasmine Johnson</td>
-              <td>Apr 6</td>
-            </tr>
+            <tr><td>Hey You Women's Community Brand Transition</td><td>Jasmine Johnson</td><td><span style="color:var(--orange);font-weight:600;">Apr 26</span></td></tr>
+            <tr><td>Community Groups 2026 Spring Session</td><td>Jasmine Johnson</td><td>Jun 6</td></tr>
+            <tr><td>PHSOM Graduation 2026</td><td>Jasmine Johnson</td><td>Jun 18</td></tr>
+            <tr><td>DW Feed the Family Jun 21</td><td>Nialah Baker</td><td>Jun 20</td></tr>
+            <tr><td>Connect Week Q3</td><td>Jasmine Johnson</td><td>Jun 26</td></tr>
+            <tr><td>Direct Mail Q2</td><td>Jasmine Johnson</td><td>Jun 30</td></tr>
+            <tr><td>Community Groups Volunteer Handbook Refresh</td><td>Jasmine Johnson</td><td>Jun 30</td></tr>
+            <tr><td>Partnership Letter Design</td><td>Jasmine Johnson</td><td><span style="color:var(--cream-muted);font-style:italic;">No due date</span></td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- EMAIL HIGHLIGHTS -->
-    <section class="zone-section zone-gray" id="email">
-      <div class="section-head" onclick="toggleSection(this)">
-        <div class="section-head-left">
-          <span class="section-icon"></span>
-          <span class="section-title">Inbox Items Requiring Decision or Follow-Up</span>
-        </div>
-        <span class="collapse-icon"></span>
-      </div>
-      <div class="section-body">
-        <div class="activity-panel">
-          <div class="task-group-label">Requires Action</div>
-          <div class="activity-item">
-            <span class="raci-chip chip-red">Action</span>
-            <div class="activity-body">
-              <div class="activity-subject">Important: Certain events are impacted / data sharing affected</div>
-              <div class="activity-from">Meta for Business · 3/28</div>
-              <div class="activity-note">Pixel/tracking alert heading into Easter paid media push. Brittney D. confirm status today.</div>
-            </div>
-          </div>
-
-          <div class="activity-item">
-            <span class="raci-chip chip-yellow">Confirm</span>
-            <div class="activity-body">
-              <div class="activity-subject">Postcard Request for Resurrection Sunday</div>
-              <div class="activity-from">Meredith C. Marte / Kaylin Harris · 3/30</div>
-              <div class="activity-note">Resurrection Sunday postcard request. Confirm if already in pipeline or new intake needed.</div>
-            </div>
-          </div>
-
-          <div class="activity-item">
-            <span class="raci-chip chip-yellow">Approve</span>
-            <div class="activity-body">
-              <div class="activity-subject">[Approval Required] Cheyenne Gray has requested...</div>
-              <div class="activity-from">Rippling · 3/29</div>
-              <div class="activity-note">Approval unresolved from 3/26 meeting. Action today.</div>
-            </div>
-          </div>
-
-          <div class="task-group-label">Needs Confirmation</div>
-
-          <div class="activity-item">
-            <span class="raci-chip chip-gray">Monitor</span>
-            <div class="activity-body">
-              <div class="activity-subject">Total Viewership: TPHD-Sunday-...</div>
-              <div class="activity-from">Jorge Hernandez · 3/29</div>
-              <div class="activity-note">YouTube viewership issue flagged. Confirm whether issue has been escalated and whether resolution is in progress.</div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- TRENDS -->
+    <!-- ====== TRENDS ====== -->
     <section class="zone-section zone-orange" id="trends">
       <div class="section-head" onclick="toggleSection(this)">
         <div class="section-head-left">
-          <span class="section-icon"></span>
+          <span class="section-icon">&#127758;</span>
           <span class="section-title">Trends &amp; Strategy</span>
         </div>
-        <span class="collapse-icon"></span>
+        <span class="collapse-icon">&#9660;</span>
       </div>
       <div class="section-body">
 
         <div style="padding:16px 20px;border-bottom:1px solid var(--border);">
-          <div style="font-family:var(--font-heading);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;">Strategic Opportunities This Week — Decide Before Meeting Ends</div>
+          <div style="font-family:var(--font-heading);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;">Strategic Opportunities This Week</div>
           <div class="callout-list" style="padding:0;gap:6px;display:flex;flex-direction:column;">
-            <div class="callout c-urgent"><strong>Confirm Fri/Sat publishing plan now.</strong> Countdown content must deploy Tue–Sat. This window closes Sunday. Decision: confirm schedule is locked and assets are ready.</div>
-            <div class="callout c-info"><strong>Use low-lift worship clips from Sunday footage.</strong> 60–90 sec clips — highest engagement format this week. No heavy production needed. Edit and post.</div>
-            <div class="callout c-info"><strong>Good Friday (Apr 3) — "What Easter cost" reflective content.</strong> Plan it today. Brief the team this morning.</div>
-            <div class="callout c-info"><strong>Lock THS pop-up content strategy before Saturday.</strong> One camera operator, not three. Assign now.</div>
+            <div class="callout c-urgent"><strong>Post-Easter momentum window is NOW.</strong> Resurrection energy carries 2&ndash;3 weeks. Lock "new season" content drops this week before it cools.</div>
+            <div class="callout c-info"><strong>Dallas Arts Month content series.</strong> Creative expression as worship. Low-cost, high-alignment content opportunity for all of April.</div>
+            <div class="callout c-info"><strong>"Work as Worship" series.</strong> Texas employment boom (278K jobs, Dallas Fed). Speaks directly to 20&ndash;45 demographic on calling and stewardship.</div>
+            <div class="callout c-info"><strong>Digital wellness parenting series.</strong> Social media liability verdict (Meta/YouTube). TPH can own the "real community over digital isolation" conversation.</div>
           </div>
         </div>
 
         <div id="trendsContextToggle" onclick="toggleTrendsContext()" style="padding:10px 28px;cursor:pointer;user-select:none;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(249,245,244,0.02);transition:background 0.2s ease;">
-          <span style="font-family:var(--font-heading);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--cream-muted);">Supporting Context — Dallas, National &amp; Social Signal</span>
+          <span style="font-family:var(--font-heading);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--cream-muted);">Supporting Context &mdash; Dallas, National, International &amp; Social Signal</span>
           <span id="trendsContextIcon" style="font-size:10px;color:var(--cream-muted);transition:transform 0.2s ease;transform:rotate(-90deg);">&#9660;</span>
         </div>
         <div id="trendsContext" style="height:0;overflow:hidden;transition:height 0.3s ease;">
@@ -1270,20 +1128,38 @@ section[id] { scroll-margin-top: calc(var(--topbar-height) + 16px); }
           <div class="trend-card">
             <div class="trend-category">
               <span class="stage-pill pill-green">Aligned</span>
-              <span style="color:var(--cream-muted);">Community · Outreach</span>
+              <span style="color:var(--cream-muted);">Community &middot; Outreach</span>
             </div>
-            <div class="trend-title">Spring Activation — "Bloom Where You're Planted"</div>
-            <div class="trend-desc">Dexter flagged The Operatum (blooming destination) in 3/24 meeting as a spring photography touchpoint. Dovetails with Resurrection Sunday themes — new life, growth, renewal.</div>
-            <div class="trend-action-bar">Low-cost lifestyle shoot tying spring renewal to faith renewal. Week of April 6+.</div>
+            <div class="trend-title">Dallas Arts Month (All April)</div>
+            <div class="trend-desc">13th annual celebration. TPH can amplify creative community themes and partner with local artists.</div>
+            <div class="trend-action-bar">Content series celebrating creative expression as worship. Tie Easter renewal to artistic renaissance narrative.</div>
           </div>
           <div class="trend-card">
             <div class="trend-category">
               <span class="stage-pill pill-green">Aligned</span>
-              <span style="color:var(--cream-muted);">Community · Outreach</span>
+              <span style="color:var(--cream-muted);">Community</span>
             </div>
-            <div class="trend-title">THS Retail Pop-Up — Dallas Event This Saturday</div>
-            <div class="trend-desc">Debut event drew 600–700 foot traffic. Learnings documented: reduce camera crew, shift-based volunteer model, lighter supply logistics. Next activation: Dallas, this Saturday.</div>
-            <div class="trend-action-bar">Lock content strategy before Saturday. One camera operator, not three.</div>
+            <div class="trend-title">Dallas Blooms at Arboretum</div>
+            <div class="trend-desc">Through Apr 12. Spring renewal festival. Natural metaphor for resurrection/new life themes.</div>
+            <div class="trend-action-bar">Perfect social content backdrop for post-Easter messaging extension.</div>
+          </div>
+          <div class="trend-card">
+            <div class="trend-category">
+              <span class="stage-pill pill-yellow">Worth Exploring</span>
+              <span style="color:var(--cream-muted);">Development</span>
+            </div>
+            <div class="trend-title">Texas Employment Boom</div>
+            <div class="trend-desc">278K jobs expected (Dallas Fed forecast). Speaks into calling, work, stewardship.</div>
+            <div class="trend-action-bar">"Your work is worship" series for 20&ndash;45 demographic.</div>
+          </div>
+          <div class="trend-card">
+            <div class="trend-category">
+              <span class="stage-pill pill-yellow">Worth Exploring</span>
+              <span style="color:var(--cream-muted);">Community</span>
+            </div>
+            <div class="trend-title">FoodieLand at Fair Park</div>
+            <div class="trend-desc">Apr 17&ndash;19, 250+ global vendors. Reflects Dallas multiculturalism.</div>
+            <div class="trend-action-bar">Diversity and belonging messaging. Position TPH as gathering place for all cultures.</div>
           </div>
         </div>
 
@@ -1292,68 +1168,80 @@ section[id] { scroll-margin-top: calc(var(--topbar-height) + 16px); }
           <div class="trend-card">
             <div class="trend-category">
               <span class="stage-pill pill-green">Aligned</span>
-              <span style="color:var(--cream-muted);">Salvation · Community</span>
+              <span style="color:var(--cream-muted);">Outreach &middot; Salvation</span>
             </div>
-            <div class="trend-title">Resurrection Sunday — Peak Engagement Window</div>
-            <div class="trend-desc">Highest-engagement weekend in the Christian calendar. Competitor ministries have been publishing since mid-March. The window to stand out is narrowing. Conversion moment is now.</div>
-            <div class="trend-action-bar">Decision: confirm Fri/Sat publishing plan before meeting ends. Convert digital reach to in-room attendance.</div>
+            <div class="trend-title">U.S.&ndash;Iran Conflict (Day 39+)</div>
+            <div class="trend-desc">Active military operations. People anxious about conflict escalation.</div>
+            <div class="trend-action-bar">Dedicated prayer moments. Messaging around peace and trust in God during uncertainty.</div>
           </div>
           <div class="trend-card">
             <div class="trend-category">
               <span class="stage-pill pill-green">Aligned</span>
-              <span style="color:var(--cream-muted);">Development · Community</span>
+              <span style="color:var(--cream-muted);">Development &middot; Community</span>
             </div>
-            <div class="trend-title">Nostalgia Wave + Intergenerational Storytelling</div>
-            <div class="trend-desc">"FL Baby FL" framing from Pastor Sarah connects to a national nostalgia wave. Shauntel's angle: "Mom, what did you look like in the nineties?" — UGC format, strong for Mother's Day or 30th Anniversary.</div>
-            <div class="trend-action-bar">UGC series for Mother's Day. Real families, generational photos, faith legacy stories.</div>
+            <div class="trend-title">Social Media Liability Verdict</div>
+            <div class="trend-desc">Meta/YouTube landmark ruling on addictive design. Digital wellness conversation opening.</div>
+            <div class="trend-action-bar">Parent/youth series on healthy tech boundaries. Real community over digital isolation.</div>
           </div>
           <div class="trend-card">
             <div class="trend-category">
-              <span class="stage-pill pill-green">Aligned</span>
-              <span style="color:var(--cream-muted);">Outreach · Community</span>
+              <span class="stage-pill pill-yellow">Worth Exploring</span>
+              <span style="color:var(--cream-muted);">Community</span>
             </div>
-            <div class="trend-title">Good Neighbor Day — May 16 (400 Volunteers)</div>
-            <div class="trend-desc">Jaylen flagged 400 volunteers mobilizing. Community group messaging channels multiply reach organically. Omnichannel gap flagged by Shauntel (eChurch, CGs, partnerships not in pre-creative).</div>
-            <div class="trend-action-bar">Assign MSD. Loop eChurch + CGs + partnerships in the pre-creative call this time.</div>
+            <div class="trend-title">NASA Artemis II Moon Mission</div>
+            <div class="trend-desc">Astronauts circle the Moon. Moment of national awe.</div>
+            <div class="trend-action-bar">Connect to spiritual wonder and God's creation. Visually stunning sermon opener opportunity.</div>
           </div>
         </div>
 
-        <div class="task-group-label" style="margin-top:1px;">Social Media Live Signal</div>
+        <div class="task-group-label" style="margin-top:1px;">International</div>
+        <div class="trend-grid">
+          <div class="trend-card">
+            <div class="trend-category">
+              <span class="stage-pill pill-green">Aligned</span>
+              <span style="color:var(--cream-muted);">Outreach</span>
+            </div>
+            <div class="trend-title">Lebanon Humanitarian Crisis</div>
+            <div class="trend-desc">1M+ displaced, 1,300+ killed. Critical moment for compassion response.</div>
+            <div class="trend-action-bar">Partner with relief organizations. Prayer vigil opportunity. Direct aid channel.</div>
+          </div>
+          <div class="trend-card">
+            <div class="trend-category">
+              <span class="stage-pill pill-green">Aligned</span>
+              <span style="color:var(--cream-muted);">Outreach</span>
+            </div>
+            <div class="trend-title">DRC Violence Surge</div>
+            <div class="trend-desc">100+ killed since March. Leverage TPH's international partnerships.</div>
+            <div class="trend-action-bar">Prayer and sustained attention. Messaging platform for global justice.</div>
+          </div>
+          <div class="trend-card">
+            <div class="trend-category">
+              <span class="stage-pill pill-green">Aligned</span>
+              <span style="color:var(--cream-muted);">Salvation</span>
+            </div>
+            <div class="trend-title">UN Warning: "Edge of Wider War"</div>
+            <div class="trend-desc">Global anxiety escalating. Prophetic moment.</div>
+            <div class="trend-action-bar">Intercessory prayer gathering. Spiritual grounding amid chaos. Theological confidence needed.</div>
+          </div>
+        </div>
+
+        <div class="task-group-label" style="margin-top:1px;">Social Media / Faith Content Signal</div>
         <div class="signal-grid">
           <div class="signal-card">
-            <div class="signal-label">Top Hashtags in Use</div>
-            <div class="hashtag-wrap">
-              <span class="hashtag">#resurrection</span>
-              <span class="hashtag">#EasterSunday</span>
-              <span class="hashtag">#faith</span>
-              <span class="hashtag">#worship</span>
-              <span class="hashtag">#gospel</span>
-              <span class="hashtag">#HolySpirit</span>
-              <span class="hashtag">#scripture</span>
-              <span class="hashtag">#Jesus</span>
-              <span class="hashtag">#prayer</span>
-              <span class="hashtag">#Godisgood</span>
-            </div>
+            <div class="signal-label">Top Themes &amp; Formats</div>
+            <div class="signal-text">Authenticity over production &mdash; lo-fi, selfie-style outperforms polished. Consistency over perfection &mdash; 4+ posts/week grows faster than 1x polished. Sermon repurposing into short-form clips = highest engagement format. "Feed Your Faith" TikTok trend resonating with Gen Z. Openness to spiritual mystery &mdash; hunger for Bible, theological depth is 2026's defining signal.</div>
           </div>
           <div class="signal-card">
-            <div class="signal-label">Dominant Formats This Week</div>
-            <div class="signal-text">Short-form worship medley clips (60–90 sec) — highest engagement. Essay-length captions with personal testimony outperforming graphics on Instagram. Countdown content spiking in shares. Raw pastor video essays &gt; polished production.</div>
-          </div>
-          <div class="signal-card">
-            <div class="signal-label">Emotional / Theological Themes</div>
-            <div class="signal-text">"New season / new life" framing dominant. "What Easter cost" reflective arc leading into celebration. Suffering → strength. Surrender narratives strong on X/Twitter. "He is risen" declarative content = high share rate.</div>
-          </div>
-          <div class="signal-card">
-            <div class="signal-label">Cross-Platform Macro Signal</div>
-            <div class="signal-text">Worker testimony + transformation story format appearing on Instagram, YouTube, and X simultaneously. 60-second first-person video, simple B-roll. This is the clearest cross-platform trend of the week.</div>
+            <div class="signal-label">Dominant Cross-Platform Formats</div>
+            <div class="signal-text">Short-form worship clips (60&ndash;90 sec) &mdash; highest engagement. Essay-length captions with personal testimony outperforming graphics on Instagram. Raw pastor video essays &gt; polished production. Creator-driven faith content bypassing traditional church channels. Worker testimony + transformation story = clearest cross-platform trend of the week.</div>
           </div>
         </div>
 
         <div class="opp-grid">
           <div class="opp-header">TPH Opportunity Matrix</div>
-          <div class="opp-item opp-green">Deploy #resurrection + countdown content NOW. Scheduled drops Tue–Sat. This window closes Sunday.</div>
-          <div class="opp-item opp-green">Pull 60–90 sec worship clips from Sunday footage. No heavy production. Just edit and post.</div>
-          <div class="opp-item opp-green">Good Friday (Apr 3) — "What Easter cost" reflective content. Plan it today.</div>
+          <div class="opp-item opp-green">Deploy "new season" content NOW while post-Easter energy is fresh. 2&ndash;3 week window before it cools.</div>
+          <div class="opp-item opp-green">Pull worship clips from Easter Sunday footage. No heavy production needed. Just edit and post.</div>
+          <div class="opp-item opp-orange">Dallas Arts Month content series &mdash; assign creative lead this week. Low-cost, high-alignment.</div>
         </div>
 
         </div><!-- /trendsContext -->
@@ -1365,23 +1253,20 @@ section[id] { scroll-margin-top: calc(var(--topbar-height) + 16px); }
 
   <!-- FOOTER -->
   <footer class="site-footer">
-    <span class="footer-note">Weekly Leadership Prep — TPH Marketing Ops · March 31, 2026 · Data: Notion, Asana, Outlook, Apify</span>
+    <span class="footer-note">Weekly Leadership Prep &mdash; TPH Marketing Ops &middot; April 7, 2026 &middot; Data: Notion, Asana</span>
     <div class="footer-links">
-      <a href="https://www.notion.so/334e27664329816ebba1d310d6352414" target="_blank" class="footer-link">Notion Page →</a>
-      <a href="https://app.asana.com/0/1211319741564015" target="_blank" class="footer-link">Kanban Board →</a>
-      <a href="https://app.asana.com/0/1208690937362856" target="_blank" class="footer-link">Intake Board →</a>
+      <a href="https://www.notion.so/33be276643298129abc4e4e6dbccd150" target="_blank" class="footer-link">Notion Page &rarr;</a>
+      <a href="https://app.asana.com/0/1211319741564015" target="_blank" class="footer-link">Kanban Board &rarr;</a>
+      <a href="https://app.asana.com/0/1208690937362856" target="_blank" class="footer-link">Intake Board &rarr;</a>
     </div>
   </footer>
 
 </div><!-- /content-wrap -->
 
 <!-- BACK TO TOP -->
-<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
 
 <script>
-/* ============================================================
-   SIDEBAR
-   ============================================================ */
 let sidebarOpen = true;
 
 function toggleSidebar() {
@@ -1402,9 +1287,6 @@ function closeSidebar() {
   document.getElementById('sidebarOverlay').classList.remove('visible');
 }
 
-/* ============================================================
-   SECTION COLLAPSE
-   ============================================================ */
 function toggleSection(head) {
   const section = head.closest('.zone-section');
   const body = section.querySelector('.section-body');
@@ -1424,9 +1306,6 @@ function toggleSection(head) {
   }
 }
 
-/* ============================================================
-   VIEW TOGGLE
-   ============================================================ */
 function setView(view, btn) {
   document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -1435,36 +1314,27 @@ function setView(view, btn) {
     sections.forEach(s => s.style.display = '');
   } else if (view === 'critical') {
     sections.forEach(s => {
-      s.style.display = ['critical','tldr','decisions-asks','watchlist'].includes(s.id) ? '' : 'none';
+      s.style.display = ['critical','tldr','watchlist'].includes(s.id) ? '' : 'none';
     });
   } else if (view === 'exec') {
     sections.forEach(s => {
-      s.style.display = ['tldr','decisions-asks','decisions'].includes(s.id) ? '' : 'none';
+      s.style.display = ['tldr','decisions','critical'].includes(s.id) ? '' : 'none';
     });
   }
 }
 
-/* ============================================================
-   ACTIVE NAV
-   ============================================================ */
 function activateNav(link) {
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
   link.classList.add('active');
   if (window.innerWidth <= 640) closeSidebar();
 }
 
-/* ============================================================
-   SECTION REVEAL
-   ============================================================ */
 const revealObs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
 }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
 
 document.querySelectorAll('.zone-section').forEach(s => revealObs.observe(s));
 
-/* ============================================================
-   SCROLLSPY
-   ============================================================ */
 const navItems = [];
 document.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
   const id = link.getAttribute('href').slice(1);
@@ -1482,25 +1352,19 @@ window.addEventListener('scroll', () => {
   document.getElementById('backTop').classList.toggle('visible', window.scrollY > 400);
 }, { passive: true });
 
-/* ============================================================
-   SEARCH
-   ============================================================ */
 function handleSearch(q) {
   q = q.toLowerCase().trim();
   if (!q) {
-    document.querySelectorAll('.workflow-step, .activity-item, .trend-card').forEach(el => {
+    document.querySelectorAll('.workflow-step, .trend-card').forEach(el => {
       el.style.display = '';
     });
     return;
   }
-  document.querySelectorAll('.workflow-step, .activity-item, .trend-card').forEach(el => {
+  document.querySelectorAll('.workflow-step, .trend-card').forEach(el => {
     el.style.display = el.textContent.toLowerCase().includes(q) ? '' : 'none';
   });
 }
 
-/* ============================================================
-   KEYBOARD
-   ============================================================ */
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeSidebar();
   if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -1509,9 +1373,6 @@ document.addEventListener('keydown', e => {
   }
 });
 
-/* ============================================================
-   TRENDS SUB-CONTEXT TOGGLE
-   ============================================================ */
 let trendsContextOpen = false;
 
 function toggleTrendsContext() {
