@@ -65,15 +65,9 @@
   status = 301
   force = true
 
-# ── Pretty URLs (trailing slash enforcement) ──
-[[redirects]]
-  from = "/words/:slug"
-  to = "/words/:slug/"
-  status = 301
-  force = true
-
 # ── 404 fallback ──
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 404
+  # No force = true, so this only fires when the path doesn't match a real file
