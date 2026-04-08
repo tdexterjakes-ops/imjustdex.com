@@ -271,12 +271,16 @@
 
     .identity-plate .meta-rail {
       background: transparent;
-      color: var(--body-muted);
-      border-top: 1px solid var(--rule);
+      color: rgba(255,255,255,.45);
+      border-top: 1px solid rgba(255,255,255,.12);
       border-right: none;
       font-size: .7rem;
       letter-spacing: .14em;
       font-weight: 700;
+    }
+    body.dark-mode .identity-plate .meta-rail {
+      color: rgba(255,255,255,.35);
+      border-top-color: rgba(255,255,255,.08);
     }
 
     /* ── Identity plate ── */
@@ -284,6 +288,8 @@
       grid-column: span 5;
       min-height: 346px;
       cursor: default;
+      background: var(--ink);
+      color: var(--bg);
     }
     .identity-plate:hover {
       border-color: var(--border);
@@ -310,6 +316,7 @@
       margin-top: 8px;
       position: relative;
       min-height: 3.6em;
+      color: rgba(255,255,255,.7);
     }
     .identity-tagline span {
       position: absolute; top: 0; left: 0;
@@ -321,9 +328,9 @@
       display: inline-block;
       margin-bottom: 6px;
       padding: 5px 7px 4px;
-      border: 2px solid var(--border);
-      background: var(--ink);
-      color: var(--bg);
+      border: 2px solid var(--bg);
+      background: var(--bg);
+      color: var(--ink);
       text-transform: uppercase;
       letter-spacing: .08em;
       font-weight: 900;
