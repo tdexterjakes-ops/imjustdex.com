@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>The Nets Were Already Full — DX</title>
+  <meta name="description" content="What the Galilee shore teaches about the sequence most ministries get wrong." />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <link rel="canonical" href="https://dxjakes.com/words/the-nets">
+
+  <meta property="og:title" content="The Nets Were Already Full">
+  <meta property="og:description" content="What the Galilee shore teaches about the sequence most ministries get wrong.">
+  <meta property="og:image" content="https://dxjakes.com/img/og-default.png">
+  <meta property="og:url" content="https://dxjakes.com/words/the-nets">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DX">
+  <meta property="article:author" content="Dexter Jakes">
+  <meta property="article:published_time" content="2026-04-08">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Nets Were Already Full">
+  <meta name="twitter:description" content="What the Galilee shore teaches about the sequence most ministries get wrong.">
+  <meta name="twitter:image" content="https://dxjakes.com/img/og-default.png">
+
+  <style>
+    :root {
+      --bg: #f4f4f1;
+      --panel: #f8f8f6;
+      --ink: #050505;
+      --muted: #202020;
+      --border: #0a0a0a;
+      --rule: rgba(0,0,0,.14);
+      --meta-bg: #0a0a0a;
+      --meta-ink: #f5f5f1;
+      --accent: #c00;
+      --body-color: rgba(5,5,5,.82);
+      --body-muted: rgba(5,5,5,.56);
+      --body-faint: rgba(5,5,5,.18);
+      --body-tint: rgba(5,5,5,.04);
+      --display: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      --body: 'Arial Narrow', Arial, Helvetica, sans-serif;
+      --serif: Georgia, 'Times New Roman', serif;
+      --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+      --outer-pad: 28px;
+    }
+    body.dark-mode {
+      --bg: #060606;
+      --panel: #0d0d0d;
+      --ink: #f3f0e8;
+      --muted: #d7d3ca;
+      --border: #f3f0e8;
+      --rule: rgba(255,255,255,.16);
+      --meta-bg: #f3f0e8;
+      --meta-ink: #0a0a0a;
+      --body-color: rgba(243,240,232,.82);
+      --body-muted: rgba(243,240,232,.52);
+      --body-faint: rgba(243,240,232,.14);
+      --body-tint: rgba(243,240,232,.04);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; touch-action: manipulation; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      line-height: 1.4;
+      transition: background .18s ease, color .18s ease;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background-image:
+        linear-gradient(to right, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px)),
+        linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px));
+      background-size: 46px 46px;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ::selection { background: var(--ink); color: var(--bg); }
+
+    /* ── Print ── */
+    @media print {
+      body { background: #fff !important; color: #000 !important; background-image: none !important; }
+      .ruler-top, .ruler-left, .mode-toggle, .share-bar { display: none !important; }
+      .masthead { position: static; background: none; }
+      .article-body { border: none; }
+    }
+
+    /* ── Skip link ── */
+    .skip-link {
+      position: absolute; left: -999px; top: 0;
+      background: var(--ink); color: var(--bg);
+      padding: 10px 14px; z-index: 999;
+    }
+    .skip-link:focus { left: 12px; top: 12px; }
+
+    /* ── Rulers ── */
+    .ruler-top, .ruler-left {
+      position: fixed; pointer-events: none; z-index: 1; opacity: .75;
+    }
+    .ruler-top {
+      top: 0; left: 0; right: 0; height: 22px;
+      border-bottom: 1px solid var(--rule);
+      background: repeating-linear-gradient(to right, transparent 0 44px, var(--rule) 44px 45px);
+    }
+    .ruler-left {
+      top: 0; left: 0; bottom: 0; width: 22px;
+      border-right: 1px solid var(--rule);
+      background: repeating-linear-gradient(to bottom, transparent 0 44px, var(--rule) 44px 45px);
+    }
+
+    /* ── Page shell ── */
+    .page-shell {
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 12px var(--outer-pad) 22px;
+      padding-left: max(var(--outer-pad), env(safe-area-inset-left));
+      padding-right: max(var(--outer-pad), env(safe-area-inset-right));
+      position: relative;
+    }
+
+    /* ── Masthead ── */
+    .masthead {
+      position: sticky; top: 0; z-index: 50;
+      display: flex;
+      align-items: center; gap: 14px;
+      padding: 10px 0 14px;
+      padding-top: max(10px, env(safe-area-inset-top));
+      background: linear-gradient(to bottom, var(--bg) 70%, rgba(0,0,0,0));
+      margin-top: 6px;
+    }
+    .brand-block {
+      display: inline-flex; align-items: stretch;
+      border: 2px solid var(--border); background: var(--panel);
+    }
+    .brand-mark, .brand-word {
+      padding: 8px 10px 7px; line-height: 1;
+      letter-spacing: .03em; text-transform: uppercase;
+      font-weight: 900; border-right: 2px solid var(--border);
+    }
+    .brand-mark {
+      display: flex; align-items: center;
+      justify-content: center; min-width: 72px;
+      padding: 6px 10px;
+    }
+    .brand-logo { height: 28px; width: auto; }
+    .brand-word {
+      font-size: .92rem; align-content: center;
+      background: var(--ink); color: var(--bg);
+    }
+    .brand-block .brand-word:last-child { border-right: 0; }
+
+    .mode-toggle {
+      margin-left: auto;
+      appearance: none;
+      border: 2px solid var(--border);
+      background: var(--panel); color: var(--ink);
+      padding: 14px 16px 13px; text-transform: uppercase;
+      min-height: 44px;
+      font: inherit; font-size: .88rem; font-weight: 900;
+      letter-spacing: .04em; cursor: pointer;
+    }
+
+    /* ── Article wrapper ── */
+    main { position: relative; z-index: 2; }
+    .article-frame {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 0 80px;
+    }
+
+    /* ── Article header ── */
+    .article-header {
+      border: 3px solid var(--border);
+      background: var(--panel);
+      padding: 28px 24px 22px;
+      margin-bottom: 0;
+    }
+    .article-eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 18px;
+    }
+    .article-tag {
+      font-family: var(--mono);
+      font-size: .75rem; letter-spacing: .12em;
+      text-transform: uppercase; font-weight: 900;
+      padding: 4px 8px 3px;
+      border: 2px solid var(--border);
+      background: var(--ink); color: var(--bg);
+    }
+    .article-date, .article-read {
+      font-family: var(--mono);
+      font-size: .75rem; letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--body-muted);
+    }
+    .article-title {
+      font-family: var(--display);
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: .86;
+      letter-spacing: -.03em;
+      margin-bottom: 16px;
+    }
+    .article-deck {
+      font-family: var(--mono);
+      font-size: .8rem;
+      line-height: 1.5;
+      letter-spacing: .04em;
+      color: var(--body-muted);
+      text-transform: uppercase;
+      max-width: 480px;
+      border-left: 3px solid var(--border);
+      padding-left: 14px;
+    }
+
+    /* ── Article body ── */
+    .article-body {
+      border-left: 3px solid var(--border);
+      border-right: 3px solid var(--border);
+      border-bottom: 3px solid var(--border);
+      background: var(--panel);
+      padding: 40px 24px 48px;
+      font-family: var(--serif);
+      font-size: 1.08rem;
+      line-height: 1.85;
+      color: var(--body-color);
+    }
+    .article-body p { margin-bottom: 1.5em; }
+    .article-body a {
+      text-decoration: underline;
+      text-decoration-color: var(--accent);
+      text-underline-offset: 3px;
+      text-decoration-thickness: 2px;
+    }
+    .article-body a:hover { color: var(--accent); }
+
+    /* Drop cap */
+    .article-body .intro::first-letter {
+      font-family: var(--display);
+      font-size: 4.8em;
+      font-weight: 900;
+      float: left;
+      line-height: .72;
+      margin-right: 8px;
+      margin-top: 4px;
+      color: var(--ink);
+    }
+
+    /* ── Section head ── */
+    .section-head {
+      display: flex; align-items: center; gap: 14px;
+      margin: 48px 0 20px;
+    }
+    .section-head h2 {
+      font-family: var(--mono);
+      font-size: .75rem; font-weight: 900;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: #c00;
+      white-space: nowrap;
+    }
+    .section-head-line {
+      flex: 1; height: 3px;
+      background: var(--border);
+    }
+
+    /* ── Pull quote ── */
+    .pull-quote {
+      margin: 40px -24px;
+      padding: 32px 24px;
+      border-top: 3px solid var(--border);
+      border-bottom: 3px solid var(--border);
+      background: var(--body-tint);
+    }
+    .pull-quote p {
+      font-family: var(--display);
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    /* ── Callout ── */
+    .callout {
+      margin: 36px 0;
+      padding: 0 0 0 18px;
+      border-left: 3px solid var(--accent);
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+    .callout p { margin: 0; }
+
+    /* ── Scripture block ── */
+    .scripture {
+      border: 2px solid var(--body-faint);
+      background: var(--body-tint);
+      padding: 24px;
+      margin: 36px 0;
+    }
+    .scripture p {
+      font-family: var(--serif);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--body-color);
+      font-style: italic;
+      margin: 0 0 10px !important;
+    }
+    .scripture cite {
+      font-family: var(--mono);
+      font-style: normal;
+      font-size: .7rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    body.dark-mode .scripture cite { color: #f44; }
+
+    /* ── Stat block ── */
+    .stat-block {
+      margin: 48px -24px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 3px 1fr;
+      gap: 0 20px;
+    }
+    .stat-block-bar { background: var(--accent); }
+    .stat-block-text {
+      font-family: var(--display);
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      line-height: 1.05;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .stat-block-text span {
+      display: block;
+      font-family: var(--mono);
+      font-size: .7rem;
+      font-weight: 400;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--body-muted);
+      margin-top: 8px;
+    }
+
+    /* ── Closing ── */
+    .closing {
+      margin-top: 48px;
+      padding: 28px 24px;
+      border: 3px solid var(--border);
+      background: var(--panel);
+      font-family: var(--serif);
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--body-color);
+      font-style: italic;
+    }
+
+    /* ── Share bar ── */
+    .share-bar {
+      display: flex; align-items: center; gap: 14px;
+      margin-top: 0;
+      padding: 14px 24px;
+      border: 3px solid var(--border);
+      border-top: 0;
+      background: var(--panel);
+    }
+    .share-label {
+      font-family: var(--mono);
+      font-size: .7rem; letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--body-muted);
+    }
+    .share-link {
+      font-family: var(--mono);
+      font-size: .75rem; letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--body-muted);
+      background: none; border: none;
+      cursor: pointer; font-weight: 700;
+      padding: 10px 12px;
+      min-height: 44px;
+    }
+    .share-link:hover { color: var(--ink); }
+    .subscribe-link {
+      margin-left: auto;
+      font-family: var(--mono);
+      font-size: .75rem; letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 900;
+      padding: 10px 14px 9px;
+      min-height: 44px;
+      border: 2px solid var(--border);
+      background: var(--ink); color: var(--bg);
+    }
+
+    /* ── Article footer ── */
+    .article-back {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 12px 14px 11px;
+      min-height: 44px;
+      border: 2px solid var(--border);
+      background: var(--panel);
+      font-family: var(--mono);
+      font-size: .75rem; letter-spacing: .1em;
+      text-transform: uppercase; font-weight: 900;
+    }
+    .article-back:hover { border-color: var(--accent); }
+
+    /* ── Footer strip ── */
+    .footer-strip {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 12px; margin-top: 12px;
+      position: relative; z-index: 2;
+    }
+    .footer-strip > * {
+      border: 2px solid var(--border); background: var(--panel);
+      padding: 12px 14px 11px; text-transform: uppercase;
+      letter-spacing: .06em; font-size: .84rem; font-weight: 900;
+      min-height: 44px;
+    }
+
+    /* ── Focus states ── */
+    .mode-toggle:focus-visible,
+    .brand-block:focus-visible,
+    .share-link:focus-visible,
+    .subscribe-link:focus-visible,
+    .article-back:focus-visible,
+    .footer-strip a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ── Utility ── */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* ── Progress bar ── */
+    .reading-progress {
+      position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+      background: var(--ink); z-index: 9999;
+      transition: width .12s linear;
+      pointer-events: none;
+    }
+
+    /* ── Section indicator ── */
+    .section-indicator {
+      position: fixed; bottom: 28px; left: 28px; z-index: 9998;
+      font-family: var(--mono); font-size: .6rem;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--ink);
+      background: var(--bg);
+      border: 1px solid var(--rule);
+      padding: 6px 12px;
+      border-radius: 2px;
+      opacity: 0; transition: opacity .3s ease;
+      pointer-events: none;
+      max-width: 260px; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+      box-shadow: 0 1px 4px rgba(0,0,0,.12);
+    }
+    .section-indicator.visible { opacity: 1; }
+    @media (max-width: 760px) {
+      .section-indicator { bottom: 16px; left: 16px; font-size: .52rem; max-width: 200px; }
+    }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 0s !important;
+        animation-duration: 0s !important;
+      }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 760px) {
+      :root { --outer-pad: 18px; }
+      .masthead {
+        flex-wrap: wrap; gap: 10px; background: var(--bg);
+      }
+
+      .article-header { padding: 20px 16px 18px; }
+      .article-body { padding: 28px 16px 36px; }
+      .share-bar { padding: 12px 16px; flex-wrap: wrap; }
+      .pull-quote { margin: 32px -16px; padding: 24px 16px; }
+      .stat-block { margin: 36px -16px; padding: 0 16px; }
+      .footer-strip { grid-template-columns: 1fr; }
+      .ruler-top, .ruler-left { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="reading-progress" aria-hidden="true"></div>
+  <div class="section-indicator" aria-hidden="true"></div>
+  <a href="#article" class="skip-link">Skip to article</a>
+  <div class="ruler-top" aria-hidden="true"></div>
+  <div class="ruler-left" aria-hidden="true"></div>
+
+  <div class="page-shell">
+    <nav class="masthead" aria-label="Main navigation">
+      <a class="brand-block" href="/" aria-label="DX home">
+        <span class="brand-mark"><img src="/img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28"></span>
+        <span class="brand-word">Words</span>
+      </a>
+      <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode">
+        Mode: Light
+      </button>
+    </nav>
+
+    <main id="article">
+      <div class="article-frame">
+
+        <header class="article-header">
+          <div class="article-eyebrow">
+            <span class="article-tag">Faith + Strategy</span>
+            <span class="article-date"><time datetime="2026-04-08">Apr 8, 2026</time></span>
+            <span class="article-read">14 min</span>
+          </div>
+          <h1 class="article-title">The Nets Were Already Full</h1>
+          <p class="article-deck">What the Galilee shore teaches about the sequence most ministries get wrong.</p>
+        </header>
+
+        <article class="article-body">
+
+          <div class="scripture">
+            <p>"I have become all things to all people, that by all means I might save some."</p>
+            <cite>1 Corinthians 9:22, ESV</cite>
+          </div>
+
+          <p class="intro">That verse used to feel like a missionary's problem. Then I ended up in ministry marketing — and realized it's actually a job description.</p>
+
+          <p>I've spent the last several years at the intersection of marketing and ministry.</p>
+
+          <p>Which sounds clean when you say it like that — but it collapses the moment you try to operationalize it.</p>
+
+          <p>Because marketing operates on frameworks. Funnels. Measurable outcomes. Clear calls to action. And ministry operates on something that doesn't fit neatly into a dashboard.</p>
+
+          <p>I've spent more time than I'd like to admit trying to reconcile those two worlds. Sitting in strategy meetings talking about conversion rates and reach, knowing the whole time that what we're actually trying to do is move people. Not clicks. People. Toward something real.</p>
+
+          <p>So when I went deep into the calling narratives — Matthew 4:18-22, Mark 1:16-20, Luke 5:2-11 — looking for insight I could actually use, I wasn't expecting what I found.</p>
+
+          <p>I was expecting a moral. A metaphor. Something I could turn into a framework slide.</p>
+
+          <p>What I found was a complete rethinking of how I approach the work. And at first glance it looks like a spontaneous moment on a beach. It wasn't. Luke gives us part of the story — but not all of it.</p>
+
+          <div class="section-head">
+            <h2>First, the scene needs a renovation.</h2>
+            <div class="section-head-line" aria-hidden="true"></div>
+          </div>
+
+          <p>Most of us have the wrong image.</p>
+
+          <p>We picture the Sea of Galilee at golden hour. Gentle waves. Wooden boats with that weathered-but-charming aesthetic. Jesus walking the shore like a location scout picked it.</p>
+
+          <p>That's not what this was.</p>
+
+          <p>The Sea of Galilee was not a quiet devotional backdrop. It was a working commercial hub. The men on those shores ran complex family operations — managing crews, maintaining heavy wooden vessels, navigating a brutal Roman taxation system that took a serious cut of every catch. The shore was loud. It smelled. It was high stakes.</p>
+
+          <p>When we're told these men eventually dropped their nets to follow a teacher, we're not talking about someone quitting a hobby. We're talking about walking away from the only economic security they'd ever known.</p>
+
+          <p>Nobody asked a hobbyist to drop anything.</p>
+
+          <p>These were men with calluses, obligations, and something to lose.</p>
+
+          <div class="callout"><p>The cost of the yes tells you the weight of the ask. If nothing is being risked, nothing real is being offered.</p></div>
+
+          <p>That's true whether you're building a movement, launching a product, or asking someone to trust a brand they've never heard of. Your audience's resistance isn't laziness — it's protection. They are guarding something real: time, attention, identity, livelihood. The moment you understand what they're protecting, you understand what your offer actually has to be worth. If your pitch doesn't match the weight of what you're asking them to release, you'll keep losing them at the same point every time.</p>
+
+          <div class="section-head">
+            <h2>Three accounts. Three completely different angles.</h2>
+            <div class="section-head-line" aria-hidden="true"></div>
+          </div>
+
+          <p>Matthew reads like an executive summary. Stripped bare. Jesus walks by, issues the call, they leave. No setup, no preamble. The authority of the teacher is treated as a given — because Matthew was writing for an audience that already believed it. He's not explaining the psychology. He doesn't feel like he needs to.</p>
+
+          <p>Mark injects the same story with aggressive urgency. He uses the Greek word <em>euthys</em> — immediately — like a drumbeat. Immediately left their nets. Immediately called them. Mark is compressing the moment deliberately, forcing you to feel the disruption of it. The speed of their abandonment — leaving their literal father sitting in the boat with hired hands — stands as evidence of the message's overwhelming power.</p>
+
+          <p>But Luke is where the whole thing breaks open.</p>
+
+          <p>Luke gives us the prequel. The backstory Matthew and Mark skip entirely. And without it, the whole scene looks like magic. Or worse, manipulation.</p>
+
+          <div class="section-head">
+            <h2>Luke changes the entire sequence.</h2>
+            <div class="section-head-line" aria-hidden="true"></div>
+          </div>
+
+          <p><strong>He engineers the environment.</strong></p>
+
+          <p>In Luke's account, Jesus doesn't stroll by and issue a command to a stranger. The scene opens with him being physically crushed by a crowd. People pressing in to hear him teach. To manage the crowd, he climbs into Simon's empty boat, asks him to push out a few yards from shore, and uses it as a floating stage.</p>
+
+          <p>Stop there.</p>
+
+          <p>Because that move is not just practical — it's brilliant in a way that took me a minute to fully sit with.</p>
+
+          <p>By moving onto the water, Jesus was using the acoustic physics of the lake. The cooler air above the water's surface creates a temperature inversion that prevents sound from dissipating upward. The water reflects it back down. The lake's natural acoustics likely made the boat a far more effective teaching position than the shoreline ever could have been.</p>
+
+          <p>He didn't just find a spot.</p>
+
+          <p>He engineered the environment.</p>
+
+          <div class="pull-quote">
+            <p>You don't always need a bigger platform. You need a better position.</p>
+          </div>
+
+          <p>No venue. No microphone. No crew. He built an amphitheater out of water, physics, and a borrowed boat — in the middle of someone else's workspace. The principle is still alive: the most effective environments for a message aren't always the ones we build from scratch. Sometimes they're the ones we borrow, adapt, and position ourselves inside of wisely. Stop waiting for the perfect conditions. The people who break through aren't always the ones with the biggest production. They're the ones who step into an existing environment with timing, clarity, and something worth hearing.</p>
+
+          <p><strong>He meets Simon in exhaustion.</strong></p>
+
+          <p>Here's what struck me hardest about this account.</p>
+
+          <p>Jesus doesn't show up to where Simon is comfortable. He shows up to where Simon is exhausted.</p>
+
+          <p>Simon had been working the night shift. Dragging heavy nets through dark water for hours. He caught nothing. He's tired, frustrated, likely facing a financial loss for the day — and now a carpenter from the hill country is sitting in his boat talking theology to a crowd on the shore.</p>
+
+          <p>The Lexham Geographic Commentary on the Gospels confirms this: the miracle's placement is not coincidental. Jesus chose this moment — after a night of failure — to demonstrate his authority. Simon didn't just have an empty net. He had proof that his own expertise wasn't enough.</p>
+
+          <p>Most people do not encounter your message at full attention. They encounter it tired, overloaded, and already disappointed by something else. That's not an obstacle to work around — it's the condition you have to design for. The question isn't how to reach people at their best. It's how to be worth something to them at their most depleted.</p>
+
+          <p>The friction peaks the moment Jesus finishes teaching the crowd.</p>
+
+          <p>He turns to Simon. Tells him to push out into deep water. Let the nets down. For a catch.</p>
+
+          <p>I can't imagine what that sounded like to a professional fisherman who'd worked all night.</p>
+
+          <p>Simon even pushes back: "Master, we've worked hard all night and caught nothing." Which is a very polite way of saying: you have no idea what you're talking about.</p>
+
+          <p>But he drops the nets anyway.</p>
+
+          <p><strong>He demonstrates in Simon's domain.</strong></p>
+
+          <p>And the catch is so massive the nets start tearing. They have to wave down a second boat. Both boats ride dangerously low — on the verge of sinking under the weight of what just happened.</p>
+
+          <p>The Pulpit Commentary on Luke captures it directly: the miraculous catch made the call undeniable. Simon didn't just hear a pitch. He experienced the product.</p>
+
+          <div class="pull-quote">
+            <p>Proof of value in someone's domain. Not your domain. Theirs. That's the only demonstration that dissolves defense.</p>
+          </div>
+
+          <p>The point is not that Jesus was merely tactically brilliant. It's that his actions reveal a sequence worth paying close attention to. And that sequence is clear: don't demonstrate what you're good at — demonstrate what they need. A pitch that showcases your capabilities is about you. A demonstration that solves the exact problem your audience named — measured by the metric they actually care about — that's a net full of fish. Know their world. Solve for that. The resistance drops on its own.</p>
+
+          <div class="section-head">
+            <h2>What that means for how I work.</h2>
+            <div class="section-head-line" aria-hidden="true"></div>
+          </div>
+
+          <p>I've thought about this constantly in the context of what I actually do.</p>
+
+          <p>We spend enormous amounts of time in ministry marketing — in church experience design — trying to get people to come to us. Building things that are beautiful and true and well-crafted, then waiting for people to find them.</p>
+
+          <p>We keep assuming excellence is self-distributing.</p>
+
+          <p>It isn't.</p>
+
+          <p>I've been on the team that built the beautiful thing and waited. We designed the experience. Crafted the copy. Launched the campaign. And then refreshed the analytics like it would tell us something different. It didn't.</p>
+
+          <p>We kept building polished invitations to moments people had no reason to prioritize yet. The creative was strong. The event was real. But we asked for commitment before we had earned attention in their world. The sequence was wrong — and no amount of production quality fixes that.</p>
+
+          <p>What I took from the Galilee scene is that the sequence matters more than the result.</p>
+
+          <p>You go to them. You show up in the chaotic, exhausting, high-stakes middle of their real life — not waiting for them to commute to your idea. You demonstrate value in their domain, using their language, measured by their metrics — before you ask them for anything.</p>
+
+          <p>The Evangelical Commentary on the Bible notes exactly this about Matthew's account: Jesus spoke directly from the men's occupation. He used their framework. He entered their world before he invited them into his.</p>
+
+          <p>And only after the nets are full does he make the ask.</p>
+
+          <p>Simon didn't collapse in that boat because Jesus made a compelling argument. He collapsed because his professional reality was so thoroughly, undeniably subverted that he had no framework left to dismiss it with.</p>
+
+          <div class="callout"><p>Depart from me, for I am a sinful man.</p></div>
+
+          <p>That's not a consumer response. That's a man who just encountered something that outran his existing categories. A.T. Robertson's Word Pictures calls this a theophanic response — the same language the Old Testament uses when men encountered the divine and fell undone. Simon wasn't being polite. He was terrified.</p>
+
+          <p>And it's only in that moment — the heart exposed, the defenses gone — that the real invitation is spoken.</p>
+
+          <div class="section-head">
+            <h2>The ask has to be worth the cost.</h2>
+            <div class="section-head-line" aria-hidden="true"></div>
+          </div>
+
+          <p>Follow me, and I will make you fishers of men.</p>
+
+          <p>This is not an RSVP. It's not "come check us out." It's not "join us this Sunday at 10."</p>
+
+          <p>Robertson notes that the process Jesus was promising would be slow and long — transforming rough, provincial fishermen into communicators who could capture the hearts of humanity. But the promise was absolute. Jesus was taking full responsibility for the metamorphosis of their identity.</p>
+
+          <p>You are fishermen.</p>
+
+          <p>I will make you fishers of men.</p>
+
+          <p>Two things make that invitation devastating — and they're both in the structure. First: clarity. No ambiguity. Follow me. Second: identity shift. Not "come see what we're doing" but "come become who you were made to be."</p>
+
+          <p>Most of our invitations — in marketing, in church culture — are too small. They ask for a time slot. A click. A passive form of presence. The call on the Galilean shore asked for the nets. The boat. The father sitting in it. The only life these men had ever known.</p>
+
+          <p>That sounds reckless until you understand what was being offered in return.</p>
+
+          <p>Not a better version of the same life.</p>
+
+          <p>A different life entirely.</p>
+
+          <div class="pull-quote">
+            <p>An invitation that costs nothing promises nothing. Size the ask to match the transformation.</p>
+          </div>
+
+          <p>Audit your calls to action. If your CTA is asking for a click, you're implicitly promising a click's worth of value. If you want loyalty, advocacy, full buy-in — the invitation has to carry that weight. "Learn more" produces browsers. "Join something that will change how you think about who you are" produces community. In a culture built around reversibility, a costly invitation feels almost confrontational. That confrontation is the point. The size of the ask signals the size of what's on the other side.</p>
+
+          <div class="section-head">
+            <h2>One more thing Luke gives us.</h2>
+            <div class="section-head-line" aria-hidden="true"></div>
+          </div>
+
+          <p>Here's what completes the picture — and it's the part I almost missed.</p>
+
+          <p>These men weren't strangers.</p>
+
+          <p>Cross-reference Luke's account with John 1:35-42 and the timeline becomes clear: months before the beach, these men had traveled south to the Jordan River to hear John the Baptist. They'd met Jesus there. Shared meals with him. Observed his character over time.</p>
+
+          <p>A.B. Bruce in The Training of the Twelve frames this as a staged, intentional process. The call on the beach wasn't cold outreach. It was the final culmination of a relationship arc that had been building for months — an initial introduction, a period of observation and trust, and then a vocational call that demanded full commitment.</p>
+
+          <p>The dropping of the nets wasn't the first step.</p>
+
+          <p>It was the last one.</p>
+
+          <div class="callout"><p>Trust is not a tactic. It's a timeline. The monumental ask only lands at the end of the arc — never the beginning.</p></div>
+
+          <p>Stop treating first exposure like earned trust. Repeated presence, demonstrated value, and coherence over time are what make a costly invitation believable. Map your customer or congregation journey against this arc. Where are you making the big ask? If it's before you've shown up consistently in their world, before they've had repeated exposure to who you are and what you stand for — it's too early. The moment on the beach looked spontaneous. It was anything but.</p>
+
+          <p>But once that trust is earned — the ask has to be definitive. Not soft. Not hedged. Not easy to say no to.</p>
+
+          <p>Leave this.</p>
+
+          <p>Follow me.</p>
+
+          <p>Become this.</p>
+
+          <p>There's a magnetism to an invitation that demands something real. In a culture built around reversibility, a costly commitment signals that the thing is actually worth something. That it has weight. That it will hold.</p>
+
+          <div class="section-head">
+            <h2>Structure prepares the net.</h2>
+            <div class="section-head-line" aria-hidden="true"></div>
+          </div>
+
+          <p>I'm not a theologian. I'm someone who thinks deeply about how people move — toward ideas, toward communities, toward change. And I happen to believe the Bible is worth studying seriously for reasons that go well beyond professional application.</p>
+
+          <p>But studying these accounts — spending real time in the text, in the commentaries, tracking the sequence across all three writers — changed something for me practically.</p>
+
+          <p>The New Bible Commentary on Matthew 4 is direct about it: Jesus' associates would not merely be supporters. They would themselves become fishers of men. Every person brought in was immediately reframed as someone who would bring others in.</p>
+
+          <p>The one reached becomes the one reaching. Not through pressure — through transformation so complete that sharing becomes instinctive. The most scalable thing a church — or any organization — can do isn't hire a better marketing team. It's create an experience so transformative that the people inside it become the strategy. Not because you asked them to tell someone. Because they can't help it.</p>
+
+          <p>That's the framework. Position, demonstrate, invite, commit, deploy.</p>
+
+          <p>But the framework isn't the magic.</p>
+
+          <p>Spurgeon said it plainly in one of his most famous messages: to win souls you must study them like a fisherman studies the water — right location, right timing, right patience, right bait. The metaphor is inherently strategic. The method is instructive.</p>
+
+          <p>And yet the method alone isn't the catch.</p>
+
+          <p>The fish weren't in the nets because Jesus understood persuasion architecture. They were there because of who Jesus is.</p>
+
+          <div class="closing">
+            The methodology created the conditions. The authority filled the nets.
+          </div>
+
+        </article>
+
+        <!-- Share bar -->
+        <div class="share-bar" aria-label="Share this essay">
+          <span class="share-label">Share</span>
+          <a href="https://x.com/intent/tweet?url=https://dxjakes.com/words/the-nets&text=The%20Nets%20Were%20Already%20Full%20%E2%80%94%20DX" target="_blank" rel="noopener noreferrer" class="share-link">X</a>
+          <button type="button" class="share-link" onclick="navigator.clipboard.writeText('https://dxjakes.com/words/the-nets');this.textContent='Copied';setTimeout(()=>this.textContent='Copy link',2000);">Copy link</button>
+          <a href="https://substack.com/@imjustdex" target="_blank" rel="noopener noreferrer" class="subscribe-link">Subscribe</a>
+        </div>
+
+        <a href="/" class="article-back">&larr; Back</a>
+
+      </div>
+    </main>
+
+    <footer class="footer-strip" aria-label="Footer">
+      <a href="https://imjustdex.substack.com" target="_blank" rel="noopener">Subscribe on Substack</a>
+      <span>Authored Publishing Object</span>
+      <span>Est. 1994</span>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var toggle = document.getElementById('modeToggle');
+      var body = document.body;
+      var logo = document.querySelector('.brand-logo');
+      var KEY = 'dxmode';
+      function setLabel() {
+        toggle.textContent = body.classList.contains('dark-mode') ? 'Mode: Dark' : 'Mode: Light';
+      }
+      function applyMode(mode) {
+        if (mode === 'dark') {
+          body.classList.add('dark-mode');
+          if (logo) logo.src = '/img/logo-white.svg';
+        } else {
+          body.classList.remove('dark-mode');
+          if (logo) logo.src = '/img/logo-dark.svg';
+        }
+        document.cookie = KEY + '=' + mode + ';path=/;max-age=31536000;SameSite=Lax';
+        setLabel();
+      }
+      var cookieMatch = document.cookie.match(/(?:^|; )dxmode=([^;]+)/);
+      applyMode(cookieMatch ? cookieMatch[1] : 'light');
+      toggle.addEventListener('click', function () {
+        applyMode(body.classList.contains('dark-mode') ? 'light' : 'dark');
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      var bar = document.querySelector('.reading-progress');
+      var label = document.querySelector('.section-indicator');
+      var article = document.querySelector('.article-body') || document.querySelector('article');
+      if (!bar || !article) return;
+
+      var sections = [];
+      article.querySelectorAll('.section-head h2').forEach(function (h2) {
+        sections.push({ el: h2.closest('.section-head'), name: h2.textContent.trim() });
+      });
+
+      var ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          ticking = false;
+          var rect = article.getBoundingClientRect();
+          var total = article.scrollHeight - window.innerHeight;
+          var scrolled = -rect.top;
+          var pct = Math.max(0, Math.min(100, (scrolled / total) * 100));
+          bar.style.width = pct + '%';
+
+          /* Section indicator */
+          var current = '';
+          for (var i = sections.length - 1; i >= 0; i--) {
+            if (sections[i].el.getBoundingClientRect().top < window.innerHeight * 0.4) {
+              current = sections[i].name;
+              break;
+            }
+          }
+          if (current && pct > 2 && pct < 98) {
+            label.textContent = current;
+            label.classList.add('visible');
+          } else {
+            label.classList.remove('visible');
+          }
+        });
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
+</body>
+</html>
