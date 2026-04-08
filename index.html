@@ -316,17 +316,9 @@
       line-height: .9;
       letter-spacing: -.02em;
       margin-top: 8px;
-      position: relative;
-      min-height: 3.6em;
       color: #c00;
       opacity: .85;
     }
-    .identity-tagline span {
-      position: absolute; top: 0; left: 0;
-      opacity: 0;
-      transition: opacity .8s ease;
-    }
-    .identity-tagline span.active { opacity: 1; }
     .identity-sub {
       display: inline-block;
       margin-bottom: 6px;
@@ -539,9 +531,7 @@
             <span class="identity-sub">ImJustDex</span>
             <p class="identity-dx">DX</p>
             <h1 class="identity-name">Dexter Jakes</h1>
-            <p class="identity-tagline" aria-live="polite">
-              <!-- Populated dynamically from article plate titles -->
-            </p>
+            <p class="identity-tagline">No highlight reel. Just the full human, documented.</p>
           </div>
           <div class="meta-rail">Est. 1994</div>
         </article>
@@ -623,43 +613,5 @@
     })();
   </script>
 
-  <script>
-    (function () {
-      var tagline = document.querySelector('.identity-tagline');
-      if (!tagline) return;
-
-      /* Pull titles from every article plate (visible or hidden) */
-      var titles = [];
-      document.querySelectorAll('.plate:not(.identity-plate) .plate-title').forEach(function (el) {
-        var t = el.textContent.trim();
-        if (t) titles.push(t);
-      });
-
-      var fallbacks = [
-        'No highlight reel. Just the full human, documented.'
-      ];
-
-      /* Merge: plate titles first, then fill with fallbacks */
-      var pool = titles.length > 0 ? titles.concat(fallbacks) : fallbacks;
-
-      /* Build spans */
-      pool.forEach(function (text, idx) {
-        var span = document.createElement('span');
-        span.textContent = text;
-        if (idx === 0) span.classList.add('active');
-        tagline.appendChild(span);
-      });
-
-      /* Rotate */
-      var spans = tagline.querySelectorAll('span');
-      if (spans.length < 2) return;
-      var i = 0;
-      setInterval(function () {
-        spans[i].classList.remove('active');
-        i = (i + 1) % spans.length;
-        spans[i].classList.add('active');
-      }, 5000);
-    })();
-  </script>
 </body>
 </html>
