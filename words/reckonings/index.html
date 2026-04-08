@@ -460,17 +460,22 @@
     /* ── Section indicator ── */
     .section-indicator {
       position: fixed; bottom: 28px; left: 28px; z-index: 9998;
-      font-family: var(--mono); font-size: .65rem;
+      font-family: var(--mono); font-size: .6rem;
       letter-spacing: .18em; text-transform: uppercase;
-      color: var(--body-muted);
+      color: var(--ink);
+      background: var(--bg);
+      border: 1px solid var(--rule);
+      padding: 6px 12px;
+      border-radius: 2px;
       opacity: 0; transition: opacity .3s ease;
       pointer-events: none;
       max-width: 260px; white-space: nowrap;
       overflow: hidden; text-overflow: ellipsis;
+      box-shadow: 0 1px 4px rgba(0,0,0,.12);
     }
     .section-indicator.visible { opacity: 1; }
     @media (max-width: 760px) {
-      .section-indicator { bottom: 16px; left: 16px; font-size: .58rem; max-width: 180px; }
+      .section-indicator { bottom: 16px; left: 16px; font-size: .52rem; max-width: 200px; }
     }
 
     /* ── Reduced motion ── */
