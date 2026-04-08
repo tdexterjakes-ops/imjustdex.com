@@ -70,6 +70,8 @@
         linear-gradient(to bottom, var(--body-faint) 1px, transparent 1px);
       background-size: 46px 46px;
     }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
 
     /* ── Skip link ── */
     .skip-link {
@@ -298,16 +300,19 @@
 
     /* ── Article footer ── */
     .article-back {
-      display: block;
+      display: inline-block;
       margin-top: 16px;
+      padding: 12px 14px 11px;
+      min-height: 44px;
+      border: 2px solid var(--border);
+      background: var(--panel);
       font-family: var(--mono);
-      font-size: .75rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--body-muted);
+      font-size: .75rem; letter-spacing: .1em;
+      text-transform: uppercase; font-weight: 900;
       text-decoration: none;
+      color: inherit;
     }
-    .article-back:hover { color: var(--accent); }
+    .article-back:hover { border-color: var(--accent); }
 
     /* ── Footer strip ── */
     .footer-strip {
@@ -322,12 +327,6 @@
       letter-spacing: .06em; font-size: .84rem; font-weight: 900;
       min-height: 44px;
     }
-    .footer-strip a {
-      color: inherit;
-      text-decoration: none;
-    }
-    .footer-strip a:hover { color: var(--accent); }
-
     /* ── Focus states ── */
     .mode-toggle:focus-visible,
     .brand-block:focus-visible,
@@ -363,13 +362,16 @@
       a[href]::after { content: ' (' attr(href) ')'; font-size: .8em; }
     }
 
-    /* ── Mobile ── */
-    @media (max-width: 600px) {
-      :root { --outer-pad: 12px; }
-      .article-header { padding: 24px 16px 20px; }
-      .article-body { padding: 28px 16px 36px; font-size: 1.05rem; }
-      .pull-quote { margin: 32px -16px; padding: 24px 16px; }
+    /* ── Responsive ── */
+    @media (max-width: 760px) {
+      :root { --outer-pad: 18px; }
+      .masthead {
+        flex-wrap: wrap; gap: 10px; background: var(--bg);
+      }
+      .article-header { padding: 20px 16px 18px; }
+      .article-body { padding: 28px 16px 36px; }
       .share-bar { padding: 12px 16px; flex-wrap: wrap; }
+      .pull-quote { margin: 32px -16px; padding: 24px 16px; }
       .footer-strip { grid-template-columns: 1fr; }
       .ruler-top, .ruler-left { display: none; }
     }
