@@ -1,202 +1,750 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>I Don't Do Resolutions. I Do Reckonings. — DX</title>
-<meta name="description" content="Some stories don't wait for a happy ending to be worth telling.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>I Don't Do Resolutions I Do Reckonings — DX</title>
+  <meta name="description" content="Some stories don't wait for a happy ending to be worth telling." />
 
-<!-- Favicon -->
-<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
-<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <link rel="canonical" href="https://dxjakes.com/words/reckonings">
 
-<!-- Open Graph -->
-<meta property="og:title" content="I Don't Do Resolutions. I Do Reckonings.">
-<meta property="og:description" content="Some stories don't wait for a happy ending to be worth telling.">
-<meta property="og:image" content="https://dxjakes.com/img/og-default.png">
-<meta property="og:url" content="https://dxjakes.com/words/reckonings">
-<meta property="og:type" content="article">
-<meta property="og:site_name" content="DX">
-<meta property="article:author" content="Dexter Jakes">
-<meta property="article:published_time" content="2026-04-01">
+  <meta property="og:title" content="I Don't Do Resolutions I Do Reckonings">
+  <meta property="og:description" content="Some stories don't wait for a happy ending to be worth telling.">
+  <meta property="og:image" content="https://dxjakes.com/img/og-default.png">
+  <meta property="og:url" content="https://dxjakes.com/words/reckonings">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DX">
+  <meta property="article:author" content="Dexter Jakes">
+  <meta property="article:published_time" content="2026-04-01">
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="I Don't Do Resolutions. I Do Reckonings.">
-<meta name="twitter:description" content="Some stories don't wait for a happy ending to be worth telling.">
-<meta name="twitter:image" content="https://dxjakes.com/img/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="I Don't Do Resolutions I Do Reckonings">
+  <meta name="twitter:description" content="Some stories don't wait for a happy ending to be worth telling.">
+  <meta name="twitter:image" content="https://dxjakes.com/img/og-default.png">
 
-<link rel="stylesheet" href="/css/global.css">
-<link rel="stylesheet" href="/css/post.css">
-<link rel="stylesheet" href="/css/print.css" media="print">
+  <style>
+    :root {
+      --bg: #f4f4f1;
+      --panel: #f8f8f6;
+      --ink: #050505;
+      --muted: #202020;
+      --border: #0a0a0a;
+      --rule: rgba(0,0,0,.14);
+      --meta-bg: #0a0a0a;
+      --meta-ink: #f5f5f1;
+      --accent: #c00;
+      --body-color: rgba(5,5,5,.82);
+      --body-muted: rgba(5,5,5,.56);
+      --body-faint: rgba(5,5,5,.18);
+      --body-tint: rgba(5,5,5,.04);
+      --display: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      --body: 'Arial Narrow', Arial, Helvetica, sans-serif;
+      --serif: Georgia, 'Times New Roman', serif;
+      --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+      --outer-pad: 28px;
+    }
+    body.dark-mode {
+      --bg: #060606;
+      --panel: #0d0d0d;
+      --ink: #f3f0e8;
+      --muted: #d7d3ca;
+      --border: #f3f0e8;
+      --rule: rgba(255,255,255,.16);
+      --meta-bg: #f3f0e8;
+      --meta-ink: #0a0a0a;
+      --body-color: rgba(243,240,232,.82);
+      --body-muted: rgba(243,240,232,.52);
+      --body-faint: rgba(243,240,232,.14);
+      --body-tint: rgba(243,240,232,.04);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; touch-action: manipulation; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      line-height: 1.4;
+      transition: background .18s ease, color .18s ease;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background-image:
+        linear-gradient(to right, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px)),
+        linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px));
+      background-size: 46px 46px;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ::selection { background: var(--ink); color: var(--bg); }
+
+    /* ── Print ── */
+    @media print {
+      body { background: #fff !important; color: #000 !important; background-image: none !important; }
+      .ruler-top, .ruler-left, .mode-toggle, .share-bar { display: none !important; }
+      .masthead { position: static; background: none; }
+      .article-body { border: none; }
+    }
+
+    /* ── Skip link ── */
+    .skip-link {
+      position: absolute; left: -999px; top: 0;
+      background: var(--ink); color: var(--bg);
+      padding: 10px 14px; z-index: 999;
+    }
+    .skip-link:focus { left: 12px; top: 12px; }
+
+    /* ── Rulers ── */
+    .ruler-top, .ruler-left {
+      position: fixed; pointer-events: none; z-index: 1; opacity: .75;
+    }
+    .ruler-top {
+      top: 0; left: 0; right: 0; height: 22px;
+      border-bottom: 1px solid var(--rule);
+      background: repeating-linear-gradient(to right, transparent 0 44px, var(--rule) 44px 45px);
+    }
+    .ruler-left {
+      top: 0; left: 0; bottom: 0; width: 22px;
+      border-right: 1px solid var(--rule);
+      background: repeating-linear-gradient(to bottom, transparent 0 44px, var(--rule) 44px 45px);
+    }
+
+    /* ── Page shell ── */
+    .page-shell {
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 12px var(--outer-pad) 22px;
+      padding-left: max(var(--outer-pad), env(safe-area-inset-left));
+      padding-right: max(var(--outer-pad), env(safe-area-inset-right));
+      position: relative;
+    }
+
+    /* ── Masthead ── */
+    .masthead {
+      position: sticky; top: 0; z-index: 50;
+      display: flex;
+      align-items: center; gap: 14px;
+      padding: 10px 0 14px;
+      padding-top: max(10px, env(safe-area-inset-top));
+      background: linear-gradient(to bottom, var(--bg) 70%, rgba(0,0,0,0));
+      margin-top: 6px;
+    }
+    .brand-block {
+      display: inline-flex; align-items: stretch;
+      border: 2px solid var(--border); background: var(--panel);
+    }
+    .brand-mark, .brand-word {
+      padding: 8px 10px 7px; line-height: 1;
+      letter-spacing: .03em; text-transform: uppercase;
+      font-weight: 900; border-right: 2px solid var(--border);
+    }
+    .brand-mark {
+      display: flex; align-items: center;
+      justify-content: center; min-width: 72px;
+      padding: 6px 10px;
+    }
+    .brand-logo { height: 28px; width: auto; }
+    .brand-word {
+      font-size: .92rem; align-content: center;
+      background: var(--ink); color: var(--bg);
+    }
+    .brand-block .brand-word:last-child { border-right: 0; }
+
+    .mode-toggle {
+      margin-left: auto;
+      appearance: none;
+      border: 2px solid var(--border);
+      background: var(--panel); color: var(--ink);
+      padding: 14px 16px 13px; text-transform: uppercase;
+      min-height: 44px;
+      font: inherit; font-size: .88rem; font-weight: 900;
+      letter-spacing: .04em; cursor: pointer;
+    }
+
+    /* ── Article wrapper ── */
+    main { position: relative; z-index: 2; }
+    .article-frame {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 0 80px;
+    }
+
+    /* ── Article header ── */
+    .article-header {
+      border: 3px solid var(--border);
+      background: var(--panel);
+      padding: 28px 24px 22px;
+      margin-bottom: 0;
+    }
+    .article-eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 18px;
+    }
+    .article-tag {
+      font-family: var(--mono);
+      font-size: .75rem; letter-spacing: .12em;
+      text-transform: uppercase; font-weight: 900;
+      padding: 4px 8px 3px;
+      border: 2px solid var(--border);
+      background: var(--ink); color: var(--bg);
+    }
+    .article-date, .article-read {
+      font-family: var(--mono);
+      font-size: .75rem; letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--body-muted);
+    }
+    .article-title {
+      font-family: var(--display);
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: .86;
+      letter-spacing: -.03em;
+      margin-bottom: 16px;
+    }
+    .article-deck {
+      font-family: var(--mono);
+      font-size: .8rem;
+      line-height: 1.5;
+      letter-spacing: .04em;
+      color: var(--body-muted);
+      text-transform: uppercase;
+      max-width: 480px;
+      border-left: 3px solid var(--border);
+      padding-left: 14px;
+    }
+
+    /* ── Article body ── */
+    .article-body {
+      border-left: 3px solid var(--border);
+      border-right: 3px solid var(--border);
+      border-bottom: 3px solid var(--border);
+      background: var(--panel);
+      padding: 40px 24px 48px;
+      font-family: var(--serif);
+      font-size: 1.08rem;
+      line-height: 1.85;
+      color: var(--body-color);
+    }
+    .article-body p { margin-bottom: 1.5em; }
+    .article-body a {
+      text-decoration: underline;
+      text-decoration-color: var(--accent);
+      text-underline-offset: 3px;
+      text-decoration-thickness: 2px;
+    }
+    .article-body a:hover { color: var(--accent); }
+
+    /* Drop cap */
+    .article-body .intro::first-letter {
+      font-family: var(--display);
+      font-size: 4.8em;
+      font-weight: 900;
+      float: left;
+      line-height: .72;
+      margin-right: 8px;
+      margin-top: 4px;
+      color: var(--ink);
+    }
+
+    /* ── Section head ── */
+    .section-head {
+      display: flex; align-items: center; gap: 14px;
+      margin: 48px 0 20px;
+    }
+    .section-head h2 {
+      font-family: var(--mono);
+      font-size: .75rem; font-weight: 900;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+    .section-head-line {
+      flex: 1; height: 3px;
+      background: var(--border);
+    }
+
+    /* ── Pull quote ── */
+    .pull-quote {
+      margin: 40px -24px;
+      padding: 32px 24px;
+      border-top: 3px solid var(--border);
+      border-bottom: 3px solid var(--border);
+      background: var(--body-tint);
+    }
+    .pull-quote p {
+      font-family: var(--display);
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    /* ── Callout ── */
+    .callout {
+      margin: 36px 0;
+      padding: 0 0 0 18px;
+      border-left: 3px solid var(--accent);
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+    .callout p { margin: 0; }
+
+    /* ── Scripture block ── */
+    .scripture {
+      border: 2px solid var(--body-faint);
+      background: var(--body-tint);
+      padding: 24px;
+      margin: 36px 0;
+    }
+    .scripture p {
+      font-family: var(--serif);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--body-color);
+      font-style: italic;
+      margin: 0 0 10px !important;
+    }
+    .scripture cite {
+      font-family: var(--mono);
+      font-style: normal;
+      font-size: .7rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    body.dark-mode .scripture cite { color: #f44; }
+
+    /* ── Stat block ── */
+    .stat-block {
+      margin: 48px -24px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 3px 1fr;
+      gap: 0 20px;
+    }
+    .stat-block-bar { background: var(--accent); }
+    .stat-block-text {
+      font-family: var(--display);
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      line-height: 1.05;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .stat-block-text span {
+      display: block;
+      font-family: var(--mono);
+      font-size: .7rem;
+      font-weight: 400;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--body-muted);
+      margin-top: 8px;
+    }
+
+    /* ── Closing ── */
+    .closing {
+      margin-top: 48px;
+      padding: 28px 24px;
+      border: 3px solid var(--border);
+      background: var(--panel);
+      font-family: var(--serif);
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--body-color);
+      font-style: italic;
+    }
+
+    /* ── Share bar ── */
+    .share-bar {
+      display: flex; align-items: center; gap: 14px;
+      margin-top: 0;
+      padding: 14px 24px;
+      border: 3px solid var(--border);
+      border-top: 0;
+      background: var(--panel);
+    }
+    .share-label {
+      font-family: var(--mono);
+      font-size: .7rem; letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--body-muted);
+    }
+    .share-link {
+      font-family: var(--mono);
+      font-size: .75rem; letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--body-muted);
+      background: none; border: none;
+      cursor: pointer; font-weight: 700;
+      padding: 10px 12px;
+      min-height: 44px;
+    }
+    .share-link:hover { color: var(--ink); }
+    .subscribe-link {
+      margin-left: auto;
+      font-family: var(--mono);
+      font-size: .75rem; letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 900;
+      padding: 10px 14px 9px;
+      min-height: 44px;
+      border: 2px solid var(--border);
+      background: var(--ink); color: var(--bg);
+    }
+
+    /* ── Article footer ── */
+    .article-back {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 12px 14px 11px;
+      min-height: 44px;
+      border: 2px solid var(--border);
+      background: var(--panel);
+      font-family: var(--mono);
+      font-size: .75rem; letter-spacing: .1em;
+      text-transform: uppercase; font-weight: 900;
+    }
+    .article-back:hover { border-color: var(--accent); }
+
+    /* ── Footer strip ── */
+    .footer-strip {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 12px; margin-top: 12px;
+      position: relative; z-index: 2;
+    }
+    .footer-strip > * {
+      border: 2px solid var(--border); background: var(--panel);
+      padding: 12px 14px 11px; text-transform: uppercase;
+      letter-spacing: .06em; font-size: .84rem; font-weight: 900;
+      min-height: 44px;
+    }
+
+    /* ── Focus states ── */
+    .mode-toggle:focus-visible,
+    .brand-block:focus-visible,
+    .share-link:focus-visible,
+    .subscribe-link:focus-visible,
+    .article-back:focus-visible,
+    .footer-strip a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ── Utility ── */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* ── Progress bar ── */
+    .reading-progress {
+      position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+      background: var(--ink); z-index: 9999;
+      transition: width .12s linear;
+      pointer-events: none;
+    }
+
+    /* ── Section indicator ── */
+    .section-indicator {
+      position: fixed; bottom: 28px; left: 28px; z-index: 9998;
+      font-family: var(--mono); font-size: .65rem;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--body-muted);
+      opacity: 0; transition: opacity .3s ease;
+      pointer-events: none;
+      max-width: 260px; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+    .section-indicator.visible { opacity: 1; }
+    @media (max-width: 760px) {
+      .section-indicator { bottom: 16px; left: 16px; font-size: .58rem; max-width: 180px; }
+    }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 0s !important;
+        animation-duration: 0s !important;
+      }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 760px) {
+      :root { --outer-pad: 18px; }
+      .masthead {
+        flex-wrap: wrap; gap: 10px; background: var(--bg);
+      }
+
+      .article-header { padding: 20px 16px 18px; }
+      .article-body { padding: 28px 16px 36px; }
+      .share-bar { padding: 12px 16px; flex-wrap: wrap; }
+      .pull-quote { margin: 32px -16px; padding: 24px 16px; }
+      .stat-block { margin: 36px -16px; padding: 0 16px; }
+      .footer-strip { grid-template-columns: 1fr; }
+      .ruler-top, .ruler-left { display: none; }
+    }
+  </style>
 </head>
 <body>
+  <div class="reading-progress" aria-hidden="true"></div>
+  <div class="section-indicator" aria-hidden="true"></div>
+  <a href="#article" class="skip-link">Skip to article</a>
+  <div class="ruler-top" aria-hidden="true"></div>
+  <div class="ruler-left" aria-hidden="true"></div>
 
-<a href="#article" class="skip-link">Skip to article</a>
-<div class="accent-top" aria-hidden="true"></div>
+  <div class="page-shell">
+    <nav class="masthead" aria-label="Main navigation">
+      <a class="brand-block" href="/" aria-label="DX home">
+        <span class="brand-mark"><img src="/img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28"></span>
+        <span class="brand-word">Words</span>
+      </a>
+      <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode">
+        Mode: Light
+      </button>
+    </nav>
 
-<nav class="nav" aria-label="Site navigation">
-  <a href="/" class="nav-logo" aria-label="Home"><img src="/img/logo-dithered.png" alt="" /></a>
-  <a href="/words" class="nav-back"><span aria-hidden="true">&larr;</span> Words</a>
-</nav>
+    <main id="article">
+      <div class="article-frame">
 
-<main class="wrapper" id="article">
+        <header class="article-header">
+          <div class="article-eyebrow">
+            <span class="article-tag">Faith</span>
+            <span class="article-date"><time datetime="2026-04-01">Apr 1, 2026</time></span>
+            <span class="article-read">8 min</span>
+          </div>
+          <h1 class="article-title">I Don't Do Resolutions I Do Reckonings</h1>
+          <p class="article-deck">Some stories don't wait for a happy ending to be worth telling.</p>
+        </header>
 
-  <header class="post-header">
-    <div class="post-eyebrow">
-      <span class="post-tag">Faith</span>
-      <span class="post-date"><time datetime="2026-04-01">Apr 1, 2026</time></span>
-      <span class="post-read">8 min read</span>
-    </div>
-    <h1 class="post-title">I Don't Do Resolutions.<br>I Do Reckonings.</h1>
-    <p class="post-deck">Some stories don't wait for a happy ending to be worth telling.</p>
-  </header>
+        <article class="article-body">
 
-  <div class="post-body">
+          <div class="scripture">
+            <p>"Let us examine our ways and test them, and let us return to the LORD."</p>
+            <cite>Lamentations 3:40 (NIV)</cite>
+          </div>
 
-    <div class="scripture">
-      <p>"Let us examine our ways and test them, and let us return to the LORD."</p>
-      <cite>Lamentations 3:40 (NIV)</cite>
-    </div>
+          <p class="intro">I was cooking something. I don't remember what.</p>
 
-    <p class="intro">I was cooking something. I don't remember what.</p>
+          <p>I remember the oil was hot. I remember Larissa getting up from the couch, walking to the restroom, and coming back holding not one — but several — tests. All positive. All saying the same thing.</p>
 
-    <p>I remember the oil was hot. I remember Larissa getting up from the couch, walking to the restroom, and coming back holding not one &mdash; but several &mdash; tests. All positive. All saying the same thing.</p>
+          <p>Five years. Five years of trying, praying, waiting. Five years of wondering if the timing was us or God or both.</p>
 
-    <p>Five years. Five years of trying, praying, waiting. Five years of wondering if the timing was us or God or both.</p>
+          <p>And there she was. Standing in the kitchen, holding the answer.</p>
 
-    <p>And there she was. Standing in the kitchen, holding the answer.</p>
+          <p>I ended up on the floor. Not because I fell — because my body didn't know what else to do with that much joy arriving at once. Tears rolling. Hands shaking. Asking her to stop playing. Begging her to stop playing.</p>
 
-    <p>I ended up on the floor. Not because I fell &mdash; because my body didn't know what else to do with that much joy arriving at once. Tears rolling. Hands shaking. Asking her to stop playing. Begging her to stop playing.</p>
+          <p>It was April 1. A year ago today.</p>
 
-    <p>It was April 1. A year ago today.</p>
+          <p>Anniversaries have a way of demanding an inventory. Not of what you planned — of what remains.</p>
 
-    <p>Anniversaries have a way of demanding an inventory. Not of what you planned &mdash; of what remains.</p>
+          <p>She wasn't playing. But I couldn't believe it. Not because I didn't trust her — because hope had been deferred for so long that fulfillment felt like a setup. After five years, even joy felt suspicious.</p>
 
-    <p>She wasn't playing. But I couldn't believe it. Not because I didn't trust her &mdash; because hope had been deferred for so long that fulfillment felt like a setup. After five years, even joy felt suspicious.</p>
+          <p>We never finished cooking that night. Ordered food instead and sat across from each other, barely eating, mostly just looking at each other like two people who had just been handed something too sacred to hold with steady hands.</p>
 
-    <p>We never finished cooking that night. Ordered food instead and sat across from each other, barely eating, mostly just looking at each other like two people who had just been handed something too sacred to hold with steady hands.</p>
+          <p>Just over four weeks later, we lost the pregnancy.</p>
 
-    <p>Just over four weeks later, we lost the pregnancy.</p>
+          <p>Early enough for some people to minimize it. But there is no "barely" in loss. There is only before and after. We hadn't even had time to say it out loud, which somehow made the silence afterward even stranger.</p>
 
-    <p>Early enough for some people to minimize it. But there is no "barely" in loss. There is only before and after. We hadn't even had time to say it out loud, which somehow made the silence afterward even stranger.</p>
+          <div class="section-head">
+            <h2>The Parking Lot</h2>
+            <div class="section-head-line" aria-hidden="true"></div>
+          </div>
 
-    <div class="section-head">
-      <h2>The Parking Lot</h2>
-      <div class="section-head-line" aria-hidden="true"></div>
-    </div>
+          <p>I don't remember every detail of the hospital. But I remember the parking lot.</p>
 
-    <p>I don't remember every detail of the hospital. But I remember the parking lot.</p>
+          <p>I remember "Gloria" by Kendrick Lamar playing through the speakers while I sat in the driver's seat and sobbed. Not quiet tears. The kind pulled from somewhere grief had never touched before.</p>
 
-    <p>I remember &ldquo;Gloria&rdquo; by Kendrick Lamar playing through the speakers while I sat in the driver's seat and sobbed. Not quiet tears. The kind pulled from somewhere grief had never touched before.</p>
+          <p>Larissa asked me if I wanted to eat. She had just heard the same words, carrying the same loss in her body — and she asked me if I was hungry. I couldn't answer. I couldn't even look at her. I won't speak to her experience because her story is hers to tell. But I will say this: she held hope in her body that we both built in our hearts. And when it was taken, she still found a way to hold me.</p>
 
-    <p>Larissa asked me if I wanted to eat. She had just heard the same words, carrying the same loss in her body &mdash; and she asked me if I was hungry. I couldn't answer. I couldn't even look at her. I won't speak to her experience because her story is hers to tell. But I will say this: she held hope in her body that we both built in our hearts. And when it was taken, she still found a way to hold me.</p>
+          <p>"Gloria" was still playing. And as the lyric came through the speakers, she said the words to me.</p>
 
-    <p>&ldquo;Gloria&rdquo; was still playing. And as the lyric came through the speakers, she said the words to me.</p>
+          <div class="pull-quote">
+            <p>"Baby, dry your eyes. Depend on me as your relief. Let your anger be mine."</p>
+          </div>
 
-    <div class="pull-quote">
-      <p>&ldquo;Baby, dry your eyes. Depend on me as your relief. Let your anger be mine.&rdquo;</p>
-    </div>
+          <p>She wasn't singing. She was saying it. Kendrick gave her the language, and she used it.</p>
 
-    <p>She wasn't singing. She was saying it. Kendrick gave her the language, and she used it.</p>
+          <p>That's who she is.</p>
 
-    <p>That's who she is.</p>
+          <div class="stat-block">
+            <div class="stat-block-bar"></div>
+            <div class="stat-block-text">
+              We were broken, but still together.
+              <span>The nights after were the hardest.</span>
+            </div>
+          </div>
 
-    <div class="stat-block">
-      <div class="stat-block-bar"></div>
-      <div class="stat-block-text">
-        We were broken, but still together.
-        <span>The nights after were the hardest.</span>
+          <p>We cried together in a bed that felt too big and too small at the same time. We prayed prayers that didn't have language yet — just sound. We blamed ourselves in whispers, wondering what we did wrong, what we missed, what we could have held tighter.</p>
+
+          <p>We learned that grief does not move through two people evenly. One of us could speak when the other couldn't. One of us could carry hope when the other was too tired to lift it.</p>
+
+          <p>I struggled to speak about it. Not because I didn't feel it, but because I had never known sorrow to live so close to joy. The two were neighbors.</p>
+
+          <p>I still see newborns sometimes. At church. At the store. In photos people send with good intentions and big smiles. And I'm genuinely happy for them. That's not a performance. That joy is real.</p>
+
+          <p>But communities are good at celebrating arrival. They are less practiced at sitting with absence.</p>
+
+          <p>And underneath it, there's a weight. A quiet calculation I didn't ask to carry — the math of what could have been. How old they'd be. What they'd look like. Whether they'd have her eyes.</p>
+
+          <p>That doesn't go away just because you don't talk about it.</p>
+
+          <div class="section-head">
+            <h2>What I Was Supposed to Do</h2>
+            <div class="section-head-line" aria-hidden="true"></div>
+          </div>
+
+          <p>Here's what I was supposed to do.</p>
+
+          <p>I was supposed to wait. Wait until we were pregnant again. Wait until the baby was born healthy and full-term. Wait until I could stand on a stage or behind a caption and say, "Look what God did." The story with a bow on it. The highlight reel. The after photo.</p>
+
+          <p>That's how we're taught to share, right? You struggle in silence, you overcome in public, and you give the glory once the story has a clean ending.</p>
+
+          <p>But I've been thinking about the people in the middle. The ones scrolling through announcements and gender reveals, genuinely happy for everyone else, but carrying something they haven't been able to say out loud. Not because they're bitter. Because unfinished stories rarely get airtime.</p>
+
+          <div class="section-head">
+            <h2>What I Have</h2>
+            <div class="section-head-line" aria-hidden="true"></div>
+          </div>
+
+          <p>I don't have a baby to show you. I have a marriage that survived the worst thing it's been through. I have a wife who held me in a parking lot while Kendrick played and the world kept moving outside the windshield. I have a faith that didn't shatter — not because it's bulletproof, but because the cracks let something in that was already there.</p>
+
+          <p>My faith did not survive because it explained the loss. It survived because it refused to leave me alone inside it.</p>
+
+          <div class="callout"><p>That is not the lesser blessing.</p></div>
+
+          <p>I almost missed it, though. Almost spent so long reaching for the thing I was praying for that I forgot to hold the thing I already had.</p>
+
+          <p>We're still trying, still hoping, still believing that one day the news will come again and this time the story will carry all the way through. Larissa and I have made one promise to each other about it — if we ever find out again, and it happens to fall on or around April 1, we don't tell each other. Not that day. That date has held enough. We'll give it rest and let the joy arrive on a different morning.</p>
+
+          <p>But I'm not waiting for that morning anymore.</p>
+
+          <div class="section-head">
+            <h2>The Reckoning</h2>
+            <div class="section-head-line" aria-hidden="true"></div>
+          </div>
+
+          <p>I don't do resolutions. I do reckonings. A resolution reaches for an improved future. A reckoning tells the truth about the present. I look at what's actually here — grief, gratitude, a marriage that made it through, hope that won't die — and I choose to sow in it.</p>
+
+          <p>April 1, 2026. One year later.</p>
+
+          <p>The date that once marked our loss is now the ground I'm choosing to sow.</p>
+
+          <p>No highlight reel. Just the full human, documented.</p>
+
+          <p>That's the reckoning.</p>
+
+          <p>Maybe that's what I'm building here. A place for the things I keep coming back to — and the words I find when I finally stop looking away. Not because I've arrived at anything neat. Because what is buried is not always gone. Sometimes it becomes the ground from which something else grows.</p>
+
+          <div class="closing">
+            If you're in the middle of an unfinished story — one that doesn't have a bow on it yet — you're not behind. You're just not done. And that's not the same thing.
+          </div>
+
+        </article>
+
+        <!-- Share bar -->
+        <div class="share-bar" aria-label="Share this essay">
+          <span class="share-label">Share</span>
+          <a href="https://x.com/intent/tweet?url=https://dxjakes.com/words/reckonings&text=I%20Don%E2%80%99t%20Do%20Resolutions%20I%20Do%20Reckonings%20%E2%80%94%20DX" target="_blank" rel="noopener noreferrer" class="share-link">X</a>
+          <button type="button" class="share-link" onclick="navigator.clipboard.writeText('https://dxjakes.com/words/reckonings');this.textContent='Copied';setTimeout(()=>this.textContent='Copy link',2000);">Copy link</button>
+          <a href="https://substack.com/@imjustdex" target="_blank" rel="noopener noreferrer" class="subscribe-link">Subscribe</a>
+        </div>
+
+        <a href="/" class="article-back">&larr; Back</a>
+
       </div>
-    </div>
+    </main>
 
-    <p>We cried together in a bed that felt too big and too small at the same time. We prayed prayers that didn't have language yet &mdash; just sound. We blamed ourselves in whispers, wondering what we did wrong, what we missed, what we could have held tighter.</p>
-
-    <p>We learned that grief does not move through two people evenly. One of us could speak when the other couldn't. One of us could carry hope when the other was too tired to lift it.</p>
-
-    <p>I struggled to speak about it. Not because I didn't feel it, but because I had never known sorrow to live so close to joy. The two were neighbors.</p>
-
-    <p>I still see newborns sometimes. At church. At the store. In photos people send with good intentions and big smiles. And I'm genuinely happy for them. That's not a performance. That joy is real.</p>
-
-    <p>But communities are good at celebrating arrival. They are less practiced at sitting with absence.</p>
-
-    <p>And underneath it, there's a weight. A quiet calculation I didn't ask to carry &mdash; the math of what could have been. How old they'd be. What they'd look like. Whether they'd have her eyes.</p>
-
-    <p>That doesn't go away just because you don't talk about it.</p>
-
-    <div class="section-head">
-      <h2>What I Was Supposed to Do</h2>
-      <div class="section-head-line" aria-hidden="true"></div>
-    </div>
-
-    <p>Here's what I was supposed to do.</p>
-
-    <p>I was supposed to wait. Wait until we were pregnant again. Wait until the baby was born healthy and full-term. Wait until I could stand on a stage or behind a caption and say, "Look what God did." The story with a bow on it. The highlight reel. The after photo.</p>
-
-    <p>That's how we're taught to share, right? You struggle in silence, you overcome in public, and you give the glory once the story has a clean ending.</p>
-
-    <p>But I've been thinking about the people in the middle. The ones scrolling through announcements and gender reveals, genuinely happy for everyone else, but carrying something they haven't been able to say out loud. Not because they're bitter. Because unfinished stories rarely get airtime.</p>
-
-    <div class="section-head">
-      <h2>What I Have</h2>
-      <div class="section-head-line" aria-hidden="true"></div>
-    </div>
-
-    <p>I don't have a baby to show you. I have a marriage that survived the worst thing it's been through. I have a wife who held me in a parking lot while Kendrick played and the world kept moving outside the windshield. I have a faith that didn't shatter &mdash; not because it's bulletproof, but because the cracks let something in that was already there.</p>
-
-    <p>My faith did not survive because it explained the loss. It survived because it refused to leave me alone inside it.</p>
-
-    <div class="callout"><p>That is not the lesser blessing.</p></div>
-
-    <p>I almost missed it, though. Almost spent so long reaching for the thing I was praying for that I forgot to hold the thing I already had.</p>
-
-    <p>We're still trying, still hoping, still believing that one day the news will come again and this time the story will carry all the way through. Larissa and I have made one promise to each other about it &mdash; if we ever find out again, and it happens to fall on or around April 1, we don't tell each other. Not that day. That date has held enough. We'll give it rest and let the joy arrive on a different morning.</p>
-
-    <p>But I'm not waiting for that morning anymore.</p>
-
-    <div class="section-head">
-      <h2>The Reckoning</h2>
-      <div class="section-head-line" aria-hidden="true"></div>
-    </div>
-
-    <p>I don't do resolutions. I do reckonings. A resolution reaches for an improved future. A reckoning tells the truth about the present. I look at what's actually here &mdash; grief, gratitude, a marriage that made it through, hope that won't die &mdash; and I choose to sow in it.</p>
-
-    <p>April 1, 2026. One year later.</p>
-
-    <p>The date that once marked our loss is now the ground I'm choosing to sow.</p>
-
-    <p>No highlight reel. Just the full human, documented.</p>
-
-    <p>That's the reckoning.</p>
-
-    <p>Maybe that's what I'm building here. A place for the things I keep coming back to &mdash; and the words I find when I finally stop looking away. Not because I've arrived at anything neat. Because what is buried is not always gone. Sometimes it becomes the ground from which something else grows.</p>
-
-    <div class="closing">
-      If you're in the middle of an unfinished story &mdash; one that doesn't have a bow on it yet &mdash; you're not behind. You're just not done. And that's not the same thing.
-    </div>
-
+    <footer class="footer-strip" aria-label="Footer">
+      <a href="https://imjustdex.substack.com" target="_blank" rel="noopener">Subscribe on Substack</a>
+      <span>Authored Publishing Object</span>
+      <span>Est. 1994</span>
+    </footer>
   </div>
 
-  <!-- Share Bar -->
-  <div class="share-bar" aria-label="Share this essay">
-    <span class="share-label" aria-hidden="true">Share</span>
-    <a href="https://twitter.com/intent/tweet?url=https://dxjakes.com/words/reckonings&text=I%20Don%E2%80%99t%20Do%20Resolutions.%20I%20Do%20Reckonings.%20%E2%80%94%20DX" target="_blank" rel="noopener" class="share-link" aria-label="Share on Twitter (opens in new tab)">Twitter</a>
-    <button type="button" class="share-link copy-btn" onclick="navigator.clipboard.writeText('https://dxjakes.com/words/reckonings');this.textContent='Copied';setTimeout(()=>this.textContent='Copy link',2000);" aria-label="Copy link to clipboard">Copy link</button>
-    <a href="https://substack.com/@imjustdex" target="_blank" rel="noopener" class="subscribe-link" style="margin-left:auto;" aria-label="Subscribe on Substack (opens in new tab)">Subscribe on Substack <span aria-hidden="true">&rarr;</span></a>
-  </div>
+  <script>
+    (function () {
+      var toggle = document.getElementById('modeToggle');
+      var body = document.body;
+      var logo = document.querySelector('.brand-logo');
+      var KEY = 'dxmode';
+      function setLabel() {
+        toggle.textContent = body.classList.contains('dark-mode') ? 'Mode: Dark' : 'Mode: Light';
+      }
+      function applyMode(mode) {
+        if (mode === 'dark') {
+          body.classList.add('dark-mode');
+          if (logo) logo.src = '/img/logo-white.svg';
+        } else {
+          body.classList.remove('dark-mode');
+          if (logo) logo.src = '/img/logo-dark.svg';
+        }
+        document.cookie = KEY + '=' + mode + ';path=/;max-age=31536000;SameSite=Lax';
+        setLabel();
+      }
+      var cookieMatch = document.cookie.match(/(?:^|; )dxmode=([^;]+)/);
+      applyMode(cookieMatch ? cookieMatch[1] : 'light');
+      toggle.addEventListener('click', function () {
+        applyMode(body.classList.contains('dark-mode') ? 'light' : 'dark');
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      var bar = document.querySelector('.reading-progress');
+      var label = document.querySelector('.section-indicator');
+      var article = document.querySelector('.article-body') || document.querySelector('article');
+      if (!bar || !article) return;
 
-  <footer class="post-footer">
-    <a href="/words" class="back-link"><span aria-hidden="true">&larr;</span> All Words</a>
-    <div class="pulse-dot" aria-hidden="true"></div>
-  </footer>
+      var sections = [];
+      article.querySelectorAll('.section-head h2').forEach(function (h2) {
+        sections.push({ el: h2.closest('.section-head'), name: h2.textContent.trim() });
+      });
 
-</main>
+      var ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          ticking = false;
+          var rect = article.getBoundingClientRect();
+          var total = article.scrollHeight - window.innerHeight;
+          var scrolled = -rect.top;
+          var pct = Math.max(0, Math.min(100, (scrolled / total) * 100));
+          bar.style.width = pct + '%';
 
-<script>
-// Date gate: April 1, 2026 CDT (UTC-5)
-if (new Date() < new Date('2026-04-01T00:00:00-05:00')) { window.location.replace('/words'); }
-</script>
-<script src="/js/progress.js"></script>
-<script src="/js/essay.js"></script>
+          /* Section indicator */
+          var current = '';
+          for (var i = sections.length - 1; i >= 0; i--) {
+            if (sections[i].el.getBoundingClientRect().top < window.innerHeight * 0.4) {
+              current = sections[i].name;
+              break;
+            }
+          }
+          if (current && pct > 2 && pct < 98) {
+            label.textContent = current;
+            label.classList.add('visible');
+          } else {
+            label.classList.remove('visible');
+          }
+        });
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
 </body>
 </html>
