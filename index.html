@@ -282,12 +282,16 @@
 
     /* ── Identity plate ── */
     .identity-plate {
-      grid-column: span 5;
+      grid-column: span 4;
       min-height: 346px;
       cursor: default;
       background: var(--ink);
       color: var(--bg);
     }
+    body.dark-mode .plate-image::before { filter: grayscale(1) contrast(1.15) invert(1); }
+    body.dark-mode .plate-image::after { background: linear-gradient(to top, rgba(255,255,255,.78), rgba(255,255,255,.08) 55%, rgba(255,255,255,.14)); }
+    body.dark-mode .plate-image .plate-title { color: #050505; text-shadow: none; }
+    body.dark-mode .plate-image .meta-rail { color: #f5f5f1; background: #0a0a0a; border-color: #f3f0e8; }
     body.dark-mode .identity-plate {
       background: #ffffff;
       color: #050505;
@@ -340,6 +344,8 @@
 
     /* ── Image plates ── */
     .plate-image .plate-body { justify-content: flex-end; padding: 16px; }
+    .plate-image .plate-title { color: #fff; text-shadow: 0 2px 0 rgba(0,0,0,.45); }
+    .plate-image .meta-rail { color: #0a0a0a; background: #f5f5f1; border-color: #0a0a0a; }
     .plate-image::before {
       content: "";
       position: absolute;
@@ -542,17 +548,36 @@
           <div class="plate-body">
             <h2 class="plate-title med">I Don't Do Resolutions<br>I Do Reckonings</h2>
           </div>
-          <div class="meta-rail">Apr 01, 2026 / 8 min</div>
+          <div class="meta-rail">8 min</div>
         </article>
 
-        <!-- The Nets Were Already Full — Row 2 -->
-        <article class="plate plate-wide" data-tags="faith,strategy">
+        <!-- The Nets Were Already Full — Row 1 -->
+        <article class="plate plate-secondary plate-image img-concrete" data-tags="faith,strategy">
           <a class="plate-link" href="./words/the-nets/" aria-label="Read: The Nets Were Already Full"></a>
           <div class="plate-body">
-            <h2 class="plate-title lg">The Nets Were Already Full</h2>
+            <h2 class="plate-title med">The Nets Were Already Full</h2>
           </div>
-          <div class="meta-rail">Apr 08, 2026 / 14 min</div>
+          <div class="meta-rail">14 min</div>
         </article>
+
+        <!-- Nobody Handed Me This — Row 2 -->
+        <article class="plate plate-wide plate-image img-noise" data-tags="identity">
+          <a class="plate-link" href="./words/gumbo/" aria-label="Read: Nobody Handed Me This"></a>
+          <div class="plate-body">
+            <h2 class="plate-title lg">Nobody Handed Me This</h2>
+          </div>
+          <div class="meta-rail">12 min</div>
+        </article>
+
+        <!-- The Price of Sunday — Row 2 -->
+        <article class="plate plate-feature" data-tags="faith">
+          <a class="plate-link" href="./words/price-of-sunday/" aria-label="Read: The Price of Sunday"></a>
+          <div class="plate-body">
+            <h2 class="plate-title lg">The Price of Sunday</h2>
+          </div>
+          <div class="meta-rail">10 min</div>
+        </article>
+
 
       </section>
     </main>
