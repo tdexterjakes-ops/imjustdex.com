@@ -318,8 +318,8 @@
       margin-top: 8px;
       position: relative;
       min-height: 3.6em;
-      color: var(--bg);
-      opacity: .75;
+      color: #c00;
+      opacity: .85;
     }
     .identity-tagline span {
       position: absolute; top: 0; left: 0;
@@ -540,11 +540,7 @@
             <p class="identity-dx">DX</p>
             <h1 class="identity-name">Dexter Jakes</h1>
             <p class="identity-tagline" aria-live="polite">
-              <span class="active">Most of what matters will never be measured.</span>
-              <span>The hardest word to say in a loud room is no.</span>
-              <span>Faith, weight, and the words that carry both.</span>
-              <span>Some stories don't wait for a happy ending to be worth telling.</span>
-              <span>What is buried is not always gone.</span>
+              <!-- Populated dynamically from article plate titles -->
             </p>
           </div>
           <div class="meta-rail">Est. 1994</div>
@@ -629,13 +625,44 @@
 
   <script>
     (function () {
-      var quotes = document.querySelectorAll('.identity-tagline span');
-      if (quotes.length < 2) return;
+      var tagline = document.querySelector('.identity-tagline');
+      if (!tagline) return;
+
+      /* Pull titles from every article plate (visible or hidden) */
+      var titles = [];
+      document.querySelectorAll('.plate:not(.identity-plate) .plate-title').forEach(function (el) {
+        var t = el.textContent.trim();
+        if (t) titles.push(t);
+      });
+
+      /* Fallbacks if not enough plates exist yet */
+      var fallbacks = [
+        'Most of what matters will never be measured.',
+        'The hardest word to say in a loud room is no.',
+        'Faith, weight, and the words that carry both.',
+        'Some stories don\'t wait for a happy ending to be worth telling.',
+        'What is buried is not always gone.'
+      ];
+
+      /* Merge: plate titles first, then fill with fallbacks */
+      var pool = titles.length > 0 ? titles.concat(fallbacks) : fallbacks;
+
+      /* Build spans */
+      pool.forEach(function (text, idx) {
+        var span = document.createElement('span');
+        span.textContent = text;
+        if (idx === 0) span.classList.add('active');
+        tagline.appendChild(span);
+      });
+
+      /* Rotate */
+      var spans = tagline.querySelectorAll('span');
+      if (spans.length < 2) return;
       var i = 0;
       setInterval(function () {
-        quotes[i].classList.remove('active');
-        i = (i + 1) % quotes.length;
-        quotes[i].classList.add('active');
+        spans[i].classList.remove('active');
+        i = (i + 1) % spans.length;
+        spans[i].classList.add('active');
       }, 5000);
     })();
   </script>
