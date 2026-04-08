@@ -298,7 +298,15 @@
       line-height: .9;
       letter-spacing: -.02em;
       margin-top: 4px;
+      position: relative;
+      min-height: 2.4em;
     }
+    .identity-tagline span {
+      position: absolute; top: 0; left: 0;
+      opacity: 0;
+      transition: opacity .8s ease;
+    }
+    .identity-tagline span.active { opacity: 1; }
     .identity-sub {
       display: inline-block;
       margin-bottom: 6px;
@@ -511,7 +519,13 @@
             <span class="identity-sub">ImJustDex</span>
             <p class="identity-dx">DX</p>
             <h1 class="identity-name">Dexter Jakes</h1>
-            <p class="identity-tagline">Most of what matters will never be measured.</p>
+            <p class="identity-tagline" aria-live="polite">
+              <span class="active">Most of what matters will never be measured.</span>
+              <span>The hardest word to say in a loud room is no.</span>
+              <span>Faith, weight, and the words that carry both.</span>
+              <span>Some stories don't wait for a happy ending to be worth telling.</span>
+              <span>What is buried is not always gone.</span>
+            </p>
           </div>
           <div class="meta-rail">Fort Worth / Est. 1994</div>
         </article>
@@ -590,6 +604,19 @@
 
         });
       });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var quotes = document.querySelectorAll('.identity-tagline span');
+      if (quotes.length < 2) return;
+      var i = 0;
+      setInterval(function () {
+        quotes[i].classList.remove('active');
+        i = (i + 1) % quotes.length;
+        quotes[i].classList.add('active');
+      }, 5000);
     })();
   </script>
 </body>
