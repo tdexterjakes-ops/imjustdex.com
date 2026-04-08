@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>I Don't Do Resolutions I Do Reckonings — DX</title>
-  <meta name="description" content="Some stories don't wait for a happy ending to be worth telling." />
+  <title>Gloria — DX</title>
+  <meta name="description" content="On music, prayer, and the songs that carry what your mouth can't." />
 
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
-  <link rel="canonical" href="https://dxjakes.com/words/reckonings">
+  <link rel="canonical" href="https://dxjakes.com/words/gloria">
 
-  <meta property="og:title" content="I Don't Do Resolutions I Do Reckonings">
-  <meta property="og:description" content="Some stories don't wait for a happy ending to be worth telling.">
+  <meta property="og:title" content="Gloria">
+  <meta property="og:description" content="On music, prayer, and the songs that carry what your mouth can't.">
   <meta property="og:image" content="https://dxjakes.com/img/og-default.png">
-  <meta property="og:url" content="https://dxjakes.com/words/reckonings">
+  <meta property="og:url" content="https://dxjakes.com/words/gloria">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="DX">
   <meta property="article:author" content="Dexter Jakes">
-  <meta property="article:published_time" content="2026-04-01">
+  <meta property="article:published_time" content="2026-03-25">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="I Don't Do Resolutions I Do Reckonings">
-  <meta name="twitter:description" content="Some stories don't wait for a happy ending to be worth telling.">
+  <meta name="twitter:title" content="Gloria">
+  <meta name="twitter:description" content="On music, prayer, and the songs that carry what your mouth can't.">
   <meta name="twitter:image" content="https://dxjakes.com/img/og-default.png">
 
   <style>
@@ -86,7 +86,6 @@
       .article-body { border: none; }
     }
 
-    /* ── Skip link ── */
     .skip-link {
       position: absolute; left: -999px; top: 0;
       background: var(--ink); color: var(--bg);
@@ -94,7 +93,6 @@
     }
     .skip-link:focus { left: 12px; top: 12px; }
 
-    /* ── Rulers ── */
     .ruler-top, .ruler-left {
       position: fixed; pointer-events: none; z-index: 1; opacity: .75;
     }
@@ -109,7 +107,6 @@
       background: repeating-linear-gradient(to bottom, transparent 0 44px, var(--rule) 44px 45px);
     }
 
-    /* ── Page shell ── */
     .page-shell {
       width: 100%;
       max-width: 1440px;
@@ -120,7 +117,6 @@
       position: relative;
     }
 
-    /* ── Masthead ── */
     .masthead {
       position: sticky; top: 0; z-index: 50;
       display: flex;
@@ -162,7 +158,6 @@
       letter-spacing: .04em; cursor: pointer;
     }
 
-    /* ── Article wrapper ── */
     main { position: relative; z-index: 2; }
     .article-frame {
       max-width: 680px;
@@ -170,7 +165,6 @@
       padding: 0 0 80px;
     }
 
-    /* ── Article header ── */
     .article-header {
       border: 3px solid var(--border);
       background: var(--panel);
@@ -216,7 +210,6 @@
       padding-left: 14px;
     }
 
-    /* ── Article body ── */
     .article-body {
       border-left: 3px solid var(--border);
       border-right: 3px solid var(--border);
@@ -237,7 +230,6 @@
     }
     .article-body a:hover { color: var(--accent); }
 
-    /* Drop cap */
     .article-body .intro::first-letter {
       font-family: var(--display);
       font-size: 4.8em;
@@ -249,7 +241,6 @@
       color: var(--ink);
     }
 
-    /* ── Section head ── */
     .section-head {
       display: flex; align-items: center; gap: 14px;
       margin: 48px 0 20px;
@@ -258,14 +249,14 @@
       font-family: var(--mono);
       font-size: .75rem; font-weight: 900;
       letter-spacing: .15em; text-transform: uppercase;
-      color: #c00;
+      color: var(--ink);
+      white-space: nowrap;
     }
     .section-head-line {
       flex: 1; height: 3px;
       background: var(--border);
     }
 
-    /* ── Pull quote ── */
     .pull-quote {
       margin: 40px -24px;
       padding: 32px 24px;
@@ -284,7 +275,6 @@
       margin: 0;
     }
 
-    /* ── Callout ── */
     .callout {
       margin: 36px 0;
       padding: 0 0 0 18px;
@@ -297,7 +287,6 @@
     }
     .callout p { margin: 0; }
 
-    /* ── Scripture block ── */
     .scripture {
       border: 2px solid var(--body-faint);
       background: var(--body-tint);
@@ -322,7 +311,6 @@
     }
     body.dark-mode .scripture cite { color: #f44; }
 
-    /* ── Stat block ── */
     .stat-block {
       margin: 48px -24px;
       padding: 0 24px;
@@ -351,7 +339,6 @@
       margin-top: 8px;
     }
 
-    /* ── Closing ── */
     .closing {
       margin-top: 48px;
       padding: 28px 24px;
@@ -364,7 +351,6 @@
       font-style: italic;
     }
 
-    /* ── Share bar ── */
     .share-bar {
       display: flex; align-items: center; gap: 14px;
       margin-top: 0;
@@ -402,7 +388,6 @@
       background: var(--ink); color: var(--bg);
     }
 
-    /* ── Article footer ── */
     .article-back {
       display: inline-block;
       margin-top: 16px;
@@ -416,7 +401,6 @@
     }
     .article-back:hover { border-color: var(--accent); }
 
-    /* ── Footer strip ── */
     .footer-strip {
       display: grid;
       grid-template-columns: 1fr auto auto;
@@ -459,22 +443,17 @@
     /* ── Section indicator ── */
     .section-indicator {
       position: fixed; bottom: 28px; left: 28px; z-index: 9998;
-      font-family: var(--mono); font-size: .6rem;
+      font-family: var(--mono); font-size: .65rem;
       letter-spacing: .18em; text-transform: uppercase;
-      color: var(--ink);
-      background: var(--bg);
-      border: 1px solid var(--rule);
-      padding: 6px 12px;
-      border-radius: 2px;
+      color: var(--body-muted);
       opacity: 0; transition: opacity .3s ease;
       pointer-events: none;
       max-width: 260px; white-space: nowrap;
       overflow: hidden; text-overflow: ellipsis;
-      box-shadow: 0 1px 4px rgba(0,0,0,.12);
     }
     .section-indicator.visible { opacity: 1; }
     @media (max-width: 760px) {
-      .section-indicator { bottom: 16px; left: 16px; font-size: .52rem; max-width: 200px; }
+      .section-indicator { bottom: 16px; left: 16px; font-size: .58rem; max-width: 180px; }
     }
 
     /* ── Reduced motion ── */
@@ -526,145 +505,158 @@
 
         <header class="article-header">
           <div class="article-eyebrow">
-            <span class="article-tag">Faith</span>
-            <span class="article-date"><time datetime="2026-04-01">Apr 1, 2026</time></span>
-            <span class="article-read">8 min</span>
+            <span class="article-tag">Grief</span>
+            <span class="article-date"><time datetime="2026-03-25">Mar 25, 2026</time></span>
+            <span class="article-read">9 min</span>
           </div>
-          <h1 class="article-title">I Don't Do Resolutions<br>I Do Reckonings</h1>
-          <p class="article-deck">Some stories don't wait for a happy ending to be worth telling.</p>
+          <h1 class="article-title">Gloria</h1>
+          <p class="article-deck">On music, prayer, and the songs that carry what your mouth can't.</p>
         </header>
 
         <article class="article-body">
 
-          <div class="scripture">
-            <p>"Let us examine our ways and test them, and let us return to the LORD."</p>
-            <cite>Lamentations 3:40 (NIV)</cite>
-          </div>
+          <p class="intro">Kendrick was playing. Larissa said the words. And something in me broke open that hadn't broken yet.</p>
 
-          <p class="intro">I was cooking something. I don't remember what.</p>
+          <p>I've never been good at silence.</p>
 
-          <p>I remember the oil was hot. I remember Larissa getting up from the couch, walking to the restroom, and coming back holding not one — but several — tests. All positive. All saying the same thing.</p>
+          <p>Not the peaceful kind &mdash; the kind that shows up when you don't have words for what's happening to you. The kind where you know you should be praying but your mouth won't cooperate. Where the thing you need to say to God is too heavy to lift off your chest and too true to swallow back down.</p>
 
-          <p>Five years. Five years of trying, praying, waiting. Five years of wondering if the timing was us or God or both.</p>
+          <p>That's where music lives for me. In the gap between what I feel and what I can say.</p>
 
-          <p>And there she was. Standing in the kitchen, holding the answer.</p>
+          <p>Last week I wrote about a parking lot. About sitting in the driver's seat after the worst news of my life, sobbing to a Kendrick Lamar song while Larissa &mdash; who had just lost the same thing I lost, in her body &mdash; asked me if I wanted to eat.</p>
 
-          <p>I ended up on the floor. Not because I fell — because my body didn't know what else to do with that much joy arriving at once. Tears rolling. Hands shaking. Asking her to stop playing. Begging her to stop playing.</p>
-
-          <p>It was April 1. A year ago today.</p>
-
-          <p>Anniversaries have a way of demanding an inventory. Not of what you planned — of what remains.</p>
-
-          <p>She wasn't playing. But I couldn't believe it. Not because I didn't trust her — because hope had been deferred for so long that fulfillment felt like a setup. After five years, even joy felt suspicious.</p>
-
-          <p>We never finished cooking that night. Ordered food instead and sat across from each other, barely eating, mostly just looking at each other like two people who had just been handed something too sacred to hold with steady hands.</p>
-
-          <p>Just over four weeks later, we lost the pregnancy.</p>
-
-          <p>Early enough for some people to minimize it. But there is no "barely" in loss. There is only before and after. We hadn't even had time to say it out loud, which somehow made the silence afterward even stranger.</p>
-
-          <div class="section-head">
-            <h2>The Parking Lot</h2>
-            <div class="section-head-line" aria-hidden="true"></div>
-          </div>
-
-          <p>I don't remember every detail of the hospital. But I remember the parking lot.</p>
-
-          <p>I remember "Gloria" by Kendrick Lamar playing through the speakers while I sat in the driver's seat and sobbed. Not quiet tears. The kind pulled from somewhere grief had never touched before.</p>
-
-          <p>Larissa asked me if I wanted to eat. She had just heard the same words, carrying the same loss in her body — and she asked me if I was hungry. I couldn't answer. I couldn't even look at her. I won't speak to her experience because her story is hers to tell. But I will say this: she held hope in her body that we both built in our hearts. And when it was taken, she still found a way to hold me.</p>
-
-          <p>"Gloria" was still playing. And as the lyric came through the speakers, she said the words to me.</p>
+          <p>I told you about Gloria. About how the lyric came through the speakers and she said the words to me.</p>
 
           <div class="pull-quote">
             <p>"Baby, dry your eyes. Depend on me as your relief. Let your anger be mine."</p>
           </div>
 
-          <p>She wasn't singing. She was saying it. Kendrick gave her the language, and she used it.</p>
-
-          <p>That's who she is.</p>
+          <p>What I didn't tell you is that the song didn't just show up. It was already queued. Already in the rotation. Because that's how I've always moved through things &mdash; with a playlist running underneath whatever I'm carrying.</p>
 
           <div class="stat-block">
             <div class="stat-block-bar"></div>
             <div class="stat-block-text">
-              We were broken, but still together.
-              <span>The nights after were the hardest.</span>
+              The car is where it happens. Late at night is when it deepens.
+              <span>And the kitchen &mdash; the kitchen is where music and the rest of my life have always shared the same room.</span>
             </div>
           </div>
 
-          <p>We cried together in a bed that felt too big and too small at the same time. We prayed prayers that didn't have language yet — just sound. We blamed ourselves in whispers, wondering what we did wrong, what we missed, what we could have held tighter.</p>
-
-          <p>We learned that grief does not move through two people evenly. One of us could speak when the other couldn't. One of us could carry hope when the other was too tired to lift it.</p>
-
-          <p>I struggled to speak about it. Not because I didn't feel it, but because I had never known sorrow to live so close to joy. The two were neighbors.</p>
-
-          <p>I still see newborns sometimes. At church. At the store. In photos people send with good intentions and big smiles. And I'm genuinely happy for them. That's not a performance. That joy is real.</p>
-
-          <p>But communities are good at celebrating arrival. They are less practiced at sitting with absence.</p>
-
-          <p>And underneath it, there's a weight. A quiet calculation I didn't ask to carry — the math of what could have been. How old they'd be. What they'd look like. Whether they'd have her eyes.</p>
-
-          <p>That doesn't go away just because you don't talk about it.</p>
-
           <div class="section-head">
-            <h2>What I Was Supposed to Do</h2>
+            <h2>The Most Consistent Thing</h2>
             <div class="section-head-line" aria-hidden="true"></div>
           </div>
 
-          <p>Here's what I was supposed to do.</p>
+          <p>I don't remember when it started exactly. But music has always been the most consistent thing in my life. Not consistent like reliable &mdash; consistent like present. No matter what was shifting or uncertain, there was always a song that understood the room I was standing in before I did.</p>
 
-          <p>I was supposed to wait. Wait until we were pregnant again. Wait until the baby was born healthy and full-term. Wait until I could stand on a stage or behind a caption and say, "Look what God did." The story with a bow on it. The highlight reel. The after photo.</p>
+          <p>A recording doesn't change. It doesn't move. It doesn't have a bad day. You press play, and it's exactly what it was the last time you needed it. And sometimes that kind of consistency is what keeps you from unraveling.</p>
 
-          <p>That's how we're taught to share, right? You struggle in silence, you overcome in public, and you give the glory once the story has a clean ending.</p>
-
-          <p>But I've been thinking about the people in the middle. The ones scrolling through announcements and gender reveals, genuinely happy for everyone else, but carrying something they haven't been able to say out loud. Not because they're bitter. Because unfinished stories rarely get airtime.</p>
+          <p>I think that's why I've never treated music as background noise. It's always been foreground. Active. Something I go to, not something I leave on.</p>
 
           <div class="section-head">
-            <h2>What I Have</h2>
+            <h2>Thank You Master For My Soul</h2>
             <div class="section-head-line" aria-hidden="true"></div>
           </div>
 
-          <p>I don't have a baby to show you. I have a marriage that survived the worst thing it's been through. I have a wife who held me in a parking lot while Kendrick played and the world kept moving outside the windshield. I have a faith that didn't shatter — not because it's bulletproof, but because the cracks let something in that was already there.</p>
+          <p>There's a song by Donny Hathaway &mdash; <em>Thank You Master For My Soul.</em></p>
 
-          <p>My faith did not survive because it explained the loss. It survived because it refused to leave me alone inside it.</p>
+          <p>If you've never heard it, I don't know how to prepare you for it. But I'll try.</p>
 
-          <div class="callout"><p>That is not the lesser blessing.</p></div>
+          <p>It starts with piano. Just piano. Then the horns. Then his voice &mdash; and his voice is not decorating the song. It's carrying it. Every note is load-bearing. The lyrics are simple. Gratitude. Just gratitude. Thanking God for the gift of being alive, of having a soul worth giving back.</p>
 
-          <p>I almost missed it, though. Almost spent so long reaching for the thing I was praying for that I forgot to hold the thing I already had.</p>
+          <p>And then the instruments swell. Everything crescendos &mdash; horns, piano, drums, all of it rising &mdash; and just when it feels like the song is going to break open, it pulls back. Decrescendos right back to baseline. Piano and drums. Stripped down again.</p>
 
-          <p>We're still trying, still hoping, still believing that one day the news will come again and this time the story will carry all the way through. Larissa and I have made one promise to each other about it — if we ever find out again, and it happens to fall on or around April 1, we don't tell each other. Not that day. That date has held enough. We'll give it rest and let the joy arrive on a different morning.</p>
+          <div class="callout"><p>That is what the best worship music does. It takes you up, and then it sets you back down &mdash; changed, but steady.</p></div>
 
-          <p>But I'm not waiting for that morning anymore.</p>
+          <p>That song reminds me of everything I loved about gospel music growing up. Before I understood any of the theology, I understood the feeling. The room would shift. The air would change. Something would move through the congregation that couldn't be manufactured or planned, and you could feel it even as a kid who didn't have the vocabulary for the Holy Spirit yet.</p>
+
+          <p>I had the vocabulary for the horns, though. For the way a B3 organ can make your chest vibrate. For the moment a choir hits a note that turns a room into a sanctuary.</p>
+
+          <div class="pull-quote">
+            <p>Music taught me what worship felt like before church taught me what worship meant.</p>
+          </div>
 
           <div class="section-head">
-            <h2>The Reckoning</h2>
+            <h2>I Miss You</h2>
             <div class="section-head-line" aria-hidden="true"></div>
           </div>
 
-          <p>I don't do resolutions. I do reckonings. A resolution reaches for an improved future. A reckoning tells the truth about the present. I look at what's actually here — grief, gratitude, a marriage that made it through, hope that won't die — and I choose to sow in it.</p>
+          <p>And it wasn't just the sacred music.</p>
 
-          <p>April 1, 2026. One year later.</p>
+          <p>When Larissa and I were long distance &mdash; before she was my wife, before the kitchen, before the parking lot, before any of it &mdash; there was a Beyonc&eacute; song. <em>I Miss You.</em> And I played it every single time she left.</p>
 
-          <p>The date that once marked our loss is now the ground I'm choosing to sow.</p>
+          <p>Every time.</p>
 
-          <p>No highlight reel. Just the full human, documented.</p>
+          <p>Not because it was our song in some official way. Because it said the thing I couldn't. It held the ache of watching someone you love walk toward a terminal or a car, knowing the distance was about to come back, knowing you chose this and it was still hard, knowing you'd be fine but not wanting to be fine. Wanting to be with her.</p>
 
-          <p>That's the reckoning.</p>
+          <p>That song became a ritual. A way of processing the leaving. I'd sit with it, let it play, and somewhere between the first verse and the last I'd feel the weight shift from my chest into the music. Like the song absorbed it.</p>
 
-          <p>Maybe that's what I'm building here. A place for the things I keep coming back to — and the words I find when I finally stop looking away. Not because I've arrived at anything neat. Because what is buried is not always gone. Sometimes it becomes the ground from which something else grows.</p>
+          <p>I didn't call that prayer at the time. I call it that now.</p>
+
+          <div class="section-head">
+            <h2>When Prayer Doesn't Come</h2>
+            <div class="section-head-line" aria-hidden="true"></div>
+          </div>
+
+          <p>Here's what I've come to believe about music and faith &mdash; and I'm not a theologian, so take this as one man's working theory:</p>
+
+          <p>Prayer is supposed to be the language between you and God. And most of the time, it is. I pray in the morning. I pray with Larissa. I pray when I'm driving and the day is heavy and I need to put it somewhere.</p>
+
+          <p>But there are moments when prayer doesn't come. When the words won't form. When you open your mouth and all that's there is a sound you don't recognize &mdash; or worse, nothing at all.</p>
+
+          <p>Grief does that. Loss does that. The kind of pain that sits below language.</p>
+
+          <p>And in those moments, music does something I can't explain and won't try to theologize. It prays for you. Not metaphorically. Not poetically. Functionally. It carries the thing you can't carry to the place you can't reach and it sets it down somewhere you don't have to hold it alone anymore.</p>
+
+          <p>Donny Hathaway did that for me on Sunday mornings before I knew what I was hearing.</p>
+
+          <p>Beyonc&eacute; did that for me in a long-distance apartment when I was too proud to cry but not too proud to press play.</p>
+
+          <p>Kendrick did that for me in a hospital parking lot when my wife spoke his lyrics to me like a vow.</p>
+
+          <div class="section-head">
+            <h2>Music Holds</h2>
+            <div class="section-head-line" aria-hidden="true"></div>
+          </div>
+
+          <p>I don't think music heals. I used to say that, but I don't think it's accurate.</p>
+
+          <p>Music holds. It holds you while you heal, while you grieve, while you figure out what to say, while you decide whether to say anything at all. It holds the memory so you don't have to carry it alone. It holds the feeling so you don't have to name it before you're ready.</p>
+
+          <div class="pull-quote">
+            <p>And sometimes holding is the prayer.</p>
+          </div>
+
+          <p>Sometimes the most honest thing you can offer God is a song someone else wrote that says the thing you couldn't.</p>
+
+          <p>I keep three playlists that never get shared. Not because they're private in any scandalous way &mdash; because they're private in the way a journal is private. They're records of what I was carrying and what carried me through it.</p>
+
+          <p>One is for grief. One is for gratitude. One is for the in-between &mdash; the season where you don't know what you're feeling yet, but you know you need to feel it.</p>
+
+          <div class="callout"><p>The in-between playlist is the longest.</p></div>
+
+          <p>I think that says something about where most of life actually happens. Not in the grief and not in the gratitude but in the space between them, where music meets you and says: <em>I don't need you to know what this is yet. I just need you to press play.</em></p>
+
+          <p>Last week I told you I don't do resolutions. I do reckonings.</p>
+
+          <p>This week I'm telling you how I survive them.</p>
+
+          <p>Not with answers. Not with a five-step framework. With a song that shows up in a parking lot when God feels far, and your wife is closer than she's ever been, and the only prayer available is someone else's lyric coming through the speakers of a car that isn't moving.</p>
+
+          <p>That's the song that prays when you can't.</p>
+
+          <p>And I've been listening to it my whole life.</p>
 
           <div class="closing">
-            If you're in the middle of an unfinished story — one that doesn't have a bow on it yet — you're not behind. You're just not done. And that's not the same thing.
+            What's the song that prays for you? The one you reach for when the words won't come? You don't have to tell anyone. Just press play tonight.
           </div>
 
         </article>
 
-        <!-- Share bar -->
         <div class="share-bar" aria-label="Share this essay">
           <span class="share-label">Share</span>
-          <a href="https://x.com/intent/tweet?url=https://dxjakes.com/words/reckonings&text=I%20Don%E2%80%99t%20Do%20Resolutions%20I%20Do%20Reckonings%20%E2%80%94%20DX" target="_blank" rel="noopener noreferrer" class="share-link">X</a>
-          <button type="button" class="share-link" onclick="navigator.clipboard.writeText('https://dxjakes.com/words/reckonings');this.textContent='Copied';setTimeout(()=>this.textContent='Copy link',2000);">Copy link</button>
-          <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer" class="subscribe-link">Follow Me</a>
+          <a href="https://x.com/intent/tweet?url=https://dxjakes.com/words/gloria&text=Gloria%20%E2%80%94%20DX" target="_blank" rel="noopener noreferrer" class="share-link">X</a>
+          <button type="button" class="share-link" onclick="navigator.clipboard.writeText('https://dxjakes.com/words/gloria');this.textContent='Copied';setTimeout(()=>this.textContent='Copy link',2000);">Copy link</button>
+          <a href="https://substack.com/@imjustdex" target="_blank" rel="noopener noreferrer" class="subscribe-link">Subscribe</a>
         </div>
 
         <a href="/" class="article-back">&larr; Back</a>
@@ -673,7 +665,7 @@
     </main>
 
     <footer class="footer-strip" aria-label="Footer">
-      <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener">Follow @ImJustDex</a>
+      <a href="https://imjustdex.substack.com" target="_blank" rel="noopener">Subscribe on Substack</a>
       <span>Est. 1994</span>
     </footer>
   </div>
@@ -749,6 +741,5 @@
       onScroll();
     })();
   </script>
-
-<script async id="netlify-rum-container" src="/.netlify/scripts/rum" data-netlify-rum-site-id="ff389de6-02d3-4738-b48b-6c59701f6b7d" data-netlify-deploy-branch="main" data-netlify-deploy-context="production" data-netlify-cwv-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaXRlX2lkIjoiZmYzODlkZTYtMDJkMy00NzM4LWI0OGItNmM1OTcwMWY2YjdkIiwiYWNjb3VudF9pZCI6IjY5YjhlMWMyMDZjODk1NWU5MWEzZTRkYyIsImRlcGxveV9pZCI6IjY5ZDYwMzI1ODE2ZWNiMDAwODQ3NGIwOCIsImlzc3VlciI6Im5mc2VydmVyIn0.JmrTL9i8Gv9EZRpqQu4fNL4nHESz9RNl1dlfVMhgJ44"></script></body>
+</body>
 </html>

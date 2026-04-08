@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Words — DX</title>
+  <meta name="description" content="Essays by Dexter Jakes. Faith, weight, and the words that carry both." />
+
+  <link rel="canonical" href="https://dxjakes.com/words/">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+
+  <meta property="og:title" content="Words — DX">
+  <meta property="og:description" content="Essays by Dexter Jakes.">
+  <meta property="og:image" content="https://dxjakes.com/img/og-writing.png">
+  <meta property="og:url" content="https://dxjakes.com/words/">
+  <meta property="og:type" content="website">
+
+  <style>
+    :root {
+      --bg: #f4f4f1;
+      --panel: #f8f8f6;
+      --ink: #050505;
+      --muted: #202020;
+      --border: #0a0a0a;
+      --rule: rgba(0,0,0,.14);
+      --grid-gap: 12px;
+      --outer-pad: 28px;
+      --meta-bg: #0a0a0a;
+      --meta-ink: #f5f5f1;
+      --tile-min: 190px;
+      --display: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      --body: 'Arial Narrow', Arial, Helvetica, sans-serif;
+    }
+    body.dark-mode {
+      --bg: #060606;
+      --panel: #0d0d0d;
+      --ink: #f3f0e8;
+      --muted: #d7d3ca;
+      --border: #f3f0e8;
+      --rule: rgba(255,255,255,.16);
+      --meta-bg: #f3f0e8;
+      --meta-ink: #0a0a0a;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; touch-action: manipulation; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      line-height: 1.4;
+      transition: background .18s ease, color .18s ease;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background-image:
+        linear-gradient(to right, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px)),
+        linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px));
+      background-size: 46px 46px;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ::selection { background: var(--ink); color: var(--bg); }
+
+    /* ── Print ── */
+    @media print {
+      body { background: #fff !important; color: #000 !important; background-image: none !important; }
+      .ruler-top, .ruler-left, .mode-toggle { display: none !important; }
+      .plate { border-color: #000 !important; break-inside: avoid; }
+      .masthead { position: static; background: none; }
+    }
+
+    /* ── Skip link ── */
+    .skip-link {
+      position: absolute; left: -999px; top: 0;
+      background: var(--ink); color: var(--bg);
+      padding: 10px 14px; z-index: 999;
+    }
+    .skip-link:focus { left: 12px; top: 12px; }
+
+    /* ── Page shell ── */
+    .page-shell {
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 12px var(--outer-pad) 22px;
+      padding-left: max(var(--outer-pad), env(safe-area-inset-left));
+      padding-right: max(var(--outer-pad), env(safe-area-inset-right));
+      position: relative;
+    }
+
+    /* ── Rulers ── */
+    .ruler-top, .ruler-left {
+      position: fixed; pointer-events: none; z-index: 1; opacity: .75;
+    }
+    .ruler-top {
+      top: 0; left: 0; right: 0; height: 22px;
+      border-bottom: 1px solid var(--rule);
+      background: repeating-linear-gradient(to right, transparent 0 44px, var(--rule) 44px 45px);
+    }
+    .ruler-left {
+      top: 0; left: 0; bottom: 0; width: 22px;
+      border-right: 1px solid var(--rule);
+      background: repeating-linear-gradient(to bottom, transparent 0 44px, var(--rule) 44px 45px);
+    }
+
+    /* ── Masthead ── */
+    .masthead {
+      position: sticky; top: 0; z-index: 50;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center; gap: 14px;
+      padding: 10px 0 14px;
+      padding-top: max(10px, env(safe-area-inset-top));
+      background: linear-gradient(to bottom, var(--bg) 70%, rgba(0,0,0,0));
+      margin-top: 6px;
+    }
+    .brand-block {
+      display: inline-flex; align-items: stretch;
+      border: 2px solid var(--border); background: var(--panel);
+    }
+    .brand-mark, .brand-word {
+      padding: 8px 10px 7px; line-height: 1;
+      letter-spacing: .03em; text-transform: uppercase;
+      font-weight: 900; border-right: 2px solid var(--border);
+    }
+    .brand-mark {
+      display: flex; align-items: center;
+      justify-content: center; min-width: 72px;
+      padding: 6px 10px;
+    }
+    .brand-logo { height: 28px; width: auto; }
+    .brand-word {
+      font-size: .92rem; align-content: center;
+      background: var(--ink); color: var(--bg);
+    }
+    .brand-block .brand-word:last-child { border-right: 0; }
+    .nav-links {
+      display: flex; flex-wrap: wrap; gap: 0; align-items: center;
+    }
+    .nav-links a {
+      border: 2px solid var(--border); border-left: 0;
+      padding: 14px 16px 13px; text-transform: uppercase;
+      font-size: .92rem; font-weight: 800;
+      letter-spacing: .03em; background: var(--panel);
+      min-height: 44px;
+    }
+    .nav-links a:first-child { border-left: 2px solid var(--border); }
+    .nav-links a[aria-current="page"] {
+      background: var(--ink); color: var(--bg);
+    }
+    .mode-toggle {
+      appearance: none;
+      border: 2px solid var(--border);
+      background: var(--panel); color: var(--ink);
+      padding: 14px 16px 13px; text-transform: uppercase;
+      font: inherit; font-size: .88rem; font-weight: 900;
+      letter-spacing: .04em; cursor: pointer;
+      min-height: 44px;
+    }
+
+    /* ── Main ── */
+    main { position: relative; z-index: 2; }
+
+    /* ── Plate grid ── */
+    .plates {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--grid-gap); align-items: stretch;
+    }
+    .plate {
+      position: relative; min-height: var(--tile-min);
+      border: 3px solid var(--border); background: var(--panel);
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden; isolation: isolate;
+      cursor: pointer;
+    }
+    .plate:hover { border-color: #c00; }
+    .plate-link { position: absolute; inset: 0; z-index: 5; }
+
+    /* ── Plate body ── */
+    .plate-body {
+      padding: 16px;
+      display: flex; flex-direction: column;
+      justify-content: flex-start;
+      flex: 1 1 auto;
+      min-height: 0; position: relative; z-index: 2;
+    }
+
+    /* ── Typography ── */
+    .plate-title {
+      margin: 0; text-transform: uppercase;
+      line-height: .86; letter-spacing: -.03em;
+      font-family: var(--display); font-weight: 900;
+      word-break: break-word; text-wrap: balance;
+    }
+    .plate-title { font-size: clamp(2rem, 4vw, 4rem); }
+    .plate-title.med { font-size: clamp(2.35rem, 5vw, 5rem); }
+    .plate-title.lg { font-size: clamp(3.5rem, 7vw, 7.2rem); }
+    .plate-title.inverse {
+      color: #fff; text-shadow: 0 2px 0 rgba(0,0,0,.45);
+    }
+    body.dark-mode .plate-title.inverse { color: #fff; }
+
+    /* ── Meta rail ── */
+    .meta-rail {
+      position: relative; z-index: 2;
+      align-self: flex-start; flex-shrink: 0;
+      margin: auto 0 0;
+      padding: 7px 10px 6px;
+      background: var(--meta-bg); color: var(--meta-ink);
+      border-top: 2px solid var(--border);
+      border-right: 2px solid var(--border);
+      font-size: .8rem; letter-spacing: .08em;
+      text-transform: uppercase; font-weight: 900;
+      line-height: 1; white-space: nowrap;
+    }
+
+    /* ── Plate sizes ── */
+    .plate-feature { grid-column: span 4; min-height: 346px; }
+    .plate-lg { grid-column: span 6; min-height: 346px; }
+    .plate-secondary { grid-column: span 3; min-height: 230px; }
+    .plate-wide { grid-column: span 5; min-height: 230px; }
+    .plate-banner { grid-column: span 4; min-height: 230px; }
+    .plate-full { grid-column: span 12; min-height: 230px; }
+
+    /* ── Image plates ── */
+    .plate-image .plate-body { justify-content: flex-end; padding: 16px; }
+    .plate-image::before {
+      content: ""; position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      filter: grayscale(1) contrast(1.15); z-index: 0;
+      transform: scale(1.02);
+    }
+    .plate-image::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.78), rgba(0,0,0,.08) 55%, rgba(0,0,0,.14));
+      z-index: 1;
+    }
+    .img-concrete::before {
+      background-image:
+        linear-gradient(135deg, rgba(255,255,255,.07), rgba(0,0,0,.25)),
+        radial-gradient(circle at 24% 22%, rgba(255,255,255,.18), transparent 20%),
+        linear-gradient(180deg, #c7c7c7 0 18%, #8b8b8b 18% 28%, #5e5e5e 28% 45%, #2e2e2e 45% 100%);
+    }
+    .img-noise::before {
+      background-image:
+        linear-gradient(90deg, rgba(255,0,90,.18), transparent 18%, transparent 82%, rgba(0,225,255,.14)),
+        repeating-linear-gradient(180deg, rgba(255,255,255,.1) 0 2px, rgba(0,0,0,0) 2px 6px),
+        linear-gradient(135deg, #222, #000 44%, #444 58%, #111 100%);
+    }
+    .img-lines::before {
+      background-image:
+        linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,0)),
+        repeating-linear-gradient(63deg, #d7d7d7 0 2px, transparent 2px 22px),
+        linear-gradient(180deg, #9b9b9b, #4d4d4d 72%, #141414);
+    }
+
+    /* ── Footer ── */
+    .footer-strip {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 12px; margin-top: 12px;
+      position: relative; z-index: 2;
+    }
+    .footer-strip > * {
+      border: 2px solid var(--border); background: var(--panel);
+      padding: 12px 14px 11px; text-transform: uppercase;
+      letter-spacing: .06em; font-size: .84rem; font-weight: 900;
+      min-height: 44px;
+    }
+
+    /* ── Hover accents ── */
+    .footer-strip a:hover, .nav-links a:hover,
+    .mode-toggle:hover, .brand-block:hover { filter: invert(.02); }
+
+    /* ── Focus states ── */
+    .mode-toggle:focus-visible,
+    .brand-block:focus-visible,
+    .plate-link:focus-visible,
+    .footer-strip a:focus-visible {
+      outline: 2px solid #c00;
+      outline-offset: 2px;
+    }
+
+    /* ── Utility ── */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+
+    /* ── Responsive: tablet ── */
+    @media (max-width: 1120px) {
+      .plates { grid-template-columns: repeat(8, 1fr); }
+      .plate-lg { grid-column: span 4; }
+      .plate-feature { grid-column: span 4; }
+      .plate-secondary, .plate-banner { grid-column: span 4; }
+      .plate-wide { grid-column: span 8; }
+      .plate-full { grid-column: span 8; }
+    }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 0s !important;
+        animation-duration: 0s !important;
+      }
+    }
+
+    /* ── Responsive: mobile ── */
+    @media (max-width: 760px) {
+      :root { --outer-pad: 18px; --grid-gap: 10px; }
+      .page-shell { padding-top: 10px; }
+      .masthead {
+        grid-template-columns: 1fr; gap: 10px; background: var(--bg);
+      }
+      .nav-links { gap: 0; }
+      .nav-links a { flex: 1 1 auto; text-align: center; }
+      .plates { grid-template-columns: 1fr; }
+      .plate-lg, .plate-feature, .plate-secondary,
+      .plate-wide, .plate-banner, .plate-full {
+        grid-column: span 1; min-height: 210px;
+      }
+      .plate-title.lg { max-width: 100%; }
+      .footer-strip { grid-template-columns: 1fr; }
+      .ruler-top, .ruler-left { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#archive" class="skip-link">Skip to content</a>
+  <div class="ruler-top" aria-hidden="true"></div>
+  <div class="ruler-left" aria-hidden="true"></div>
+
+  <div class="page-shell">
+    <nav class="masthead" aria-label="Main navigation">
+      <a class="brand-block" href="../" aria-label="DX — Home">
+        <span class="brand-mark"><img src="../img/logo.png" alt="DX" class="brand-logo"></span>
+        <span class="brand-word">Words</span>
+      </a>
+      <div class="nav-links">
+        <a href="./" aria-current="page">Words</a>
+      </div>
+      <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode">
+        Mode: Light
+      </button>
+    </nav>
+
+    <main id="archive">
+      <section class="plates" aria-label="Essay archive">
+
+        <article class="plate plate-lg">
+          <a class="plate-link" href="./reckonings/" aria-label="Read: I Don't Do Resolutions I Do Reckonings"></a>
+          <div class="plate-body">
+            <h2 class="plate-title lg">I Don't Do Resolutions I Do Reckonings</h2>
+          </div>
+          <div class="meta-rail">Apr 01, 2026 / 8 min</div>
+        </article>
+
+        <article class="plate plate-secondary plate-image img-concrete">
+          <a class="plate-link" href="./gloria/" aria-label="Read: Gloria"></a>
+          <div class="plate-body">
+            <h2 class="plate-title med inverse">Gloria</h2>
+          </div>
+          <div class="meta-rail">Mar 25, 2026 / 9 min</div>
+        </article>
+
+        <article class="plate plate-secondary">
+          <a class="plate-link" href="./gumbo/" aria-label="Read: Nobody Handed Me This"></a>
+          <div class="plate-body">
+            <h2 class="plate-title med">Nobody Handed Me This</h2>
+          </div>
+          <div class="meta-rail">Mar 26, 2026 / 12 min</div>
+        </article>
+
+        <article class="plate plate-secondary">
+          <a class="plate-link" href="./price-of-sunday/" aria-label="Read: The Price of Sunday"></a>
+          <div class="plate-body">
+            <h2 class="plate-title med">The Price of Sunday</h2>
+          </div>
+          <div class="meta-rail">Mar 26, 2026 / 10 min</div>
+        </article>
+
+        <article class="plate plate-feature plate-image img-noise">
+          <a class="plate-link" href="./pulpit/" aria-label="Read: I Am Not My Father's Pulpit"></a>
+          <div class="plate-body">
+            <h2 class="plate-title lg inverse">I Am Not My Father's Pulpit</h2>
+          </div>
+          <div class="meta-rail">Mar 16, 2026 / 12 min</div>
+        </article>
+
+        <article class="plate plate-wide">
+          <a class="plate-link" href="./next-verse/" aria-label="Read: Read the Next Verse"></a>
+          <div class="plate-body">
+            <h2 class="plate-title lg">Read the Next Verse</h2>
+          </div>
+          <div class="meta-rail">Mar 16, 2026 / 14 min</div>
+        </article>
+
+        <article class="plate plate-full plate-image img-lines">
+          <a class="plate-link" href="./job/" aria-label="Read: The Theology of Staying on the Call"></a>
+          <div class="plate-body">
+            <h2 class="plate-title lg inverse">The Theology of Staying on the Call</h2>
+          </div>
+          <div class="meta-rail">Mar 24, 2026 / 12 min</div>
+        </article>
+
+      </section>
+    </main>
+
+    <footer class="footer-strip" aria-label="Footer">
+      <a href="https://imjustdex.substack.com" target="_blank" rel="noopener">Subscribe on Substack</a>
+      <span>Est. 1994</span>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var toggle = document.getElementById('modeToggle');
+      var body = document.body;
+      var KEY = 'dxmode';
+      function setLabel() {
+        toggle.textContent = body.classList.contains('dark-mode') ? 'Mode: Dark' : 'Mode: Light';
+      }
+      function applyMode(mode) {
+        if (mode === 'dark') {
+          body.classList.add('dark-mode');
+        } else {
+          body.classList.remove('dark-mode');
+        }
+        document.cookie = KEY + '=' + mode + ';path=/;max-age=31536000;SameSite=Lax';
+        setLabel();
+      }
+      var cookieMatch = document.cookie.match(/(?:^|; )dxmode=([^;]+)/);
+      applyMode(cookieMatch ? cookieMatch[1] : 'light');
+      toggle.addEventListener('click', function () {
+        applyMode(body.classList.contains('dark-mode') ? 'light' : 'dark');
+      });
+    })();
+  </script>
+</body>
+</html>
