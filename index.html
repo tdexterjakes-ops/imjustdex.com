@@ -13,7 +13,7 @@
   <meta property="og:title" content="DX — Dexter Jakes">
   <meta property="og:description" content="Faith, weight, and the words that carry both.">
   <meta property="og:image" content="https://dxjakes.com/img/og-default.png">
-  <meta property="og:url" content="https://dxjakes.com">
+  <meta property="og:url" content="https://dxjakes.com/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="DX">
 
@@ -336,6 +336,7 @@
     .plate-secondary { grid-column: span 3; min-height: 230px; }
     .plate-wide { grid-column: span 5; min-height: 230px; }
     .plate-banner { grid-column: span 4; min-height: 230px; }
+    .plate-full { grid-column: span 8; min-height: 230px; }
 
     /* ── Image plates ── */
     .plate-image .plate-body { justify-content: flex-end; padding: 16px; }
@@ -375,6 +376,48 @@
         linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,0)),
         repeating-linear-gradient(63deg, #d7d7d7 0 2px, transparent 2px 22px),
         linear-gradient(180deg, #9b9b9b, #4d4d4d 72%, #141414);
+    }
+
+    /* ── Ghost plate (teaser) ── */
+    .plate-ghost {
+      grid-column: span 5;
+      min-height: 346px;
+      background: transparent;
+      border: 3px dashed var(--border);
+      cursor: default;
+    }
+    .plate-ghost:hover { border-color: var(--border); }
+    .plate-ghost .plate-body {
+      justify-content: center;
+      align-items: flex-start;
+      padding: 28px 20px;
+    }
+    .plate-ghost .plate-title {
+      color: var(--ink);
+      opacity: .35;
+    }
+    .plate-ghost .teaser-rule {
+      width: 40px;
+      height: 2px;
+      background: var(--ink);
+      opacity: .15;
+      margin: 16px 0 10px;
+    }
+    .plate-ghost .teaser-date {
+      font-family: var(--body);
+      font-size: .82rem;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: .3;
+    }
+    .plate-ghost .meta-rail {
+      background: transparent;
+      color: var(--ink);
+      opacity: .25;
+      border-top: 2px dashed var(--border);
+      border-right: none;
     }
 
     /* ── Footer ── */
@@ -472,9 +515,10 @@
     @media (max-width: 1120px) {
       .plates { grid-template-columns: repeat(8, 1fr); }
       .identity-plate { grid-column: span 4; }
-      .plate-feature { grid-column: span 4; }
+      .plate-feature, .plate-ghost { grid-column: span 4; }
       .plate-secondary, .plate-banner { grid-column: span 4; }
       .plate-wide { grid-column: span 8; }
+      .plate-full { grid-column: span 8; }
     }
 
     /* ── Reduced motion ── */
@@ -498,7 +542,9 @@
       .plate-feature,
       .plate-secondary,
       .plate-wide,
-      .plate-banner { grid-column: span 1; min-height: 210px; }
+      .plate-full,
+      .plate-banner,
+      .plate-ghost { grid-column: span 1; min-height: 210px; }
       .plate-title.lg { max-width: 100%; }
       .filter-rail { flex-wrap: nowrap; }
       .filter-btn { padding: 12px 14px 11px; font-size: .72rem; min-height: 44px; }
@@ -514,7 +560,7 @@
 
   <div class="page-shell">
     <nav class="masthead" aria-label="Main navigation">
-      <a class="brand-block" href="#top" aria-label="DX home">
+      <a class="brand-block" href="/" aria-label="DX home">
         <span class="brand-mark"><img src="./img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28"></span>
         <span class="brand-word">Words</span>
       </a>
@@ -536,40 +582,50 @@
           <div class="meta-rail"><a href="/about/" style="color:inherit;text-decoration:none;">About</a></div>
         </article>
 
-        <!-- Featured: Reckonings — Row 1 -->
-        <article class="plate plate-feature" data-tags="faith,identity">
-          <a class="plate-link" href="./words/reckonings/" aria-label="Read: I Don't Do Resolutions I Do Reckonings"></a>
+        <!-- The Groan Beneath the Song — Ghost Teaser / Apr 19 -->
+        <article class="plate plate-ghost" data-tags="faith">
           <div class="plate-body">
-            <h2 class="plate-title med">I Don't Do Resolutions<br>I Do Reckonings</h2>
+            <h2 class="plate-title med">The Groan Beneath the Song</h2>
+            <div class="teaser-rule"></div>
+            <span class="teaser-date">Publishing Apr 19</span>
           </div>
-          <div class="meta-rail">8 min</div>
+          <div class="meta-rail">Coming Soon</div>
         </article>
 
-        <!-- The Nets Were Already Full — Row 1 -->
-        <article class="plate plate-secondary plate-image img-concrete" data-tags="faith,strategy">
+        <!-- The Nets Were Already Full — Row 1 / Week 4 / Apr 8 -->
+        <article class="plate plate-secondary plate-image img-lines" data-tags="faith,strategy">
           <a class="plate-link" href="./words/the-nets/" aria-label="Read: The Nets Were Already Full"></a>
           <div class="plate-body">
-            <h2 class="plate-title med">The Nets Were Already Full</h2>
+            <h2 class="plate-title inverse">The Nets Were Already Full</h2>
           </div>
           <div class="meta-rail">14 min</div>
         </article>
 
-        <!-- Nobody Handed Me This — Row 2 -->
+        <!-- Nobody Handed Me This — Row 2 / Week 3 / Apr 6 -->
         <article class="plate plate-wide plate-image img-noise" data-tags="identity">
           <a class="plate-link" href="./words/gumbo/" aria-label="Read: Nobody Handed Me This"></a>
           <div class="plate-body">
-            <h2 class="plate-title lg">Nobody Handed Me This</h2>
+            <h2 class="plate-title med">Nobody Handed Me This</h2>
           </div>
           <div class="meta-rail">12 min</div>
         </article>
 
-        <!-- The Price of Sunday — Row 2 -->
-        <article class="plate plate-feature" data-tags="faith">
+        <!-- The Price of Sunday — Row 2 / Week 2 / Apr 4 -->
+        <article class="plate plate-secondary" data-tags="faith">
           <a class="plate-link" href="./words/price-of-sunday/" aria-label="Read: The Price of Sunday"></a>
           <div class="plate-body">
-            <h2 class="plate-title lg">The Price of Sunday</h2>
+            <h2 class="plate-title">The Price of Sunday</h2>
           </div>
           <div class="meta-rail">10 min</div>
+        </article>
+
+        <!-- I Don't Do Resolutions. I Do Reckonings — Row 2 / Week 1 / Apr 1 -->
+        <article class="plate plate-banner plate-image img-concrete" data-tags="faith,identity">
+          <a class="plate-link" href="./words/reckonings/" aria-label="Read: I Don't Do Resolutions I Do Reckonings"></a>
+          <div class="plate-body">
+            <h2 class="plate-title med inverse">I Don't Do Resolutions<br>I Do Reckonings</h2>
+          </div>
+          <div class="meta-rail">8 min</div>
         </article>
 
 
@@ -610,35 +666,6 @@
     })();
   </script>
 
-  <script>
-    (function () {
-      var btns = document.querySelectorAll('.filter-btn');
-      var plates = document.querySelectorAll('.plate[data-tags]');
-      var identity = document.querySelector('.identity-plate');
-
-      btns.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          btns.forEach(function (b) {
-            b.classList.remove('active');
-            b.setAttribute('aria-pressed', 'false');
-          });
-          btn.classList.add('active');
-          btn.setAttribute('aria-pressed', 'true');
-
-          var filter = btn.dataset.filter;
-
-          plates.forEach(function (plate) {
-            var tags = (plate.dataset.tags || '').split(',');
-            var match = filter === 'all' || tags.indexOf(filter) !== -1;
-            plate.classList.toggle('filter-hidden', !match);
-          });
-
-          if (identity) identity.classList.remove('filter-hidden');
-
-        });
-      });
-    })();
-  </script>
 
 
 <script async id="netlify-rum-container" src="/.netlify/scripts/rum" data-netlify-rum-site-id="ff389de6-02d3-4738-b48b-6c59701f6b7d" data-netlify-deploy-branch="main" data-netlify-deploy-context="production" data-netlify-cwv-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaXRlX2lkIjoiZmYzODlkZTYtMDJkMy00NzM4LWI0OGItNmM1OTcwMWY2YjdkIiwiYWNjb3VudF9pZCI6IjY5YjhlMWMyMDZjODk1NWU5MWEzZTRkYyIsImRlcGxveV9pZCI6IjY5ZDYwMzI1ODE2ZWNiMDAwODQ3NGIwOCIsImlzc3VlciI6Im5mc2VydmVyIn0.JmrTL9i8Gv9EZRpqQu4fNL4nHESz9RNl1dlfVMhgJ44"></script></body>
