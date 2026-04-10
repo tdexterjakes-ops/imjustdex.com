@@ -96,38 +96,42 @@
 # ──────────────────────────────────────────────
 # Trailing-slash canonical redirects
 # Non-slash variants 301 to the slash canonical.
-# Netlify serves /about/index.html for /about/,
-# so only the non-slash variant needs redirecting.
+#
+# CRITICAL: Do NOT add `force = true` to these rules.
+# Netlify's path matcher treats `/about` and `/about/` as
+# matching the same `from = "/about"` rule. With force=true,
+# the rule fires on BOTH variants — creating an infinite
+# redirect loop on the canonical slash URL.
+#
+# Without force, Netlify's Pretty URLs behavior serves
+# /about/index.html directly when the trailing slash is
+# present, and the redirect only fires for the non-slash
+# variant. This is the canonical Netlify pattern.
 # ──────────────────────────────────────────────
 [[redirects]]
   from = "/about"
   to = "/about/"
   status = 301
-  force = true
 
 [[redirects]]
   from = "/words/the-nets"
   to = "/words/the-nets/"
   status = 301
-  force = true
 
 [[redirects]]
   from = "/words/gumbo"
   to = "/words/gumbo/"
   status = 301
-  force = true
 
 [[redirects]]
   from = "/words/price-of-sunday"
   to = "/words/price-of-sunday/"
   status = 301
-  force = true
 
 [[redirects]]
   from = "/words/reckonings"
   to = "/words/reckonings/"
   status = 301
-  force = true
 
 # ──────────────────────────────────────────────
 # Deprecated archive root — /words and /words/
