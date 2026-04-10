@@ -45,10 +45,12 @@ body.notfound main {
   background: var(--meta-bg);
   color: var(--meta-ink);
   font-family: var(--mono);
-  font-size: .72rem;
+  font-size: var(--text-micro);
   letter-spacing: .22em;
   text-transform: uppercase;
   font-weight: 700;
+  /* Phase 5 exception — line-height: 1 is tuned for the eyebrow's
+     tight badge proportions; not part of the --lh-* ladder. */
   line-height: 1;
   display: flex;
   align-items: center;
@@ -80,9 +82,11 @@ body.notfound main {
   font-family: var(--display);
   font-weight: 400;
   text-transform: uppercase;
+  /* Phase 5 exception — .82 is tighter than --lh-display (.86),
+     tuned for the 404 headline's dramatic display scale. */
   line-height: .82;
   letter-spacing: -.03em;
-  font-size: clamp(3rem, 10vw, 9rem);
+  font-size: var(--text-display);
   max-width: 14ch;
   text-wrap: balance;
   color: var(--ink);
@@ -104,7 +108,9 @@ body.notfound main {
   margin: 0;
   max-width: 44ch;
   color: var(--body-color);
-  font-size: 1.02rem;
+  font-size: var(--text-body);
+  /* Phase 5 exception — 1.55 is tuned for the 404 copy's centered
+     44ch block; sits between --lh-snug (1.4) and --lh-normal (1.7). */
   line-height: 1.55;
 }
 
@@ -129,7 +135,7 @@ body.notfound main {
   padding: 22px 24px 21px;
   text-transform: uppercase;
   letter-spacing: .08em;
-  font-size: .92rem;
+  font-size: var(--text-chrome);
   font-weight: 700;
   min-height: 60px;
   background: var(--panel);

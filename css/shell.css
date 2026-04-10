@@ -106,6 +106,8 @@ main {
 .brand-mark,
 .brand-word {
   padding: 8px 10px 7px;
+  /* Phase 5 exception — line-height: 1 is tuned for the brand
+     block's tight badge proportions; not part of the --lh-* ladder. */
   line-height: 1;
   letter-spacing: .03em;
   text-transform: uppercase;
@@ -127,7 +129,7 @@ main {
 }
 
 .brand-word {
-  font-size: .92rem;
+  font-size: var(--text-chrome);
   align-content: center;
   background: var(--ink);
   color: var(--bg);
@@ -148,7 +150,7 @@ main {
   padding: 14px 16px 13px;
   text-transform: uppercase;
   font: inherit;
-  font-size: .88rem;
+  font-size: var(--text-nav);
   font-weight: 700;
   letter-spacing: .04em;
   cursor: pointer;
@@ -181,7 +183,7 @@ main {
   padding: 12px 14px 11px;
   text-transform: uppercase;
   letter-spacing: .06em;
-  font-size: .84rem;
+  font-size: var(--text-nav);
   font-weight: 700;
   min-height: 44px;
 }

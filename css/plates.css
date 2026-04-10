@@ -69,7 +69,7 @@ a.plate:focus-visible {
 .identity-tagline {
   margin: 0;
   text-transform: uppercase;
-  line-height: .86;
+  line-height: var(--lh-display);
   letter-spacing: -.03em;
   font-family: var(--display);
   font-weight: 400;
@@ -78,15 +78,15 @@ a.plate:focus-visible {
 }
 
 .plate-title {
-  font-size: clamp(2rem, 4vw, 4rem);
+  font-size: var(--text-plate);
 }
 
 .plate-title.med {
-  font-size: clamp(2.35rem, 5vw, 5rem);
+  font-size: var(--text-plate-med);
 }
 
 .plate-title.lg {
-  font-size: clamp(3.5rem, 7vw, 7.2rem);
+  font-size: var(--text-plate-lg);
 }
 
 .plate-title.inverse {
@@ -111,10 +111,12 @@ html.dark-mode .plate-title.inverse {
   color: var(--meta-ink);
   border-top: var(--border-weight-chrome) solid var(--border);
   border-right: var(--border-weight-chrome) solid var(--border);
-  font-size: .8rem;
+  font-size: var(--text-citation);
   letter-spacing: .08em;
   text-transform: uppercase;
   font-weight: 700;
+  /* Phase 5 exception — line-height: 1 is tuned for the meta rail's
+     tight badge proportions; not part of the --lh-* ladder. */
   line-height: 1;
   white-space: nowrap;
 }
@@ -235,15 +237,19 @@ html.dark-mode .plate-title.inverse {
 }
 
 .identity-name {
-  font-size: clamp(3.8rem, 10vw, 7.5rem);
+  font-size: var(--text-identity);
   max-width: 7ch;
   margin-bottom: 4px;
+  /* Phase 5 exception — .82 is a tighter ratio than --lh-display (.86),
+     tuned for the identity name's max 7ch width. */
   line-height: .82;
 }
 
 .identity-tagline {
-  font-size: clamp(1.35rem, 2.4vw, 2.4rem);
+  font-size: var(--text-tagline);
   max-width: 14ch;
+  /* Phase 5 exception — .9 is a tuned ratio for the tagline's
+     14ch width constraint, between --lh-display and --lh-tight. */
   line-height: .9;
   letter-spacing: -.02em;
   margin-top: 8px;
@@ -261,7 +267,7 @@ html.dark-mode .plate-title.inverse {
   text-transform: uppercase;
   letter-spacing: .08em;
   font-weight: 700;
-  font-size: .75rem;
+  font-size: var(--text-label);
 }
 
 .identity-plate .meta-rail {
@@ -270,7 +276,7 @@ html.dark-mode .plate-title.inverse {
   opacity: .45;
   border-top: 1px solid var(--bg);
   border-right: none;
-  font-size: .7rem;
+  font-size: var(--text-micro);
   letter-spacing: .14em;
   font-weight: 700;
 }
@@ -332,7 +338,7 @@ html.dark-mode .identity-plate .meta-rail {
 
 .plate-ghost .teaser-date {
   font-family: var(--body);
-  font-size: .82rem;
+  font-size: var(--text-citation);
   font-weight: 700;
   letter-spacing: .14em;
   text-transform: uppercase;

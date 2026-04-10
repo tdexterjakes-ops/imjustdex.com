@@ -168,36 +168,119 @@ Every `font-weight: 900` in the old system has been normalized to a real shipped
 
 Visual change is zero. The old declarations relied on browser font synthesis, which produced the same effective weight. The system now declares what it ships.
 
+### Typography Scale (Phase 5)
+
+Before Phase 5, every CSS file carried raw `font-size` and `line-height` values — 42+ declarations across `article.css`, `plates.css`, `shell.css`, and `notfound.css`, with zero typography tokens. Phase 5 introduces a **two-tier token system** so the scale becomes the single source of truth and consumers express intent, not arithmetic.
+
+**Two tiers — primitives and semantic aliases.**
+
+`--size-*` primitives define the scale itself. `--text-*` semantic aliases point at primitives and express role. Consumers should always reach for the semantic alias first; dropping to a primitive is reserved for one-offs where no alias fits the intent. New intents earn a new alias — never speculate aliases without a consumer.
+
+This is the pattern every mature design system converges on (Radix, Primer, Material 3). It's the only structure that doesn't force a tradeoff between flexibility and meaning. Pure semantic naming locks you in when a new context needs a near-but-not-identical size; pure t-shirt naming (`--text-xl`, `--text-2xl`) strips intent from the CSS. Two tiers give an escape hatch in both directions.
+
+**Primitive scale — empirically derived, not mathematical.**
+
+A golden-ratio or 1.25 modular scale is prettier in a spec doc but would force every existing value to round up or down, breaking visual calibration that was done by eye across months of editorial tuning. Phase 5 instead clusters the existing 42+ values and snaps to natural steps. Sub-display sizes consolidate only where differences sat below the perception threshold (sub-pixel noise: `.7rem ≈ .72rem`, `.8rem ≈ .82rem`, `.84rem ≈ .88rem`, `1rem ≈ 1.02rem`). Display sizes preserve every distinct clamp — those were tuned with editorial intent and collapsing them would visibly shift the site.
+
+**Sub-display tier — fixed rem.** Sub-body sizes do not respond to viewport. Fluid type below body flattens hierarchy on mobile and produces muddy chrome.
+
+| Token | Value | Role |
+|-------|-------|------|
+| `--size-1` | `.6rem` | Meta rail numerals |
+| `--size-2` | `.72rem` | Micro labels (share labels, stat block spans, scripture citation, article nav labels) |
+| `--size-3` | `.75rem` | Chips, eyebrows, tags, article back button, identity sub |
+| `--size-4` | `.82rem` | Article deck, plate ghost date, plate meta rail |
+| `--size-5` | `.88rem` | Shell nav (mode toggle, footer strip) |
+| `--size-6` | `.92rem` | Brand word, 404 actions |
+| `--size-7` | `1rem` | Body paragraphs, scripture body, closing block, 404 copy |
+| `--size-8` | `1.08rem` | Article lede (body copy) |
+| `--size-9` | `1.15rem` | Callout pull-quote |
+
+**Display tier — fluid `clamp()`.** Every editorial clamp preserved as its own step. Consumers write `font-size: var(--text-h1)` and get fluidity for free.
+
+| Token | Value | Role |
+|-------|-------|------|
+| `--size-10` | `clamp(1.2rem, 2vw, 1.6rem)` | Article h3, article-nav titles |
+| `--size-11` | `clamp(1.35rem, 2.4vw, 2.4rem)` | Identity tagline |
+| `--size-12` | `clamp(1.6rem, 4vw, 2.4rem)` | Pull quote, h2 |
+| `--size-13` | `clamp(1.6rem, 5vw, 2.6rem)` | Stat block |
+| `--size-14` | `clamp(2rem, 4vw, 4rem)` | Plate title (default) |
+| `--size-15` | `clamp(2.35rem, 5vw, 5rem)` | Plate title (med) |
+| `--size-16` | `clamp(2.8rem, 7vw, 5rem)` | Article h1 |
+| `--size-17` | `clamp(3rem, 10vw, 9rem)` | 404 headline |
+| `--size-18` | `clamp(3.5rem, 7vw, 7.2rem)` | Plate title (lg) |
+| `--size-19` | `clamp(3.8rem, 10vw, 7.5rem)` | Identity name |
+
+**Semantic aliases — role, not size.**
+
+| Alias | Primitive | Intent |
+|-------|-----------|--------|
+| `--text-meta` | `--size-1` | Meta rail numerals |
+| `--text-micro` | `--size-2` | Micro labels — the smallest legible system voice |
+| `--text-label` | `--size-3` | Chips, eyebrows, buttons |
+| `--text-citation` | `--size-4` | Scripture citation, article deck |
+| `--text-nav` | `--size-5` | Shell navigation |
+| `--text-chrome` | `--size-6` | Large chrome (brand word, 404 actions) |
+| `--text-body` | `--size-7` | Paragraph body text |
+| `--text-lede` | `--size-8` | Article lede copy |
+| `--text-quote` | `--size-9` | Callout pull quotes |
+| `--text-h3` | `--size-10` | Section sub-heads, article-nav titles |
+| `--text-tagline` | `--size-11` | Identity tagline |
+| `--text-h2` | `--size-12` | Pull quote, section heads |
+| `--text-stat` | `--size-13` | Stat block display |
+| `--text-plate` | `--size-14` | Default plate title |
+| `--text-plate-med` | `--size-15` | Medium plate variant |
+| `--text-h1` | `--size-16` | Article title |
+| `--text-display` | `--size-17` | 404 display headline |
+| `--text-plate-lg` | `--size-18` | Large plate variant |
+| `--text-identity` | `--size-19` | Identity plate name |
+
+**Line-height ladder — decoupled from size.**
+
+Coupling line-height to font-size assumes a 1:1 mapping that doesn't hold. Body at `1rem` wants `1.7`. Lede at `1.08rem` wants `1.85`. Display at `clamp(...)` wants `.86`. These ratios repeat across sizes, so one ladder with five ratios keeps the rhythm honest across the whole system.
+
+| Token | Value | Role |
+|-------|-------|------|
+| `--lh-display` | `.86` | Headlines, plate titles, article h1 |
+| `--lh-tight` | `1.05` | h2, h3, pull quote, stat block |
+| `--lh-snug` | `1.4` | Body base, chrome, deck, research cta |
+| `--lh-normal` | `1.7` | Article body, scripture, closing |
+| `--lh-loose` | `1.85` | Article lede |
+
+**Exceptions.** A handful of ratios sit between ladder steps or serve unique contexts and remain raw with inline `/* Phase 5 exception */` comments: drop cap `4.8em`/`.72` (relative multipliers, not ramp values), `line-height: 1` on badge-style elements (meta rail, brand block, 404 eyebrow), `.82`/`.9`/`.95`/`1.55` tuned ratios on identity name, identity tagline, article-nav title, and 404 copy, and the mobile `.52rem` responsive step-down on `.section-indicator`. These are documented where they live.
+
 ### Title Scale
+
+All sizes reference Phase 5 semantic aliases. The resolved `clamp()` value is shown in parentheses for quick reference.
 
 **Homepage plates:**
 
-| Class | Size | Notes |
-|-------|------|-------|
-| `.plate-title` (default) | `clamp(2rem, 4vw, 4rem)` | Standard plate |
-| `.plate-title.med` | `clamp(2.35rem, 5vw, 5rem)` | Medium emphasis |
-| `.plate-title.lg` | `clamp(3.5rem, 7vw, 7.2rem)` | Large emphasis, `max-width: 8ch` on desktop |
+| Class | Token | Resolved | Notes |
+|-------|-------|----------|-------|
+| `.plate-title` (default) | `var(--text-plate)` | `clamp(2rem, 4vw, 4rem)` | Standard plate |
+| `.plate-title.med` | `var(--text-plate-med)` | `clamp(2.35rem, 5vw, 5rem)` | Medium emphasis |
+| `.plate-title.lg` | `var(--text-plate-lg)` | `clamp(3.5rem, 7vw, 7.2rem)` | Large emphasis, `max-width: 8ch` on desktop |
 
 **Identity plate:**
 
-| Element | Size | Notes |
-|---------|------|-------|
-| `.identity-name` | `clamp(3.8rem, 10vw, 7.5rem)` | `line-height: .82`, `max-width: 7ch` |
-| `.identity-tagline` | `clamp(1.35rem, 2.4vw, 2.4rem)` | `line-height: .9`, `color: var(--accent)`, `opacity: .85`, `max-width: 14ch` |
-| `.identity-sub` | `.75rem` | Bordered label, inverted colors |
+| Element | Token | Resolved | Notes |
+|---------|-------|----------|-------|
+| `.identity-name` | `var(--text-identity)` | `clamp(3.8rem, 10vw, 7.5rem)` | `line-height: .82` (Phase 5 exception), `max-width: 7ch` |
+| `.identity-tagline` | `var(--text-tagline)` | `clamp(1.35rem, 2.4vw, 2.4rem)` | `line-height: .9` (Phase 5 exception), `color: var(--accent)`, `opacity: .85`, `max-width: 14ch` |
+| `.identity-sub` | `var(--text-label)` | `.75rem` | Bordered label, inverted colors |
 
 **Article:**
 
-| Element | Size |
-|---------|------|
-| `.article-title` | `clamp(2.8rem, 7vw, 5rem)` |
-| `.article-deck` | `.8rem` mono, uppercase, `max-width: 480px`, 3px left border |
-| `.article-tag` | `.75rem` mono, inverted fill |
-| `.article-date`, `.article-read` | `.75rem` mono, `color: var(--body-muted)` |
+| Element | Token | Resolved |
+|---------|-------|----------|
+| `.article-title` | `var(--text-h1)` / `var(--lh-display)` | `clamp(2.8rem, 7vw, 5rem)` / `.86` |
+| `.article-deck` | `var(--text-citation)` / `var(--lh-snug)` | `.82rem` / `1.4` |
+| `.article-tag` | `var(--text-label)` | `.75rem` mono, inverted fill |
+| `.article-date`, `.article-read` | `var(--text-label)` | `.75rem` mono, `color: var(--body-muted)` |
 
 ### Body Text
 
-Article body: `font-family: var(--body)` (Plex Sans), `font-size: 1.08rem`, `line-height: 1.85`, `color: var(--body-color)`.
+Article body: `font-family: var(--body)` (Plex Sans), `font-size: var(--text-lede)` (`1.08rem`), `line-height: var(--lh-loose)` (`1.85`), `color: var(--body-color)`.
 
 Paragraph spacing: `margin-bottom: 1.5em`.
 

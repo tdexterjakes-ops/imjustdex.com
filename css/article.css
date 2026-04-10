@@ -34,7 +34,7 @@
 
 .article-tag {
   font-family: var(--mono);
-  font-size: .75rem;
+  font-size: var(--text-label);
   letter-spacing: .12em;
   text-transform: uppercase;
   font-weight: 700;
@@ -47,7 +47,7 @@
 .article-date,
 .article-read {
   font-family: var(--mono);
-  font-size: .75rem;
+  font-size: var(--text-label);
   letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--body-muted);
@@ -55,10 +55,10 @@
 
 .article-title {
   font-family: var(--display);
-  font-size: clamp(2.8rem, 7vw, 5rem);
+  font-size: var(--text-h1);
   font-weight: 400;
   text-transform: uppercase;
-  line-height: .86;
+  line-height: var(--lh-display);
   letter-spacing: -.03em;
   margin: 0 0 16px;
   text-wrap: balance;
@@ -66,8 +66,8 @@
 
 .article-deck {
   font-family: var(--mono);
-  font-size: .8rem;
-  line-height: 1.5;
+  font-size: var(--text-citation);
+  line-height: var(--lh-snug);
   letter-spacing: .04em;
   color: var(--body-muted);
   text-transform: uppercase;
@@ -85,8 +85,8 @@
   background: var(--panel);
   padding: 40px 24px 48px;
   font-family: var(--body);
-  font-size: 1.08rem;
-  line-height: 1.85;
+  font-size: var(--text-lede);
+  line-height: var(--lh-loose);
   color: var(--body-color);
 }
 
@@ -118,6 +118,9 @@
 
 .article-body .intro .dropcap {
   font-family: var(--display);
+  /* Phase 5 exception — 4.8em is a relative multiplier of the
+     paragraph's font-size, not a ramp value. Line-height .72 is a
+     drop cap tuning, not part of the --lh-* ladder. */
   font-size: 4.8em;
   font-weight: 400;
   float: left;
@@ -138,7 +141,7 @@
 
 .section-head h2 {
   font-family: var(--mono);
-  font-size: .75rem;
+  font-size: var(--text-label);
   font-weight: 700;
   letter-spacing: .15em;
   text-transform: uppercase;
@@ -164,9 +167,9 @@
 
 .pull-quote p {
   font-family: var(--display);
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-size: var(--text-h2);
   font-weight: 400;
-  line-height: 1.1;
+  line-height: 1.1; /* Phase 5 exception — preserves editorial leading on in-essay pull quotes; --lh-tight (1.05) read too dense */
   letter-spacing: -.02em;
   text-transform: uppercase;
   color: var(--ink);
@@ -181,9 +184,9 @@
   padding: 0 0 0 18px;
   border-left: var(--border-weight-content) solid var(--accent);
   font-family: var(--body);
-  font-size: 1.15rem;
+  font-size: var(--text-quote);
   font-weight: 700;
-  line-height: 1.4;
+  line-height: var(--lh-snug);
   color: var(--ink);
 }
 
@@ -207,8 +210,8 @@
 
 .scripture p {
   font-family: var(--body);
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: var(--text-body);
+  line-height: var(--lh-normal);
   color: var(--body-color);
   font-style: italic;
   margin: 0 0 10px;
@@ -217,7 +220,7 @@
 .scripture cite {
   font-family: var(--mono);
   font-style: normal;
-  font-size: .7rem;
+  font-size: var(--text-micro);
   letter-spacing: .15em;
   text-transform: uppercase;
   color: var(--accent-text);
@@ -239,10 +242,10 @@
 
 .stat-block-text {
   font-family: var(--display);
-  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  font-size: var(--text-stat);
   font-weight: 400;
   letter-spacing: -.03em;
-  line-height: 1.05;
+  line-height: var(--lh-tight);
   text-transform: uppercase;
   color: var(--ink);
 }
@@ -250,7 +253,7 @@
 .stat-block-text span {
   display: block;
   font-family: var(--mono);
-  font-size: .7rem;
+  font-size: var(--text-micro);
   font-weight: 400;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -266,8 +269,8 @@
   border: var(--border-weight-content) solid var(--border);
   background: var(--panel);
   font-family: var(--body);
-  font-size: 1rem;
-  line-height: 1.75;
+  font-size: var(--text-body);
+  line-height: var(--lh-normal);
   color: var(--body-color);
   font-style: italic;
 }
@@ -287,7 +290,7 @@
 
 .share-label {
   font-family: var(--mono);
-  font-size: .7rem;
+  font-size: var(--text-micro);
   letter-spacing: .15em;
   text-transform: uppercase;
   color: var(--body-muted);
@@ -295,7 +298,7 @@
 
 .share-link {
   font-family: var(--mono);
-  font-size: .75rem;
+  font-size: var(--text-label);
   letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--body-muted);
@@ -314,7 +317,7 @@
 .subscribe-link {
   margin-left: auto;
   font-family: var(--mono);
-  font-size: .75rem;
+  font-size: var(--text-label);
   letter-spacing: .1em;
   text-transform: uppercase;
   font-weight: 700;
@@ -340,17 +343,17 @@
 
 .research-cta-text {
   font-family: var(--mono);
-  font-size: .7rem;
+  font-size: var(--text-micro);
   letter-spacing: .15em;
   text-transform: uppercase;
   color: var(--body-muted);
-  line-height: 1.5;
+  line-height: var(--lh-snug);
 }
 
 .research-cta-link {
   flex-shrink: 0;
   font-family: var(--mono);
-  font-size: .75rem;
+  font-size: var(--text-label);
   letter-spacing: .1em;
   text-transform: uppercase;
   font-weight: 700;
@@ -407,7 +410,7 @@
 
 .article-nav-label {
   font-family: var(--mono);
-  font-size: .7rem;
+  font-size: var(--text-micro);
   letter-spacing: .12em;
   text-transform: uppercase;
   font-weight: 700;
@@ -416,7 +419,9 @@
 
 .article-nav-title {
   font-family: var(--display);
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-size: var(--text-h3);
+  /* Phase 5 exception — .95 is a tuned ratio for short nav titles
+     that sits between --lh-display (.86) and --lh-tight (1.05). */
   line-height: .95;
   letter-spacing: -.02em;
   text-transform: uppercase;
@@ -452,7 +457,7 @@
   border: var(--border-weight-chrome) solid var(--border);
   background: var(--panel);
   font-family: var(--mono);
-  font-size: .75rem;
+  font-size: var(--text-label);
   letter-spacing: .1em;
   text-transform: uppercase;
   font-weight: 700;
@@ -499,7 +504,7 @@
   left: 28px;
   z-index: 9998;
   font-family: var(--mono);
-  font-size: .6rem;
+  font-size: var(--text-meta);
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--ink);
@@ -559,6 +564,8 @@
   .section-indicator {
     bottom: 16px;
     left: 16px;
+    /* Phase 5 exception — responsive step-down from --text-meta
+       (.6rem) for narrow viewports. Not a ramp value. */
     font-size: .52rem;
     max-width: 200px;
   }

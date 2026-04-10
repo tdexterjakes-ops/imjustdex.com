@@ -111,6 +111,79 @@
   --serif: Georgia, 'Times New Roman', serif;
   --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
 
+  /* ── Typography scale ───────────────────────────────────────
+     Two-tier system: primitives define the scale, semantic
+     aliases define intent. Consumers should prefer aliases;
+     drop to primitives only when intent doesn't fit.
+
+     Primitives (--size-*) are empirically derived from existing
+     editorial values. Sub-display sizes are consolidated where
+     differences sat below the perception threshold (sub-pixel
+     noise). Display tier preserves every distinct clamp —
+     those were tuned by eye and collapsing them would visibly
+     shift the site. Sub-display stays fixed rem; display tier
+     uses clamp() for fluid scaling. */
+
+  /* Primitive scale — sub-display, fixed
+     .7/.72 consolidated to .72, .8/.82 to .82, .84/.88 to .88,
+     1/1.02 to 1. All other distinctions preserved. */
+  --size-1: .6rem;        /* 9.6px   — meta rail */
+  --size-2: .72rem;       /* ~11.5px — micro label */
+  --size-3: .75rem;       /* 12px    — chip / eyebrow */
+  --size-4: .82rem;       /* ~13.1px — citation */
+  --size-5: .88rem;       /* ~14.1px — nav */
+  --size-6: .92rem;       /* ~14.7px — chrome-md */
+  --size-7: 1rem;         /* 16px    — body base */
+  --size-8: 1.08rem;      /* ~17.3px — lede */
+  --size-9: 1.15rem;      /* ~18.4px — pull quote */
+
+  /* Primitive scale — display, fluid
+     Every distinct editorial clamp preserved as its own step. */
+  --size-10: clamp(1.2rem, 2vw, 1.6rem);       /* h3, article-nav */
+  --size-11: clamp(1.35rem, 2.4vw, 2.4rem);    /* identity tagline */
+  --size-12: clamp(1.6rem, 4vw, 2.4rem);       /* pull quote, h2 */
+  --size-13: clamp(1.6rem, 5vw, 2.6rem);       /* stat block */
+  --size-14: clamp(2rem, 4vw, 4rem);           /* plate-title base */
+  --size-15: clamp(2.35rem, 5vw, 5rem);        /* plate-title.med */
+  --size-16: clamp(2.8rem, 7vw, 5rem);         /* article h1 */
+  --size-17: clamp(3rem, 10vw, 9rem);          /* 404 display */
+  --size-18: clamp(3.5rem, 7vw, 7.2rem);       /* plate-title.lg */
+  --size-19: clamp(3.8rem, 10vw, 7.5rem);      /* identity name */
+
+  /* Semantic aliases — role-based intent, point at primitives.
+     Added only when there's an immediate consumer — do not
+     speculate. New intents earn a new alias; one-offs drop to
+     the primitive directly. */
+  --text-meta: var(--size-1);
+  --text-micro: var(--size-2);
+  --text-label: var(--size-3);
+  --text-citation: var(--size-4);
+  --text-nav: var(--size-5);
+  --text-chrome: var(--size-6);
+  --text-body: var(--size-7);
+  --text-lede: var(--size-8);
+  --text-quote: var(--size-9);
+  --text-h3: var(--size-10);
+  --text-tagline: var(--size-11);
+  --text-h2: var(--size-12);
+  --text-stat: var(--size-13);
+  --text-plate: var(--size-14);
+  --text-plate-med: var(--size-15);
+  --text-h1: var(--size-16);
+  --text-display: var(--size-17);
+  --text-plate-lg: var(--size-18);
+  --text-identity: var(--size-19);
+
+  /* Line-height ladder — decoupled from size. One ratio repeats
+     across many sizes (body at 1.7 works for 1rem paragraphs
+     and 1.08rem lede); coupling it to font-size would force
+     one-off tokens for no gain. Four ratios + one exception. */
+  --lh-display: .86;   /* headlines, plate mega, 404 */
+  --lh-tight:   1.05;  /* h2, h3, pull quote */
+  --lh-snug:    1.4;   /* chrome, nav, meta */
+  --lh-normal:  1.7;   /* article body */
+  --lh-loose:   1.85;  /* article lede */
+
   color-scheme: light dark;
 }
 
@@ -160,9 +233,9 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--body);
-  font-size: 1rem;
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.4;
+  line-height: var(--lh-snug);
   min-height: 100vh;
   min-height: 100dvh;
   transition: background .18s ease, color .18s ease;
