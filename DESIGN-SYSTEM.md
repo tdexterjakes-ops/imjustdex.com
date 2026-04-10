@@ -16,7 +16,7 @@ Styles live in five purpose-built sheets loaded in dependency order. No page emb
 |-------|------|
 | `/css/tokens.css` | Design tokens, `@font-face` declarations, `:root` light mode, `html.dark-mode` overrides, base reset, 46px grid body, print and reduced-motion rules |
 | `/css/shell.css` | Page chrome — skip-link, page-shell, rulers, masthead, brand-block, mode-toggle, footer-strip, focus states |
-| `/css/plates.css` | Homepage-only — filter rail, 12-col plate grid, plate variants, meta rail, image plates, identity plate, ghost teaser |
+| `/css/plates.css` | Homepage-only — 12-col plate grid, plate variants, meta rail, image plates, identity plate, ghost teaser |
 | `/css/article.css` | Article/About only — article frame, header, body, drop cap, section heads, pull quotes, callouts, scripture, stat blocks, closing, share bar, reading progress, section indicator |
 | `/css/notfound.css` | 404-only — `.notfound-plate`, eyebrow, headline, actions |
 
@@ -38,7 +38,7 @@ All fonts ship from `/fonts/` as WOFF2 with Latin subsetting. No Google Fonts. N
 
 ### Page Types
 
-**Homepage** (`/`) — Identity plate embedded in Row 1 of a 12-column plate grid. The archive IS the homepage. Filter rail allows tag-based filtering. No standalone hero. No scroll indicator.
+**Homepage** (`/`) — Identity plate embedded in Row 1 of a 12-column plate grid. The archive IS the homepage. No filter rail — the archive is small enough that chronology is the only index that matters. No standalone hero. No scroll indicator.
 
 **Words Index** (`/words/`) — Same plate grid without the identity plate. Functionally identical to homepage minus identity.
 
@@ -203,9 +203,16 @@ Article body links: `text-decoration: underline`, `text-decoration-color: var(--
 
 ### Drop Cap
 
-`.intro::first-letter` — `font-family: var(--display)` (Anton), `font-size: 4.8em`, `font-weight: 400`, `float: left`, `line-height: .72`, `margin-right: 8px`, `margin-top: 4px`, `color: var(--ink)`.
+`.article-body .intro .dropcap` — `font-family: var(--display)` (Anton), `font-size: 4.8em`, `font-weight: 400`, `float: left`, `line-height: .72`, `margin-right: 8px`, `margin-top: 4px`, `color: var(--ink)`.
 
-Applied only to the first paragraph of each article (class `.intro`). Never repeated.
+**Markup pattern:**
+```html
+<p class="intro"><span class="dropcap">I</span> always skipped Saturday.</p>
+```
+
+Applied only to the first paragraph of each article. Never repeated.
+
+**Phase 3 change (2026-04-10):** The prior pattern used the `::first-letter` pseudo-element. That selector is fragile — inconsistent rendering across browsers, no handle for assistive tech, and breaks on text normalization. The explicit `<span class="dropcap">` pattern is addressable, reliable, and survives copy-paste.
 
 ### Mono Register Rules
 
@@ -217,26 +224,35 @@ All mono-set elements (`--mono`): always uppercase, always small (`.65`–`.84re
 
 ### Border Language
 
-**3px solid `var(--border)` — primary structural borders:**
-- Plate outlines (homepage grid)
-- Article header border
-- Article body left/right/bottom borders
-- Share bar border (3px, `border-top: 0`)
-- Closing block border
-- Pull quote top/bottom borders
-- Section head horizontal rule
-- Callout left border (3px `var(--accent)`)
+Border weights are tokenized so a single edit rebalances the whole system. The doctrine is **content vs chrome**:
 
-**2px solid `var(--border)` — secondary borders:**
-- Tags (`.article-tag`)
-- Meta rail top/right edges
-- Scripture block border (`var(--body-faint)`)
+```css
+--border-weight-content: 3px;   /* content frames */
+--border-weight-chrome:  2px;   /* chrome elements */
+```
+
+**`var(--border-weight-content)` — primary structural borders:**
+- Plate outlines (homepage grid)
+- Article header, body, closing, share bar, research CTA
+- Pull quote top/bottom borders
+- Article nav top border
+- Section indicator border
+- Section head horizontal rule (3px bar)
+- Callout left border (uses `var(--accent)` for color)
+
+**`var(--border-weight-chrome)` — secondary borders:**
 - Brand block + nav elements
 - Mode toggle
 - Footer strip items
 - Back button
 - Subscribe/Follow Me button
+- Article nav prev/next cards
+- Article tags (`.article-tag`)
+- Meta rail top/right edges
+- Scripture block border (uses `var(--body-faint)` for color)
 - Identity sub label
+
+**Rule:** if the element frames *content*, it uses the content weight. If it frames *an action or a label*, it uses the chrome weight. Never hardcode `3px` or `2px` in a border rule — always reference the token.
 
 ### Grid Background
 
@@ -310,24 +326,6 @@ Two-item grid: "Follow @ImJustDex" (links to Instagram) | "Est. 1994".
 
 Stacks to single column on mobile (`grid-template-columns: 1fr`).
 
-### Filter Rail (Homepage Only)
-
-Horizontal button bar above the plate grid. Scrollable on mobile. Buttons: "All", plus one per tag. Active state: inverted fill.
-
-```css
-.filter-btn {
-  border: 2px solid var(--border); border-right: 0;
-  background: var(--panel); color: var(--muted);
-  padding: 14px 16px 13px; font-size: .78rem;
-  font-weight: 700; letter-spacing: .1em;
-  min-height: 44px;
-}
-.filter-btn.active {
-  background: var(--ink); color: var(--bg);
-  border-color: var(--ink);
-}
-```
-
 ---
 
 ## 6. Homepage Plate Grid
@@ -345,14 +343,15 @@ A plate is the base archive card. It renders as either:
 
 ```css
 .plate {
-  border: 3px solid var(--border);
+  border: var(--border-weight-content) solid var(--border);
   background: var(--panel);
   display: flex; flex-direction: column;
   justify-content: space-between;
   overflow: hidden; isolation: isolate;
   color: inherit; text-decoration: none;
+  transition: border-color var(--motion-tiny);
 }
-a.plate { cursor: pointer; }
+/* Native <a> cursor already renders as pointer — no redundant rule. */
 a.plate:hover { border-color: var(--accent); }
 a.plate:focus-visible {
   outline: 2px solid var(--focus-ring);
@@ -374,7 +373,18 @@ a.plate:focus-visible {
 
 ### Identity Plate
 
-Inverted fill: `background: var(--ink)`, `color: var(--bg)`. In dark mode: `background: #ffffff`, `color: #050505`. `cursor: default` (not clickable). Hover does NOT trigger red border — stays `var(--border)`.
+Inverted fill: `background: var(--ink)`, `color: var(--bg)`. In dark mode it **stays dark** (`#0a0a0a`) rather than flipping to white, because a lone white island in a field of dark plates fragments the grid. `cursor: default` (not clickable). Hover does NOT trigger red border — stays `var(--border)`.
+
+**Accent scoping (Phase 3a, 2026-04-10):** The global `--accent` flips to `#ff4d4d` in dark mode for AA contrast on the `#060606` body background. But the identity plate keeps its light-mode `#c00` red because it's always sitting on a dark field. Achieved with a scoped token override:
+
+```css
+html.dark-mode .identity-plate {
+  background: #0a0a0a;
+  color: #f3f0e8;
+  border-color: #0a0a0a;
+  --accent: #c00;  /* scoped override — tagline stays the deeper red */
+}
+```
 
 Contents: `.identity-sub` ("ImJustDex" bordered label) → `.identity-name` ("Dexter Jakes") → `.identity-tagline` (red accent text) → `.meta-rail` ("About" link, transparent background, `.45` opacity).
 
@@ -402,15 +412,7 @@ Shared image plate rules:
 .plate-image .meta-rail { color: #0a0a0a; background: #f5f5f1; border-color: #0a0a0a; }
 ```
 
-**Dark mode image plate inversion:**
-```css
-html.dark-mode .plate-image::before { filter: grayscale(1) contrast(1.15) invert(1); }
-html.dark-mode .plate-image::after {
-  background: linear-gradient(to top, rgba(255,255,255,.78), rgba(255,255,255,.08) 55%, rgba(255,255,255,.14));
-}
-html.dark-mode .plate-image .plate-title { color: #050505; text-shadow: none; }
-html.dark-mode .plate-image .meta-rail { color: #f5f5f1; background: #0a0a0a; border-color: #f3f0e8; }
-```
+**Phase 3a change (2026-04-10):** Image plates used to flip to white fills in dark mode via an `invert(1)` on the `::before` filter and a mirrored gradient. That created a fragmented visual field — textured plates bleached out against adjacent dark plain plates. Image plates now stay dark in both modes. The only dark-mode override is none. The grayscale filter and black-to-transparent gradient hold in light and dark.
 
 ### Meta Rail
 
@@ -478,7 +480,7 @@ Used to tease an upcoming article before its publish date. Contains title (muted
 
 ### Article Header
 
-`border: 3px solid var(--border)`, `background: var(--panel)`, `padding: 28px 24px 22px`. Contains eyebrow (tag + date + read time), title, and deck.
+`border: var(--border-weight-content) solid var(--border)`, `background: var(--panel)`, `padding: 28px 24px 22px`. Contains eyebrow (tag + date + read time), title, and deck.
 
 ### Section Head
 
@@ -500,8 +502,8 @@ Full-width break inside article body. Bleeds into article padding with negative 
 ```css
 .pull-quote {
   margin: 40px -24px; padding: 32px 24px;
-  border-top: 3px solid var(--border);
-  border-bottom: 3px solid var(--border);
+  border-top: var(--border-weight-content) solid var(--border);
+  border-bottom: var(--border-weight-content) solid var(--border);
   background: var(--body-tint);
 }
 .pull-quote p {
@@ -659,10 +661,12 @@ Reusable CTA bar between article body and share bar. Links to external research,
 ```css
 .reading-progress {
   position: fixed; top: 0; left: 0; width: 0%; height: 3px;
-  background: var(--accent); z-index: 9999;
+  background: var(--ink); z-index: 9999;
   transition: width .12s linear; pointer-events: none;
 }
 ```
+
+**Phase 3b change (2026-04-10):** Progress bar recolored from `--accent` (red) to `--ink` (black/cream). Red is reserved for section heads, callouts, underlines, and focus rings. A red bar at the top of the viewport was competing with the masthead and diluting the accent's semantic weight.
 
 ### Section Indicator (Articles Only)
 
@@ -674,14 +678,15 @@ Fixed-position label at bottom-left. Shows current section head text. Fades in/o
   font-family: var(--mono); font-size: .6rem;
   letter-spacing: .18em; text-transform: uppercase;
   color: var(--ink); background: var(--bg);
-  border: 1px solid var(--rule); padding: 6px 12px;
-  border-radius: 2px; opacity: 0;
+  border: var(--border-weight-content) solid var(--ink);
+  padding: 6px 12px; opacity: 0;
   transition: opacity .3s ease; pointer-events: none;
   max-width: 260px; white-space: nowrap;
   overflow: hidden; text-overflow: ellipsis;
-  box-shadow: 0 1px 4px rgba(0,0,0,.12);
 }
 ```
+
+**Phase 3b change (2026-04-10):** Dropped the `border-radius`, `box-shadow`, and `1px var(--rule)` hairline in favor of a content-weight hard border on `var(--ink)`. The indicator now reads as a stamped editorial mark, not a floating tooltip chip.
 
 Mobile: `bottom: 16px`, `left: 16px`, `font-size: .52rem`, `max-width: 200px`.
 
@@ -706,6 +711,21 @@ Article pages: `::selection { background: rgba(204,0,0,.14); }`
 
 Hidden off-screen, appears on focus: `background: var(--ink)`, `color: var(--bg)`, `padding: 10px 14px`.
 
+### Motion Doctrine
+
+Motion is a single token, applied sparingly:
+
+```css
+--motion-tiny: 120ms cubic-bezier(.2, .8, .2, 1);
+```
+
+Only three surfaces animate:
+- **Mode toggle** — `border-color` and `background` on hover.
+- **Plates** (`a.plate`) — `border-color` on hover.
+- **Article nav cards** (`.article-nav-link`) — `border-color` on hover.
+
+Everything else stays instant. No fade-ins. No scroll reveals. No page transitions. The reading progress bar uses its own `width .12s linear` because it's tracking a continuous scroll value, not reacting to a discrete event.
+
 ### Reduced Motion
 
 ```css
@@ -720,7 +740,7 @@ Hidden off-screen, appears on focus: `background: var(--ink)`, `color: var(--bg)
 
 ### Print
 
-Hides: rulers, mode toggle, share bar, filter rail. Removes background images. Forces `#fff`/`#000`. Appends URLs to links.
+Hides: rulers, mode toggle, share bar, reading progress, section indicator, research CTA. Removes background images. Forces `#fff`/`#000`. Appends URLs to links.
 
 ---
 
@@ -729,7 +749,7 @@ Hides: rulers, mode toggle, share bar, filter rail. Removes background images. F
 | Breakpoint | Trigger | Key Changes |
 |------------|---------|-------------|
 | `< 1120px` | Tablet | Plate grid → 8 columns. Feature/secondary/identity → span 4. Wide → span 8. |
-| `< 760px` | Mobile | Single column plates. Masthead wraps. Footer stacks. Rulers hidden. `--outer-pad: 18px`. `--grid-gap: 10px`. Article header/body padding reduces. Share bar wraps. Section indicator shrinks. Filter buttons compact. |
+| `< 760px` | Mobile | Single column plates. Masthead wraps. Footer stacks. Rulers hidden. `--outer-pad: 18px`. `--grid-gap: 10px`. Article header/body padding reduces. Share bar wraps. Section indicator shrinks. Article nav stacks to single column. |
 
 ---
 
@@ -743,11 +763,11 @@ When no explicit `dxmode` cookie is set, the page respects the OS `prefers-color
 
 ### Identity Plate (Special Case)
 
-Light mode: `background: var(--ink)` (dark plate). Dark mode: `background: #ffffff`, `color: #050505`, `border-color: #ffffff` (inverts to light plate).
+Stays dark in both modes. Light mode: `background: var(--ink)`. Dark mode: `background: #0a0a0a` (scoped override). The plate maintains its editorial signature regardless of ambient mode. The `--accent` token is also scoped back to the light-mode `#c00` red inside this plate so the tagline reads at the intended weight on the dark field.
 
 ### Image Plates (Special Case)
 
-Texture `::before` gets `invert(1)` added to filter chain (selectors use `html.dark-mode .plate-image::before`, not `body.dark-mode`). Gradient overlay `::after` flips from black-to-transparent to white-to-transparent. Title text goes from white to `#050505`. Meta rail inverts from light-on-dark to dark-on-light.
+Stay dark in both modes. No `html.dark-mode` overrides — the grayscale filter and black-to-transparent gradient hold in light and dark. Flipping them to light in dark mode was fragmenting the visual field; keeping them dark lets textured and plain plates alternate cleanly.
 
 ### Scripture Citation
 
@@ -761,7 +781,7 @@ When images replace the current CSS-generated textures, they must follow these r
 
 **Permitted categories:** Monochrome documentary stills. Architecture and concrete forms. Close-cropped textures. High-contrast domestic objects. Archival-feeling personal photography. Degraded digital artifacts.
 
-**Treatment:** Always `filter: grayscale(1) contrast(1.15)`. Always covered with gradient overlay for text legibility. Dark mode adds `invert(1)` to filter chain and flips gradient to white-based.
+**Treatment:** Always `filter: grayscale(1) contrast(1.15)`. Always covered with gradient overlay for text legibility. Images stay dark in both modes — no per-mode flip. Light-mode legibility comes from the gradient; dark-mode integration comes from the ambient dark field.
 
 **Test:** Every image must answer: *what tension does this create with the title?* If it doesn't increase tension, cut it.
 
@@ -877,7 +897,7 @@ dxjakes.com/
 ├── css/
 │   ├── tokens.css                ← Tokens, @font-face, :root, html.dark-mode, reset, grid body, print, reduced-motion
 │   ├── shell.css                 ← Skip link, page-shell, rulers, masthead, brand-block, mode-toggle, footer-strip, focus
-│   ├── plates.css                ← Filter rail, plate grid, plate variants, meta rail, image plates, identity, ghost
+│   ├── plates.css                ← Plate grid, plate variants, meta rail, image plates, identity, ghost
 │   ├── article.css               ← Article frame, header, body, drop cap, section heads, components, share bar, progress
 │   └── notfound.css              ← 404-only plate, eyebrow, headline, actions
 ├── js/

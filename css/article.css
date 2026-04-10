@@ -19,7 +19,7 @@
 /* ── Article header ────────────────────────────────────────── */
 
 .article-header {
-  border: 3px solid var(--border);
+  border: var(--border-weight-content) solid var(--border);
   background: var(--panel);
   padding: 28px 24px 22px;
   margin-bottom: 0;
@@ -72,16 +72,16 @@
   color: var(--body-muted);
   text-transform: uppercase;
   max-width: 480px;
-  border-left: 3px solid var(--border);
+  border-left: var(--border-weight-content) solid var(--border);
   padding-left: 14px;
 }
 
 /* ── Article body ──────────────────────────────────────────── */
 
 .article-body {
-  border-left: 3px solid var(--border);
-  border-right: 3px solid var(--border);
-  border-bottom: 3px solid var(--border);
+  border-left: var(--border-weight-content) solid var(--border);
+  border-right: var(--border-weight-content) solid var(--border);
+  border-bottom: var(--border-weight-content) solid var(--border);
   background: var(--panel);
   padding: 40px 24px 48px;
   font-family: var(--body);
@@ -105,9 +105,14 @@
   color: var(--accent);
 }
 
-/* ── Drop cap ──────────────────────────────────────────────── */
+/* ── Drop cap ──────────────────────────────────────────────
+ * Explicit span pattern (not ::first-letter pseudo) so the
+ * drop cap is addressable by assistive tech, survives text
+ * normalization, and renders consistently across browsers.
+ * Markup: <p class="intro"><span class="dropcap">I</span>...</p>
+ * ---------------------------------------------------------- */
 
-.article-body .intro::first-letter {
+.article-body .intro .dropcap {
   font-family: var(--display);
   font-size: 4.8em;
   font-weight: 400;
@@ -148,8 +153,8 @@
 .pull-quote {
   margin: 40px -24px;
   padding: 32px 24px;
-  border-top: 3px solid var(--border);
-  border-bottom: 3px solid var(--border);
+  border-top: var(--border-weight-content) solid var(--border);
+  border-bottom: var(--border-weight-content) solid var(--border);
   background: var(--body-tint);
 }
 
@@ -254,7 +259,7 @@
 .closing {
   margin-top: 48px;
   padding: 28px 24px;
-  border: 3px solid var(--border);
+  border: var(--border-weight-content) solid var(--border);
   background: var(--panel);
   font-family: var(--body);
   font-size: 1rem;
@@ -271,7 +276,7 @@
   gap: 14px;
   margin-top: 0;
   padding: 14px 24px;
-  border: 3px solid var(--border);
+  border: var(--border-weight-content) solid var(--border);
   border-top: 0;
   background: var(--panel);
 }
@@ -323,7 +328,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 18px 24px;
-  border: 3px solid var(--border);
+  border: var(--border-weight-content) solid var(--border);
   border-top: 0;
   background: var(--panel);
   gap: 16px;
@@ -371,7 +376,7 @@
   gap: 16px;
   margin-top: 36px;
   padding-top: 28px;
-  border-top: 3px solid var(--border);
+  border-top: var(--border-weight-content) solid var(--border);
 }
 
 .article-nav-link {
@@ -384,6 +389,7 @@
   color: inherit;
   text-decoration: none;
   min-height: 88px;
+  transition: border-color var(--motion-tiny);
 }
 
 .article-nav-next {
@@ -466,13 +472,16 @@
 
 /* ── Reading progress bar ──────────────────────────────────── */
 
+/* Reading progress uses --ink rather than --accent so the red accent
+ * stays reserved for section heads, callouts, and underlines. A red
+ * bar at the top of the viewport was competing with the masthead. */
 .reading-progress {
   position: fixed;
   top: 0;
   left: 0;
   width: 0%;
   height: 3px;
-  background: var(--accent);
+  background: var(--ink);
   z-index: 9999;
   transition: width .12s linear;
   pointer-events: none;
@@ -491,7 +500,7 @@
   text-transform: uppercase;
   color: var(--ink);
   background: var(--bg);
-  border: 2px solid var(--border);
+  border: var(--border-weight-content) solid var(--ink);
   padding: 6px 12px;
   opacity: 0;
   transition: opacity .3s ease;

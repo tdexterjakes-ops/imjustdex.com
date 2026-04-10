@@ -142,7 +142,7 @@ main {
 .mode-toggle {
   margin-left: auto;
   appearance: none;
-  border: 2px solid var(--border);
+  border: var(--border-weight-chrome) solid var(--border);
   background: var(--panel);
   color: var(--ink);
   padding: 14px 16px 13px;
@@ -153,6 +153,7 @@ main {
   letter-spacing: .04em;
   cursor: pointer;
   min-height: 44px;
+  transition: border-color var(--motion-tiny), background var(--motion-tiny);
 }
 
 /* ── Hover accents ─────────────────────────────────────────── */
@@ -203,7 +204,6 @@ main {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;

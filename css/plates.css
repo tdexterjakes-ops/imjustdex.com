@@ -26,7 +26,7 @@
 .plate {
   position: relative;
   min-height: var(--tile-min);
-  border: 3px solid var(--border);
+  border: var(--border-weight-content) solid var(--border);
   background: var(--panel);
   display: flex;
   flex-direction: column;
@@ -35,13 +35,11 @@
   isolation: isolate;
   color: inherit;
   text-decoration: none;
+  transition: border-color var(--motion-tiny);
 }
 
-/* Hover + focus only apply to interactive plates (<a class="plate">). */
-a.plate {
-  cursor: pointer;
-}
-
+/* Hover + focus only apply to interactive plates (<a class="plate">).
+   Native <a> cursor already renders as pointer — no redundant rule. */
 a.plate:hover {
   border-color: var(--accent);
 }

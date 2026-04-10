@@ -74,6 +74,18 @@
   --outer-pad: 28px;
   --tile-min: 190px;
 
+  /* Border weights — codify the "content vs chrome" doctrine.
+     Content frames (plates, article header/body/closing, pull
+     quotes, nav) use 3px. Chrome (buttons, tags, brand, footer)
+     uses 2px. Scoped so a single edit rebalances the whole system. */
+  --border-weight-content: 3px;
+  --border-weight-chrome: 2px;
+
+  /* Motion — a single tiny-ease curve for hover/focus chrome.
+     Applied sparingly: mode toggle, plate hover borders, article
+     nav hover borders. Everything else stays instant. */
+  --motion-tiny: 120ms cubic-bezier(.2, .8, .2, 1);
+
   /* Typography stacks
      Anton: open-source condensed display (Impact-equivalent).
      Impact is preserved as a native fallback for macOS/iOS/Windows
