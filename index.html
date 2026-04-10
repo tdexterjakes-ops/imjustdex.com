@@ -39,8 +39,16 @@
       --meta-bg: #0a0a0a;
       --meta-ink: #f5f5f1;
       --tile-min: 190px;
+      --accent: #c00;
+      --accent-text: #c00;
+      --focus-ring: #c00;
+      --body-color: rgba(5,5,5,.82);
+      --body-muted: rgba(5,5,5,.56);
+      --body-faint: rgba(5,5,5,.18);
+      --body-tint: rgba(5,5,5,.04);
       --display: Impact, Haettenschweiler, sans-serif;
       --body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+      --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
     }
     body.dark-mode {
       --bg: #060606;
@@ -49,6 +57,12 @@
       --muted: #d7d3ca;
       --border: #f3f0e8;
       --rule: rgba(255,255,255,.16);
+      --accent-text: #ff4d4d;
+      --focus-ring: #ff4d4d;
+      --body-color: rgba(243,240,232,.82);
+      --body-muted: rgba(243,240,232,.52);
+      --body-faint: rgba(243,240,232,.14);
+      --body-tint: rgba(243,240,232,.04);
       --meta-bg: #f3f0e8;
       --meta-ink: #0a0a0a;
     }
@@ -209,7 +223,7 @@
       cursor: pointer;
     }
     .plate:hover {
-      border-color: #c00;
+      border-color: var(--accent);
     }
     .plate-link {
       position: absolute;
@@ -318,7 +332,7 @@
       line-height: .9;
       letter-spacing: -.02em;
       margin-top: 8px;
-      color: #c00;
+      color: var(--accent);
       opacity: .85;
     }
     .identity-sub {
@@ -499,7 +513,7 @@
     .brand-block:focus-visible,
     .plate-link:focus-visible,
     .footer-strip a:focus-visible {
-      outline: 2px solid #c00;
+      outline: 2px solid var(--focus-ring);
       outline-offset: 2px;
     }
 

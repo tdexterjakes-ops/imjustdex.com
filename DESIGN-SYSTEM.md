@@ -42,7 +42,9 @@ Every page renders the same outer shell: rulers, masthead, footer strip, 46px gr
 | `--rule` | `rgba(0,0,0,.14)` | Grid lines, rulers, hairlines |
 | `--meta-bg` | `#0a0a0a` | Meta rail background |
 | `--meta-ink` | `#f5f5f1` | Meta rail text |
-| `--accent` | `#c00` | Emphasis accent |
+| `--accent` | `#c00` | Graphic accent — borders, bars, underlines, progress fills |
+| `--accent-text` | `#c00` | Text-tuned accent — section heads, scripture cites, callout emphasis. Decoupled so it can lift in dark mode for AA contrast on small mono labels without dragging graphic accents with it. |
+| `--focus-ring` | `#c00` | `:focus-visible` outline color. Semantically distinct from `--accent-text` so focus affordances never drift when text-contrast tokens are retuned. |
 | `--body-color` | `rgba(5,5,5,.82)` | Article body text |
 | `--body-muted` | `rgba(5,5,5,.56)` | Article metadata, secondary text |
 | `--body-faint` | `rgba(5,5,5,.18)` | Faint borders in article context |
@@ -58,12 +60,16 @@ Every page renders the same outer shell: rulers, masthead, footer strip, 46px gr
 | `--muted` | `#d7d3ca` |
 | `--border` | `#f3f0e8` |
 | `--rule` | `rgba(255,255,255,.16)` |
+| `--accent-text` | `#ff4d4d` — AA contrast on `#060606` for small mono labels; visually sibling to `#c00` |
+| `--focus-ring` | `#ff4d4d` — matches `--accent-text` but stays semantically distinct |
 | `--meta-bg` | `#f3f0e8` |
 | `--meta-ink` | `#0a0a0a` |
 | `--body-color` | `rgba(243,240,232,.82)` |
 | `--body-muted` | `rgba(243,240,232,.52)` |
 | `--body-faint` | `rgba(243,240,232,.14)` |
 | `--body-tint` | `rgba(243,240,232,.04)` |
+
+`--accent` does not invert in dark mode. It remains `#c00` because graphic accents (borders, bars, progress fills) do not need to shift for contrast the way small mono labels do. Only `--accent-text` and `--focus-ring` retune to `#ff4d4d`.
 
 Dark mode is not personalization. It is a second editorial mode. Both modes are locked and authored. Mode is cookie-persisted (`dxmode`), applied via `body.dark-mode` class toggle.
 
@@ -72,17 +78,17 @@ Dark mode is not personalization. It is a second editorial mode. Both modes are 
 Red marks editorial emphasis. Never decoration.
 
 **Permitted:**
-- Section head `h2` text color (`var(--accent)`)
+- Section head `h2` text color (`var(--accent-text)`)
 - Section head horizontal rule line (`var(--accent)`)
 - Reading progress bar (`var(--accent)`)
-- Callout left-border (3px rule)
-- Callout emphasis spans (`.callout-emph`)
-- Scripture block cite text (light mode: `var(--accent)`; dark mode: `#f44`)
-- Stat block vertical bar
-- Identity plate tagline text
-- Link underline on hover (article body only)
-- Plate border on hover (homepage/index)
-- Focus-visible outline rings
+- Callout left-border (3px `var(--accent)` rule)
+- Callout emphasis spans (`.callout-emph`, `var(--accent-text)`)
+- Scripture block cite text (`var(--accent-text)` — auto-retunes to `#ff4d4d` in dark mode)
+- Stat block vertical bar (`var(--accent)`)
+- Identity plate tagline text (`var(--accent)`)
+- Link underline on hover (article body only, `var(--accent)`)
+- Plate border on hover (homepage/index, `var(--accent)`)
+- Focus-visible outline rings (`var(--focus-ring)`)
 
 **Prohibited:**
 - Backgrounds
@@ -100,7 +106,7 @@ Red marks editorial emphasis. Never decoration.
 
 | Variable | Value | Role |
 |----------|-------|------|
-| `--display` | `Impact, Haettenschweiler, 'Impact', sans-serif` | Titles, identity marks, pull quotes, stat blocks |
+| `--display` | `Impact, Haettenschweiler, sans-serif` | Titles, identity marks, pull quotes, stat blocks |
 | `--body` | `'IBM Plex Sans', system-ui, -apple-system, sans-serif` | Homepage/index plate context, base body font |
 | `--serif` | `Georgia, 'Times New Roman', serif` | Article body text, closing blocks, callouts |
 | `--mono` | `'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace` | Metadata, tags, eyebrows, section heads, share bar, nav labels, footer |
@@ -124,7 +130,7 @@ All display type (`--display`) uses: `text-transform: uppercase`, `font-weight: 
 | Element | Size | Notes |
 |---------|------|-------|
 | `.identity-name` | `clamp(3.8rem, 10vw, 7.5rem)` | `line-height: .82`, `max-width: 7ch` |
-| `.identity-tagline` | `clamp(1.35rem, 2.4vw, 2.4rem)` | `line-height: .9`, `color: #c00`, `opacity: .85`, `max-width: 14ch` |
+| `.identity-tagline` | `clamp(1.35rem, 2.4vw, 2.4rem)` | `line-height: .9`, `color: var(--accent)`, `opacity: .85`, `max-width: 14ch` |
 | `.identity-sub` | `.75rem` | Bordered label, inverted colors |
 
 **Article:**
@@ -463,13 +469,12 @@ Single sentence or short phrase. Used for rhetorical pivots. Maximum two per art
 
 ```css
 .callout-emph {
-  color: var(--accent);
+  color: var(--accent-text);
   font-weight: 900;
 }
-body.dark-mode .callout-emph { color: #f44; }
 ```
 
-Optional span class inside `.callout` blocks to highlight a single word or phrase in accent red. Available on all article pages.
+Optional span class inside `.callout` blocks to highlight a single word or phrase in accent red. Uses `--accent-text` so it auto-lifts to `#ff4d4d` in dark mode — no per-mode override required. Available on all article pages.
 
 ### Scripture Block
 
@@ -487,9 +492,8 @@ Optional span class inside `.callout` blocks to highlight a single word or phras
 .scripture cite {
   font-family: var(--mono); font-style: normal;
   font-size: .7rem; letter-spacing: .15em;
-  text-transform: uppercase; color: var(--accent);
+  text-transform: uppercase; color: var(--accent-text);
 }
-body.dark-mode .scripture cite { color: #f44; }
 ```
 
 ### Stat Block
@@ -624,7 +628,7 @@ Mobile: `bottom: 16px`, `left: 16px`, `font-size: .52rem`, `max-width: 200px`.
 
 ### Focus States
 
-All interactive elements use `outline: 2px solid var(--accent)`, `outline-offset: 2px` on `:focus-visible`.
+All interactive elements use `outline: 2px solid var(--focus-ring)`, `outline-offset: 2px` on `:focus-visible`. `--focus-ring` resolves to `#c00` in light mode and `#ff4d4d` in dark mode, so focus rings always clear AA contrast against the active background.
 
 ### Touch Targets
 
@@ -682,7 +686,7 @@ Texture `::before` gets `invert(1)` added to filter chain. Gradient overlay `::a
 
 ### Scripture Citation
 
-`color: var(--accent)` in light mode. `color: #f44` in dark mode (brighter red for contrast on dark backgrounds).
+`color: var(--accent-text)` — resolves to `#c00` in light mode and `#ff4d4d` in dark mode. No per-mode override. The token handles the retune.
 
 ---
 
