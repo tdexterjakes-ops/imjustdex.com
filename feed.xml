@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>DX — Dexter Jakes</title>
+  <subtitle>Faith, weight, and the words that carry both.</subtitle>
+  <link href="https://dxjakes.com/feed.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://dxjakes.com/" rel="alternate" type="text/html"/>
+  <id>https://dxjakes.com/</id>
+  <updated>2026-04-08T00:00:00Z</updated>
+  <rights>© 2026 Dexter Jakes. All rights reserved.</rights>
+  <author>
+    <name>Dexter Jakes</name>
+    <uri>https://dxjakes.com/about/</uri>
+  </author>
+  <icon>https://dxjakes.com/img/favicon-32.png</icon>
+  <logo>https://dxjakes.com/img/og-default.png</logo>
+
+  <entry>
+    <title>The Nets Were Already Full</title>
+    <link href="https://dxjakes.com/words/the-nets/" rel="alternate" type="text/html"/>
+    <id>https://dxjakes.com/words/the-nets/</id>
+    <published>2026-04-08T00:00:00Z</published>
+    <updated>2026-04-08T00:00:00Z</updated>
+    <author>
+      <name>Dexter Jakes</name>
+    </author>
+    <summary>What the Galilee shore teaches about the sequence most ministries get wrong.</summary>
+    <category term="faith"/>
+    <category term="strategy"/>
+  </entry>
+
+  <entry>
+    <title>Nobody Handed Me This</title>
+    <link href="https://dxjakes.com/words/gumbo/" rel="alternate" type="text/html"/>
+    <id>https://dxjakes.com/words/gumbo/</id>
+    <published>2026-04-06T00:00:00Z</published>
+    <updated>2026-04-06T00:00:00Z</updated>
+    <author>
+      <name>Dexter Jakes</name>
+    </author>
+    <summary>On gumbo, dark rouxs, and the rituals you have to build from scratch.</summary>
+    <category term="identity"/>
+  </entry>
+
+  <entry>
+    <title>The Price of Sunday</title>
+    <link href="https://dxjakes.com/words/price-of-sunday/" rel="alternate" type="text/html"/>
+    <id>https://dxjakes.com/words/price-of-sunday/</id>
+    <published>2026-04-04T00:00:00Z</published>
+    <updated>2026-04-04T00:00:00Z</updated>
+    <author>
+      <name>Dexter Jakes</name>
+    </author>
+    <summary>A meditation on the day between death and life.</summary>
+    <category term="faith"/>
+  </entry>
+
+  <entry>
+    <title>I Don't Do Resolutions I Do Reckonings</title>
+    <link href="https://dxjakes.com/words/reckonings/" rel="alternate" type="text/html"/>
+    <id>https://dxjakes.com/words/reckonings/</id>
+    <published>2026-04-01T00:00:00Z</published>
+    <updated>2026-04-01T00:00:00Z</updated>
+    <author>
+      <name>Dexter Jakes</name>
+    </author>
+    <summary>Some stories don't wait for a happy ending to be worth telling.</summary>
+    <category term="faith"/>
+    <category term="identity"/>
+  </entry>
+</feed>

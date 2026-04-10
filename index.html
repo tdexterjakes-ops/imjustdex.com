@@ -38,6 +38,43 @@
 
   <!-- Mode: synchronous in <head> so html.dark-mode is set before first paint -->
   <script src="/js/mode.js"></script>
+
+  <!-- Feed discovery -->
+  <link rel="alternate" type="application/atom+xml" title="DX — Dexter Jakes" href="/feed.xml">
+
+  <!-- Structured data: WebSite + Person -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://dxjakes.com/#website",
+      "url": "https://dxjakes.com/",
+      "name": "DX — Dexter Jakes",
+      "description": "Faith, weight, and the words that carry both.",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://dxjakes.com/#person" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://dxjakes.com/#person",
+      "name": "Dexter Jakes",
+      "url": "https://dxjakes.com/",
+      "sameAs": [
+        "https://instagram.com/ImJustDex",
+        "https://x.com/ImJustDex"
+      ],
+      "mainEntityOfPage": "https://dxjakes.com/about/",
+      "jobTitle": "Executive Director of Marketing",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "The Potter's House of Dallas"
+      }
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <a href="#archive" class="skip-link">Skip to content</a>
@@ -80,41 +117,37 @@
           <div class="meta-rail">Coming Soon</div>
         </article>
 
-        <!-- The Nets Were Already Full — Row 1 / Week 4 / Apr 8 -->
-        <article class="plate plate-secondary plate-image img-lines" data-tags="faith,strategy">
-          <a class="plate-link" href="/words/the-nets/" aria-label="Read: The Nets Were Already Full"></a>
+        <!-- The Nets Were Already Full — Row 1 / Week 4 / Apr 8, 2026 -->
+        <a class="plate plate-secondary plate-image img-lines" href="/words/the-nets/" data-tags="faith,strategy" aria-label="Read: The Nets Were Already Full">
           <div class="plate-body">
             <h2 class="plate-title inverse">The Nets Were Already Full</h2>
           </div>
-          <div class="meta-rail">14 min</div>
-        </article>
+          <div class="meta-rail"><time datetime="2026-04-08">Apr 8</time> · 14 min</div>
+        </a>
 
-        <!-- Nobody Handed Me This — Row 2 / Week 3 / Apr 6 -->
-        <article class="plate plate-wide plate-image img-noise" data-tags="identity">
-          <a class="plate-link" href="/words/gumbo/" aria-label="Read: Nobody Handed Me This"></a>
+        <!-- Nobody Handed Me This — Row 2 / Week 3 / Apr 6, 2026 -->
+        <a class="plate plate-wide plate-image img-noise" href="/words/gumbo/" data-tags="identity" aria-label="Read: Nobody Handed Me This">
           <div class="plate-body">
             <h2 class="plate-title med">Nobody Handed Me This</h2>
           </div>
-          <div class="meta-rail">12 min</div>
-        </article>
+          <div class="meta-rail"><time datetime="2026-04-06">Apr 6</time> · 12 min</div>
+        </a>
 
-        <!-- The Price of Sunday — Row 2 / Week 2 / Apr 4 -->
-        <article class="plate plate-secondary" data-tags="faith">
-          <a class="plate-link" href="/words/price-of-sunday/" aria-label="Read: The Price of Sunday"></a>
+        <!-- The Price of Sunday — Row 2 / Week 2 / Apr 4, 2026 -->
+        <a class="plate plate-secondary" href="/words/price-of-sunday/" data-tags="faith" aria-label="Read: The Price of Sunday">
           <div class="plate-body">
             <h2 class="plate-title">The Price of Sunday</h2>
           </div>
-          <div class="meta-rail">10 min</div>
-        </article>
+          <div class="meta-rail"><time datetime="2026-04-04">Apr 4</time> · 10 min</div>
+        </a>
 
-        <!-- I Don't Do Resolutions. I Do Reckonings — Row 2 / Week 1 / Apr 1 -->
-        <article class="plate plate-banner plate-image img-concrete" data-tags="faith,identity">
-          <a class="plate-link" href="/words/reckonings/" aria-label="Read: I Don't Do Resolutions I Do Reckonings"></a>
+        <!-- I Don't Do Resolutions. I Do Reckonings — Row 2 / Week 1 / Apr 1, 2026 -->
+        <a class="plate plate-banner plate-image img-concrete" href="/words/reckonings/" data-tags="faith,identity" aria-label="Read: I Don't Do Resolutions I Do Reckonings">
           <div class="plate-body">
             <h2 class="plate-title med inverse">I Don't Do Resolutions<br>I Do Reckonings</h2>
           </div>
-          <div class="meta-rail">8 min</div>
-        </article>
+          <div class="meta-rail"><time datetime="2026-04-01">Apr 1</time> · 8 min</div>
+        </a>
 
       </section>
     </main>

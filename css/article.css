@@ -359,6 +359,79 @@
   opacity: .8;
 }
 
+/* ── Previous / Next essay nav ─────────────────────────────
+ * Sits below the share bar, above the Back link.
+ * Two columns on wider viewports, stacks on mobile.
+ * If only one direction exists (first/last article), the
+ * single link spans the full row. -------------------------- */
+
+.article-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 3px solid var(--border);
+}
+
+.article-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 18px 16px;
+  border: 2px solid var(--border);
+  background: var(--panel);
+  color: inherit;
+  text-decoration: none;
+  min-height: 88px;
+}
+
+.article-nav-next {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.article-nav-link:only-child {
+  grid-column: 1 / -1;
+}
+
+.article-nav-label {
+  font-family: var(--mono);
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--body-muted);
+}
+
+.article-nav-title {
+  font-family: var(--display);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  line-height: .95;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.article-nav-link:hover {
+  border-color: var(--accent);
+}
+
+.article-nav-link:hover .article-nav-label {
+  color: var(--accent-text);
+}
+
+@media (max-width: 640px) {
+  .article-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .article-nav-next {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
 /* ── Article back link ─────────────────────────────────────── */
 
 .article-back {
@@ -385,6 +458,7 @@
 .subscribe-link:focus-visible,
 .research-cta-link:focus-visible,
 .article-back:focus-visible,
+.article-nav-link:focus-visible,
 .article-body a:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;

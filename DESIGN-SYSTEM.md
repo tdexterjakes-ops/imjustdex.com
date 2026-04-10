@@ -88,8 +88,10 @@ Every page renders the same outer shell: rulers, masthead, footer strip, 46px gr
 | `--muted` | `#d7d3ca` |
 | `--border` | `#f3f0e8` |
 | `--rule` | `rgba(255,255,255,.16)` |
-| `--accent-text` | `#ff4d4d` — AA contrast on `#060606` for small mono labels; visually sibling to `#c00` |
-| `--focus-ring` | `#ff4d4d` — matches `--accent-text` but stays semantically distinct |
+| `--accent` | `var(--accent-on-dark)` → `#ff4d4d` — flipped in dark mode so borders, underlines, and fills clear AA contrast on `#060606` |
+| `--accent-text` | `var(--accent-on-dark)` → `#ff4d4d` — AA contrast on `#060606` for small mono labels and prose red |
+| `--accent-on-dark` | `#ff4d4d` — the single brighter red reserved for dark mode. Declared in `:root` for reuse. |
+| `--focus-ring` | `var(--accent-on-dark)` → `#ff4d4d` — matches `--accent-text` but stays semantically distinct |
 | `--meta-bg` | `#f3f0e8` |
 | `--meta-ink` | `#0a0a0a` |
 | `--body-color` | `rgba(243,240,232,.82)` |
@@ -97,7 +99,7 @@ Every page renders the same outer shell: rulers, masthead, footer strip, 46px gr
 | `--body-faint` | `rgba(243,240,232,.14)` |
 | `--body-tint` | `rgba(243,240,232,.04)` |
 
-`--accent` does not invert in dark mode. It remains `#c00` because graphic accents (borders, bars, progress fills) do not need to shift for contrast the way small mono labels do. Only `--accent-text` and `--focus-ring` retune to `#ff4d4d`.
+**Phase 2 update (2026-04-10):** `--accent` now flips to `#ff4d4d` in dark mode via `var(--accent-on-dark)`. The prior rule — "graphic accents don't need to shift" — held for fills that read as pure red blocks, but failed on borders, text-decoration underlines, and the identity plate tagline where `#c00` on `#060606` did not clear AA. A single-token flip cascades cleanly across every red-on-ink context without touching individual selectors. `--accent-on-dark` is exposed as a first-class token in `:root` so any future rule can reach for it directly if needed.
 
 Dark mode is not personalization. It is a second editorial mode. Both modes are locked and authored. Mode is cookie-persisted (`dxmode`, one-year max-age, `SameSite=Lax`) and applied via an `html.dark-mode` class toggle. The class is set on the `<html>` element (not `<body>`) by a blocking script in `<head>` so there is no flash of incorrect mode on first paint. When no cookie is set, `prefers-color-scheme` decides the initial mode, and a `matchMedia` listener follows OS preference changes until the user makes an explicit choice.
 
@@ -336,6 +338,11 @@ Horizontal button bar above the plate grid. Scrollable on mobile. Buttons: "All"
 
 ### Plate Base
 
+A plate is the base archive card. It renders as either:
+
+- `<a class="plate" href="…">` — the 4 article cards (interactive). The anchor IS the card. One focusable element. No overlay links. No nested tab stops.
+- `<article class="plate">` — identity plate, ghost teaser (static). No hover highlight, no pointer cursor, no focus outline.
+
 ```css
 .plate {
   border: 3px solid var(--border);
@@ -343,10 +350,17 @@ Horizontal button bar above the plate grid. Scrollable on mobile. Buttons: "All"
   display: flex; flex-direction: column;
   justify-content: space-between;
   overflow: hidden; isolation: isolate;
-  cursor: pointer;
+  color: inherit; text-decoration: none;
 }
-.plate:hover { border-color: #c00; }
+a.plate { cursor: pointer; }
+a.plate:hover { border-color: var(--accent); }
+a.plate:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: -5px;
+}
 ```
+
+**Phase 2 change (2026-04-10):** The prior pattern was `<article class="plate">` + absolutely-positioned `<a class="plate-link">` overlay. That created a nested-focusable anti-pattern and made the plate's semantics ambiguous. It is gone. The whole card is now a single block-level anchor.
 
 ### Plate Sizes
 
@@ -926,3 +940,57 @@ The standard governs all production pages. Exceptions are permitted only under t
 This is not a blog theme. It is not a personal website template.
 
 Every decision — border weight, title scale, metadata format, accent placement — exists to make the site feel printed, rigid, and inevitable. If a change makes the site feel more like a "website" and less like a "publication," the change is wrong.
+
+---
+
+## 17. Machine-Legibility Layer (Phase 2)
+
+Added 2026-04-10 to make the site machine-legible for search engines, feed readers, and schema consumers without altering a single visible pixel.
+
+### Structured Data (JSON-LD)
+
+Every page ships Schema.org JSON-LD in the `<head>`, embedded as `<script type="application/ld+json">`.
+
+- **Homepage (`/`)** — `@graph` with `WebSite` + `Person` nodes. The `Person` node is the canonical identity (`@id: https://dxjakes.com/#person`) referenced from every article's `author` and `publisher` fields.
+- **About (`/about/`)** — `ProfilePage` whose `mainEntity` is the same `Person` node.
+- **Each article (`/words/*/`)** — `BlogPosting` with `headline`, `description`, `datePublished`, `dateModified`, `author`, `publisher`, `mainEntityOfPage`, `image`, `url`, `inLanguage`, and `wordCount`.
+
+`wordCount` is computed from article source text at the time of the edit. Refresh it when an article is materially rewritten.
+
+`image` points to `/img/og-default.png` site-wide until Phase 4.3 ships the per-article OG generator. Swap the URL only — the schema shape stays the same.
+
+### Sitemap + Robots
+
+- **`/sitemap.xml`** — flat `urlset` with the homepage, About, and every published article. `lastmod`, `changefreq`, `priority` per URL. Update this file when a new article ships.
+- **`/robots.txt`** — one-line `Allow: /` plus a `Sitemap:` pointer. No disallow rules. Nothing on this site should be blocked from indexing.
+
+### Atom Feed
+
+- **`/feed.xml`** — Atom 1.0 with site-level metadata and one `<entry>` per published article in reverse-chronological order. `summary` ships (not full content) to keep the file light. `<category>` tags mirror the `data-tags` attribute from the archive plate.
+- Discovery: `<link rel="alternate" type="application/atom+xml" href="/feed.xml">` in the `<head>` of `/` and `/about/`.
+
+### Per-Article Dates
+
+Every archive plate and article header now carries a `<time datetime="YYYY-MM-DD">` element. The archive plate renders the date inline in the meta rail (`Apr 8 · 14 min`), the article header renders the full formatted date. Both machine-readable and visible.
+
+### Previous / Next Essay
+
+Every article has two links to its chronological neighbors:
+
+1. **`<head>`** — `<link rel="prev" href="…">` and `<link rel="next" href="…">` for crawlers.
+2. **Article body** — A `.article-nav` block below the share bar: a two-column grid of prev and next, each with a mono label and a display-cased title. On viewports narrower than 640px the grid collapses to a single column. First and last articles render only one direction, spanning the full row (`:only-child`).
+
+Chronological order is by `datePublished` (oldest → newest): Reckonings → Price of Sunday → Nobody Handed Me This → The Nets Were Already Full.
+
+### Update Rules
+
+When a new article ships:
+
+1. Add a plate to `/index.html` (`<a class="plate" …>` with inline `<time>`).
+2. Add a `BlogPosting` JSON-LD block to the article's `<head>` and compute its `wordCount` from source.
+3. Add a `<url>` entry to `/sitemap.xml`.
+4. Add an `<entry>` to the top of `/feed.xml` and bump the feed's `<updated>` timestamp.
+5. Update the previous article's `<link rel="next">` + `.article-nav-next` to point at the new one.
+6. Add the new article's `<link rel="prev">` + `.article-nav-prev` pointing at what was previously the last article.
+
+No step is optional. Skip one and the SEO layer drifts.

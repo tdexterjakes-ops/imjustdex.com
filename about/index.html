@@ -38,6 +38,33 @@
 
   <!-- Mode: synchronous in <head> for FOUC prevention -->
   <script src="/js/mode.js"></script>
+
+  <!-- Feed discovery -->
+  <link rel="alternate" type="application/atom+xml" title="DX — Dexter Jakes" href="/feed.xml">
+
+  <!-- Structured data: Person (profile page) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "mainEntity": {
+    "@type": "Person",
+    "@id": "https://dxjakes.com/#person",
+    "name": "Dexter Jakes",
+    "url": "https://dxjakes.com/about/",
+    "jobTitle": "Executive Director of Marketing",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "The Potter's House of Dallas"
+    },
+    "sameAs": [
+      "https://instagram.com/ImJustDex",
+      "https://x.com/ImJustDex"
+    ],
+    "description": "Est. 1994. Marketing director, music degree, husband, son, student of the text."
+  }
+}
+  </script>
 </head>
 <body>
   <a href="#about" class="skip-link">Skip to content</a>

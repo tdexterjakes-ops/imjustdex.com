@@ -52,9 +52,15 @@
   --meta-bg: #0a0a0a;
   --meta-ink: #f5f5f1;
 
-  /* Accent */
+  /* Accent
+     --accent         : primary brand red (backgrounds, borders, fills)
+     --accent-text    : red when used as TEXT color — flips to --accent-on-dark
+                        in dark mode to clear AA contrast on #060606 ink.
+     --accent-on-dark : brighter red (#ff4d4d) reserved for red-on-ink contexts.
+     --focus-ring     : focus outline; mirrors --accent-text. */
   --accent: #c00;
   --accent-text: #c00;
+  --accent-on-dark: #ff4d4d;
   --focus-ring: #c00;
 
   /* Body text tonal ladder */
@@ -94,8 +100,12 @@ html.dark-mode {
   --rule: rgba(255, 255, 255, .16);
   --meta-bg: #f3f0e8;
   --meta-ink: #0a0a0a;
-  --accent-text: #ff4d4d;
-  --focus-ring: #ff4d4d;
+  /* Red flips brighter on ink (#060606) for AA contrast.
+     Override --accent too so borders, underlines, and fills
+     inherit the brighter red in a single token flip. */
+  --accent: var(--accent-on-dark);
+  --accent-text: var(--accent-on-dark);
+  --focus-ring: var(--accent-on-dark);
   --body-color: rgba(243, 240, 232, .82);
   --body-muted: rgba(243, 240, 232, .52);
   --body-faint: rgba(243, 240, 232, .14);
