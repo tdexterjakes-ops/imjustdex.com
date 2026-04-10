@@ -277,13 +277,13 @@ html.dark-mode .plate-title.inverse {
 
 /* Identity plate stays dark in dark mode — matches the editorial
    signature from light mode and prevents a lone white island in
-   a field of dark plates. The scoped --accent override forces the
-   darker red (#c00) since the plate is always on a dark field. */
+   a field of dark plates. (The scoped --accent override that used
+   to live here was removed in Phase 4.1 when --accent unified to
+   #c00 across both modes — no longer needed.) */
 html.dark-mode .identity-plate {
   background: #0a0a0a;
   color: #f3f0e8;
   border-color: #0a0a0a;
-  --accent: #c00;
 }
 
 html.dark-mode .identity-sub {

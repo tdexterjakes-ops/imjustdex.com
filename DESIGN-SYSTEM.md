@@ -70,9 +70,9 @@ Every page renders the same outer shell: rulers, masthead, footer strip, 46px gr
 | `--rule` | `rgba(0,0,0,.14)` | Grid lines, rulers, hairlines |
 | `--meta-bg` | `#0a0a0a` | Meta rail background |
 | `--meta-ink` | `#f5f5f1` | Meta rail text |
-| `--accent` | `#c00` | Graphic accent — borders, bars, underlines, progress fills |
-| `--accent-text` | `#c00` | Text-tuned accent — section heads, scripture cites, callout emphasis. Decoupled so it can lift in dark mode for AA contrast on small mono labels without dragging graphic accents with it. |
-| `--focus-ring` | `#c00` | `:focus-visible` outline color. Semantically distinct from `--accent-text` so focus affordances never drift when text-contrast tokens are retuned. |
+| `--accent` | `#c00` | THE brand red. Borders, bars, underlines, fills, backgrounds, and large display text. Identical in both modes — this is the single visual red of the system. |
+| `--accent-text` | `#c00` | Red for SMALL text only (sub-18px labels, inline link hovers, tiny metadata). Decoupled from `--accent` because in dark mode it's the ONE exception that flips to `#ff4d4d` for AA contrast. Use `--accent` everywhere else. |
+| `--focus-ring` | `#c00` | `:focus-visible` outline color. Always mirrors `--accent` in both modes — no dark-mode flip. |
 | `--body-color` | `rgba(5,5,5,.82)` | Article body text |
 | `--body-muted` | `rgba(5,5,5,.56)` | Article metadata, secondary text |
 | `--body-faint` | `rgba(5,5,5,.18)` | Faint borders in article context |
@@ -88,10 +88,10 @@ Every page renders the same outer shell: rulers, masthead, footer strip, 46px gr
 | `--muted` | `#d7d3ca` |
 | `--border` | `#f3f0e8` |
 | `--rule` | `rgba(255,255,255,.16)` |
-| `--accent` | `var(--accent-on-dark)` → `#ff4d4d` — flipped in dark mode so borders, underlines, and fills clear AA contrast on `#060606` |
-| `--accent-text` | `var(--accent-on-dark)` → `#ff4d4d` — AA contrast on `#060606` for small mono labels and prose red |
-| `--accent-on-dark` | `#ff4d4d` — the single brighter red reserved for dark mode. Declared in `:root` for reuse. |
-| `--focus-ring` | `var(--accent-on-dark)` → `#ff4d4d` — matches `--accent-text` but stays semantically distinct |
+| `--accent` | `#c00` — **unchanged from light mode.** The single structural red of the system. Non-text contrast (WCAG 1.4.11) requires 3:1 — `#c00` on `#060606` clears at 3.45:1, so borders, fills, underlines, and large display text all read correctly. |
+| `--accent-text` | `var(--accent-on-dark)` → `#ff4d4d` — the **one intentional flip**. `#c00` on `#060606` is 3.45:1, which fails AA normal text (4.5:1). Small red text uses this token so it lifts to 7.54:1 (AAA) for legibility. Borders, fills, and display text are unaffected. |
+| `--accent-on-dark` | `#ff4d4d` — the AA-safe red reserved for small red text on dark backgrounds. Do not use directly; it powers `--accent-text`'s dark flip. |
+| `--focus-ring` | `#c00` — **unchanged from light mode.** Focus outlines are non-text UI elements (WCAG 1.4.11, 3:1 threshold) — `#c00` on `#060606` clears at 3.45:1. |
 | `--meta-bg` | `#f3f0e8` |
 | `--meta-ink` | `#0a0a0a` |
 | `--body-color` | `rgba(243,240,232,.82)` |
@@ -99,7 +99,7 @@ Every page renders the same outer shell: rulers, masthead, footer strip, 46px gr
 | `--body-faint` | `rgba(243,240,232,.14)` |
 | `--body-tint` | `rgba(243,240,232,.04)` |
 
-**Phase 2 update (2026-04-10):** `--accent` now flips to `#ff4d4d` in dark mode via `var(--accent-on-dark)`. The prior rule — "graphic accents don't need to shift" — held for fills that read as pure red blocks, but failed on borders, text-decoration underlines, and the identity plate tagline where `#c00` on `#060606` did not clear AA. A single-token flip cascades cleanly across every red-on-ink context without touching individual selectors. `--accent-on-dark` is exposed as a first-class token in `:root` so any future rule can reach for it directly if needed.
+**Phase 4.1 update (2026-04-10) — Accent doctrine unification.** Phase 2 had flipped `--accent` to `#ff4d4d` in dark mode so every red-on-ink context cleared AA. Phase 4.1 reversed that decision. The problem with the flip was aesthetic, not technical: it produced two visible reds in dark mode — `#c00` on the identity plate (via a scoped override) and `#ff4d4d` everywhere else. The editorial signature is `#c00`. The rule now is: **one structural red across both modes.** `--accent`, `--focus-ring`, and all borders/fills/underlines/large display text stay `#c00` in dark mode because non-text contrast (WCAG 1.4.11) only requires 3:1 — and `#c00`/`#060606` clears at 3.45:1. The ONE exception is `--accent-text`, which still flips to `#ff4d4d` in dark mode because AA normal text requires 4.5:1. This token is reserved for small red text — inline link hovers, uppercase micro-labels, sub-18px metadata. Everything visually structural stays unified to the brand red.
 
 Dark mode is not personalization. It is a second editorial mode. Both modes are locked and authored. Mode is cookie-persisted (`dxmode`, one-year max-age, `SameSite=Lax`) and applied via an `html.dark-mode` class toggle. The class is set on the `<html>` element (not `<body>`) by a blocking script in `<head>` so there is no flash of incorrect mode on first paint. When no cookie is set, `prefers-color-scheme` decides the initial mode, and a `matchMedia` listener follows OS preference changes until the user makes an explicit choice.
 
@@ -267,7 +267,7 @@ Focus outlines for `:focus-visible` states are tokenized on width but not on off
 
 ```css
 --focus-ring-width: 2px;   /* matches --border-weight-chrome */
---focus-ring:       #c00;  /* flips to #ff4d4d in dark mode for AA */
+--focus-ring:       #c00;  /* unified — same value in both modes (Phase 4.1) */
 ```
 
 **Rule:** every `:focus-visible` outline on the site uses `outline: var(--focus-ring-width) solid var(--focus-ring);`. Never hardcode the width.
@@ -416,14 +416,14 @@ a.plate:focus-visible {
 
 Inverted fill: `background: var(--ink)`, `color: var(--bg)`. In dark mode it **stays dark** (`#0a0a0a`) rather than flipping to white, because a lone white island in a field of dark plates fragments the grid. `cursor: default` (not clickable). Hover does NOT trigger red border — stays `var(--border)`.
 
-**Accent scoping (Phase 3a, 2026-04-10):** The global `--accent` flips to `#ff4d4d` in dark mode for AA contrast on the `#060606` body background. But the identity plate keeps its light-mode `#c00` red because it's always sitting on a dark field. Achieved with a scoped token override:
+**Accent history (Phase 3a → Phase 4.1):** Phase 3a introduced a scoped `--accent: #c00` override on this plate because the global `--accent` was flipping to `#ff4d4d` in dark mode — the identity tagline needed to stay the deeper editorial red. Phase 4.1 unified `--accent` to `#c00` in both modes (see §3 Color Palette → Phase 4.1 update) and removed the scoped override. The identity plate now inherits `#c00` naturally:
 
 ```css
 html.dark-mode .identity-plate {
   background: #0a0a0a;
   color: #f3f0e8;
   border-color: #0a0a0a;
-  --accent: #c00;  /* scoped override — tagline stays the deeper red */
+  /* --accent no longer scoped — inherits #c00 from :root in both modes */
 }
 ```
 
@@ -737,7 +737,7 @@ Mobile: `bottom: 16px`, `left: 16px`, `font-size: .52rem`, `max-width: 200px`.
 
 ### Focus States
 
-All interactive elements use `outline: var(--focus-ring-width) solid var(--focus-ring)` on `:focus-visible`. Width is tokenized (`--focus-ring-width: 2px`); offset stays local per selector (`2px` on chrome elements, `-5px`/`-4px` inset on content frames — see §4 Focus Rings). `--focus-ring` resolves to `#c00` in light mode and `#ff4d4d` in dark mode, so focus rings always clear AA contrast against the active background.
+All interactive elements use `outline: var(--focus-ring-width) solid var(--focus-ring)` on `:focus-visible`. Width is tokenized (`--focus-ring-width: 2px`); offset stays local per selector (`2px` on chrome elements, `-5px`/`-4px` inset on content frames — see §4 Focus Rings). `--focus-ring` is `#c00` in both modes (unified in Phase 4.1) — non-text contrast only requires 3:1 and `#c00`/`#060606` clears 3.45:1.
 
 ### Touch Targets
 
@@ -804,7 +804,7 @@ When no explicit `dxmode` cookie is set, the page respects the OS `prefers-color
 
 ### Identity Plate (Special Case)
 
-Stays dark in both modes. Light mode: `background: var(--ink)`. Dark mode: `background: #0a0a0a` (scoped override). The plate maintains its editorial signature regardless of ambient mode. The `--accent` token is also scoped back to the light-mode `#c00` red inside this plate so the tagline reads at the intended weight on the dark field.
+Stays dark in both modes. Light mode: `background: var(--ink)`. Dark mode: `background: #0a0a0a` (scoped override). The plate maintains its editorial signature regardless of ambient mode. No accent scoping is needed anymore — as of Phase 4.1, `--accent` is `#c00` in both modes globally, so the tagline reads at the intended weight on the dark field without any per-plate override.
 
 ### Image Plates (Special Case)
 
@@ -812,7 +812,7 @@ Stay dark in both modes. No `html.dark-mode` overrides — the grayscale filter 
 
 ### Scripture Citation
 
-`color: var(--accent-text)` — resolves to `#c00` in light mode and `#ff4d4d` in dark mode. No per-mode override. The token handles the retune.
+`color: var(--accent-text)` — resolves to `#c00` in light mode and `#ff4d4d` in dark mode. No per-mode override at the selector level. `--accent-text` is the **only** token in the system that still flips in dark mode — the single intentional exception to the unified `#c00` doctrine, because small red text on `#060606` fails WCAG AA at `#c00` (3.45:1) and needs the lifted `#ff4d4d` (7.54:1).
 
 ---
 
