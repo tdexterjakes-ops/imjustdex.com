@@ -1,0 +1,157 @@
+/* ============================================================
+ * dxjakes.com — notfound.css
+ * 404 page component. Loaded only on /404.html and when
+ * Netlify serves the 404 fallback.
+ * ============================================================ */
+
+/* The 404 page vertically centers its single plate, so body
+ * and page-shell get a flex override here. */
+
+body.notfound {
+  display: flex;
+  flex-direction: column;
+}
+
+body.notfound .page-shell {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+body.notfound main {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: stretch;
+  margin: 6px 0 12px;
+}
+
+/* ── 404 plate ─────────────────────────────────────────────── */
+
+.notfound-plate {
+  position: relative;
+  width: 100%;
+  border: 3px solid var(--border);
+  background: var(--panel);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 70vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.notfound-eyebrow {
+  padding: 14px 22px 12px;
+  border-bottom: 2px solid var(--border);
+  background: var(--meta-bg);
+  color: var(--meta-ink);
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.notfound-eyebrow span.divider {
+  opacity: .5;
+}
+
+.notfound-eyebrow .eyebrow-right {
+  opacity: .7;
+}
+
+.notfound-body {
+  padding: 48px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 28px;
+}
+
+.notfound-headline {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: .82;
+  letter-spacing: -.03em;
+  font-size: clamp(3rem, 10vw, 9rem);
+  max-width: 14ch;
+  text-wrap: balance;
+  color: var(--ink);
+}
+
+.notfound-headline .period {
+  color: inherit;
+}
+
+.notfound-rule {
+  width: 80px;
+  height: 3px;
+  background: var(--accent);
+  border: 0;
+  margin: 0;
+}
+
+.notfound-copy {
+  margin: 0;
+  max-width: 44ch;
+  color: var(--body-color);
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+
+.notfound-copy strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.notfound-copy .break {
+  display: block;
+}
+
+.notfound-actions {
+  border-top: 2px solid var(--border);
+}
+
+.notfound-actions a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 22px 24px 21px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .92rem;
+  font-weight: 700;
+  min-height: 60px;
+  background: var(--panel);
+  color: var(--ink);
+}
+
+.notfound-actions a:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.notfound-actions a:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: -4px;
+}
+
+.notfound-actions a .arrow {
+  font-family: var(--mono);
+  font-weight: 400;
+  opacity: .65;
+}
+
+.notfound-actions a:hover .arrow {
+  opacity: 1;
+}

@@ -1,537 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-  <title>The Price of Sunday — DX</title>
-  <meta name="description" content="A meditation on the day between death and life." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
 
+  <title>The Price of Sunday — DX</title>
+  <meta name="description" content="A meditation on the day between death and life.">
+
+  <link rel="canonical" href="https://dxjakes.com/words/price-of-sunday/">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
-  <link rel="canonical" href="https://dxjakes.com/words/price-of-sunday">
 
+  <!-- Open Graph -->
   <meta property="og:title" content="The Price of Sunday">
   <meta property="og:description" content="A meditation on the day between death and life.">
   <meta property="og:image" content="https://dxjakes.com/img/og-default.png">
-  <meta property="og:url" content="https://dxjakes.com/words/price-of-sunday">
+  <meta property="og:url" content="https://dxjakes.com/words/price-of-sunday/">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="DX">
   <meta property="article:author" content="Dexter Jakes">
   <meta property="article:published_time" content="2026-04-04">
 
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The Price of Sunday">
   <meta name="twitter:description" content="A meditation on the day between death and life.">
   <meta name="twitter:image" content="https://dxjakes.com/img/og-default.png">
 
-  <style>
-    :root {
-      --bg: #f4f4f1;
-      --panel: #f8f8f6;
-      --ink: #050505;
-      --muted: #202020;
-      --border: #0a0a0a;
-      --rule: rgba(0,0,0,.14);
-      --meta-bg: #0a0a0a;
-      --meta-ink: #f5f5f1;
-      --accent: #c00;
-      --accent-text: #c00;
-      --focus-ring: #c00;
-      --body-color: rgba(5,5,5,.82);
-      --body-muted: rgba(5,5,5,.56);
-      --body-faint: rgba(5,5,5,.18);
-      --body-tint: rgba(5,5,5,.04);
-      --display: Impact, Haettenschweiler, sans-serif;
-      --body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
-      --serif: Georgia, 'Times New Roman', serif;
-      --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
-      --outer-pad: 28px;
-    }
-    body.dark-mode {
-      --bg: #060606;
-      --panel: #0d0d0d;
-      --ink: #f3f0e8;
-      --muted: #d7d3ca;
-      --border: #f3f0e8;
-      --rule: rgba(255,255,255,.16);
-      --accent-text: #ff4d4d;
-      --focus-ring: #ff4d4d;
-      --meta-bg: #f3f0e8;
-      --meta-ink: #0a0a0a;
-      --body-color: rgba(243,240,232,.82);
-      --body-muted: rgba(243,240,232,.52);
-      --body-faint: rgba(243,240,232,.14);
-      --body-tint: rgba(243,240,232,.04);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; touch-action: manipulation; }
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: var(--body);
-      line-height: 1.4;
-      transition: background .18s ease, color .18s ease;
-      min-height: 100vh;
-      min-height: 100dvh;
-      background-image:
-        linear-gradient(to right, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px)),
-        linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px));
-      background-size: 46px 46px;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-    ::selection { background: var(--ink); color: var(--bg); }
+  <!-- Self-hosted font preloads -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Anton-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Bold.woff2" crossorigin>
 
-    /* ── Print ── */
-    @media print {
-      body { background: #fff !important; color: #000 !important; background-image: none !important; }
-      .ruler-top, .ruler-left, .mode-toggle, .share-bar { display: none !important; }
-      .masthead { position: static; background: none; }
-      .article-body { border: none; }
-    }
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/shell.css">
+  <link rel="stylesheet" href="/css/article.css">
 
-    .skip-link {
-      position: absolute; left: -999px; top: 0;
-      background: var(--ink); color: var(--bg);
-      padding: 10px 14px; z-index: 999;
-    }
-    .skip-link:focus { left: 12px; top: 12px; }
-
-    .ruler-top, .ruler-left {
-      position: fixed; pointer-events: none; z-index: 1; opacity: .75;
-    }
-    .ruler-top {
-      top: 0; left: 0; right: 0; height: 22px;
-      border-bottom: 1px solid var(--rule);
-      background: repeating-linear-gradient(to right, transparent 0 44px, var(--rule) 44px 45px);
-    }
-    .ruler-left {
-      top: 0; left: 0; bottom: 0; width: 22px;
-      border-right: 1px solid var(--rule);
-      background: repeating-linear-gradient(to bottom, transparent 0 44px, var(--rule) 44px 45px);
-    }
-
-    .page-shell {
-      width: 100%;
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 12px var(--outer-pad) 22px;
-      padding-left: max(var(--outer-pad), env(safe-area-inset-left));
-      padding-right: max(var(--outer-pad), env(safe-area-inset-right));
-      position: relative;
-    }
-
-    .masthead {
-      position: sticky; top: 0; z-index: 50;
-      display: flex;
-      align-items: center; gap: 14px;
-      padding: 10px 0 14px;
-      padding-top: max(10px, env(safe-area-inset-top));
-      background: linear-gradient(to bottom, var(--bg) 70%, rgba(0,0,0,0));
-      margin-top: 6px;
-    }
-    .brand-block {
-      display: inline-flex; align-items: stretch;
-      border: 2px solid var(--border); background: var(--panel);
-    }
-    .brand-mark, .brand-word {
-      padding: 8px 10px 7px; line-height: 1;
-      letter-spacing: .03em; text-transform: uppercase;
-      font-weight: 900; border-right: 2px solid var(--border);
-    }
-    .brand-mark {
-      display: flex; align-items: center;
-      justify-content: center; min-width: 72px;
-      padding: 6px 10px;
-    }
-    .brand-logo { height: 28px; width: auto; }
-    .brand-word {
-      font-size: .92rem; align-content: center;
-      background: var(--ink); color: var(--bg);
-    }
-    .brand-block .brand-word:last-child { border-right: 0; }
-
-    .mode-toggle {
-      margin-left: auto;
-      appearance: none;
-      border: 2px solid var(--border);
-      background: var(--panel); color: var(--ink);
-      padding: 14px 16px 13px; text-transform: uppercase;
-      min-height: 44px;
-      font: inherit; font-size: .88rem; font-weight: 900;
-      letter-spacing: .04em; cursor: pointer;
-    }
-
-    main { position: relative; z-index: 2; }
-    .article-frame {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 0 0 80px;
-    }
-
-    .article-header {
-      border: 3px solid var(--border);
-      background: var(--panel);
-      padding: 28px 24px 22px;
-      margin-bottom: 0;
-    }
-    .article-eyebrow {
-      display: flex; align-items: center; gap: 12px;
-      margin-bottom: 18px;
-    }
-    .article-tag {
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .12em;
-      text-transform: uppercase; font-weight: 900;
-      padding: 4px 8px 3px;
-      border: 2px solid var(--border);
-      background: var(--ink); color: var(--bg);
-    }
-    .article-date, .article-read {
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--body-muted);
-    }
-    .article-title {
-      font-family: var(--display);
-      font-size: clamp(2.8rem, 7vw, 5rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: .86;
-      letter-spacing: -.03em;
-      margin-bottom: 16px;
-    }
-    .article-deck {
-      font-family: var(--mono);
-      font-size: .8rem;
-      line-height: 1.5;
-      letter-spacing: .04em;
-      color: var(--body-muted);
-      text-transform: uppercase;
-      max-width: 480px;
-      border-left: 3px solid var(--border);
-      padding-left: 14px;
-    }
-
-    .article-body {
-      border-left: 3px solid var(--border);
-      border-right: 3px solid var(--border);
-      border-bottom: 3px solid var(--border);
-      background: var(--panel);
-      padding: 40px 24px 48px;
-      font-family: var(--body);
-      font-size: 1.08rem;
-      line-height: 1.85;
-      color: var(--body-color);
-    }
-    .article-body p { margin-bottom: 1.5em; }
-    .article-body a {
-      text-decoration: underline;
-      text-decoration-color: var(--accent);
-      text-underline-offset: 3px;
-      text-decoration-thickness: 2px;
-    }
-    .article-body a:hover { color: var(--accent); }
-
-    .article-body .intro::first-letter {
-      font-family: var(--display);
-      font-size: 4.8em;
-      font-weight: 900;
-      float: left;
-      line-height: .72;
-      margin-right: 8px;
-      margin-top: 4px;
-      color: var(--ink);
-    }
-
-    .section-head {
-      display: flex; align-items: center; gap: 14px;
-      margin: 48px 0 20px;
-    }
-    .section-head h2 {
-      font-family: var(--mono);
-      font-size: .75rem; font-weight: 900;
-      letter-spacing: .15em; text-transform: uppercase;
-      color: var(--accent-text);
-    }
-    .section-head-line {
-      flex: 1; height: 3px;
-      background: var(--accent);
-    }
-
-    .pull-quote {
-      margin: 40px -24px;
-      padding: 32px 24px;
-      border-top: 3px solid var(--border);
-      border-bottom: 3px solid var(--border);
-      background: var(--body-tint);
-    }
-    .pull-quote p {
-      font-family: var(--display);
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -.02em;
-      text-transform: uppercase;
-      color: var(--ink);
-      margin: 0;
-    }
-
-    .callout {
-      margin: 36px 0;
-      padding: 0 0 0 18px;
-      border-left: 3px solid var(--accent);
-      font-family: var(--body);
-      font-size: 1.15rem;
-      font-weight: 700;
-      line-height: 1.4;
-      color: var(--ink);
-    }
-    .callout p { margin: 0; }
-    .callout-emph {
-      color: var(--accent-text);
-      font-weight: 900;
-    }
-
-    .scripture {
-      border: 2px solid var(--body-faint);
-      background: var(--body-tint);
-      padding: 24px;
-      margin: 36px 0;
-    }
-    .scripture p {
-      font-family: var(--body);
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--body-color);
-      font-style: italic;
-      margin: 0 0 10px !important;
-    }
-    .scripture cite {
-      font-family: var(--mono);
-      font-style: normal;
-      font-size: .7rem;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--accent-text);
-    }
-
-    .stat-block {
-      margin: 48px -24px;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: 3px 1fr;
-      gap: 0 20px;
-    }
-    .stat-block-bar { background: var(--accent); }
-    .stat-block-text {
-      font-family: var(--display);
-      font-size: clamp(1.6rem, 5vw, 2.6rem);
-      font-weight: 900;
-      letter-spacing: -.03em;
-      line-height: 1.05;
-      text-transform: uppercase;
-      color: var(--ink);
-    }
-    .stat-block-text span {
-      display: block;
-      font-family: var(--mono);
-      font-size: .7rem;
-      font-weight: 400;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--body-muted);
-      margin-top: 8px;
-    }
-
-    .closing {
-      margin-top: 48px;
-      padding: 28px 24px;
-      border: 3px solid var(--border);
-      background: var(--panel);
-      font-family: var(--body);
-      font-size: 1rem;
-      line-height: 1.75;
-      color: var(--body-color);
-      font-style: italic;
-    }
-
-    .share-bar {
-      display: flex; align-items: center; gap: 14px;
-      margin-top: 0;
-      padding: 14px 24px;
-      border: 3px solid var(--border);
-      border-top: 0;
-      background: var(--panel);
-    }
-    .share-label {
-      font-family: var(--mono);
-      font-size: .7rem; letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--body-muted);
-    }
-    .share-link {
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--body-muted);
-      background: none; border: none;
-      cursor: pointer; font-weight: 700;
-      padding: 10px 12px;
-      min-height: 44px;
-    }
-    .share-link:hover { color: var(--ink); }
-    .subscribe-link {
-      margin-left: auto;
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .1em;
-      text-transform: uppercase;
-      font-weight: 900;
-      padding: 10px 14px 9px;
-      min-height: 44px;
-      border: 2px solid var(--border);
-      background: var(--ink); color: var(--bg);
-    }
-
-    .article-back {
-      display: inline-block;
-      margin-top: 16px;
-      padding: 12px 14px 11px;
-      min-height: 44px;
-      border: 2px solid var(--border);
-      background: var(--panel);
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .1em;
-      text-transform: uppercase; font-weight: 900;
-    }
-    .article-back:hover { border-color: var(--accent); }
-
-    /* ── Research CTA ── */
-    .research-cta {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 24px;
-      border: 3px solid var(--border);
-      border-top: 0;
-      background: var(--panel);
-      gap: 16px;
-    }
-    .research-cta-text {
-      font-family: var(--mono);
-      font-size: .7rem; letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--body-muted);
-      line-height: 1.5;
-    }
-    .research-cta-link {
-      flex-shrink: 0;
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .1em;
-      text-transform: uppercase;
-      font-weight: 900;
-      padding: 12px 20px;
-      min-height: 44px;
-      border: 2px solid var(--border);
-      background: var(--ink); color: var(--bg);
-      text-decoration: none;
-      white-space: nowrap;
-      transition: opacity .2s;
-    }
-    .research-cta-link:hover { opacity: .8; }
-
-    .footer-strip {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px; margin-top: 12px;
-      position: relative; z-index: 2;
-    }
-    .footer-strip > * {
-      border: 2px solid var(--border); background: var(--panel);
-      padding: 12px 14px 11px; text-transform: uppercase;
-      letter-spacing: .06em; font-size: .84rem; font-weight: 900;
-      min-height: 44px;
-    }
-
-    /* ── Focus states ── */
-    .mode-toggle:focus-visible,
-    .brand-block:focus-visible,
-    .share-link:focus-visible,
-    .subscribe-link:focus-visible,
-    .article-back:focus-visible,
-    .footer-strip a:focus-visible {
-      outline: 2px solid var(--focus-ring);
-      outline-offset: 2px;
-    }
-
-    /* ── Utility ── */
-    .sr-only {
-      position: absolute; width: 1px; height: 1px;
-      padding: 0; margin: -1px; overflow: hidden;
-      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
-    }
-
-    /* ── Progress bar ── */
-    .reading-progress {
-      position: fixed; top: 0; left: 0; width: 0%; height: 3px;
-      background: var(--accent); z-index: 9999;
-      transition: width .12s linear;
-      pointer-events: none;
-    }
-
-    /* ── Section indicator ── */
-    .section-indicator {
-      position: fixed; bottom: 28px; left: 28px; z-index: 9998;
-      font-family: var(--mono); font-size: .6rem;
-      letter-spacing: .18em; text-transform: uppercase;
-      color: var(--ink);
-      background: var(--bg);
-      border: 1px solid var(--rule);
-      padding: 6px 12px;
-      border-radius: 2px;
-      opacity: 0; transition: opacity .3s ease;
-      pointer-events: none;
-      max-width: 260px; white-space: nowrap;
-      overflow: hidden; text-overflow: ellipsis;
-      box-shadow: 0 1px 4px rgba(0,0,0,.12);
-    }
-    .section-indicator.visible { opacity: 1; }
-    @media (max-width: 760px) {
-      .section-indicator { bottom: 16px; left: 16px; font-size: .52rem; max-width: 200px; }
-    }
-
-    /* ── Reduced motion ── */
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after {
-        transition-duration: 0s !important;
-        animation-duration: 0s !important;
-      }
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 760px) {
-      :root { --outer-pad: 18px; }
-      .masthead {
-        flex-wrap: wrap; gap: 10px; background: var(--bg);
-      }
-
-      .article-header { padding: 20px 16px 18px; }
-      .article-body { padding: 28px 16px 36px; }
-      .share-bar { padding: 12px 16px; flex-wrap: wrap; }
-      .pull-quote { margin: 32px -16px; padding: 24px 16px; }
-      .stat-block { margin: 36px -16px; padding: 0 16px; }
-      .footer-strip { grid-template-columns: 1fr; }
-      .ruler-top, .ruler-left { display: none; }
-      .research-cta { flex-direction: column; padding: 16px; align-items: flex-start; }
-      .research-cta-link { width: 100%; text-align: center; }
-    }
-  </style>
+  <!-- Mode: synchronous in <head> for FOUC prevention -->
+  <script src="/js/mode.js"></script>
 </head>
 <body>
-  <div class="reading-progress" aria-hidden="true"></div>
+  <div class="reading-progress" aria-hidden="true" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
   <div class="section-indicator" aria-hidden="true"></div>
   <a href="#article" class="skip-link">Skip to article</a>
   <div class="ruler-top" aria-hidden="true"></div>
@@ -540,10 +51,12 @@
   <div class="page-shell">
     <nav class="masthead" aria-label="Main navigation">
       <a class="brand-block" href="/" aria-label="DX home">
-        <span class="brand-mark"><img src="/img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28"></span>
+        <span class="brand-mark">
+          <img src="/img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28" data-base="/img/">
+        </span>
         <span class="brand-word">Words</span>
       </a>
-      <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode">
+      <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode" aria-pressed="false">
         Mode: Light
       </button>
     </nav>
@@ -551,233 +64,165 @@
     <main id="article">
       <div class="article-frame">
 
-        <header class="article-header">
-          <div class="article-eyebrow">
-            <span class="article-tag">Faith</span>
-            <span class="article-date"><time datetime="2026-04-04">Apr 4, 2026</time></span>
-            <span class="article-read">10 min</span>
-          </div>
-          <h1 class="article-title">The Price of Sunday</h1>
-          <p class="article-deck">A meditation on the day between death and life.</p>
-        </header>
+              <header class="article-header">
+                <div class="article-eyebrow">
+                  <span class="article-tag">Faith</span>
+                  <span class="article-date"><time datetime="2026-04-04">Apr 4, 2026</time></span>
+                  <span class="article-read">10 min</span>
+                </div>
+                <h1 class="article-title">The Price of Sunday</h1>
+                <p class="article-deck">A meditation on the day between death and life.</p>
+              </header>
 
-        <article class="article-body">
+              <article class="article-body">
 
-          <p class="intro">I always skipped Saturday.</p>
+                <p class="intro">I always skipped Saturday.</p>
 
-          <p>Not on purpose. Not consciously. But every year, the church calendar moved me from Friday's sorrow to Sunday's shouting like there was nothing in between. Like the tomb was just a hallway. A quick scene change between acts two and three.</p>
+                <p>Not on purpose. Not consciously. But every year, the church calendar moved me from Friday's sorrow to Sunday's shouting like there was nothing in between. Like the tomb was just a hallway. A quick scene change between acts two and three.</p>
 
-          <div class="stat-block">
-            <div class="stat-block-bar"></div>
-            <div class="stat-block-text">
-              Palms on Sunday. Nails on Friday. Empty grave by sunrise.
-              <span>Nobody told me about the silence.</span>
+                <div class="stat-block">
+                  <div class="stat-block-bar"></div>
+                  <div class="stat-block-text">
+                    Palms on Sunday. Nails on Friday. Empty grave by sunrise.
+                    <span>Nobody told me about the silence.</span>
+                  </div>
+                </div>
+
+                <p>I've been sitting with this for weeks now: we love resurrection, but we rarely talk about the silence, burial, and endurance it costs. The empty tomb is the hinge everything swings on. But somewhere along the way, I think we started treating Easter like a highlight reel. The stone rolls. The angel speaks. Mary weeps for joy.</p>
+
+                <p>All of that is true. But it's not the whole truth.</p>
+
+                <p>Before the stone rolled, there was a full day where nothing happened at all. No angel. No earthquake. No voice from heaven. Just a sealed tomb and a group of people who had bet everything on a man they just watched die.</p>
+
+                <p>That day has a name in the liturgical tradition. Holy Saturday. And for most of my life, I didn't know what to do with it.</p>
+
+                <div class="section-head">
+                  <h2>The Logic of the Story</h2>
+                  <div class="section-head-line" aria-hidden="true"></div>
+                </div>
+
+                <p>Here's what I found when I started digging.</p>
+
+                <p>The Greek word for resurrection is <em>anastasis</em>. Two roots &mdash; <em>ana</em>, meaning "up," and <em>histemi</em>, meaning "to stand." Resurrection literally means to stand up again. Which means you don't get one without first being laid down. That's not a loose metaphor. That's the logic of the story.</p>
+
+                <div class="scripture">
+                  <p>"Except a corn of wheat fall into the ground and die, it abideth alone: but if it die, it bringeth forth much fruit."</p>
+                  <cite>John 12:24</cite>
+                </div>
+
+                <p>He wasn't speaking in theory. He was describing what was about to cost him everything. The grain doesn't get to skip the dirt. It falls. It's buried. It breaks open in the dark, where nobody is clapping, where there is no choir and no trumpet sound.</p>
+
+                <p>The disciples didn't know what was coming next. Saturday, for them, was not a pause between acts. It was the end of the story. Their rabbi was dead. Their movement was finished. And God, who had been a pillar of cloud and fire for their ancestors, was nowhere to be found.</p>
+
+                <div class="pull-quote">
+                  <p>From inside Saturday, there is no expectation. There is only endurance.</p>
+                </div>
+
+                <p>That distinction matters. The cancer ward. The phone call that changes the direction of your year. Those are Saturdays. And they don't come with a countdown timer telling you when Sunday arrives.</p>
+
+                <div class="section-head">
+                  <h2>The Fellowship of His Sufferings</h2>
+                  <div class="section-head-line" aria-hidden="true"></div>
+                </div>
+
+                <p>Christ's resurrection is not just an event to admire. It becomes a pattern that reshapes the lives of those who belong to him.</p>
+
+                <p>Paul knew this. In Philippians 3:10, he writes something I used to read right past:</p>
+
+                <div class="scripture">
+                  <p>"That I may know him, and the power of his resurrection, and the fellowship of his sufferings."</p>
+                  <cite>Philippians 3:10</cite>
+                </div>
+
+                <p>The word "fellowship" there is <em>koinonia</em> in Greek. It doesn't mean casual association. It means joint participation. To <em>enter into</em> something with someone. Paul wants the power of resurrection &mdash; but he also wants to participate in what it cost. He lists them in the same breath because he understood they were inseparable.</p>
+
+                <div class="section-head">
+                  <h2>My Saturday</h2>
+                  <div class="section-head-line" aria-hidden="true"></div>
+                </div>
+
+                <p>I know this is true not just because I see it in the text, but because I have lived through a Saturday of my own.</p>
+
+                <p>I was in a relationship for over two years that I stayed in longer than I should have. On paper, it looked right &mdash; young, educated, promising futures. But there wasn't a real connection. Not the kind that holds when things get heavy. We knew how to keep the picture together in public, but not how to be honest with each other in private. We weren't bad people. We were just two people carrying things we hadn't unpacked yet, trying to build something on a foundation that couldn't hold it.</p>
+
+                <p>I knew. I think I knew for a while. But I stayed because the picture looked good. Because walking away from something that looks good feels like ingratitude. Because I told myself that companionship &mdash; even when it didn't fit &mdash; was better than being alone.</p>
+
+                <p>Months of arguments had been building. Small fractures that kept getting plastered over. Then one night, a minor disagreement &mdash; the kind most people navigate in two sentences &mdash; turned into something neither of us could come back from. She was dealing with her own weight. I was dealing with mine. And in that moment, sitting in the silence after the noise, I thought: <em>that's enough.</em></p>
+
+                <p>Not enough of her. Enough of pretending.</p>
+
+                <div class="callout"><p>That was my Friday.</p></div>
+
+                <p>I left on my own terms. But I was heartbroken. Not because I missed what we had &mdash; because I finally saw what we didn't. I had spent over two years convincing myself I wasn't lonely when my loneliness was just clothed in a relationship that was never the right fit. The grief wasn't about her. It was about me &mdash; the version of me that accepted something misaligned because the alternative was sitting with himself, and he wasn't sure he could handle that.</p>
+
+                <p>That was the real wound. Not the relationship. My sense of worth.</p>
+
+                <p>I distanced myself. I sat in it. I wasn't sure I could repair what was broken inside me &mdash; wasn't sure I deserved to.</p>
+
+                <div class="callout"><p>That was my Saturday.</p></div>
+
+                <p>No countdown. No angel showing up in my apartment to tell me something was about to shift. Just silence, and the slow, uncertain work of letting God into the rooms I'd been decorating to look lived-in when they were empty.</p>
+
+                <p>In that silence, I started to understand the root causes. I remixed the narrative I had been telling myself about what I was worth. I began building boundaries I'd never had &mdash; not walls, but frameworks &mdash; the kind that make space for the right thing to enter instead of letting the wrong thing stay.</p>
+
+                <p>And eventually, the ground cracked.</p>
+
+                <p>I won't say much here &mdash; because what grew out of that silence is sacred to me, and it has its own story. But the lie had to die before I could recognize love that didn't require me to betray myself.</p>
+
+                <div class="section-head">
+                  <h2>The Cost of Joy</h2>
+                  <div class="section-head-line" aria-hidden="true"></div>
+                </div>
+
+                <div class="scripture">
+                  <p>"Rejoice, inasmuch as ye are partakers of Christ's sufferings; that, when his glory shall be revealed, ye may be glad also with exceeding joy."</p>
+                  <cite>1 Peter 4:13</cite>
+                </div>
+
+                <p><em>Partakers.</em> That word again. Participation. Not observation.</p>
+
+                <p>Peter isn't saying suffering is good. He's saying it's part of the cost. And the joy that comes after &mdash; the <em>exceeding</em> joy &mdash; is a different kind of joy than the one that never had to wait for anything.</p>
+
+                <p>I don't mean every loss is automatically holy, or every silence easy to name. But the Christian story refuses to call burial the end too soon. And some seasons don't feel dramatic &mdash; they just feel quiet, delayed, and heavy. That counts too.</p>
+
+                <p>I'm not writing this to tell you your Saturday is almost over. I don't know that. Neither did the disciples. Neither did I, sitting in my apartment, trying to remember what I was worth without someone else in the room to confirm it.</p>
+
+                <p>But I looked at the text. I studied the Greek. I read what the scholars and the dying theologians had to say about the day between death and life. And what I found is that Saturday isn't a failure of God's timing.</p>
+
+                <div class="pull-quote">
+                  <p>It's the price of resurrection.</p>
+                </div>
+
+                <p>So if you're in your Saturday right now &mdash; if the silence is thick and no one is handing you a timeline &mdash; I'm not going to tell you it's going to be okay. I'm going to tell you what the text tells me.</p>
+
+                <p>Sometimes what feels like burial is the first honest ground new life has had to work with.</p>
+
+                <div class="closing">
+                  Still standing. Still planted. Still grateful for the silence that made room.
+                </div>
+
+              </article>
+
+              <div class="share-bar" aria-label="Share this essay">
+                <span class="share-label">Share</span>
+                <a href="https://x.com/intent/tweet?url=https://dxjakes.com/words/price-of-sunday&text=The%20Price%20of%20Sunday%20%E2%80%94%20DX" target="_blank" rel="noopener noreferrer" class="share-link">X</a>
+                <button type="button" class="share-link" data-copy-link="https://dxjakes.com/words/price-of-sunday">Copy link</button>
+                <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer" class="subscribe-link">Follow Me</a>
+              </div>
+
+              <a href="/" class="article-back">&larr; Back</a>
+
             </div>
-          </div>
-
-          <p>I've been sitting with this for weeks now: we love resurrection, but we rarely talk about the silence, burial, and endurance it costs. The empty tomb is the hinge everything swings on. But somewhere along the way, I think we started treating Easter like a highlight reel. The stone rolls. The angel speaks. Mary weeps for joy.</p>
-
-          <p>All of that is true. But it's not the whole truth.</p>
-
-          <p>Before the stone rolled, there was a full day where nothing happened at all. No angel. No earthquake. No voice from heaven. Just a sealed tomb and a group of people who had bet everything on a man they just watched die.</p>
-
-          <p>That day has a name in the liturgical tradition. Holy Saturday. And for most of my life, I didn't know what to do with it.</p>
-
-          <div class="section-head">
-            <h2>The Logic of the Story</h2>
-            <div class="section-head-line" aria-hidden="true"></div>
-          </div>
-
-          <p>Here's what I found when I started digging.</p>
-
-          <p>The Greek word for resurrection is <em>anastasis</em>. Two roots &mdash; <em>ana</em>, meaning "up," and <em>histemi</em>, meaning "to stand." Resurrection literally means to stand up again. Which means you don't get one without first being laid down. That's not a loose metaphor. That's the logic of the story.</p>
-
-          <div class="scripture">
-            <p>"Except a corn of wheat fall into the ground and die, it abideth alone: but if it die, it bringeth forth much fruit."</p>
-            <cite>John 12:24</cite>
-          </div>
-
-          <p>He wasn't speaking in theory. He was describing what was about to cost him everything. The grain doesn't get to skip the dirt. It falls. It's buried. It breaks open in the dark, where nobody is clapping, where there is no choir and no trumpet sound.</p>
-
-          <p>The disciples didn't know what was coming next. Saturday, for them, was not a pause between acts. It was the end of the story. Their rabbi was dead. Their movement was finished. And God, who had been a pillar of cloud and fire for their ancestors, was nowhere to be found.</p>
-
-          <div class="pull-quote">
-            <p>From inside Saturday, there is no expectation. There is only endurance.</p>
-          </div>
-
-          <p>That distinction matters. The cancer ward. The phone call that changes the direction of your year. Those are Saturdays. And they don't come with a countdown timer telling you when Sunday arrives.</p>
-
-          <div class="section-head">
-            <h2>The Fellowship of His Sufferings</h2>
-            <div class="section-head-line" aria-hidden="true"></div>
-          </div>
-
-          <p>Christ's resurrection is not just an event to admire. It becomes a pattern that reshapes the lives of those who belong to him.</p>
-
-          <p>Paul knew this. In Philippians 3:10, he writes something I used to read right past:</p>
-
-          <div class="scripture">
-            <p>"That I may know him, and the power of his resurrection, and the fellowship of his sufferings."</p>
-            <cite>Philippians 3:10</cite>
-          </div>
-
-          <p>The word "fellowship" there is <em>koinonia</em> in Greek. It doesn't mean casual association. It means joint participation. To <em>enter into</em> something with someone. Paul wants the power of resurrection &mdash; but he also wants to participate in what it cost. He lists them in the same breath because he understood they were inseparable.</p>
-
-          <div class="section-head">
-            <h2>My Saturday</h2>
-            <div class="section-head-line" aria-hidden="true"></div>
-          </div>
-
-          <p>I know this is true not just because I see it in the text, but because I have lived through a Saturday of my own.</p>
-
-          <p>I was in a relationship for over two years that I stayed in longer than I should have. On paper, it looked right &mdash; young, educated, promising futures. But there wasn't a real connection. Not the kind that holds when things get heavy. We knew how to keep the picture together in public, but not how to be honest with each other in private. We weren't bad people. We were just two people carrying things we hadn't unpacked yet, trying to build something on a foundation that couldn't hold it.</p>
-
-          <p>I knew. I think I knew for a while. But I stayed because the picture looked good. Because walking away from something that looks good feels like ingratitude. Because I told myself that companionship &mdash; even when it didn't fit &mdash; was better than being alone.</p>
-
-          <p>Months of arguments had been building. Small fractures that kept getting plastered over. Then one night, a minor disagreement &mdash; the kind most people navigate in two sentences &mdash; turned into something neither of us could come back from. She was dealing with her own weight. I was dealing with mine. And in that moment, sitting in the silence after the noise, I thought: <em>that's enough.</em></p>
-
-          <p>Not enough of her. Enough of pretending.</p>
-
-          <div class="callout"><p>That was my Friday.</p></div>
-
-          <p>I left on my own terms. But I was heartbroken. Not because I missed what we had &mdash; because I finally saw what we didn't. I had spent over two years convincing myself I wasn't lonely when my loneliness was just clothed in a relationship that was never the right fit. The grief wasn't about her. It was about me &mdash; the version of me that accepted something misaligned because the alternative was sitting with himself, and he wasn't sure he could handle that.</p>
-
-          <p>That was the real wound. Not the relationship. My sense of worth.</p>
-
-          <p>I distanced myself. I sat in it. I wasn't sure I could repair what was broken inside me &mdash; wasn't sure I deserved to.</p>
-
-          <div class="callout"><p>That was my Saturday.</p></div>
-
-          <p>No countdown. No angel showing up in my apartment to tell me something was about to shift. Just silence, and the slow, uncertain work of letting God into the rooms I'd been decorating to look lived-in when they were empty.</p>
-
-          <p>In that silence, I started to understand the root causes. I remixed the narrative I had been telling myself about what I was worth. I began building boundaries I'd never had &mdash; not walls, but frameworks &mdash; the kind that make space for the right thing to enter instead of letting the wrong thing stay.</p>
-
-          <p>And eventually, the ground cracked.</p>
-
-          <p>I won't say much here &mdash; because what grew out of that silence is sacred to me, and it has its own story. But the lie had to die before I could recognize love that didn't require me to betray myself.</p>
-
-          <div class="section-head">
-            <h2>The Cost of Joy</h2>
-            <div class="section-head-line" aria-hidden="true"></div>
-          </div>
-
-          <div class="scripture">
-            <p>"Rejoice, inasmuch as ye are partakers of Christ's sufferings; that, when his glory shall be revealed, ye may be glad also with exceeding joy."</p>
-            <cite>1 Peter 4:13</cite>
-          </div>
-
-          <p><em>Partakers.</em> That word again. Participation. Not observation.</p>
-
-          <p>Peter isn't saying suffering is good. He's saying it's part of the cost. And the joy that comes after &mdash; the <em>exceeding</em> joy &mdash; is a different kind of joy than the one that never had to wait for anything.</p>
-
-          <p>I don't mean every loss is automatically holy, or every silence easy to name. But the Christian story refuses to call burial the end too soon. And some seasons don't feel dramatic &mdash; they just feel quiet, delayed, and heavy. That counts too.</p>
-
-          <p>I'm not writing this to tell you your Saturday is almost over. I don't know that. Neither did the disciples. Neither did I, sitting in my apartment, trying to remember what I was worth without someone else in the room to confirm it.</p>
-
-          <p>But I looked at the text. I studied the Greek. I read what the scholars and the dying theologians had to say about the day between death and life. And what I found is that Saturday isn't a failure of God's timing.</p>
-
-          <div class="pull-quote">
-            <p>It's the price of resurrection.</p>
-          </div>
-
-          <p>So if you're in your Saturday right now &mdash; if the silence is thick and no one is handing you a timeline &mdash; I'm not going to tell you it's going to be okay. I'm going to tell you what the text tells me.</p>
-
-          <p>Sometimes what feels like burial is the first honest ground new life has had to work with.</p>
-
-          <div class="closing">
-            Still standing. Still planted. Still grateful for the silence that made room.
-          </div>
-
-        </article>
-
-        <div class="share-bar" aria-label="Share this essay">
-          <span class="share-label">Share</span>
-          <a href="https://x.com/intent/tweet?url=https://dxjakes.com/words/price-of-sunday&text=The%20Price%20of%20Sunday%20%E2%80%94%20DX" target="_blank" rel="noopener noreferrer" class="share-link">X</a>
-          <button type="button" class="share-link" onclick="navigator.clipboard.writeText('https://dxjakes.com/words/price-of-sunday');this.textContent='Copied';setTimeout(()=>this.textContent='Copy link',2000);">Copy link</button>
-          <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer" class="subscribe-link">Follow Me</a>
-        </div>
-
-        <a href="/" class="article-back">&larr; Back</a>
-
-      </div>
     </main>
 
     <footer class="footer-strip" aria-label="Footer">
-      <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener">Follow @ImJustDex</a>
+      <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer">Follow @ImJustDex</a>
       <span>Est. 1994</span>
     </footer>
   </div>
 
-  <script>
-    (function () {
-      var toggle = document.getElementById('modeToggle');
-      var body = document.body;
-      var logo = document.querySelector('.brand-logo');
-      var KEY = 'dxmode';
-      function setLabel() {
-        toggle.textContent = body.classList.contains('dark-mode') ? 'Mode: Dark' : 'Mode: Light';
-      }
-      function applyMode(mode) {
-        if (mode === 'dark') {
-          body.classList.add('dark-mode');
-          if (logo) logo.src = '/img/logo-white.svg';
-        } else {
-          body.classList.remove('dark-mode');
-          if (logo) logo.src = '/img/logo-dark.svg';
-        }
-        document.cookie = KEY + '=' + mode + ';path=/;max-age=31536000;SameSite=Lax';
-        setLabel();
-      }
-      var cookieMatch = document.cookie.match(/(?:^|; )dxmode=([^;]+)/);
-      applyMode(cookieMatch ? cookieMatch[1] : 'light');
-      toggle.addEventListener('click', function () {
-        applyMode(body.classList.contains('dark-mode') ? 'light' : 'dark');
-      });
-    })();
-  </script>
-  <script>
-    (function () {
-      var bar = document.querySelector('.reading-progress');
-      var label = document.querySelector('.section-indicator');
-      var article = document.querySelector('.article-body') || document.querySelector('article');
-      if (!bar || !article) return;
-
-      var sections = [];
-      article.querySelectorAll('.section-head h2').forEach(function (h2) {
-        sections.push({ el: h2.closest('.section-head'), name: h2.textContent.trim() });
-      });
-
-      var ticking = false;
-      function onScroll() {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () {
-          ticking = false;
-          var rect = article.getBoundingClientRect();
-          var total = article.scrollHeight - window.innerHeight;
-          var scrolled = -rect.top;
-          var pct = Math.max(0, Math.min(100, (scrolled / total) * 100));
-          bar.style.width = pct + '%';
-
-          /* Section indicator */
-          var current = '';
-          for (var i = sections.length - 1; i >= 0; i--) {
-            if (sections[i].el.getBoundingClientRect().top < window.innerHeight * 0.4) {
-              current = sections[i].name;
-              break;
-            }
-          }
-          if (current && pct > 2 && pct < 98) {
-            label.textContent = current;
-            label.classList.add('visible');
-          } else {
-            label.classList.remove('visible');
-          }
-        });
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-    })();
-  </script>
+  <!-- Long-form behavior -->
+  <script src="/js/progress.js" defer></script>
+  <script src="/js/essay.js" defer></script>
 </body>
 </html>

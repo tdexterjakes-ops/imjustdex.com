@@ -1,537 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-  <title>Nobody Handed Me This — DX</title>
-  <meta name="description" content="On gumbo, dark rouxs, and the rituals you have to build from scratch." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
 
+  <title>Nobody Handed Me This — DX</title>
+  <meta name="description" content="On gumbo, dark rouxs, and the rituals you have to build from scratch.">
+
+  <link rel="canonical" href="https://dxjakes.com/words/gumbo/">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
-  <link rel="canonical" href="https://dxjakes.com/words/gumbo">
 
+  <!-- Open Graph -->
   <meta property="og:title" content="Nobody Handed Me This">
   <meta property="og:description" content="On gumbo, dark rouxs, and the rituals you have to build from scratch.">
   <meta property="og:image" content="https://dxjakes.com/img/og-default.png">
-  <meta property="og:url" content="https://dxjakes.com/words/gumbo">
+  <meta property="og:url" content="https://dxjakes.com/words/gumbo/">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="DX">
   <meta property="article:author" content="Dexter Jakes">
   <meta property="article:published_time" content="2026-04-06">
 
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Nobody Handed Me This">
   <meta name="twitter:description" content="On gumbo, dark rouxs, and the rituals you have to build from scratch.">
   <meta name="twitter:image" content="https://dxjakes.com/img/og-default.png">
 
-  <style>
-    :root {
-      --bg: #f4f4f1;
-      --panel: #f8f8f6;
-      --ink: #050505;
-      --muted: #202020;
-      --border: #0a0a0a;
-      --rule: rgba(0,0,0,.14);
-      --meta-bg: #0a0a0a;
-      --meta-ink: #f5f5f1;
-      --accent: #c00;
-      --accent-text: #c00;
-      --focus-ring: #c00;
-      --body-color: rgba(5,5,5,.82);
-      --body-muted: rgba(5,5,5,.56);
-      --body-faint: rgba(5,5,5,.18);
-      --body-tint: rgba(5,5,5,.04);
-      --display: Impact, Haettenschweiler, sans-serif;
-      --body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
-      --serif: Georgia, 'Times New Roman', serif;
-      --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
-      --outer-pad: 28px;
-    }
-    body.dark-mode {
-      --bg: #060606;
-      --panel: #0d0d0d;
-      --ink: #f3f0e8;
-      --muted: #d7d3ca;
-      --border: #f3f0e8;
-      --rule: rgba(255,255,255,.16);
-      --accent-text: #ff4d4d;
-      --focus-ring: #ff4d4d;
-      --meta-bg: #f3f0e8;
-      --meta-ink: #0a0a0a;
-      --body-color: rgba(243,240,232,.82);
-      --body-muted: rgba(243,240,232,.52);
-      --body-faint: rgba(243,240,232,.14);
-      --body-tint: rgba(243,240,232,.04);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; touch-action: manipulation; }
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: var(--body);
-      line-height: 1.4;
-      transition: background .18s ease, color .18s ease;
-      min-height: 100vh;
-      min-height: 100dvh;
-      background-image:
-        linear-gradient(to right, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px)),
-        linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px));
-      background-size: 46px 46px;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-    ::selection { background: var(--ink); color: var(--bg); }
+  <!-- Self-hosted font preloads -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Anton-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Bold.woff2" crossorigin>
 
-    /* ── Print ── */
-    @media print {
-      body { background: #fff !important; color: #000 !important; background-image: none !important; }
-      .ruler-top, .ruler-left, .mode-toggle, .share-bar { display: none !important; }
-      .masthead { position: static; background: none; }
-      .article-body { border: none; }
-    }
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/shell.css">
+  <link rel="stylesheet" href="/css/article.css">
 
-    .skip-link {
-      position: absolute; left: -999px; top: 0;
-      background: var(--ink); color: var(--bg);
-      padding: 10px 14px; z-index: 999;
-    }
-    .skip-link:focus { left: 12px; top: 12px; }
-
-    .ruler-top, .ruler-left {
-      position: fixed; pointer-events: none; z-index: 1; opacity: .75;
-    }
-    .ruler-top {
-      top: 0; left: 0; right: 0; height: 22px;
-      border-bottom: 1px solid var(--rule);
-      background: repeating-linear-gradient(to right, transparent 0 44px, var(--rule) 44px 45px);
-    }
-    .ruler-left {
-      top: 0; left: 0; bottom: 0; width: 22px;
-      border-right: 1px solid var(--rule);
-      background: repeating-linear-gradient(to bottom, transparent 0 44px, var(--rule) 44px 45px);
-    }
-
-    .page-shell {
-      width: 100%;
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 12px var(--outer-pad) 22px;
-      padding-left: max(var(--outer-pad), env(safe-area-inset-left));
-      padding-right: max(var(--outer-pad), env(safe-area-inset-right));
-      position: relative;
-    }
-
-    .masthead {
-      position: sticky; top: 0; z-index: 50;
-      display: flex;
-      align-items: center; gap: 14px;
-      padding: 10px 0 14px;
-      padding-top: max(10px, env(safe-area-inset-top));
-      background: linear-gradient(to bottom, var(--bg) 70%, rgba(0,0,0,0));
-      margin-top: 6px;
-    }
-    .brand-block {
-      display: inline-flex; align-items: stretch;
-      border: 2px solid var(--border); background: var(--panel);
-    }
-    .brand-mark, .brand-word {
-      padding: 8px 10px 7px; line-height: 1;
-      letter-spacing: .03em; text-transform: uppercase;
-      font-weight: 900; border-right: 2px solid var(--border);
-    }
-    .brand-mark {
-      display: flex; align-items: center;
-      justify-content: center; min-width: 72px;
-      padding: 6px 10px;
-    }
-    .brand-logo { height: 28px; width: auto; }
-    .brand-word {
-      font-size: .92rem; align-content: center;
-      background: var(--ink); color: var(--bg);
-    }
-    .brand-block .brand-word:last-child { border-right: 0; }
-
-    .mode-toggle {
-      margin-left: auto;
-      appearance: none;
-      border: 2px solid var(--border);
-      background: var(--panel); color: var(--ink);
-      padding: 14px 16px 13px; text-transform: uppercase;
-      min-height: 44px;
-      font: inherit; font-size: .88rem; font-weight: 900;
-      letter-spacing: .04em; cursor: pointer;
-    }
-
-    main { position: relative; z-index: 2; }
-    .article-frame {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 0 0 80px;
-    }
-
-    .article-header {
-      border: 3px solid var(--border);
-      background: var(--panel);
-      padding: 28px 24px 22px;
-      margin-bottom: 0;
-    }
-    .article-eyebrow {
-      display: flex; align-items: center; gap: 12px;
-      margin-bottom: 18px;
-    }
-    .article-tag {
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .12em;
-      text-transform: uppercase; font-weight: 900;
-      padding: 4px 8px 3px;
-      border: 2px solid var(--border);
-      background: var(--ink); color: var(--bg);
-    }
-    .article-date, .article-read {
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--body-muted);
-    }
-    .article-title {
-      font-family: var(--display);
-      font-size: clamp(2.8rem, 7vw, 5rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: .86;
-      letter-spacing: -.03em;
-      margin-bottom: 16px;
-    }
-    .article-deck {
-      font-family: var(--mono);
-      font-size: .8rem;
-      line-height: 1.5;
-      letter-spacing: .04em;
-      color: var(--body-muted);
-      text-transform: uppercase;
-      max-width: 480px;
-      border-left: 3px solid var(--border);
-      padding-left: 14px;
-    }
-
-    .article-body {
-      border-left: 3px solid var(--border);
-      border-right: 3px solid var(--border);
-      border-bottom: 3px solid var(--border);
-      background: var(--panel);
-      padding: 40px 24px 48px;
-      font-family: var(--body);
-      font-size: 1.08rem;
-      line-height: 1.85;
-      color: var(--body-color);
-    }
-    .article-body p { margin-bottom: 1.5em; }
-    .article-body a {
-      text-decoration: underline;
-      text-decoration-color: var(--accent);
-      text-underline-offset: 3px;
-      text-decoration-thickness: 2px;
-    }
-    .article-body a:hover { color: var(--accent); }
-
-    .article-body .intro::first-letter {
-      font-family: var(--display);
-      font-size: 4.8em;
-      font-weight: 900;
-      float: left;
-      line-height: .72;
-      margin-right: 8px;
-      margin-top: 4px;
-      color: var(--ink);
-    }
-
-    .section-head {
-      display: flex; align-items: center; gap: 14px;
-      margin: 48px 0 20px;
-    }
-    .section-head h2 {
-      font-family: var(--mono);
-      font-size: .75rem; font-weight: 900;
-      letter-spacing: .15em; text-transform: uppercase;
-      color: var(--accent-text);
-    }
-    .section-head-line {
-      flex: 1; height: 3px;
-      background: var(--accent);
-    }
-
-    .pull-quote {
-      margin: 40px -24px;
-      padding: 32px 24px;
-      border-top: 3px solid var(--border);
-      border-bottom: 3px solid var(--border);
-      background: var(--body-tint);
-    }
-    .pull-quote p {
-      font-family: var(--display);
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -.02em;
-      text-transform: uppercase;
-      color: var(--ink);
-      margin: 0;
-    }
-
-    .callout {
-      margin: 36px 0;
-      padding: 0 0 0 18px;
-      border-left: 3px solid var(--accent);
-      font-family: var(--body);
-      font-size: 1.15rem;
-      font-weight: 700;
-      line-height: 1.4;
-      color: var(--ink);
-    }
-    .callout p { margin: 0; }
-    .callout-emph {
-      color: var(--accent-text);
-      font-weight: 900;
-    }
-
-    .scripture {
-      border: 2px solid var(--body-faint);
-      background: var(--body-tint);
-      padding: 24px;
-      margin: 36px 0;
-    }
-    .scripture p {
-      font-family: var(--body);
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--body-color);
-      font-style: italic;
-      margin: 0 0 10px !important;
-    }
-    .scripture cite {
-      font-family: var(--mono);
-      font-style: normal;
-      font-size: .7rem;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--accent-text);
-    }
-
-    .stat-block {
-      margin: 48px -24px;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: 3px 1fr;
-      gap: 0 20px;
-    }
-    .stat-block-bar { background: var(--accent); }
-    .stat-block-text {
-      font-family: var(--display);
-      font-size: clamp(1.6rem, 5vw, 2.6rem);
-      font-weight: 900;
-      letter-spacing: -.03em;
-      line-height: 1.05;
-      text-transform: uppercase;
-      color: var(--ink);
-    }
-    .stat-block-text span {
-      display: block;
-      font-family: var(--mono);
-      font-size: .7rem;
-      font-weight: 400;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--body-muted);
-      margin-top: 8px;
-    }
-
-    .closing {
-      margin-top: 48px;
-      padding: 28px 24px;
-      border: 3px solid var(--border);
-      background: var(--panel);
-      font-family: var(--body);
-      font-size: 1rem;
-      line-height: 1.75;
-      color: var(--body-color);
-      font-style: italic;
-    }
-
-    .share-bar {
-      display: flex; align-items: center; gap: 14px;
-      margin-top: 0;
-      padding: 14px 24px;
-      border: 3px solid var(--border);
-      border-top: 0;
-      background: var(--panel);
-    }
-    .share-label {
-      font-family: var(--mono);
-      font-size: .7rem; letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--body-muted);
-    }
-    .share-link {
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--body-muted);
-      background: none; border: none;
-      cursor: pointer; font-weight: 700;
-      padding: 10px 12px;
-      min-height: 44px;
-    }
-    .share-link:hover { color: var(--ink); }
-    .subscribe-link {
-      margin-left: auto;
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .1em;
-      text-transform: uppercase;
-      font-weight: 900;
-      padding: 10px 14px 9px;
-      min-height: 44px;
-      border: 2px solid var(--border);
-      background: var(--ink); color: var(--bg);
-    }
-
-    .article-back {
-      display: inline-block;
-      margin-top: 16px;
-      padding: 12px 14px 11px;
-      min-height: 44px;
-      border: 2px solid var(--border);
-      background: var(--panel);
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .1em;
-      text-transform: uppercase; font-weight: 900;
-    }
-    .article-back:hover { border-color: var(--accent); }
-
-    /* ── Research CTA ── */
-    .research-cta {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 24px;
-      border: 3px solid var(--border);
-      border-top: 0;
-      background: var(--panel);
-      gap: 16px;
-    }
-    .research-cta-text {
-      font-family: var(--mono);
-      font-size: .7rem; letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--body-muted);
-      line-height: 1.5;
-    }
-    .research-cta-link {
-      flex-shrink: 0;
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .1em;
-      text-transform: uppercase;
-      font-weight: 900;
-      padding: 12px 20px;
-      min-height: 44px;
-      border: 2px solid var(--border);
-      background: var(--ink); color: var(--bg);
-      text-decoration: none;
-      white-space: nowrap;
-      transition: opacity .2s;
-    }
-    .research-cta-link:hover { opacity: .8; }
-
-    .footer-strip {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px; margin-top: 12px;
-      position: relative; z-index: 2;
-    }
-    .footer-strip > * {
-      border: 2px solid var(--border); background: var(--panel);
-      padding: 12px 14px 11px; text-transform: uppercase;
-      letter-spacing: .06em; font-size: .84rem; font-weight: 900;
-      min-height: 44px;
-    }
-
-    /* ── Focus states ── */
-    .mode-toggle:focus-visible,
-    .brand-block:focus-visible,
-    .share-link:focus-visible,
-    .subscribe-link:focus-visible,
-    .article-back:focus-visible,
-    .footer-strip a:focus-visible {
-      outline: 2px solid var(--focus-ring);
-      outline-offset: 2px;
-    }
-
-    /* ── Utility ── */
-    .sr-only {
-      position: absolute; width: 1px; height: 1px;
-      padding: 0; margin: -1px; overflow: hidden;
-      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
-    }
-
-    /* ── Progress bar ── */
-    .reading-progress {
-      position: fixed; top: 0; left: 0; width: 0%; height: 3px;
-      background: var(--accent); z-index: 9999;
-      transition: width .12s linear;
-      pointer-events: none;
-    }
-
-    /* ── Section indicator ── */
-    .section-indicator {
-      position: fixed; bottom: 28px; left: 28px; z-index: 9998;
-      font-family: var(--mono); font-size: .6rem;
-      letter-spacing: .18em; text-transform: uppercase;
-      color: var(--ink);
-      background: var(--bg);
-      border: 1px solid var(--rule);
-      padding: 6px 12px;
-      border-radius: 2px;
-      opacity: 0; transition: opacity .3s ease;
-      pointer-events: none;
-      max-width: 260px; white-space: nowrap;
-      overflow: hidden; text-overflow: ellipsis;
-      box-shadow: 0 1px 4px rgba(0,0,0,.12);
-    }
-    .section-indicator.visible { opacity: 1; }
-    @media (max-width: 760px) {
-      .section-indicator { bottom: 16px; left: 16px; font-size: .52rem; max-width: 200px; }
-    }
-
-    /* ── Reduced motion ── */
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after {
-        transition-duration: 0s !important;
-        animation-duration: 0s !important;
-      }
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 760px) {
-      :root { --outer-pad: 18px; }
-      .masthead {
-        flex-wrap: wrap; gap: 10px; background: var(--bg);
-      }
-
-      .article-header { padding: 20px 16px 18px; }
-      .article-body { padding: 28px 16px 36px; }
-      .share-bar { padding: 12px 16px; flex-wrap: wrap; }
-      .pull-quote { margin: 32px -16px; padding: 24px 16px; }
-      .stat-block { margin: 36px -16px; padding: 0 16px; }
-      .footer-strip { grid-template-columns: 1fr; }
-      .ruler-top, .ruler-left { display: none; }
-      .research-cta { flex-direction: column; padding: 16px; align-items: flex-start; }
-      .research-cta-link { width: 100%; text-align: center; }
-    }
-  </style>
+  <!-- Mode: synchronous in <head> for FOUC prevention -->
+  <script src="/js/mode.js"></script>
 </head>
 <body>
-  <div class="reading-progress" aria-hidden="true"></div>
+  <div class="reading-progress" aria-hidden="true" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
   <div class="section-indicator" aria-hidden="true"></div>
   <a href="#article" class="skip-link">Skip to article</a>
   <div class="ruler-top" aria-hidden="true"></div>
@@ -540,10 +51,12 @@
   <div class="page-shell">
     <nav class="masthead" aria-label="Main navigation">
       <a class="brand-block" href="/" aria-label="DX home">
-        <span class="brand-mark"><img src="/img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28"></span>
+        <span class="brand-mark">
+          <img src="/img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28" data-base="/img/">
+        </span>
         <span class="brand-word">Words</span>
       </a>
-      <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode">
+      <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode" aria-pressed="false">
         Mode: Light
       </button>
     </nav>
@@ -551,252 +64,184 @@
     <main id="article">
       <div class="article-frame">
 
-        <header class="article-header">
-          <div class="article-eyebrow">
-            <span class="article-tag">Identity</span>
-            <span class="article-date"><time datetime="2026-04-06">Apr 6, 2026</time></span>
-            <span class="article-read">12 min</span>
-          </div>
-          <h1 class="article-title">Nobody Handed Me This</h1>
-          <p class="article-deck">On gumbo, dark rouxs, and the rituals you have to build from scratch.</p>
-        </header>
+              <header class="article-header">
+                <div class="article-eyebrow">
+                  <span class="article-tag">Identity</span>
+                  <span class="article-date"><time datetime="2026-04-06">Apr 6, 2026</time></span>
+                  <span class="article-read">12 min</span>
+                </div>
+                <h1 class="article-title">Nobody Handed Me This</h1>
+                <p class="article-deck">On gumbo, dark rouxs, and the rituals you have to build from scratch.</p>
+              </header>
 
-        <article class="article-body">
+              <article class="article-body">
 
-          <p class="intro">The oil is already hot when Larissa finishes lining up the last bowl.</p>
+                <p class="intro">The oil is already hot when Larissa finishes lining up the last bowl.</p>
 
-          <p>She does this every time &mdash; separates my ingredients into small glass containers like a surgical prep team. Onion in one. Bell pepper in another. Garlic minced and waiting. Celery diced so fine it could disappear. She calls it helping. I call it the reason I married her.</p>
+                <p>She does this every time &mdash; separates my ingredients into small glass containers like a surgical prep team. Onion in one. Bell pepper in another. Garlic minced and waiting. Celery diced so fine it could disappear. She calls it helping. I call it the reason I married her.</p>
 
-          <p>I'm standing at the stove with a wooden spoon and no intention of sitting down for the next three hours.</p>
+                <p>I'm standing at the stove with a wooden spoon and no intention of sitting down for the next three hours.</p>
 
-          <p>It's gumbo day.</p>
+                <p>It's gumbo day.</p>
 
-          <div class="section-head">
-            <h2>The Door I Didn't Know Was Unlocked</h2>
-            <div class="section-head-line" aria-hidden="true"></div>
-          </div>
+                <div class="section-head">
+                  <h2>The Door I Didn't Know Was Unlocked</h2>
+                  <div class="section-head-line" aria-hidden="true"></div>
+                </div>
 
-          <p>My wife is Brazilian. She grew up with moqueca &mdash; a slow-built fish stew, coconut milk and dend&ecirc; oil, layered with the kind of patience that doesn't translate into English. She'd talk about it the way people talk about their grandmother's house. Not the recipe. The feeling.</p>
+                <p>My wife is Brazilian. She grew up with moqueca &mdash; a slow-built fish stew, coconut milk and dend&ecirc; oil, layered with the kind of patience that doesn't translate into English. She'd talk about it the way people talk about their grandmother's house. Not the recipe. The feeling.</p>
 
-          <p>I knew that feeling. I just didn't have the recipe either.</p>
+                <p>I knew that feeling. I just didn't have the recipe either.</p>
 
-          <p>I grew up in the South. Gumbo was everywhere &mdash; church functions, family gatherings, the kind of meal that told you someone loved you before you ever sat down. But nobody in my house was making it from scratch. It wasn't our thing. I ate it. I loved it. I never learned it.</p>
+                <p>I grew up in the South. Gumbo was everywhere &mdash; church functions, family gatherings, the kind of meal that told you someone loved you before you ever sat down. But nobody in my house was making it from scratch. It wasn't our thing. I ate it. I loved it. I never learned it.</p>
 
-          <p>There's a particular kind of absence that only shows up when someone beside you has the thing you're missing. Not a painful absence. More like a door you didn't know was unlocked.</p>
+                <p>There's a particular kind of absence that only shows up when someone beside you has the thing you're missing. Not a painful absence. More like a door you didn't know was unlocked.</p>
 
-          <p>So when Larissa would talk about moqueca &mdash; the ritual of it, the slowness, the way a pot could hold an entire culture &mdash; I realized I didn't just want a recipe. I wanted something of my own that carried weight like that. What she inherited through memory and repetition, I would have to build through attention.</p>
+                <p>So when Larissa would talk about moqueca &mdash; the ritual of it, the slowness, the way a pot could hold an entire culture &mdash; I realized I didn't just want a recipe. I wanted something of my own that carried weight like that. What she inherited through memory and repetition, I would have to build through attention.</p>
 
-          <div class="callout"><p>I have something like that. I just haven't built it yet.</p></div>
+                <div class="callout"><p>I have something like that. I just haven't built it yet.</p></div>
 
-          <p>That's when I did what I always do.</p>
+                <p>That's when I did what I always do.</p>
 
-          <p>I went down the rabbit hole.</p>
+                <p>I went down the rabbit hole.</p>
 
-          <div class="section-head">
-            <h2>The Rabbit Hole</h2>
-            <div class="section-head-line" aria-hidden="true"></div>
-          </div>
+                <div class="section-head">
+                  <h2>The Rabbit Hole</h2>
+                  <div class="section-head-line" aria-hidden="true"></div>
+                </div>
 
-          <p>Larissa and I took a cooking class in New Orleans &mdash; taught by someone who grew up there, worked in several kitchens, including five-star restaurants. The man could build a roux like he was born next to the stove. He talked about gumbo the way people talk about something they've carried their whole life.</p>
+                <p>Larissa and I took a cooking class in New Orleans &mdash; taught by someone who grew up there, worked in several kitchens, including five-star restaurants. The man could build a roux like he was born next to the stove. He talked about gumbo the way people talk about something they've carried their whole life.</p>
 
-          <p>I'm a marketing director with a degree in music production and recording. I had no business being in that kitchen. But paper doesn't know what your hands know.</p>
+                <p>I'm a marketing director with a degree in music production and recording. I had no business being in that kitchen. But paper doesn't know what your hands know.</p>
 
-          <p>I ate more bowls of gumbo on that trip than any reasonable human being needs. I studied technique like it was a research paper. I read about Creole versus Cajun until I had opinions I didn't ask for. I tested ratios. I burned four rouxs before I got one right.</p>
+                <p>I ate more bowls of gumbo on that trip than any reasonable human being needs. I studied technique like it was a research paper. I read about Creole versus Cajun until I had opinions I didn't ask for. I tested ratios. I burned four rouxs before I got one right.</p>
 
-          <p>To be clear: nobody asked me to do any of this.</p>
+                <p>To be clear: nobody asked me to do any of this.</p>
 
-          <div class="stat-block">
-            <div class="stat-block-bar"></div>
-            <div class="stat-block-text">
-              I don't know how to casually like something.
-              <span>I either don't care or I'm building a spreadsheet. There is no middle gear.</span>
+                <div class="stat-block">
+                  <div class="stat-block-bar"></div>
+                  <div class="stat-block-text">
+                    I don't know how to casually like something.
+                    <span>I either don't care or I'm building a spreadsheet. There is no middle gear.</span>
+                  </div>
+                </div>
+
+                <p>My wife finds this both endearing and exhausting, depending on the day.</p>
+
+                <p>What came out the other side was my own recipe. Not inherited. Not borrowed. Built from the ground up &mdash; every ratio tested, every phase earned. Eight phases, to be exact. I named them like an engineer because apparently that's what happens when a marketing director learns to cook.</p>
+
+                <p>Phase 2 is called "Dark Roux Engineering."</p>
+
+                <p>I'm not apologizing for that.</p>
+
+                <div class="section-head">
+                  <h2>The Hills I'll Die On</h2>
+                  <div class="section-head-line" aria-hidden="true"></div>
+                </div>
+
+                <p>Here's where I'll lose some of you, and I've made peace with it.</p>
+
+                <p>No tomatoes. Ever. I don't care what your auntie said. Tomatoes in gumbo is a choice, and it's the wrong one. I will die on this hill and I will die well-fed.</p>
+
+                <p>Dark roux or don't bother. If your roux isn't the color of dark chocolate, you're making soup. Soup is fine. Soup is not gumbo. The trinity &mdash; onion, celery, bell pepper &mdash; is the floor. You don't negotiate the floor.</p>
+
+                <p>These are not suggestions. These are positions. I have held them through multiple Thanksgivings and I have not been moved.</p>
+
+                <div class="section-head">
+                  <h2>The Roux</h2>
+                  <div class="section-head-line" aria-hidden="true"></div>
+                </div>
+
+                <p>But the roux is the thing.</p>
+
+                <p>Thirty minutes. Medium-low heat. Wooden spoon. You stand there and you stir. Not sometimes. Not mostly. The entire time. You don't check your phone. You don't answer a text. You don't walk away to grab something from the other room because you'll "be right back."</p>
+
+                <div class="pull-quote">
+                  <p>A roux has no respect for your schedule.</p>
+                </div>
+
+                <p>You're watching flour and oil transform &mdash; slowly, then all at once &mdash; from a pale paste into something dark and deep and fragrant. And the whole time, you're one distracted moment from burning it. One second of looking away and you see black specks, and those black specks mean you're starting over. From zero. No mercy. No "close enough."</p>
+
+                <p>You either stood at the stove or you didn't. The pot knows.</p>
+
+                <p>The moment the roux hits the color you've been waiting for &mdash; deep, dark, almost mahogany &mdash; you arrest it. That's what I call it. Phase 3. You throw the vegetables in and the whole pot screams with steam, and the sizzle is so loud your wife looks over from the living room like something exploded. It didn't. That's just what it sounds like when patience meets the next step.</p>
+
+                <p>The vegetables soften. The roux holds. And from there, you're building &mdash; stock in waves, proteins in stages, okra to stabilize, shrimp at the very end because three minutes is all they get. Everything has a window. Nothing gets to show up early or stay too long.</p>
+
+                <p>Thirteen cups of stock I made from scratch that morning. Shrimp shells, chicken bones, saffron, star anise. The stock is its own project. Most people skip it, which is why so many bowls never quite get where they were trying to go.</p>
+
+                <div class="callout"><p>Maybe that's why gumbo got under my skin in the first place. It refuses performance. It only responds to presence.</p></div>
+
+                <div class="section-head">
+                  <h2>What the Pot Teaches</h2>
+                  <div class="section-head-line" aria-hidden="true"></div>
+                </div>
+
+                <p>I think the kitchen is the only room in my life where I don't try to optimize the outcome.</p>
+
+                <p>That's not true &mdash; I absolutely optimize. I have eight named phases. But what I mean is: I don't try to make it faster. I don't look for the shortcut. I don't resent the time it takes. The three hours of standing and stirring and adjusting and tasting &mdash; that's not the cost of the meal. That <em>is</em> the meal. The eating is just the last ten minutes of something that started before the oil was hot.</p>
+
+                <p>There's something in that I haven't fully named yet. The way patience isn't a principle when you're cooking &mdash; it's just the physics. You can't rush a dark roux. You can't sear shrimp for six minutes and expect them to be tender. You can't add cold stock to a hot pot and think the emulsion will hold. The food doesn't care about your theory of patience. It only cares whether you actually practiced it.</p>
+
+                <div class="pull-quote">
+                  <p>Most rooms in my life reward speed, polish, and being mentally ahead of the moment. The kitchen doesn't. The pot doesn't care how fast I think. It only cares whether I stayed.</p>
+                </div>
+
+                <div class="section-head">
+                  <h2>The Plate</h2>
+                  <div class="section-head-line" aria-hidden="true"></div>
+                </div>
+
+                <p>The best part is the end.</p>
+
+                <p>Not the cooking. The plate. The moment I set it down and Larissa's whole face changes before she even picks up the spoon. Then the first bite, and she reacts like she hasn't eaten in months. Every single time. Eyes closed. The whole performance. Then she starts in on how we need to open a restaurant &mdash; a gumbo-only restaurant, she's very specific about this &mdash; and how I'm wasting my talent in marketing and this is clearly my true calling.</p>
+
+                <p>To be fair: she says this about most things I cook. Last week it was chicken salad.</p>
+
+                <p>But there's something about gumbo specifically. Maybe because she knows what it took. Not the three hours on the stove &mdash; the longer road. The classes, the burned rouxs, the too-salty batches, the time I forgot the okra entirely and tried to act like it was on purpose. She was there for all of it. She separated the ingredients before I knew what I was doing and she still separates them now.</p>
+
+                <p>Nobody handed me this. Not a recipe card. Not a seasoned pot. Not a family tradition already alive in the room.</p>
+
+                <div class="stat-block">
+                  <div class="stat-block-bar"></div>
+                  <div class="stat-block-text">
+                    Some people inherit ritual.
+                    <span>Some of us have to make it from scratch until it feels like memory too.</span>
+                  </div>
+                </div>
+
+                <p>A marketing director with a music degree, standing over a dark roux in his own kitchen, because what he wanted to carry had to be built, not received.</p>
+
+                <p>So he went and got it. Learned it. Earned it. Stood at the stove until it was his.</p>
+
+                <p>She brought her tradition to the table. I built mine. And now the kitchen holds both.</p>
+
+                <div class="closing">
+                  Not everything meaningful is passed down. Some of it, you have to build with your own hands until it becomes yours.
+                </div>
+
+              </article>
+
+              <div class="share-bar" aria-label="Share this essay">
+                <span class="share-label">Share</span>
+                <a href="https://x.com/intent/tweet?url=https://dxjakes.com/words/gumbo&text=Nobody%20Handed%20Me%20This%20%E2%80%94%20DX" target="_blank" rel="noopener noreferrer" class="share-link">X</a>
+                <button type="button" class="share-link" data-copy-link="https://dxjakes.com/words/gumbo">Copy link</button>
+                <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer" class="subscribe-link">Follow Me</a>
+              </div>
+
+              <a href="/" class="article-back">&larr; Back</a>
+
             </div>
-          </div>
-
-          <p>My wife finds this both endearing and exhausting, depending on the day.</p>
-
-          <p>What came out the other side was my own recipe. Not inherited. Not borrowed. Built from the ground up &mdash; every ratio tested, every phase earned. Eight phases, to be exact. I named them like an engineer because apparently that's what happens when a marketing director learns to cook.</p>
-
-          <p>Phase 2 is called "Dark Roux Engineering."</p>
-
-          <p>I'm not apologizing for that.</p>
-
-          <div class="section-head">
-            <h2>The Hills I'll Die On</h2>
-            <div class="section-head-line" aria-hidden="true"></div>
-          </div>
-
-          <p>Here's where I'll lose some of you, and I've made peace with it.</p>
-
-          <p>No tomatoes. Ever. I don't care what your auntie said. Tomatoes in gumbo is a choice, and it's the wrong one. I will die on this hill and I will die well-fed.</p>
-
-          <p>Dark roux or don't bother. If your roux isn't the color of dark chocolate, you're making soup. Soup is fine. Soup is not gumbo. The trinity &mdash; onion, celery, bell pepper &mdash; is the floor. You don't negotiate the floor.</p>
-
-          <p>These are not suggestions. These are positions. I have held them through multiple Thanksgivings and I have not been moved.</p>
-
-          <div class="section-head">
-            <h2>The Roux</h2>
-            <div class="section-head-line" aria-hidden="true"></div>
-          </div>
-
-          <p>But the roux is the thing.</p>
-
-          <p>Thirty minutes. Medium-low heat. Wooden spoon. You stand there and you stir. Not sometimes. Not mostly. The entire time. You don't check your phone. You don't answer a text. You don't walk away to grab something from the other room because you'll "be right back."</p>
-
-          <div class="pull-quote">
-            <p>A roux has no respect for your schedule.</p>
-          </div>
-
-          <p>You're watching flour and oil transform &mdash; slowly, then all at once &mdash; from a pale paste into something dark and deep and fragrant. And the whole time, you're one distracted moment from burning it. One second of looking away and you see black specks, and those black specks mean you're starting over. From zero. No mercy. No "close enough."</p>
-
-          <p>You either stood at the stove or you didn't. The pot knows.</p>
-
-          <p>The moment the roux hits the color you've been waiting for &mdash; deep, dark, almost mahogany &mdash; you arrest it. That's what I call it. Phase 3. You throw the vegetables in and the whole pot screams with steam, and the sizzle is so loud your wife looks over from the living room like something exploded. It didn't. That's just what it sounds like when patience meets the next step.</p>
-
-          <p>The vegetables soften. The roux holds. And from there, you're building &mdash; stock in waves, proteins in stages, okra to stabilize, shrimp at the very end because three minutes is all they get. Everything has a window. Nothing gets to show up early or stay too long.</p>
-
-          <p>Thirteen cups of stock I made from scratch that morning. Shrimp shells, chicken bones, saffron, star anise. The stock is its own project. Most people skip it, which is why so many bowls never quite get where they were trying to go.</p>
-
-          <div class="callout"><p>Maybe that's why gumbo got under my skin in the first place. It refuses performance. It only responds to presence.</p></div>
-
-          <div class="section-head">
-            <h2>What the Pot Teaches</h2>
-            <div class="section-head-line" aria-hidden="true"></div>
-          </div>
-
-          <p>I think the kitchen is the only room in my life where I don't try to optimize the outcome.</p>
-
-          <p>That's not true &mdash; I absolutely optimize. I have eight named phases. But what I mean is: I don't try to make it faster. I don't look for the shortcut. I don't resent the time it takes. The three hours of standing and stirring and adjusting and tasting &mdash; that's not the cost of the meal. That <em>is</em> the meal. The eating is just the last ten minutes of something that started before the oil was hot.</p>
-
-          <p>There's something in that I haven't fully named yet. The way patience isn't a principle when you're cooking &mdash; it's just the physics. You can't rush a dark roux. You can't sear shrimp for six minutes and expect them to be tender. You can't add cold stock to a hot pot and think the emulsion will hold. The food doesn't care about your theory of patience. It only cares whether you actually practiced it.</p>
-
-          <div class="pull-quote">
-            <p>Most rooms in my life reward speed, polish, and being mentally ahead of the moment. The kitchen doesn't. The pot doesn't care how fast I think. It only cares whether I stayed.</p>
-          </div>
-
-          <div class="section-head">
-            <h2>The Plate</h2>
-            <div class="section-head-line" aria-hidden="true"></div>
-          </div>
-
-          <p>The best part is the end.</p>
-
-          <p>Not the cooking. The plate. The moment I set it down and Larissa's whole face changes before she even picks up the spoon. Then the first bite, and she reacts like she hasn't eaten in months. Every single time. Eyes closed. The whole performance. Then she starts in on how we need to open a restaurant &mdash; a gumbo-only restaurant, she's very specific about this &mdash; and how I'm wasting my talent in marketing and this is clearly my true calling.</p>
-
-          <p>To be fair: she says this about most things I cook. Last week it was chicken salad.</p>
-
-          <p>But there's something about gumbo specifically. Maybe because she knows what it took. Not the three hours on the stove &mdash; the longer road. The classes, the burned rouxs, the too-salty batches, the time I forgot the okra entirely and tried to act like it was on purpose. She was there for all of it. She separated the ingredients before I knew what I was doing and she still separates them now.</p>
-
-          <p>Nobody handed me this. Not a recipe card. Not a seasoned pot. Not a family tradition already alive in the room.</p>
-
-          <div class="stat-block">
-            <div class="stat-block-bar"></div>
-            <div class="stat-block-text">
-              Some people inherit ritual.
-              <span>Some of us have to make it from scratch until it feels like memory too.</span>
-            </div>
-          </div>
-
-          <p>A marketing director with a music degree, standing over a dark roux in his own kitchen, because what he wanted to carry had to be built, not received.</p>
-
-          <p>So he went and got it. Learned it. Earned it. Stood at the stove until it was his.</p>
-
-          <p>She brought her tradition to the table. I built mine. And now the kitchen holds both.</p>
-
-          <div class="closing">
-            Not everything meaningful is passed down. Some of it, you have to build with your own hands until it becomes yours.
-          </div>
-
-        </article>
-
-        <div class="share-bar" aria-label="Share this essay">
-          <span class="share-label">Share</span>
-          <a href="https://x.com/intent/tweet?url=https://dxjakes.com/words/gumbo&text=Nobody%20Handed%20Me%20This%20%E2%80%94%20DX" target="_blank" rel="noopener noreferrer" class="share-link">X</a>
-          <button type="button" class="share-link" onclick="navigator.clipboard.writeText('https://dxjakes.com/words/gumbo');this.textContent='Copied';setTimeout(()=>this.textContent='Copy link',2000);">Copy link</button>
-          <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer" class="subscribe-link">Follow Me</a>
-        </div>
-
-        <a href="/" class="article-back">&larr; Back</a>
-
-      </div>
     </main>
 
     <footer class="footer-strip" aria-label="Footer">
-      <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener">Follow @ImJustDex</a>
+      <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer">Follow @ImJustDex</a>
       <span>Est. 1994</span>
     </footer>
   </div>
 
-  <script>
-    (function () {
-      var toggle = document.getElementById('modeToggle');
-      var body = document.body;
-      var logo = document.querySelector('.brand-logo');
-      var KEY = 'dxmode';
-      function setLabel() {
-        toggle.textContent = body.classList.contains('dark-mode') ? 'Mode: Dark' : 'Mode: Light';
-      }
-      function applyMode(mode) {
-        if (mode === 'dark') {
-          body.classList.add('dark-mode');
-          if (logo) logo.src = '/img/logo-white.svg';
-        } else {
-          body.classList.remove('dark-mode');
-          if (logo) logo.src = '/img/logo-dark.svg';
-        }
-        document.cookie = KEY + '=' + mode + ';path=/;max-age=31536000;SameSite=Lax';
-        setLabel();
-      }
-      var cookieMatch = document.cookie.match(/(?:^|; )dxmode=([^;]+)/);
-      applyMode(cookieMatch ? cookieMatch[1] : 'light');
-      toggle.addEventListener('click', function () {
-        applyMode(body.classList.contains('dark-mode') ? 'light' : 'dark');
-      });
-    })();
-  </script>
-  <script>
-    (function () {
-      var bar = document.querySelector('.reading-progress');
-      var label = document.querySelector('.section-indicator');
-      var article = document.querySelector('.article-body') || document.querySelector('article');
-      if (!bar || !article) return;
-
-      var sections = [];
-      article.querySelectorAll('.section-head h2').forEach(function (h2) {
-        sections.push({ el: h2.closest('.section-head'), name: h2.textContent.trim() });
-      });
-
-      var ticking = false;
-      function onScroll() {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () {
-          ticking = false;
-          var rect = article.getBoundingClientRect();
-          var total = article.scrollHeight - window.innerHeight;
-          var scrolled = -rect.top;
-          var pct = Math.max(0, Math.min(100, (scrolled / total) * 100));
-          bar.style.width = pct + '%';
-
-          /* Section indicator */
-          var current = '';
-          for (var i = sections.length - 1; i >= 0; i--) {
-            if (sections[i].el.getBoundingClientRect().top < window.innerHeight * 0.4) {
-              current = sections[i].name;
-              break;
-            }
-          }
-          if (current && pct > 2 && pct < 98) {
-            label.textContent = current;
-            label.classList.add('visible');
-          } else {
-            label.classList.remove('visible');
-          }
-        });
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-    })();
-  </script>
+  <!-- Long-form behavior -->
+  <script src="/js/progress.js" defer></script>
+  <script src="/js/essay.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,478 @@
+/* ============================================================
+ * dxjakes.com — article.css
+ * Long-form reading system: article frame, header, body,
+ * drop cap, section heads, pull quote, callout, scripture,
+ * stat block, closing, share bar, research cta, reading
+ * progress, section indicator.
+ *
+ * Loaded on /words/* pages only.
+ * ============================================================ */
+
+/* ── Article frame ─────────────────────────────────────────── */
+
+.article-frame {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 0 80px;
+}
+
+/* ── Article header ────────────────────────────────────────── */
+
+.article-header {
+  border: 3px solid var(--border);
+  background: var(--panel);
+  padding: 28px 24px 22px;
+  margin-bottom: 0;
+}
+
+.article-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.article-tag {
+  font-family: var(--mono);
+  font-size: .75rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 4px 8px 3px;
+  border: 2px solid var(--border);
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.article-date,
+.article-read {
+  font-family: var(--mono);
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+
+.article-title {
+  font-family: var(--display);
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: .86;
+  letter-spacing: -.03em;
+  margin: 0 0 16px;
+  text-wrap: balance;
+}
+
+.article-deck {
+  font-family: var(--mono);
+  font-size: .8rem;
+  line-height: 1.5;
+  letter-spacing: .04em;
+  color: var(--body-muted);
+  text-transform: uppercase;
+  max-width: 480px;
+  border-left: 3px solid var(--border);
+  padding-left: 14px;
+}
+
+/* ── Article body ──────────────────────────────────────────── */
+
+.article-body {
+  border-left: 3px solid var(--border);
+  border-right: 3px solid var(--border);
+  border-bottom: 3px solid var(--border);
+  background: var(--panel);
+  padding: 40px 24px 48px;
+  font-family: var(--body);
+  font-size: 1.08rem;
+  line-height: 1.85;
+  color: var(--body-color);
+}
+
+.article-body p {
+  margin: 0 0 1.5em;
+}
+
+.article-body a {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+}
+
+.article-body a:hover {
+  color: var(--accent);
+}
+
+/* ── Drop cap ──────────────────────────────────────────────── */
+
+.article-body .intro::first-letter {
+  font-family: var(--display);
+  font-size: 4.8em;
+  font-weight: 400;
+  float: left;
+  line-height: .72;
+  margin-right: 8px;
+  margin-top: 4px;
+  color: var(--ink);
+}
+
+/* ── Section head ──────────────────────────────────────────── */
+
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 48px 0 20px;
+}
+
+.section-head h2 {
+  font-family: var(--mono);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin: 0;
+}
+
+.section-head-line {
+  flex: 1;
+  height: 3px;
+  background: var(--accent);
+}
+
+/* ── Pull quote ────────────────────────────────────────────── */
+
+.pull-quote {
+  margin: 40px -24px;
+  padding: 32px 24px;
+  border-top: 3px solid var(--border);
+  border-bottom: 3px solid var(--border);
+  background: var(--body-tint);
+}
+
+.pull-quote p {
+  font-family: var(--display);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* ── Callout ───────────────────────────────────────────────── */
+
+.callout {
+  margin: 36px 0;
+  padding: 0 0 0 18px;
+  border-left: 3px solid var(--accent);
+  font-family: var(--body);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.callout p {
+  margin: 0;
+}
+
+.callout-emph {
+  color: var(--accent-text);
+  font-weight: 700;
+}
+
+/* ── Scripture block ───────────────────────────────────────── */
+
+.scripture {
+  border: 2px solid var(--body-faint);
+  background: var(--body-tint);
+  padding: 24px;
+  margin: 36px 0;
+}
+
+.scripture p {
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--body-color);
+  font-style: italic;
+  margin: 0 0 10px;
+}
+
+.scripture cite {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: .7rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+/* ── Stat block ────────────────────────────────────────────── */
+
+.stat-block {
+  margin: 48px -24px;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 3px 1fr;
+  gap: 0 20px;
+}
+
+.stat-block-bar {
+  background: var(--accent);
+}
+
+.stat-block-text {
+  font-family: var(--display);
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: -.03em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.stat-block-text span {
+  display: block;
+  font-family: var(--mono);
+  font-size: .7rem;
+  font-weight: 400;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--body-muted);
+  margin-top: 8px;
+}
+
+/* ── Closing ───────────────────────────────────────────────── */
+
+.closing {
+  margin-top: 48px;
+  padding: 28px 24px;
+  border: 3px solid var(--border);
+  background: var(--panel);
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--body-color);
+  font-style: italic;
+}
+
+/* ── Share bar ─────────────────────────────────────────────── */
+
+.share-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 0;
+  padding: 14px 24px;
+  border: 3px solid var(--border);
+  border-top: 0;
+  background: var(--panel);
+}
+
+.share-label {
+  font-family: var(--mono);
+  font-size: .7rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+
+.share-link {
+  font-family: var(--mono);
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--body-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 10px 12px;
+  min-height: 44px;
+}
+
+.share-link:hover {
+  color: var(--ink);
+}
+
+.subscribe-link {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 10px 14px 9px;
+  min-height: 44px;
+  border: 2px solid var(--border);
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* ── Research CTA ──────────────────────────────────────────── */
+
+.research-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border: 3px solid var(--border);
+  border-top: 0;
+  background: var(--panel);
+  gap: 16px;
+}
+
+.research-cta-text {
+  font-family: var(--mono);
+  font-size: .7rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--body-muted);
+  line-height: 1.5;
+}
+
+.research-cta-link {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 12px 20px;
+  min-height: 44px;
+  border: 2px solid var(--border);
+  background: var(--ink);
+  color: var(--bg);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity .2s;
+}
+
+.research-cta-link:hover {
+  opacity: .8;
+}
+
+/* ── Article back link ─────────────────────────────────────── */
+
+.article-back {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 12px 14px 11px;
+  min-height: 44px;
+  border: 2px solid var(--border);
+  background: var(--panel);
+  font-family: var(--mono);
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.article-back:hover {
+  border-color: var(--accent);
+}
+
+/* ── Focus states (article elements) ───────────────────────── */
+
+.share-link:focus-visible,
+.subscribe-link:focus-visible,
+.research-cta-link:focus-visible,
+.article-back:focus-visible,
+.article-body a:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ── Reading progress bar ──────────────────────────────────── */
+
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--accent);
+  z-index: 9999;
+  transition: width .12s linear;
+  pointer-events: none;
+}
+
+/* ── Section indicator ─────────────────────────────────────── */
+
+.section-indicator {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  z-index: 9998;
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--bg);
+  border: 2px solid var(--border);
+  padding: 6px 12px;
+  opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
+  max-width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.section-indicator.visible {
+  opacity: 1;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+
+@media (max-width: 760px) {
+  .article-header {
+    padding: 20px 16px 18px;
+  }
+
+  .article-body {
+    padding: 28px 16px 36px;
+  }
+
+  .share-bar {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+  }
+
+  .research-cta {
+    flex-direction: column;
+    padding: 16px;
+    align-items: flex-start;
+  }
+
+  .research-cta-link {
+    width: 100%;
+    text-align: center;
+  }
+
+  .pull-quote {
+    margin: 32px -16px;
+    padding: 24px 16px;
+  }
+
+  .stat-block {
+    margin: 36px -16px;
+    padding: 0 16px;
+  }
+
+  .section-indicator {
+    bottom: 16px;
+    left: 16px;
+    font-size: .52rem;
+    max-width: 200px;
+  }
+}

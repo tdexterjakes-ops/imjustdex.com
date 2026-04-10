@@ -1,427 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+
   <title>404 — Nothing to Document Here | DX</title>
-  <meta name="description" content="Every page on this site is something I chose to publish. This isn't one of them." />
-  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="Every page on this site is something I chose to publish. This isn't one of them.">
+  <meta name="robots" content="noindex, nofollow">
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32.png">
-  <link rel="apple-touch-icon" href="./img/apple-touch-icon.png">
+  <link rel="canonical" href="https://dxjakes.com/404">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
+  <!-- Open Graph -->
   <meta property="og:title" content="404 — Nothing to Document Here | DX">
   <meta property="og:description" content="Every page on this site is something I chose to publish. This isn't one of them.">
-  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://dxjakes.com/img/og-default.png">
   <meta property="og:url" content="https://dxjakes.com/404">
+  <meta property="og:type" content="website">
   <meta property="og:site_name" content="DX">
 
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="404 — Nothing to Document Here | DX">
   <meta name="twitter:description" content="Every page on this site is something I chose to publish. This isn't one of them.">
 
-  <meta name="theme-color" content="#f4f4f1" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#060606" media="(prefers-color-scheme: dark)">
-  <meta name="color-scheme" content="light dark">
+  <!-- Self-hosted font preloads -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Anton-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Bold.woff2" crossorigin>
 
-  <style>
-    :root {
-      --bg: #f4f4f1;
-      --panel: #f8f8f6;
-      --ink: #050505;
-      --muted: #202020;
-      --border: #0a0a0a;
-      --rule: rgba(0,0,0,.14);
-      --grid-gap: 12px;
-      --outer-pad: 28px;
-      --meta-bg: #0a0a0a;
-      --meta-ink: #f5f5f1;
-      --accent: #c00;
-      /* --accent-text: accent tuned for small text / AA contrast.
-         Light mode uses the true brand red. Dark mode lifts to a brighter
-         red that clears 4.5:1 on #060606 for body-size text. */
-      --accent-text: #c00;
-      /* --focus-ring: semantically dedicated to :focus-visible outlines. */
-      --focus-ring: #c00;
-      --body-color: rgba(5,5,5,.82);
-      --body-muted: rgba(5,5,5,.56);
-      --body-faint: rgba(5,5,5,.18);
-      --body-tint: rgba(5,5,5,.04);
-      --display: Impact, Haettenschweiler, sans-serif;
-      --body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
-      --serif: Georgia, 'Times New Roman', serif;
-      --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
-    }
-    body.dark-mode {
-      --bg: #060606;
-      --panel: #0d0d0d;
-      --ink: #f3f0e8;
-      --muted: #d7d3ca;
-      --border: #f3f0e8;
-      --rule: rgba(255,255,255,.16);
-      --meta-bg: #f3f0e8;
-      --meta-ink: #0a0a0a;
-      --accent-text: #ff4d4d;
-      --focus-ring: #ff4d4d;
-      --body-color: rgba(243,240,232,.82);
-      --body-muted: rgba(243,240,232,.52);
-      --body-faint: rgba(243,240,232,.14);
-      --body-tint: rgba(243,240,232,.04);
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; touch-action: manipulation; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: var(--body);
-      line-height: 1.4;
-      transition: background .18s ease, color .18s ease;
-      min-height: 100vh;
-      min-height: 100dvh;
-      background-image:
-        linear-gradient(to right, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px)),
-        linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px));
-      background-size: 46px 46px;
-      display: flex;
-      flex-direction: column;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-    ::selection { background: var(--ink); color: var(--bg); }
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/shell.css">
+  <link rel="stylesheet" href="/css/notfound.css">
 
-    /* ── Skip link — brand guide pattern ── */
-    .skip-link {
-      position: absolute;
-      left: 12px; top: -60px;
-      z-index: 999;
-      padding: 10px 14px;
-      background: var(--ink); color: var(--bg);
-      border: 2px solid var(--border);
-      font-family: var(--mono); font-size: .7rem; font-weight: 900;
-      letter-spacing: .14em; text-transform: uppercase;
-      transition: top .18s ease;
-    }
-    .skip-link:focus,
-    .skip-link:focus-visible {
-      top: 12px;
-      outline: 2px solid var(--focus-ring);
-      outline-offset: 2px;
-    }
-
-    /* ── Page shell ── */
-    .page-shell {
-      width: 100%;
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 12px var(--outer-pad) 22px;
-      padding-left: max(var(--outer-pad), env(safe-area-inset-left));
-      padding-right: max(var(--outer-pad), env(safe-area-inset-right));
-      position: relative;
-      flex: 1 1 auto;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ── Rulers ── */
-    .ruler-top,
-    .ruler-left {
-      position: fixed;
-      pointer-events: none;
-      z-index: 1;
-      opacity: .75;
-    }
-    .ruler-top {
-      top: 0; left: 0; right: 0;
-      height: 22px;
-      border-bottom: 1px solid var(--rule);
-      background: repeating-linear-gradient(to right, transparent 0 44px, var(--rule) 44px 45px);
-    }
-    .ruler-left {
-      top: 0; left: 0; bottom: 0;
-      width: 22px;
-      border-right: 1px solid var(--rule);
-      background: repeating-linear-gradient(to bottom, transparent 0 44px, var(--rule) 44px 45px);
-    }
-
-    /* ── Masthead / Nav ── */
-    .masthead {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 10px 0 14px;
-      padding-top: max(10px, env(safe-area-inset-top));
-      background: linear-gradient(to bottom, var(--bg) 70%, rgba(0,0,0,0));
-      margin-top: 6px;
-    }
-    .brand-block {
-      display: inline-flex;
-      align-items: stretch;
-      border: 2px solid var(--border);
-      background: var(--panel);
-    }
-    .brand-mark,
-    .brand-word {
-      padding: 8px 10px 7px;
-      line-height: 1;
-      letter-spacing: .03em;
-      text-transform: uppercase;
-      font-weight: 900;
-      border-right: 2px solid var(--border);
-    }
-    .brand-mark {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 72px;
-      padding: 6px 10px;
-    }
-    .brand-logo {
-      height: 28px;
-      width: auto;
-    }
-    .brand-word {
-      font-size: .92rem;
-      align-content: center;
-      background: var(--ink);
-      color: var(--bg);
-    }
-    .brand-block .brand-word:last-child { border-right: 0; }
-    .mode-toggle {
-      margin-left: auto;
-      appearance: none;
-      border: 2px solid var(--border);
-      background: var(--panel);
-      color: var(--ink);
-      padding: 14px 16px 13px;
-      text-transform: uppercase;
-      font: inherit;
-      font-size: .88rem;
-      font-weight: 900;
-      letter-spacing: .04em;
-      cursor: pointer;
-      min-height: 44px;
-    }
-
-    /* ── Main ── */
-    main {
-      position: relative;
-      z-index: 2;
-      flex: 1 1 auto;
-      display: flex;
-      align-items: stretch;
-      margin: 6px 0 12px;
-    }
-
-    /* ── 404 Plate ── */
-    .notfound-plate {
-      position: relative;
-      width: 100%;
-      border: 3px solid var(--border);
-      background: var(--panel);
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      min-height: 70vh;
-      overflow: hidden;
-      isolation: isolate;
-    }
-
-    .notfound-eyebrow {
-      padding: 14px 22px 12px;
-      border-bottom: 2px solid var(--border);
-      background: var(--meta-bg);
-      color: var(--meta-ink);
-      font-family: var(--mono);
-      font-size: .72rem;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      font-weight: 700;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .notfound-eyebrow span.divider {
-      opacity: .5;
-    }
-    .notfound-eyebrow .eyebrow-right {
-      opacity: .7;
-    }
-
-    .notfound-body {
-      padding: 48px 28px 32px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      gap: 28px;
-    }
-
-    .notfound-headline {
-      margin: 0;
-      font-family: var(--display);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: .82;
-      letter-spacing: -.03em;
-      font-size: clamp(3rem, 10vw, 9rem);
-      max-width: 14ch;
-      text-wrap: balance;
-      color: var(--ink);
-    }
-    .notfound-headline .period {
-      color: inherit;
-    }
-
-    .notfound-rule {
-      width: 80px;
-      height: 3px;
-      background: var(--accent);
-      border: 0;
-      margin: 0;
-    }
-
-    .notfound-copy {
-      margin: 0;
-      max-width: 44ch;
-      color: var(--body-color);
-      font-size: 1.02rem;
-      line-height: 1.55;
-    }
-    .notfound-copy strong {
-      color: var(--ink);
-      font-weight: 900;
-    }
-    .notfound-copy .break { display: block; }
-
-    .notfound-actions {
-      border-top: 2px solid var(--border);
-    }
-    .notfound-actions a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      padding: 22px 24px 21px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      font-size: .92rem;
-      font-weight: 900;
-      min-height: 60px;
-      background: var(--panel);
-      color: var(--ink);
-    }
-    .notfound-actions a:hover {
-      background: var(--ink);
-      color: var(--bg);
-    }
-    .notfound-actions a .arrow {
-      font-family: var(--mono);
-      font-weight: 400;
-      opacity: .65;
-    }
-    .notfound-actions a:hover .arrow { opacity: 1; }
-
-    /* ── Footer ── */
-    .footer-strip {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      margin-top: 12px;
-      position: relative;
-      z-index: 2;
-    }
-    .footer-strip > * {
-      border: 2px solid var(--border);
-      background: var(--panel);
-      padding: 12px 14px 11px;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      font-size: .84rem;
-      font-weight: 900;
-      min-height: 44px;
-    }
-
-    /* ── Hover accents ── */
-    .footer-strip a:hover,
-    .mode-toggle:hover,
-    .brand-block:hover {
-      filter: invert(.02);
-    }
-
-    /* ── Focus states — brand guide global pattern ── */
-    a:focus-visible,
-    button:focus-visible {
-      outline: 2px solid var(--focus-ring);
-      outline-offset: 2px;
-    }
-    :focus:not(:focus-visible) { outline: none; }
-
-    /* ── Print ── */
-    @media print {
-      body {
-        background: #fff !important;
-        color: #000 !important;
-        background-image: none !important;
-      }
-      .ruler-top, .ruler-left, .mode-toggle { display: none !important; }
-      .notfound-plate { border-color: #000 !important; break-inside: avoid; }
-      .notfound-actions a { border-color: #000 !important; }
-      .masthead { position: static; background: none; }
-    }
-
-    /* ── Reduced motion ── */
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after {
-        transition-duration: 0s !important;
-        animation-duration: 0s !important;
-      }
-    }
-
-    /* ── Responsive: tablet ── */
-    @media (max-width: 1120px) {
-      .notfound-body { padding: 40px 24px 28px; }
-    }
-
-    /* ── Responsive: mobile ── */
-    @media (max-width: 760px) {
-      :root { --outer-pad: 18px; --grid-gap: 10px; }
-      .page-shell { padding-top: 10px; }
-      .masthead {
-        flex-wrap: wrap;
-        gap: 10px;
-        background: var(--bg);
-      }
-      .notfound-plate { min-height: 64vh; }
-      .notfound-eyebrow {
-        padding: 12px 16px 10px;
-        font-size: .62rem;
-        letter-spacing: .18em;
-      }
-      .notfound-body {
-        padding: 32px 20px 24px;
-        gap: 22px;
-      }
-      .notfound-copy { font-size: .96rem; }
-      .notfound-actions a {
-        padding: 18px 20px 17px;
-      }
-      .footer-strip { grid-template-columns: 1fr; }
-      .ruler-top, .ruler-left { display: none; }
-    }
-  </style>
+  <!-- Mode: synchronous in <head> for FOUC prevention -->
+  <script src="/js/mode.js"></script>
 </head>
-<body>
+<body class="notfound">
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="ruler-top" aria-hidden="true"></div>
   <div class="ruler-left" aria-hidden="true"></div>
@@ -429,7 +47,9 @@
   <div class="page-shell">
     <nav class="masthead" aria-label="Main navigation">
       <a class="brand-block" href="/" aria-label="DX home">
-        <span class="brand-mark"><img src="./img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28"></span>
+        <span class="brand-mark">
+          <img src="/img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28" data-base="/img/">
+        </span>
         <span class="brand-word">404</span>
       </a>
       <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode" aria-pressed="false">
@@ -449,7 +69,7 @@
             Nothing to Document Here<span class="period">.</span>
           </h1>
 
-          <hr class="notfound-rule" aria-hidden="true" />
+          <hr class="notfound-rule" aria-hidden="true">
 
           <p class="notfound-copy">
             <strong>Every page on this site is something I chose to publish.</strong>
@@ -473,35 +93,5 @@
       <span>Est. 1994</span>
     </footer>
   </div>
-
-  <script>
-    (function () {
-      var toggle = document.getElementById('modeToggle');
-      var body = document.body;
-      var KEY = 'dxmode';
-      function setLabel() {
-        var isDark = body.classList.contains('dark-mode');
-        toggle.textContent = isDark ? 'Mode: Dark' : 'Mode: Light';
-        toggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
-      }
-      var logo = document.querySelector('.brand-logo');
-      function applyMode(mode) {
-        if (mode === 'dark') {
-          body.classList.add('dark-mode');
-          if (logo) logo.src = './img/logo-white.svg';
-        } else {
-          body.classList.remove('dark-mode');
-          if (logo) logo.src = './img/logo-dark.svg';
-        }
-        document.cookie = KEY + '=' + mode + ';path=/;max-age=31536000;SameSite=Lax';
-        setLabel();
-      }
-      var cookieMatch = document.cookie.match(/(?:^|; )dxmode=([^;]+)/);
-      applyMode(cookieMatch ? cookieMatch[1] : 'light');
-      toggle.addEventListener('click', function () {
-        applyMode(body.classList.contains('dark-mode') ? 'light' : 'dark');
-      });
-    })();
-  </script>
 </body>
 </html>

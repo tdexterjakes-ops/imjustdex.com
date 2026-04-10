@@ -6,7 +6,35 @@ This document codifies the design system for dxjakes.com. It exists so the syste
 
 ## 1. System Architecture
 
-The site is a static HTML publishing system. No build step. No framework. Each page is a self-contained HTML file with inline `<style>` blocks. Netlify auto-deploys on push to `main` on `tdexterjakes-ops/dxjakes.com`.
+The site is a static HTML publishing system. No build step. No framework. As of the April 2026 Phase 1 refactor, every page pulls from a shared layered CSS architecture and self-hosted fonts. Netlify auto-deploys on push to `main` on `tdexterjakes-ops/dxjakes.com`.
+
+### CSS Layering
+
+Styles live in five purpose-built sheets loaded in dependency order. No page embeds `<style>` blocks. No inline `style=""` attributes.
+
+| Sheet | Role |
+|-------|------|
+| `/css/tokens.css` | Design tokens, `@font-face` declarations, `:root` light mode, `html.dark-mode` overrides, base reset, 46px grid body, print and reduced-motion rules |
+| `/css/shell.css` | Page chrome — skip-link, page-shell, rulers, masthead, brand-block, mode-toggle, footer-strip, focus states |
+| `/css/plates.css` | Homepage-only — filter rail, 12-col plate grid, plate variants, meta rail, image plates, identity plate, ghost teaser |
+| `/css/article.css` | Article/About only — article frame, header, body, drop cap, section heads, pull quotes, callouts, scripture, stat blocks, closing, share bar, reading progress, section indicator |
+| `/css/notfound.css` | 404-only — `.notfound-plate`, eyebrow, headline, actions |
+
+Load order on every page: `tokens.css` → `shell.css` → (`plates.css` ‖ `article.css` ‖ `notfound.css`). Tokens and shell are universal. The third sheet is page-type specific.
+
+### JavaScript
+
+Three small vanilla scripts in `/js/`, loaded via `<script src>`. No inline `onclick`, no third-party libraries, no bundler.
+
+| Script | Role |
+|--------|------|
+| `/js/mode.js` | Mode toggle. Synchronously applied in `<head>` to prevent FOUC (sets `html.dark-mode` before first paint from cookie or `prefers-color-scheme`). `DOMContentLoaded` handler wires the toggle button, syncs the logo SVG, and listens for OS preference changes when the user has no explicit cookie. |
+| `/js/progress.js` | Article reading progress bar and section indicator. `requestAnimationFrame`-throttled scroll handler. No-ops on pages without `.reading-progress` or `.article-body`. Sets ARIA progressbar attributes. |
+| `/js/essay.js` | CSP-safe `data-copy-link` wiring for the share bar copy button. Replaces what used to be inline `onclick` handlers. |
+
+### Self-Hosted Fonts
+
+All fonts ship from `/fonts/` as WOFF2 with Latin subsetting. No Google Fonts. No `fonts.googleapis.com` preconnect. No CDN dependency. Fonts are declared once in `tokens.css` via `@font-face` and preloaded in each page's `<head>`.
 
 ### Page Types
 
@@ -50,7 +78,7 @@ Every page renders the same outer shell: rulers, masthead, footer strip, 46px gr
 | `--body-faint` | `rgba(5,5,5,.18)` | Faint borders in article context |
 | `--body-tint` | `rgba(5,5,5,.04)` | Tinted backgrounds (pull quotes, scripture) |
 
-### Dark Mode (`body.dark-mode`)
+### Dark Mode (`html.dark-mode`)
 
 | Variable | Value |
 |----------|-------|
@@ -71,7 +99,7 @@ Every page renders the same outer shell: rulers, masthead, footer strip, 46px gr
 
 `--accent` does not invert in dark mode. It remains `#c00` because graphic accents (borders, bars, progress fills) do not need to shift for contrast the way small mono labels do. Only `--accent-text` and `--focus-ring` retune to `#ff4d4d`.
 
-Dark mode is not personalization. It is a second editorial mode. Both modes are locked and authored. Mode is cookie-persisted (`dxmode`), applied via `body.dark-mode` class toggle.
+Dark mode is not personalization. It is a second editorial mode. Both modes are locked and authored. Mode is cookie-persisted (`dxmode`, one-year max-age, `SameSite=Lax`) and applied via an `html.dark-mode` class toggle. The class is set on the `<html>` element (not `<body>`) by a blocking script in `<head>` so there is no flash of incorrect mode on first paint. When no cookie is set, `prefers-color-scheme` decides the initial mode, and a `matchMedia` listener follows OS preference changes until the user makes an explicit choice.
 
 ### Accent Red (`#c00`) — Rules
 
@@ -106,14 +134,35 @@ Red marks editorial emphasis. Never decoration.
 
 | Variable | Value | Role |
 |----------|-------|------|
-| `--display` | `Impact, Haettenschweiler, sans-serif` | Titles, identity marks, pull quotes, stat blocks |
-| `--body` | `'IBM Plex Sans', system-ui, -apple-system, sans-serif` | Homepage/index plate context, base body font |
-| `--serif` | `Georgia, 'Times New Roman', serif` | Article body text, closing blocks, callouts |
-| `--mono` | `'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace` | Metadata, tags, eyebrows, section heads, share bar, nav labels, footer |
+| `--display` | `'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif` | Titles, identity marks, pull quotes, stat blocks, 404 headline |
+| `--body` | `'IBM Plex Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif` | All body text — articles, About, plates |
+| `--mono` | `'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace` | Metadata, tags, eyebrows, section heads, share bar, nav labels, footer — the system voice. System monospace, no self-hosted file. |
+| `--serif` | `Georgia, 'Times New Roman', serif` | **Deprecated.** Retained in `tokens.css` as a fallback-only token; not referenced by any component. Do not use in new CSS. |
+
+Article body previously ran on Georgia serif. As of Phase 1 it runs on Plex Sans for optical consistency with the rest of the system. If a future component needs a serif, add a new token with intent rather than resurrecting `--serif`.
+
+### Self-Hosted Font Files
+
+| File | Format | Use |
+|------|--------|-----|
+| `/fonts/Anton-Regular.woff2` | Anton Regular | All `--display` text |
+| `/fonts/IBMPlexSans-Regular.woff2` | Plex Sans 400 | Body, mono register |
+| `/fonts/IBMPlexSans-Bold.woff2` | Plex Sans 700 | Bold body, bold mono register |
+
+All three preload in every page's `<head>` with `rel="preload" as="font" type="font/woff2" crossorigin`. No other weights or styles ship.
 
 ### Display Type Rules
 
-All display type (`--display`) uses: `text-transform: uppercase`, `font-weight: 900`, `line-height: .86`, `letter-spacing: -.03em`, `word-break: break-word`, `text-wrap: balance`.
+All display type (`--display`) uses: `text-transform: uppercase`, `font-weight: 400` (Anton Regular is the display weight — the font is pre-condensed and pre-heavy, so 400 is already maximum impact), `line-height: .86`, `letter-spacing: -.03em`, `word-break: break-word`, `text-wrap: balance`.
+
+### Font-Weight Normalization (Phase 1)
+
+Every `font-weight: 900` in the old system has been normalized to a real shipped weight:
+
+- Anton display text → `font-weight: 400` (Anton only ships Regular; 900 was a synthesized bold browsers were inventing)
+- Plex body/mono text that used to be `900` → `font-weight: 700` (Plex Sans Bold, the heaviest weight we ship)
+
+Visual change is zero. The old declarations relied on browser font synthesis, which produced the same effective weight. The system now declares what it ships.
 
 ### Title Scale
 
@@ -144,7 +193,7 @@ All display type (`--display`) uses: `text-transform: uppercase`, `font-weight: 
 
 ### Body Text
 
-Article body: `font-family: var(--body)`, `font-size: 1.08rem`, `line-height: 1.85`, `color: var(--body-color)`.
+Article body: `font-family: var(--body)` (Plex Sans), `font-size: 1.08rem`, `line-height: 1.85`, `color: var(--body-color)`.
 
 Paragraph spacing: `margin-bottom: 1.5em`.
 
@@ -152,7 +201,7 @@ Article body links: `text-decoration: underline`, `text-decoration-color: var(--
 
 ### Drop Cap
 
-`.intro::first-letter` — `font-family: var(--display)`, `font-size: 4.8em`, `font-weight: 900`, `float: left`, `line-height: .72`, `margin-right: 8px`, `margin-top: 4px`, `color: var(--ink)`.
+`.intro::first-letter` — `font-family: var(--display)` (Anton), `font-size: 4.8em`, `font-weight: 400`, `float: left`, `line-height: .72`, `margin-right: 8px`, `margin-top: 4px`, `color: var(--ink)`.
 
 Applied only to the first paragraph of each article (class `.intro`). Never repeated.
 
@@ -232,11 +281,11 @@ Hidden on mobile (`< 760px`).
 
 **Brand block:** Inline-flex, `2px solid var(--border)`, contains:
 - `.brand-mark`: DX logo SVG (`height: 28px`), `min-width: 72px`, centered. Logo switches between `logo-dark.svg` (light mode) and `logo-white.svg` (dark mode) via JavaScript.
-- `.brand-word`: "Words" label, inverted fill (`background: var(--ink)`, `color: var(--bg)`), `.92rem`, `font-weight: 900`.
+- `.brand-word`: "Words" label, inverted fill (`background: var(--ink)`, `color: var(--bg)`), `.92rem`, `font-weight: 700`.
 
 Both segments: `padding: 8px 10px 7px`, `border-right: 2px solid var(--border)`, uppercase, `letter-spacing: .03em`.
 
-**Mode toggle:** `margin-left: auto`. Bordered button, `.88rem`, `font-weight: 900`, `min-height: 44px`. Text reads "Mode: Light" / "Mode: Dark". Cookie-persisted.
+**Mode toggle:** `margin-left: auto`. Bordered button, `.88rem`, `font-weight: 700`, `min-height: 44px`. Text reads "Mode: Light" / "Mode: Dark". Cookie-persisted.
 
 ### Footer Strip
 
@@ -252,7 +301,7 @@ Two-item grid: "Follow @ImJustDex" (links to Instagram) | "Est. 1994".
 .footer-strip > * {
   border: 2px solid var(--border); background: var(--panel);
   padding: 12px 14px 11px; text-transform: uppercase;
-  letter-spacing: .06em; font-size: .84rem; font-weight: 900;
+  letter-spacing: .06em; font-size: .84rem; font-weight: 700;
   min-height: 44px;
 }
 ```
@@ -268,7 +317,7 @@ Horizontal button bar above the plate grid. Scrollable on mobile. Buttons: "All"
   border: 2px solid var(--border); border-right: 0;
   background: var(--panel); color: var(--muted);
   padding: 14px 16px 13px; font-size: .78rem;
-  font-weight: 900; letter-spacing: .1em;
+  font-weight: 700; letter-spacing: .1em;
   min-height: 44px;
 }
 .filter-btn.active {
@@ -341,12 +390,12 @@ Shared image plate rules:
 
 **Dark mode image plate inversion:**
 ```css
-body.dark-mode .plate-image::before { filter: grayscale(1) contrast(1.15) invert(1); }
-body.dark-mode .plate-image::after {
+html.dark-mode .plate-image::before { filter: grayscale(1) contrast(1.15) invert(1); }
+html.dark-mode .plate-image::after {
   background: linear-gradient(to top, rgba(255,255,255,.78), rgba(255,255,255,.08) 55%, rgba(255,255,255,.14));
 }
-body.dark-mode .plate-image .plate-title { color: #050505; text-shadow: none; }
-body.dark-mode .plate-image .meta-rail { color: #f5f5f1; background: #0a0a0a; border-color: #f3f0e8; }
+html.dark-mode .plate-image .plate-title { color: #050505; text-shadow: none; }
+html.dark-mode .plate-image .meta-rail { color: #f5f5f1; background: #0a0a0a; border-color: #f3f0e8; }
 ```
 
 ### Meta Rail
@@ -361,7 +410,7 @@ Stamped label at bottom-left of each plate.
   border-top: 2px solid var(--border);
   border-right: 2px solid var(--border);
   font-size: .8rem; letter-spacing: .08em;
-  text-transform: uppercase; font-weight: 900;
+  text-transform: uppercase; font-weight: 700;
   line-height: 1; white-space: nowrap;
 }
 ```
@@ -387,7 +436,7 @@ Content format: reading time only (e.g., "8 min"). No dates. No "Read Time:" lab
 }
 .plate-ghost .plate-title { color: var(--ink); opacity: .35; }
 .plate-ghost .teaser-date {
-  font-family: var(--body); font-size: .82rem; font-weight: 900;
+  font-family: var(--body); font-size: .82rem; font-weight: 700;
   letter-spacing: .14em; text-transform: uppercase;
   color: var(--ink); opacity: .3;
 }
@@ -424,7 +473,7 @@ Flex row: `h2` label + horizontal rule line.
 ```css
 .section-head { display: flex; align-items: center; gap: 14px; margin: 48px 0 20px; }
 .section-head h2 {
-  font-family: var(--mono); font-size: .75rem; font-weight: 900;
+  font-family: var(--mono); font-size: .75rem; font-weight: 700;
   letter-spacing: .15em; text-transform: uppercase; color: var(--accent);
 }
 .section-head-line { flex: 1; height: 3px; background: var(--accent); }
@@ -444,7 +493,7 @@ Full-width break inside article body. Bleeds into article padding with negative 
 .pull-quote p {
   font-family: var(--display);
   font-size: clamp(1.6rem, 4vw, 2.4rem);
-  font-weight: 900; line-height: 1.1;
+  font-weight: 400; line-height: 1.1;
   letter-spacing: -.02em; text-transform: uppercase;
   color: var(--ink);
 }
@@ -470,7 +519,7 @@ Single sentence or short phrase. Used for rhetorical pivots. Maximum two per art
 ```css
 .callout-emph {
   color: var(--accent-text);
-  font-weight: 900;
+  font-weight: 700;
 }
 ```
 
@@ -507,7 +556,7 @@ Optional span class inside `.callout` blocks to highlight a single word or phras
 .stat-block-text {
   font-family: var(--display);
   font-size: clamp(1.6rem, 5vw, 2.6rem);
-  font-weight: 900; letter-spacing: -.03em;
+  font-weight: 400; letter-spacing: -.03em;
   line-height: 1.05; text-transform: uppercase;
   color: var(--ink);
 }
@@ -567,7 +616,7 @@ Contains: "Share" label (mono, `.7rem`) → X link → Copy Link button → "Fol
 .research-cta-link {
   flex-shrink: 0; font-family: var(--mono);
   font-size: .75rem; letter-spacing: .1em;
-  text-transform: uppercase; font-weight: 900;
+  text-transform: uppercase; font-weight: 700;
   padding: 12px 20px; min-height: 44px;
   border: 2px solid var(--border);
   background: var(--ink); color: var(--bg);
@@ -586,7 +635,7 @@ Reusable CTA bar between article body and share bar. Links to external research,
   border: 2px solid var(--border); background: var(--panel);
   font-family: var(--mono); font-size: .75rem;
   letter-spacing: .1em; text-transform: uppercase;
-  font-weight: 900;
+  font-weight: 700;
 }
 .article-back:hover { border-color: var(--accent); }
 ```
@@ -674,7 +723,9 @@ Hides: rulers, mode toggle, share bar, filter rail. Removes background images. F
 
 ### Global
 
-All structural colors invert through CSS custom properties. The toggle adds/removes `body.dark-mode`. Logo SVG swaps via JavaScript (`logo-dark.svg` ↔ `logo-white.svg`).
+All structural colors invert through CSS custom properties. The toggle adds/removes `html.dark-mode` (set on the `<html>` element, not `<body>`, so a blocking head script can flip the class before first paint and avoid a flash of the wrong mode). Logo SVG swaps via `/js/mode.js` (`logo-dark.svg` ↔ `logo-white.svg`) using the `data-base` attribute on the logo `<img>` to resolve paths.
+
+When no explicit `dxmode` cookie is set, the page respects the OS `prefers-color-scheme` at load and follows OS preference changes live via `matchMedia`. Once the user clicks the toggle, the cookie takes over and OS changes no longer override.
 
 ### Identity Plate (Special Case)
 
@@ -682,7 +733,7 @@ Light mode: `background: var(--ink)` (dark plate). Dark mode: `background: #ffff
 
 ### Image Plates (Special Case)
 
-Texture `::before` gets `invert(1)` added to filter chain. Gradient overlay `::after` flips from black-to-transparent to white-to-transparent. Title text goes from white to `#050505`. Meta rail inverts from light-on-dark to dark-on-light.
+Texture `::before` gets `invert(1)` added to filter chain (selectors use `html.dark-mode .plate-image::before`, not `body.dark-mode`). Gradient overlay `::after` flips from black-to-transparent to white-to-transparent. Title text goes from white to `#050505`. Meta rail inverts from light-on-dark to dark-on-light.
 
 ### Scripture Citation
 
@@ -699,6 +750,54 @@ When images replace the current CSS-generated textures, they must follow these r
 **Treatment:** Always `filter: grayscale(1) contrast(1.15)`. Always covered with gradient overlay for text legibility. Dark mode adds `invert(1)` to filter chain and flips gradient to white-based.
 
 **Test:** Every image must answer: *what tension does this create with the title?* If it doesn't increase tension, cut it.
+
+---
+
+## 11.5 Security, CSP, and Caching
+
+### Content Security Policy
+
+`netlify.toml` ships a strict self-only CSP. No `unsafe-inline` anywhere.
+
+```
+default-src 'self';
+script-src 'self';
+style-src 'self';
+img-src 'self' data: https:;
+font-src 'self';
+connect-src 'self';
+frame-ancestors 'none';
+base-uri 'self';
+form-action 'self';
+object-src 'none';
+upgrade-insecure-requests
+```
+
+Every script lives in `/js/*`. Every stylesheet lives in `/css/*`. Every font lives in `/fonts/*`. No inline `<style>` blocks. No inline `<script>` blocks. No inline `onclick` / `onload` / `onerror` attributes. No Google Fonts. No analytics beacons. No CDNs.
+
+When adding behavior, the rule is: write it in `/js/*.js`, gate it on the DOM elements it targets (no-op if absent), and load it with `<script src>`. When adding copy-to-clipboard or similar interactions, use `data-*` attributes read by the script — never inline handlers.
+
+### Other Security Headers
+
+- `X-Frame-Options: DENY`
+- `X-Content-Type-Options: nosniff`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`
+- `Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()`
+- `Cross-Origin-Opener-Policy: same-origin`
+- `Cross-Origin-Resource-Policy: same-origin`
+
+### Cache-Control
+
+| Path pattern | Header |
+|--------------|--------|
+| `/*.html` | `public, max-age=0, must-revalidate` |
+| `/css/*` | `public, max-age=31536000, immutable` |
+| `/js/*` | `public, max-age=31536000, immutable` |
+| `/fonts/*` | `public, max-age=31536000, immutable` + `Access-Control-Allow-Origin: *` |
+| `/img/*` | `public, max-age=31536000, immutable` |
+
+HTML is always fresh. Static assets cache for a year and are busted by filename if a breaking change ships. Fonts get CORS on top of the immutable cache so cross-origin preloads never get blocked.
 
 ---
 
@@ -753,18 +852,28 @@ New tags may be added. Each must be a single word that names a weight, not a top
 ```
 dxjakes.com/
 ├── index.html                    ← Homepage (plate grid + identity)
+├── 404.html                      ← Custom 404 (served by Netlify fallback)
 ├── about/
 │   └── index.html                ← About page
 ├── words/
-│   ├── index.html                ← Words index (plate grid, no identity)
 │   ├── reckonings/index.html
 │   ├── the-nets/index.html
 │   ├── gumbo/index.html
-│   ├── price-of-sunday/index.html
-│   ├── gloria/index.html
-│   ├── job/index.html
-│   ├── pulpit/index.html
-│   └── next-verse/index.html
+│   └── price-of-sunday/index.html
+├── css/
+│   ├── tokens.css                ← Tokens, @font-face, :root, html.dark-mode, reset, grid body, print, reduced-motion
+│   ├── shell.css                 ← Skip link, page-shell, rulers, masthead, brand-block, mode-toggle, footer-strip, focus
+│   ├── plates.css                ← Filter rail, plate grid, plate variants, meta rail, image plates, identity, ghost
+│   ├── article.css               ← Article frame, header, body, drop cap, section heads, components, share bar, progress
+│   └── notfound.css              ← 404-only plate, eyebrow, headline, actions
+├── js/
+│   ├── mode.js                   ← Mode toggle (head-phase FOUC prevention + DOMContentLoaded wiring)
+│   ├── progress.js               ← Reading progress bar + section indicator (article pages)
+│   └── essay.js                  ← data-copy-link share button wiring (CSP-safe)
+├── fonts/
+│   ├── Anton-Regular.woff2
+│   ├── IBMPlexSans-Regular.woff2
+│   └── IBMPlexSans-Bold.woff2
 ├── img/
 │   ├── logo-dark.svg
 │   ├── logo-white.svg
@@ -772,10 +881,22 @@ dxjakes.com/
 │   ├── apple-touch-icon.png
 │   └── og-default.png
 ├── DESIGN-SYSTEM.md              ← This file
-└── netlify.toml                  ← Deploy config
+└── netlify.toml                  ← Deploy config (strict CSP, trailing-slash redirects, cache headers)
 ```
 
-Each HTML file is fully self-contained — styles inline, no external CSS sheets. No build step. No shared partials. Changes to shared elements (masthead, footer, mode toggle) must be replicated across all pages manually.
+No page embeds inline CSS or inline JavaScript. Every page loads the same `tokens.css` + `shell.css` universal pair, then one page-type sheet (`plates.css`, `article.css`, or `notfound.css`). Shared elements are defined once and never replicated by hand — changing the masthead or footer means editing `shell.css` once.
+
+### Removed Routes (April 2026)
+
+The following TPH-era prototype routes have been removed from the editorial repo and redirect to `/` in `netlify.toml`. They were migrated into the Cowork OS under `TPH Marketing/`.
+
+- `/opsmeeting` and `/opsmeeting/*`
+- `/leadership-prep` and `/leadership-prep/*`
+- `/asana-workflow` and `/asana-workflow/*`
+
+### Trailing-Slash Canonical
+
+All article and About URLs are canonical with a trailing slash (`/about/`, `/words/the-nets/`, etc.). Non-slash variants 301-redirect to the slash version in `netlify.toml`. The homepage (`/`) and `404.html` are the only pages without a trailing-slash canonical.
 
 ---
 

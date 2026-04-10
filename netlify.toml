@@ -1,17 +1,29 @@
 # ──────────────────────────────────────────────
 # dxjakes.com — Netlify Configuration
 # Static editorial publishing object
+#
+# Architecture notes:
+#   • Strict CSP (self-only) — no inline scripts, no inline styles,
+#     no third-party CDNs. All JS is in /js/*, all CSS in /css/*,
+#     all fonts self-hosted in /fonts/*.
+#   • Trailing-slash canonical on all article + about routes.
+#   • Long cache + immutable for versioned static assets
+#     (/css, /js, /fonts, /img). HTML stays no-cache.
+#   • Deprecated TPH-era routes (ops, leadership prep, asana) are
+#     gone from the editorial repo and redirect to /.
 # ──────────────────────────────────────────────
 
 [build]
   publish = "."
 
-# ── Security Headers (all pages) ──────────────
+# ──────────────────────────────────────────────
+# Security Headers (all pages)
+# ──────────────────────────────────────────────
 [[headers]]
   for = "/*"
   [headers.values]
 
-    # Prevent clickjacking — no one should iframe your site
+    # Prevent clickjacking — no one should iframe this site
     X-Frame-Options = "DENY"
 
     # Stop MIME-type sniffing — serve what you declare
@@ -26,33 +38,101 @@
     # Force HTTPS for 1 year + include subdomains
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
 
-    # Content Security Policy — tight allowlist for a static site
-    # self for everything, inline styles (needed for inlined CSS), data: for SVG/images
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+    # Content Security Policy — strict self-only.
+    # No 'unsafe-inline' anywhere. No Google Fonts, no gstatic.
+    # script-src 'self' — every script is in /js/*
+    # style-src 'self'  — every stylesheet is in /css/*
+    # font-src 'self'   — fonts are self-hosted in /fonts/*
+    # img-src 'self' data: https: — allows SVG data URIs and any https image we hotlink
+    # connect-src 'self' — no analytics/beacons allowed
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
 
     # Prevent cross-origin info leaks
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Resource-Policy = "same-origin"
 
-# ── Cache: HTML pages — no cache (always fresh) ──
+# ──────────────────────────────────────────────
+# Cache: HTML pages — no cache (always fresh)
+# ──────────────────────────────────────────────
 [[headers]]
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# ── Cache: Images — long cache with revalidation ──
+# ──────────────────────────────────────────────
+# Cache: CSS — long cache, immutable
+# Bust by filename if a breaking change is shipped.
+# ──────────────────────────────────────────────
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ──────────────────────────────────────────────
+# Cache: JS — long cache, immutable
+# ──────────────────────────────────────────────
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ──────────────────────────────────────────────
+# Cache: Fonts — long cache, immutable
+# ──────────────────────────────────────────────
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
+
+# ──────────────────────────────────────────────
+# Cache: Images — long cache, immutable
+# ──────────────────────────────────────────────
 [[headers]]
   for = "/img/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# ── Cache: Fonts — long cache ──
-[[headers]]
-  for = "/fonts/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+# ──────────────────────────────────────────────
+# Trailing-slash canonical redirects
+# Non-slash variants 301 to the slash canonical.
+# Netlify serves /about/index.html for /about/,
+# so only the non-slash variant needs redirecting.
+# ──────────────────────────────────────────────
+[[redirects]]
+  from = "/about"
+  to = "/about/"
+  status = 301
+  force = true
 
-# ── Redirect: /words/ → / (deprecated archive route) ──
+[[redirects]]
+  from = "/words/the-nets"
+  to = "/words/the-nets/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/words/gumbo"
+  to = "/words/gumbo/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/words/price-of-sunday"
+  to = "/words/price-of-sunday/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/words/reckonings"
+  to = "/words/reckonings/"
+  status = 301
+  force = true
+
+# ──────────────────────────────────────────────
+# Deprecated archive root — /words and /words/
+# The single-archive design lives at / now.
+# ──────────────────────────────────────────────
 [[redirects]]
   from = "/words/"
   to = "/"
@@ -65,9 +145,53 @@
   status = 301
   force = true
 
-# ── 404 fallback ──
+# ──────────────────────────────────────────────
+# Removed TPH-era routes (moved out of editorial repo)
+# These lived at dxjakes.com during the TPH prototype phase.
+# Any remaining inbound links should land at home.
+# ──────────────────────────────────────────────
+[[redirects]]
+  from = "/opsmeeting"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/opsmeeting/*"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/leadership-prep"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/leadership-prep/*"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/asana-workflow"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/asana-workflow/*"
+  to = "/"
+  status = 301
+  force = true
+
+# ──────────────────────────────────────────────
+# 404 fallback
 # Serves the custom branded 404.html with a proper 404 status.
-# No force = true, so this only fires when the path doesn't match a real file.
+# No force = true, so this only fires when the path doesn't
+# match a real file.
+# ──────────────────────────────────────────────
 [[redirects]]
   from = "/*"
   to = "/404.html"
