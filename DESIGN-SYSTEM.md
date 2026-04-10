@@ -138,7 +138,7 @@ All display type (`--display`) uses: `text-transform: uppercase`, `font-weight: 
 
 ### Body Text
 
-Article body: `font-family: var(--serif)`, `font-size: 1.08rem`, `line-height: 1.85`, `color: var(--body-color)`.
+Article body: `font-family: var(--body)`, `font-size: 1.08rem`, `line-height: 1.85`, `color: var(--body-color)`.
 
 Paragraph spacing: `margin-bottom: 1.5em`.
 
@@ -452,7 +452,7 @@ Maximum two per article.
 .callout {
   margin: 36px 0; padding: 0 0 0 18px;
   border-left: 3px solid var(--accent);
-  font-family: var(--serif); font-size: 1.15rem;
+  font-family: var(--body); font-size: 1.15rem;
   font-weight: 700; line-height: 1.4; color: var(--ink);
 }
 ```
@@ -480,7 +480,7 @@ Optional span class inside `.callout` blocks to highlight a single word or phras
   padding: 24px; margin: 36px 0;
 }
 .scripture p {
-  font-family: var(--serif); font-size: 1rem;
+  font-family: var(--body); font-size: 1rem;
   line-height: 1.7; color: var(--body-color);
   font-style: italic;
 }
@@ -524,7 +524,7 @@ Maximum two per article.
   margin-top: 48px; padding: 28px 24px;
   border: 3px solid var(--border);
   background: var(--panel);
-  font-family: var(--serif); font-size: 1rem;
+  font-family: var(--body); font-size: 1rem;
   line-height: 1.75; color: var(--body-color);
   font-style: italic;
 }
