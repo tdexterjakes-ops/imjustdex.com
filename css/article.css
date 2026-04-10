@@ -102,7 +102,11 @@
 }
 
 .article-body a:hover {
-  color: var(--accent);
+  /* --accent-text (not --accent) — small body text needs the dark-mode
+     flip to #ff4d4d for WCAG AA (4.5:1). #c00 on #060606 is only 3.45:1
+     which passes non-text but fails small body text. The one other
+     small-text consumer of red in the article body. (Phase 4.2) */
+  color: var(--accent-text);
 }
 
 /* ── Drop cap ──────────────────────────────────────────────
