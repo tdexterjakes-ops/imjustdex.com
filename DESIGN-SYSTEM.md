@@ -72,9 +72,12 @@ Dark mode is not personalization. It is a second editorial mode. Both modes are 
 Red marks editorial emphasis. Never decoration.
 
 **Permitted:**
-- Section head `h2` text color
+- Section head `h2` text color (`var(--accent)`)
+- Section head horizontal rule line (`var(--accent)`)
+- Reading progress bar (`var(--accent)`)
 - Callout left-border (3px rule)
-- Scripture block cite text (light mode: `#c00`; dark mode: `#f44`)
+- Callout emphasis spans (`.callout-emph`)
+- Scripture block cite text (light mode: `var(--accent)`; dark mode: `#f44`)
 - Stat block vertical bar
 - Identity plate tagline text
 - Link underline on hover (article body only)
@@ -97,8 +100,8 @@ Red marks editorial emphasis. Never decoration.
 
 | Variable | Value | Role |
 |----------|-------|------|
-| `--display` | `Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif` | Titles, identity marks, pull quotes, stat blocks |
-| `--body` | `'Arial Narrow', Arial, Helvetica, sans-serif` | Homepage/index plate context, base body font |
+| `--display` | `Impact, Haettenschweiler, 'Impact', sans-serif` | Titles, identity marks, pull quotes, stat blocks |
+| `--body` | `'IBM Plex Sans', system-ui, -apple-system, sans-serif` | Homepage/index plate context, base body font |
 | `--serif` | `Georgia, 'Times New Roman', serif` | Article body text, closing blocks, callouts |
 | `--mono` | `'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace` | Metadata, tags, eyebrows, section heads, share bar, nav labels, footer |
 
@@ -365,7 +368,30 @@ Content format: reading time only (e.g., "8 min"). No dates. No "Read Time:" lab
 
 **Row 2:** Nobody Handed Me This (span 5, dark `.img-noise`, `.lg`) → The Price of Sunday (span 5, light, `.lg`)
 
-**Rule:** Two dark plates must never be adjacent horizontally.
+**Texture Alternation Rule:** Adjacent plates must never share the same background treatment. Textured plates (img-concrete, img-noise, img-lines) and plain plates must alternate so every card contrasts its neighbor. This applies both horizontally within a row and across row boundaries in reading order.
+
+### Ghost Teaser Plate
+
+```css
+.plate-ghost {
+  grid-column: span 5; min-height: 346px;
+  background: transparent;
+  border: 3px dashed var(--border);
+  cursor: default;
+}
+.plate-ghost .plate-title { color: var(--ink); opacity: .35; }
+.plate-ghost .teaser-date {
+  font-family: var(--body); font-size: .82rem; font-weight: 900;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink); opacity: .3;
+}
+.plate-ghost .meta-rail {
+  background: transparent; color: var(--ink); opacity: .25;
+  border-top: 2px dashed var(--border); border-right: none;
+}
+```
+
+Used to tease an upcoming article before its publish date. Contains title (muted), "Publishing [date]" microcopy, and "Coming Soon" meta rail. The dashed border and transparency signal *this space is held*. On launch day, swap for the full article plate and remove the ghost CSS from index.html.
 
 ### Responsive Grid
 
@@ -393,9 +419,9 @@ Flex row: `h2` label + horizontal rule line.
 .section-head { display: flex; align-items: center; gap: 14px; margin: 48px 0 20px; }
 .section-head h2 {
   font-family: var(--mono); font-size: .75rem; font-weight: 900;
-  letter-spacing: .15em; text-transform: uppercase; color: #c00;
+  letter-spacing: .15em; text-transform: uppercase; color: var(--accent);
 }
-.section-head-line { flex: 1; height: 3px; background: var(--border); }
+.section-head-line { flex: 1; height: 3px; background: var(--accent); }
 ```
 
 ### Pull Quote
@@ -432,6 +458,18 @@ Maximum two per article.
 ```
 
 Single sentence or short phrase. Used for rhetorical pivots. Maximum two per article.
+
+### Callout Emphasis
+
+```css
+.callout-emph {
+  color: var(--accent);
+  font-weight: 900;
+}
+body.dark-mode .callout-emph { color: #f44; }
+```
+
+Optional span class inside `.callout` blocks to highlight a single word or phrase in accent red. Available on all article pages.
 
 ### Scripture Block
 
@@ -509,6 +547,32 @@ Sits directly below article body (no gap, `border-top: 0`).
 
 Contains: "Share" label (mono, `.7rem`) → X link → Copy Link button → "Follow Me" subscribe button (inverted fill, `margin-left: auto`).
 
+### Research CTA
+
+```css
+.research-cta {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 24px;
+  border: 3px solid var(--border); border-top: 0;
+  background: var(--panel); gap: 16px;
+}
+.research-cta-text {
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--body-muted); line-height: 1.5;
+}
+.research-cta-link {
+  flex-shrink: 0; font-family: var(--mono);
+  font-size: .75rem; letter-spacing: .1em;
+  text-transform: uppercase; font-weight: 900;
+  padding: 12px 20px; min-height: 44px;
+  border: 2px solid var(--border);
+  background: var(--ink); color: var(--bg);
+  text-decoration: none; white-space: nowrap;
+}
+```
+
+Reusable CTA bar between article body and share bar. Links to external research, study, or source material that backs the essay. CSS is available on all article pages; add HTML only when an article has a backing research document. Stacks vertically on mobile.
+
 ### Back Button
 
 ```css
@@ -528,7 +592,7 @@ Contains: "Share" label (mono, `.7rem`) → X link → Copy Link button → "Fol
 ```css
 .reading-progress {
   position: fixed; top: 0; left: 0; width: 0%; height: 3px;
-  background: var(--ink); z-index: 9999;
+  background: var(--accent); z-index: 9999;
   transition: width .12s linear; pointer-events: none;
 }
 ```

@@ -66,8 +66,9 @@
   force = true
 
 # ── 404 fallback ──
+# Serves the custom branded 404.html with a proper 404 status.
+# No force = true, so this only fires when the path doesn't match a real file.
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/404.html"
   status = 404
-  # No force = true, so this only fires when the path doesn't match a real file
