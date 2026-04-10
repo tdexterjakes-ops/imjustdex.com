@@ -254,6 +254,13 @@ Border weights are tokenized so a single edit rebalances the whole system. The d
 
 **Rule:** if the element frames *content*, it uses the content weight. If it frames *an action or a label*, it uses the chrome weight. Never hardcode `3px` or `2px` in a border rule — always reference the token.
 
+**Hairline exemption.** Decorative 1px hairlines are allowed — they are not frame borders, they are texture. The only permitted uses are:
+
+- `.ruler-top` / `.ruler-left` — fixed-position measurement rulers at `border-color: var(--rule)`
+- `.identity-plate .meta-rail` — inner separator between tagline and meta row at `border-color: var(--bg)`
+
+If you're adding a 1px border and the element isn't a decorative ruler or an inner meta separator, you're doing it wrong. Use the token.
+
 ### Grid Background
 
 46px repeating grid lines at `var(--rule)` opacity. Applied to `body` via `background-image` on all pages.

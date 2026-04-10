@@ -109,8 +109,8 @@ html.dark-mode .plate-title.inverse {
   padding: 7px 10px 6px;
   background: var(--meta-bg);
   color: var(--meta-ink);
-  border-top: 2px solid var(--border);
-  border-right: 2px solid var(--border);
+  border-top: var(--border-weight-chrome) solid var(--border);
+  border-right: var(--border-weight-chrome) solid var(--border);
   font-size: .8rem;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -255,7 +255,7 @@ html.dark-mode .plate-title.inverse {
   display: inline-block;
   margin-bottom: 6px;
   padding: 5px 7px 4px;
-  border: 2px solid var(--bg);
+  border: var(--border-weight-chrome) solid var(--bg);
   background: var(--bg);
   color: var(--ink);
   text-transform: uppercase;
@@ -303,7 +303,7 @@ html.dark-mode .identity-plate .meta-rail {
   grid-column: span 5;
   min-height: 346px;
   background: transparent;
-  border: 3px dashed var(--border);
+  border: var(--border-weight-content) dashed var(--border);
   cursor: default;
 }
 
@@ -344,7 +344,7 @@ html.dark-mode .identity-plate .meta-rail {
   background: transparent;
   color: var(--ink);
   opacity: .25;
-  border-top: 2px dashed var(--border);
+  border-top: var(--border-weight-chrome) dashed var(--border);
   border-right: none;
 }
 

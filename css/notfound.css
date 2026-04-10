@@ -30,7 +30,7 @@ body.notfound main {
 .notfound-plate {
   position: relative;
   width: 100%;
-  border: 3px solid var(--border);
+  border: var(--border-weight-content) solid var(--border);
   background: var(--panel);
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -41,7 +41,7 @@ body.notfound main {
 
 .notfound-eyebrow {
   padding: 14px 22px 12px;
-  border-bottom: 2px solid var(--border);
+  border-bottom: var(--border-weight-chrome) solid var(--border);
   background: var(--meta-bg);
   color: var(--meta-ink);
   font-family: var(--mono);
@@ -118,7 +118,7 @@ body.notfound main {
 }
 
 .notfound-actions {
-  border-top: 2px solid var(--border);
+  border-top: var(--border-weight-chrome) solid var(--border);
 }
 
 .notfound-actions a {

@@ -99,7 +99,7 @@ main {
 .brand-block {
   display: inline-flex;
   align-items: stretch;
-  border: 2px solid var(--border);
+  border: var(--border-weight-chrome) solid var(--border);
   background: var(--panel);
 }
 
@@ -110,7 +110,7 @@ main {
   letter-spacing: .03em;
   text-transform: uppercase;
   font-weight: 700;
-  border-right: 2px solid var(--border);
+  border-right: var(--border-weight-chrome) solid var(--border);
 }
 
 .brand-mark {
@@ -176,7 +176,7 @@ main {
 }
 
 .footer-strip > * {
-  border: 2px solid var(--border);
+  border: var(--border-weight-chrome) solid var(--border);
   background: var(--panel);
   padding: 12px 14px 11px;
   text-transform: uppercase;

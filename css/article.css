@@ -39,7 +39,7 @@
   text-transform: uppercase;
   font-weight: 700;
   padding: 4px 8px 3px;
-  border: 2px solid var(--border);
+  border: var(--border-weight-chrome) solid var(--border);
   background: var(--ink);
   color: var(--bg);
 }
@@ -175,7 +175,7 @@
 .callout {
   margin: 36px 0;
   padding: 0 0 0 18px;
-  border-left: 3px solid var(--accent);
+  border-left: var(--border-weight-content) solid var(--accent);
   font-family: var(--body);
   font-size: 1.15rem;
   font-weight: 700;
@@ -195,7 +195,7 @@
 /* ── Scripture block ───────────────────────────────────────── */
 
 .scripture {
-  border: 2px solid var(--body-faint);
+  border: var(--border-weight-chrome) solid var(--body-faint);
   background: var(--body-tint);
   padding: 24px;
   margin: 36px 0;
@@ -316,7 +316,7 @@
   font-weight: 700;
   padding: 10px 14px 9px;
   min-height: 44px;
-  border: 2px solid var(--border);
+  border: var(--border-weight-chrome) solid var(--border);
   background: var(--ink);
   color: var(--bg);
 }
@@ -352,7 +352,7 @@
   font-weight: 700;
   padding: 12px 20px;
   min-height: 44px;
-  border: 2px solid var(--border);
+  border: var(--border-weight-chrome) solid var(--border);
   background: var(--ink);
   color: var(--bg);
   text-decoration: none;
@@ -384,7 +384,7 @@
   flex-direction: column;
   gap: 6px;
   padding: 18px 18px 16px;
-  border: 2px solid var(--border);
+  border: var(--border-weight-chrome) solid var(--border);
   background: var(--panel);
   color: inherit;
   text-decoration: none;
@@ -445,7 +445,7 @@
   margin-top: 16px;
   padding: 12px 14px 11px;
   min-height: 44px;
-  border: 2px solid var(--border);
+  border: var(--border-weight-chrome) solid var(--border);
   background: var(--panel);
   font-family: var(--mono);
   font-size: .75rem;
