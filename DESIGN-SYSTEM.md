@@ -261,6 +261,40 @@ Border weights are tokenized so a single edit rebalances the whole system. The d
 
 If you're adding a 1px border and the element isn't a decorative ruler or an inner meta separator, you're doing it wrong. Use the token.
 
+### Focus Rings
+
+Focus outlines for `:focus-visible` states are tokenized on width but not on offset.
+
+```css
+--focus-ring-width: 2px;   /* matches --border-weight-chrome */
+--focus-ring:       #c00;  /* flips to #ff4d4d in dark mode for AA */
+```
+
+**Rule:** every `:focus-visible` outline on the site uses `outline: var(--focus-ring-width) solid var(--focus-ring);`. Never hardcode the width.
+
+**Offset is intentionally local.** `outline-offset` stays hardcoded per selector because the correct offset depends on what the element sits inside:
+
+- Chrome elements (`.mode-toggle`, `.brand-block`, `.footer-strip a`, article links, back button, CTAs) → `outline-offset: 2px` — the ring floats outside the element
+- Content frames (`a.plate`, `.notfound-actions a`) → negative offset (`-5px` / `-4px`) — the ring insets *inside* the 3px content border so it doesn't compete visually with the frame
+
+Tokenizing offset would force one rule to fit both cases. Leave it local.
+
+### Reduced Motion
+
+Reduced motion is handled globally in `tokens.css` via a blanket override:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+  }
+}
+```
+
+This catches every transition on the site, including those that use `var(--motion-tiny)`. Do not add per-component reduced-motion rules — they are redundant.
+
 ### Grid Background
 
 46px repeating grid lines at `var(--rule)` opacity. Applied to `body` via `background-image` on all pages.
@@ -361,7 +395,7 @@ A plate is the base archive card. It renders as either:
 /* Native <a> cursor already renders as pointer — no redundant rule. */
 a.plate:hover { border-color: var(--accent); }
 a.plate:focus-visible {
-  outline: 2px solid var(--focus-ring);
+  outline: var(--focus-ring-width) solid var(--focus-ring);
   outline-offset: -5px;
 }
 ```
@@ -703,7 +737,7 @@ Mobile: `bottom: 16px`, `left: 16px`, `font-size: .52rem`, `max-width: 200px`.
 
 ### Focus States
 
-All interactive elements use `outline: 2px solid var(--focus-ring)`, `outline-offset: 2px` on `:focus-visible`. `--focus-ring` resolves to `#c00` in light mode and `#ff4d4d` in dark mode, so focus rings always clear AA contrast against the active background.
+All interactive elements use `outline: var(--focus-ring-width) solid var(--focus-ring)` on `:focus-visible`. Width is tokenized (`--focus-ring-width: 2px`); offset stays local per selector (`2px` on chrome elements, `-5px`/`-4px` inset on content frames — see §4 Focus Rings). `--focus-ring` resolves to `#c00` in light mode and `#ff4d4d` in dark mode, so focus rings always clear AA contrast against the active background.
 
 ### Touch Targets
 

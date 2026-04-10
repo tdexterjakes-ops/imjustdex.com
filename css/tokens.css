@@ -81,6 +81,13 @@
   --border-weight-content: 3px;
   --border-weight-chrome: 2px;
 
+  /* Focus ring width — outline thickness for :focus-visible states.
+     Matches --border-weight-chrome (2px) so focus rings feel tuned
+     to the same measurement system. outline-offset stays local per
+     selector: .plate and .notfound-plate inset the ring (-5px/-4px)
+     so it rides inside the 3px content border without competing. */
+  --focus-ring-width: 2px;
+
   /* Motion — a single tiny-ease curve for hover/focus chrome.
      Applied sparingly: mode toggle, plate hover borders, article
      nav hover borders. Everything else stays instant. */
