@@ -1,0 +1,2099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>I'm Just Dex — Brand Style Guide — Refined Brutalism Design System</title>
+  <meta name="description" content="I'm Just Dex — Brand Style Guide. Refined Brutalism: the governing design system for IMJUSTDEX.com, social carousels, decks, print, and every surface the brand touches." />
+  <link rel="canonical" href="https://dxjakes.com/brand/" />
+  <meta name="theme-color" content="#f4f4f1" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#060606" media="(prefers-color-scheme: dark)" />
+  <meta name="color-scheme" content="light dark" />
+  <meta property="og:title" content="I'm Just Dex — Brand Style Guide" />
+  <meta property="og:description" content="Refined Brutalism. The governing design system for I'm Just Dex — printed, rigid, inevitable." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://dxjakes.com/brand/" />
+  <meta property="og:site_name" content="I'm Just Dex" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="I'm Just Dex — Brand Style Guide" />
+  <meta name="twitter:description" content="Refined Brutalism. The governing design system for I'm Just Dex." />
+  <style>
+    /* ═══════════════════════════════════════
+       FONT LOADING
+    ═══════════════════════════════════════ */
+    @font-face {
+      font-family: 'IBM Plex Sans';
+      src: url('/fonts/IBMPlexSans-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'IBM Plex Sans';
+      src: url('/fonts/IBMPlexSans-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ═══════════════════════════════════════
+       DESIGN TOKENS — pulled from production
+    ═══════════════════════════════════════ */
+    :root {
+      --bg: #f4f4f1;
+      --panel: #f8f8f6;
+      --ink: #050505;
+      --muted: #202020;
+      --border: #0a0a0a;
+      --rule: rgba(0,0,0,.14);
+      --accent: #c00;
+      /* --accent-text: accent tuned for small text / AA contrast.
+         Light mode uses the true brand red. Dark mode lifts to a brighter
+         red that clears 4.5:1 on #060606 for body-size mono labels. */
+      --accent-text: #c00;
+      /* --focus-ring: semantically dedicated to :focus-visible outlines.
+         Decoupled from --accent-text so focus affordances never drift when
+         text-contrast tokens are retuned. Mirrors contrast-safe values in
+         both modes to guarantee visibility on any surface. */
+      --focus-ring: #c00;
+      --meta-bg: #0a0a0a;
+      --meta-ink: #f5f5f1;
+      --body-color: rgba(5,5,5,.82);
+      --body-muted: rgba(5,5,5,.56);
+      --body-faint: rgba(5,5,5,.18);
+      --body-tint: rgba(5,5,5,.04);
+      --display: Impact, Haettenschweiler, sans-serif;
+      --body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+      --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+      /* Letter-spacing scale — 12 semantic slots. Every distinct
+         editorial tracking value on any brand surface earns its own
+         token. No consolidation: at uppercase chrome sizes, a .03em
+         delta is perceptible. Negative tracking is display-only;
+         positive tracking is chrome and uppercase. */
+      --track-display:    -.03em;  /* h1, plate titles, stat block, 404 headline */
+      --track-title:      -.02em;  /* pull-quote, nav title, tagline */
+      --track-brand:       .03em;  /* brand mark / wordmark only */
+      --track-nav:         .04em;  /* mode toggle, article eyebrow date */
+      --track-footer:      .06em;  /* footer-strip items */
+      --track-badge:       .08em;  /* meta-rail, identity-sub, 404 actions */
+      --track-chrome:      .1em;   /* article meta, back button, share bar */
+      --track-tag:         .12em;  /* tag chip, stat microlabel, nav label */
+      --track-teaser:      .14em;  /* identity meta-rail, teaser date */
+      --track-label:       .15em;  /* section heads, scripture cite, CTA */
+      --track-indicator:   .18em;  /* section indicator (fixed mark) */
+      --track-eyebrow:     .22em;  /* 404 eyebrow (widest tracking) */
+      /* Font-weight scale — binary. 400 for all body and display
+         type, 700 for all chrome, labels, tags, and strong emphasis.
+         No intermediate weights. @font-face holds raw numbers as a
+         CSS language constraint. */
+      --weight-regular: 400;
+      --weight-bold:    700;
+      /* Typography scale — Phase 5. Two-tier system: 19 primitives
+         (--size-1 through --size-19) hold raw rem/clamp() values;
+         semantic aliases (--text-*) express intent at the call site.
+         Scale clusters the 42+ existing size values found in production
+         CSS and snaps near-neighbors to perception-threshold steps. */
+      --size-1:  .6rem;        /* 9.6px   — meta rail */
+      --size-2:  .72rem;       /* ~11.5px — micro label */
+      --size-3:  .75rem;       /* 12px    — chip / eyebrow */
+      --size-4:  .82rem;       /* ~13.1px — citation */
+      --size-5:  .88rem;       /* ~14.1px — nav */
+      --size-6:  .92rem;       /* ~14.7px — chrome-md */
+      --size-7:  1rem;         /* 16px    — body base */
+      --size-8:  1.08rem;      /* ~17.3px — lede */
+      --size-9:  1.15rem;      /* ~18.4px — pull quote */
+      --size-10: clamp(1.2rem, 2vw, 1.6rem);
+      --size-11: clamp(1.35rem, 2.4vw, 2.4rem);
+      --size-12: clamp(1.6rem, 4vw, 2.4rem);
+      --size-13: clamp(1.6rem, 5vw, 2.6rem);
+      --size-14: clamp(2rem, 4vw, 4rem);
+      --size-15: clamp(2.35rem, 5vw, 5rem);
+      --size-16: clamp(2.8rem, 7vw, 5rem);
+      --size-17: clamp(3rem, 10vw, 9rem);
+      --size-18: clamp(3.5rem, 7vw, 7.2rem);
+      --size-19: clamp(3.8rem, 10vw, 7.5rem);
+      --text-meta:      var(--size-1);
+      --text-micro:     var(--size-2);
+      --text-label:     var(--size-3);
+      --text-citation:  var(--size-4);
+      --text-nav:       var(--size-5);
+      --text-chrome:    var(--size-6);
+      --text-body:      var(--size-7);
+      --text-lede:      var(--size-8);
+      --text-quote:     var(--size-9);
+      --text-h3:        var(--size-10);
+      --text-tagline:   var(--size-11);
+      --text-h2:        var(--size-12);
+      --text-stat:      var(--size-13);
+      --text-plate:     var(--size-14);
+      --text-plate-med: var(--size-15);
+      --text-h1:        var(--size-16);
+      --text-display:   var(--size-17);
+      --text-plate-lg:  var(--size-18);
+      --text-identity:  var(--size-19);
+      /* Line-height scale — Phase 5. Five slots cover every resolved
+         leading on a brand surface. Display-tier headlines ride .86;
+         body copy rides 1.7. Anything outside this ladder is an
+         editorial exception documented where it lives. */
+      --lh-display: .86;   /* headlines, plate mega, 404 */
+      --lh-tight:   1.05;  /* h2, h3, pull quote */
+      --lh-snug:    1.4;   /* chrome, nav, meta */
+      --lh-normal:  1.7;   /* article body */
+      --lh-loose:   1.85;  /* article lede */
+      /* Spacing scale — Phase 6. Every padding, margin, and gap on a
+         brand surface is tokenized. 10 slots, no improvisation. */
+      --space-0:        0;
+      --space-hairline: 4px;   /* icon gutters, tiny offsets */
+      --space-xs:       8px;   /* tight internal padding */
+      --space-sm:       12px;  /* standard internal, grid gaps */
+      --space-chrome:   14px;  /* chrome tier — buttons, share bar, meta rails */
+      --space-md:       16px;  /* primary component padding */
+      --space-lg:       24px;  /* generous component padding */
+      --space-xl:       32px;  /* block gaps */
+      --space-2xl:      48px;  /* section gaps, closing block */
+      --space-3xl:      80px;  /* page rhythm, article bottom */
+      /* Border-weight + focus-ring-width — the skeleton of the brand.
+         Two weights only: content (3px) and chrome (2px). Focus rings
+         are 2px unified across both modes. */
+      --border-weight-content: 3px;
+      --border-weight-chrome:  2px;
+      --focus-ring-width:      2px;
+      --outer-pad: 28px;
+      --grid-gap: var(--space-sm);
+    }
+    body.dark-mode {
+      --bg: #060606;
+      --panel: #0d0d0d;
+      --ink: #f3f0e8;
+      --muted: #d7d3ca;
+      --border: #f3f0e8;
+      --rule: rgba(255,255,255,.16);
+      --accent-text: #ff4d4d; /* AA on #060606 at ~14px; visually sibling to #c00 */
+      --focus-ring: #ff4d4d;  /* matches --accent-text but is semantically distinct */
+      --meta-bg: #f3f0e8;
+      --meta-ink: #0a0a0a;
+      --body-color: rgba(243,240,232,.82);
+      --body-muted: rgba(243,240,232,.52);
+      --body-faint: rgba(243,240,232,.14);
+      --body-tint: rgba(243,240,232,.04);
+    }
+
+    /* ═══════════════════════════════════════
+       BASE
+    ═══════════════════════════════════════ */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: var(--space-0); background: var(--bg); color: var(--ink);
+      font-family: var(--body); line-height: var(--lh-snug);
+      transition: background .18s ease, color .18s ease;
+      background-image:
+        linear-gradient(to right, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px)),
+        linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px));
+      background-size: 46px 46px;
+    }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--ink); color: var(--bg); }
+
+    /* ═══════════════════════════════════════
+       ACCESSIBILITY — skip link + focus ring
+       ═══════════════════════════════════════ */
+    .skip-link {
+      position: absolute; left: 12px; top: -60px; z-index: 100;
+      padding: var(--space-sm) var(--space-chrome);
+      background: var(--ink); color: var(--bg);
+      border: 2px solid var(--border);
+      font-family: var(--mono); font-size: var(--text-micro); font-weight: var(--weight-bold);
+      letter-spacing: var(--track-teaser); text-transform: uppercase;
+      transition: top .18s ease;
+    }
+    .skip-link:focus,
+    .skip-link:focus-visible { top: 12px; outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+    /* Remove default focus only when focus-visible is supported */
+    :focus:not(:focus-visible) { outline: none; }
+
+    /* Utility classes — extracted from repeated inline patterns */
+    .u-span-full { grid-column: 1 / -1; }
+    .u-mb-gap { margin-bottom: var(--grid-gap); }
+    .u-mt-gap { margin-top: var(--grid-gap); }
+    .u-mb-16 { margin-bottom: 16px; }
+    .u-flex-row {
+      display: flex; gap: var(--space-lg); align-items: center; flex-wrap: wrap;
+    }
+    .u-flex-row-sm {
+      display: flex; gap: var(--space-chrome); align-items: center; flex-wrap: wrap;
+    }
+    .u-logo-specimen { width: 80px; height: auto; }
+    .u-scope-frame {
+      margin-bottom: 48px; max-width: 900px;
+      margin-left: auto; margin-right: auto;
+    }
+    .u-pad-y-20 { padding: var(--space-lg) 0; }
+    .u-mt-32 { margin-top: 32px; }
+    .u-plate-texture-title { font-size: var(--text-quote); }
+    .u-plate-meta-light {
+      color: #0a0a0a; background: #f5f5f1; border-color: #0a0a0a;
+    }
+    .sd-sub-mono {
+      font-family: var(--mono); font-size: .38rem;
+      color: rgba(243,240,232,.52);
+      text-transform: uppercase; letter-spacing: var(--track-indicator);
+    }
+    .u-intro-body {
+      font-family: var(--body); font-size: var(--text-body); line-height: var(--lh-loose);
+      color: var(--body-color); margin: var(--space-0);
+    }
+    .u-mono-meta {
+      font-family: var(--mono); font-size: var(--text-meta);
+      letter-spacing: var(--track-tag); text-transform: uppercase;
+      color: var(--body-muted); line-height: var(--lh-loose);
+      margin: var(--space-0);
+    }
+    .u-mono-helper {
+      font-family: var(--mono); font-size: .65rem;
+      letter-spacing: var(--track-tag); text-transform: uppercase;
+      color: var(--body-muted); margin: var(--space-0);
+    }
+
+    /* Rulers */
+    .ruler-top, .ruler-left { position: fixed; pointer-events: none; z-index: 1; opacity: .75; }
+    .ruler-top { top:0;left:0;right:0;height:22px;border-bottom:1px solid var(--rule);background:repeating-linear-gradient(to right,transparent 0 44px,var(--rule) 44px 45px); }
+    .ruler-left { top:0;left:0;bottom:0;width:22px;border-right:1px solid var(--rule);background:repeating-linear-gradient(to bottom,transparent 0 44px,var(--rule) 44px 45px); }
+
+    /* Shell */
+    .page-shell {
+      max-width: 1200px; margin: 0 auto;
+      padding: var(--space-sm) var(--outer-pad) 80px;
+      position: relative;
+    }
+
+    /* Masthead */
+    .masthead {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: var(--space-chrome);
+      padding: var(--space-sm) var(--space-0) var(--space-chrome);
+      background: linear-gradient(to bottom, var(--bg) 70%, rgba(0,0,0,0));
+      margin-top: 6px;
+    }
+    .brand-block {
+      display: inline-flex; align-items: stretch;
+      border: 2px solid var(--border); background: var(--panel);
+    }
+    .brand-mark, .brand-word {
+      padding: var(--space-xs) 10px 7px; line-height: 1;
+      letter-spacing: var(--track-brand); text-transform: uppercase;
+      font-weight: var(--weight-bold); border-right: 2px solid var(--border);
+    }
+    .brand-mark { display:flex;align-items:center;justify-content:center;min-width:72px;padding: var(--space-xs) var(--space-sm); }
+    .brand-mark svg { width:42px;height:auto;fill:var(--ink); }
+    .brand-word { font-size: var(--text-chrome);align-content:center;background:var(--ink);color:var(--bg); }
+    .brand-block .brand-word:last-child { border-right: 0; }
+    .mode-toggle {
+      margin-left: auto; appearance: none;
+      border: 2px solid var(--border); background: var(--panel);
+      color: var(--ink); padding: var(--space-chrome) 16px 13px;
+      text-transform: uppercase; font: inherit;
+      font-size: var(--text-nav); font-weight: var(--weight-bold);
+      letter-spacing: var(--track-nav); cursor: pointer; min-height: 44px;
+    }
+
+    /* ═══════════════════════════════════════
+       GUIDE SECTIONS
+    ═══════════════════════════════════════ */
+    .guide-hero {
+      border: 3px solid var(--border); background: var(--panel);
+      padding: var(--space-2xl) 32px 40px; margin-bottom: var(--grid-gap);
+      display: flex; flex-direction: column; align-items: center; gap: var(--space-lg);
+      text-align: center; max-width: 900px; margin-left: auto; margin-right: auto;
+    }
+    .guide-hero-logo {
+      flex-shrink: 0;
+    }
+    .guide-hero-logo svg {
+      width: 120px; height: auto; display: block;
+    }
+    .guide-hero-logo svg text { fill: var(--ink); }
+    .guide-hero-text { max-width: 680px; }
+    .guide-hero h1 {
+      font-family: var(--display); font-size: clamp(3rem, 7vw, 6rem);
+      text-transform: uppercase; line-height: var(--lh-display); letter-spacing: var(--track-display);
+      margin: var(--space-0) var(--space-0) var(--space-sm);
+    }
+    .guide-hero .deck {
+      font-family: var(--mono); font-size: var(--text-label); letter-spacing: var(--track-tag);
+      text-transform: uppercase; color: var(--body-muted);
+      max-width: 500px; line-height: var(--lh-normal); margin: 0 auto;
+    }
+
+    /* ═══════════════════════════════════════
+       LOGO SHOWCASE
+    ═══════════════════════════════════════ */
+    .logo-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--grid-gap);
+    }
+    .logo-card {
+      border: 3px solid var(--border); overflow: hidden;
+    }
+    .logo-card-render {
+      height: 180px; display: flex; align-items: center; justify-content: center;
+      padding: var(--space-lg);
+    }
+    .logo-card-render svg { width: 120px; height: auto; }
+    .logo-card-render.on-light { background: #f4f4f1; }
+    .logo-card-render.on-dark { background: #060606; }
+    .logo-card-render.on-accent { background: var(--accent); }
+    .logo-card-label {
+      padding: var(--space-sm) 14px; background: var(--panel);
+      border-top: 2px solid var(--border);
+    }
+    .logo-card-name {
+      font-family: var(--mono); font-size: .65rem; font-weight: var(--weight-bold);
+      letter-spacing: var(--track-tag); text-transform: uppercase; margin-bottom: 2px;
+    }
+    .logo-card-note {
+      font-family: var(--mono); font-size: .58rem;
+      letter-spacing: var(--track-footer); color: var(--body-muted);
+    }
+    .logo-rules {
+      margin-top: 16px; border: 3px solid var(--border);
+      background: var(--panel); padding: var(--space-lg);
+    }
+    .logo-rules h3 {
+      font-family: var(--mono); font-size: .65rem; font-weight: var(--weight-bold);
+      letter-spacing: var(--track-tag); text-transform: uppercase;
+      color: var(--accent-text); margin: var(--space-0) var(--space-0) var(--space-sm);
+    }
+    .logo-rules ul {
+      margin: var(--space-0); padding: var(--space-0) 0 0 18px;
+      font-family: var(--body); font-size: var(--text-chrome); line-height: var(--lh-loose);
+      color: var(--body-color);
+    }
+    .logo-rules li { margin-bottom: 4px; }
+
+    .section {
+      margin-top: 48px;
+      max-width: 900px; margin-left: auto; margin-right: auto;
+    }
+    .section-head {
+      display: flex; align-items: center; gap: var(--space-chrome);
+      margin: 0 0 var(--grid-gap);
+      background: var(--panel); border: 3px solid var(--border);
+      padding: var(--space-md) 20px;
+    }
+    .section-head h2 {
+      font-family: var(--mono); font-size: var(--text-label); font-weight: var(--weight-bold);
+      letter-spacing: var(--track-label); text-transform: uppercase;
+      color: var(--accent-text); white-space: nowrap; margin: var(--space-0);
+    }
+    .section-head-line { flex: 1; height: 3px; background: var(--accent); }
+
+    .section-body {
+      font-family: var(--body); font-size: var(--text-body); line-height: var(--lh-loose);
+      color: var(--body-color); max-width: 680px; margin-left: auto; margin-right: auto;
+      background: var(--panel); border: 3px solid var(--border);
+      padding: var(--space-xl) 24px; margin-bottom: var(--grid-gap);
+    }
+    .section-body p { margin: 0 0 1.4em; }
+    .section-body p:last-child { margin-bottom: 0; }
+    .demo-frame .section-body,
+    .carousel-spec-card .section-body {
+      border: none; background: none; padding: var(--space-0);
+      margin: var(--space-0) var(--space-0) var(--space-md); max-width: none;
+    }
+
+    /* ═══════════════════════════════════════
+       COLOR SWATCHES
+    ═══════════════════════════════════════ */
+    .swatch-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: var(--grid-gap);
+    }
+    .swatch {
+      border: 3px solid var(--border); overflow: hidden;
+    }
+    .swatch-color {
+      height: 80px; display: flex; align-items: flex-end;
+      padding: var(--space-xs) 10px;
+    }
+    .swatch-label {
+      padding: var(--space-sm); background: var(--panel);
+    }
+    .swatch-name {
+      font-family: var(--mono); font-size: .65rem; font-weight: var(--weight-bold);
+      letter-spacing: var(--track-tag); text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .swatch-value {
+      font-family: var(--mono); font-size: var(--text-meta);
+      letter-spacing: var(--track-badge); color: var(--body-muted);
+    }
+
+    /* ═══════════════════════════════════════
+       TYPOGRAPHY SPECIMENS
+    ═══════════════════════════════════════ */
+    .type-specimen {
+      border: 3px solid var(--border); background: var(--panel);
+      padding: var(--space-xl) 24px 22px; margin-bottom: var(--grid-gap);
+    }
+    .type-label {
+      font-family: var(--mono); font-size: var(--text-meta); font-weight: var(--weight-bold);
+      letter-spacing: var(--track-label); text-transform: uppercase;
+      color: var(--body-muted); margin-bottom: 12px;
+    }
+    .type-display {
+      font-family: var(--display); text-transform: uppercase;
+      font-weight: var(--weight-bold); line-height: var(--lh-display); letter-spacing: var(--track-display);
+      margin: var(--space-0);
+    }
+    .type-body-text {
+      font-family: var(--body); font-size: var(--text-lede);
+      line-height: var(--lh-loose); color: var(--body-color); margin: var(--space-0);
+    }
+    .type-mono-text {
+      font-family: var(--mono); font-size: var(--text-label);
+      letter-spacing: var(--track-tag); text-transform: uppercase;
+      font-weight: var(--weight-bold); margin: var(--space-0);
+    }
+    .type-plex-text {
+      font-family: var(--body); font-size: var(--text-body);
+      line-height: var(--lh-snug); margin: var(--space-0);
+    }
+
+    /* ═══════════════════════════════════════
+       COMPONENT DEMOS
+    ═══════════════════════════════════════ */
+    .demo-frame {
+      border: 3px solid var(--border); background: var(--panel);
+      padding: var(--space-lg); margin-bottom: var(--grid-gap);
+    }
+    .demo-label {
+      font-family: var(--mono); font-size: var(--text-meta); font-weight: var(--weight-bold);
+      letter-spacing: var(--track-label); text-transform: uppercase;
+      color: var(--accent-text); margin-bottom: 16px;
+    }
+
+    /* Pull quote */
+    .demo-pull-quote {
+      margin: var(--space-0); padding: var(--space-xl) 24px;
+      border-top: 3px solid var(--border);
+      border-bottom: 3px solid var(--border);
+      background: var(--body-tint);
+    }
+    .demo-pull-quote p {
+      font-family: var(--display);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-bold); line-height: var(--lh-tight);
+      letter-spacing: var(--track-title); text-transform: uppercase;
+      color: var(--ink); margin: var(--space-0);
+    }
+
+    /* Callout */
+    .demo-callout {
+      margin: var(--space-0); padding: var(--space-0) 0 0 18px;
+      border-left: 3px solid var(--accent);
+      font-family: var(--body); font-size: var(--text-quote);
+      font-weight: var(--weight-bold); line-height: var(--lh-snug); color: var(--ink);
+    }
+    .demo-callout p { margin: var(--space-0); }
+    .demo-callout-emph { color: var(--accent-text); font-weight: var(--weight-bold); }
+
+    /* Scripture */
+    .demo-scripture {
+      border: 2px solid var(--body-faint);
+      background: var(--body-tint);
+      padding: var(--space-lg); margin: var(--space-0);
+    }
+    .demo-scripture p {
+      font-family: var(--body); font-size: var(--text-body);
+      line-height: var(--lh-normal); color: var(--body-color);
+      font-style: italic; margin: var(--space-0) var(--space-0) var(--space-sm);
+    }
+    .demo-scripture p:last-of-type { margin-bottom: 12px; }
+    .demo-scripture cite {
+      font-family: var(--mono); font-style: normal;
+      font-size: var(--text-micro); letter-spacing: var(--track-label);
+      text-transform: uppercase; color: var(--accent-text);
+    }
+    /* Dark-mode scripture cite now inherits --accent-text (#ff4d4d),
+       so no special-case override is needed. */
+
+    /* Stat block */
+    .demo-stat {
+      display: grid; grid-template-columns: 3px 1fr; gap: var(--space-0) var(--space-lg);
+      margin: var(--space-0);
+    }
+    .demo-stat-bar { background: var(--accent); }
+    .demo-stat-text {
+      font-family: var(--display);
+      font-size: var(--text-stat);
+      font-weight: var(--weight-bold); letter-spacing: var(--track-display);
+      line-height: var(--lh-tight); text-transform: uppercase;
+      color: var(--ink);
+    }
+    .demo-stat-text span {
+      display: block; font-family: var(--mono);
+      font-size: var(--text-micro); font-weight: var(--weight-regular);
+      letter-spacing: var(--track-tag); text-transform: uppercase;
+      color: var(--body-muted); margin-top: 8px;
+    }
+
+    /* Section head demo */
+    .demo-section-head {
+      display: flex; align-items: center; gap: var(--space-chrome);
+    }
+    .demo-section-head h3 {
+      font-family: var(--mono); font-size: var(--text-label); font-weight: var(--weight-bold);
+      letter-spacing: var(--track-label); text-transform: uppercase;
+      color: var(--accent-text); white-space: nowrap; margin: var(--space-0);
+    }
+    .demo-section-head-line { flex: 1; height: 3px; background: var(--accent); }
+
+    /* Meta rail */
+    .demo-meta-rail {
+      display: inline-block;
+      padding: var(--space-xs) var(--space-sm) var(--space-xs);
+      background: var(--meta-bg); color: var(--meta-ink);
+      border: 2px solid var(--border);
+      font-family: var(--body);
+      font-size: var(--text-label); letter-spacing: var(--track-badge);
+      text-transform: uppercase; font-weight: var(--weight-bold);
+      line-height: 1;
+    }
+
+    /* Tag */
+    .demo-tag {
+      display: inline-block;
+      padding: var(--space-hairline) 8px 3px;
+      border: 2px solid var(--border);
+      background: var(--ink); color: var(--bg);
+      font-family: var(--mono); font-size: var(--text-label);
+      letter-spacing: var(--track-chrome); text-transform: uppercase;
+      font-weight: var(--weight-bold);
+    }
+
+    /* Research CTA */
+    .demo-research-cta {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-md) var(--space-lg);
+      border: 3px solid var(--border);
+      background: var(--panel); gap: var(--space-md);
+    }
+    .demo-research-cta-text {
+      font-family: var(--mono); font-size: var(--text-micro); letter-spacing: var(--track-label);
+      text-transform: uppercase; color: var(--body-muted); line-height: var(--lh-snug);
+    }
+    .demo-research-cta-link {
+      flex-shrink: 0; font-family: var(--mono);
+      font-size: var(--text-label); letter-spacing: var(--track-chrome);
+      text-transform: uppercase; font-weight: var(--weight-bold);
+      padding: var(--space-sm) 20px; min-height: 44px;
+      border: 2px solid var(--border);
+      background: var(--ink); color: var(--bg);
+      display: inline-flex; align-items: center;
+    }
+
+    /* Section indicator */
+    .demo-indicator {
+      display: inline-block;
+      font-family: var(--mono); font-size: var(--text-meta);
+      letter-spacing: var(--track-indicator); text-transform: uppercase;
+      color: var(--ink); background: var(--bg);
+      border: 1px solid var(--rule); padding: var(--space-xs) var(--space-sm);
+      border-radius: 2px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.12);
+    }
+
+    /* Progress bar demo */
+    .demo-progress-track {
+      height: 3px; background: var(--rule); position: relative;
+    }
+    .demo-progress-fill {
+      position: absolute; top: 0; left: 0; width: 62%;
+      height: 100%; background: var(--ink);
+    }
+
+    /* Ghost plate */
+    .demo-ghost {
+      border: 3px dashed var(--border); background: transparent;
+      padding: var(--space-xl) 20px; min-height: 180px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .demo-ghost-title {
+      font-family: var(--display); font-size: clamp(1.8rem, 4vw, 2.8rem);
+      text-transform: uppercase; font-weight: var(--weight-bold);
+      line-height: var(--lh-display); letter-spacing: var(--track-display);
+      color: var(--ink); opacity: .35; margin: var(--space-0);
+    }
+    .demo-ghost-rule { width: 40px; height: 2px; background: var(--ink); opacity: .15; margin: var(--space-chrome) var(--space-0) var(--space-sm); }
+    .demo-ghost-date {
+      font-family: var(--body); font-size: var(--text-citation); font-weight: var(--weight-bold);
+      letter-spacing: var(--track-teaser); text-transform: uppercase;
+      color: var(--ink); opacity: .3;
+    }
+    .demo-ghost-meta {
+      margin-top: auto; padding-top: 16px;
+      font-family: var(--body); font-size: var(--text-label); font-weight: var(--weight-bold);
+      letter-spacing: var(--track-badge); text-transform: uppercase;
+      color: var(--ink); opacity: .25;
+      border-top: 2px dashed var(--border);
+      align-self: flex-start; padding-right: 10px;
+    }
+
+    /* ═══════════════════════════════════════
+       PLATE GRID DEMO
+    ═══════════════════════════════════════ */
+    .demo-plates {
+      display: grid; grid-template-columns: repeat(12, 1fr);
+      gap: var(--grid-gap);
+    }
+    .demo-plate {
+      position: relative; min-height: 160px;
+      border: 3px solid var(--border); background: var(--panel);
+      display: flex; flex-direction: column;
+      justify-content: space-between; overflow: hidden; isolation: isolate;
+    }
+    .demo-plate:hover { border-color: var(--accent); }
+    .demo-plate-body { padding: var(--space-chrome) 14px 8px; position: relative; z-index: 2; flex: 1; }
+    .demo-plate-title {
+      font-family: var(--display); font-size: var(--text-h3);
+      text-transform: uppercase; font-weight: var(--weight-bold); line-height: var(--lh-display);
+      letter-spacing: var(--track-display); margin: var(--space-0);
+    }
+    .demo-plate-title.inverse { color: #fff; text-shadow: 0 2px 0 rgba(0,0,0,.45); }
+    .demo-plate-meta {
+      position: relative; z-index: 2;
+      align-self: flex-start; margin-top: auto;
+      padding: var(--space-hairline) var(--space-xs) var(--space-hairline);
+      background: var(--meta-bg); color: var(--meta-ink);
+      border-top: 2px solid var(--border); border-right: 2px solid var(--border);
+      font-size: var(--text-micro); letter-spacing: var(--track-badge);
+      text-transform: uppercase; font-weight: var(--weight-bold); line-height: 1;
+    }
+    .demo-plate.span4 { grid-column: span 4; }
+    .demo-plate.span5 { grid-column: span 5; }
+    .demo-plate.span3 { grid-column: span 3; }
+    .demo-plate.identity {
+      background: var(--ink); color: var(--bg); min-height: 200px;
+    }
+    .demo-plate.identity:hover { border-color: var(--border); }
+    .demo-plate.img-plate { overflow: hidden; }
+    .demo-plate.img-plate .demo-plate-body { justify-content: flex-end; }
+    .demo-plate.img-plate::before {
+      content: ""; position: absolute; inset: 0;
+      filter: grayscale(1) contrast(1.15); z-index: 0;
+    }
+    .demo-plate.img-plate::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.78), rgba(0,0,0,.08) 55%, rgba(0,0,0,.14));
+      z-index: 1;
+    }
+    .demo-plate.img-plate .demo-plate-meta { color: #0a0a0a; background: #f5f5f1; border-color: #0a0a0a; }
+    .demo-plate.concrete::before {
+      background-image:
+        linear-gradient(135deg, rgba(255,255,255,.07), rgba(0,0,0,.25)),
+        radial-gradient(circle at 24% 22%, rgba(255,255,255,.18), transparent 20%),
+        linear-gradient(180deg, #c7c7c7 0 18%, #8b8b8b 18% 28%, #5e5e5e 28% 45%, #2e2e2e 45% 100%);
+    }
+    .demo-plate.noise::before {
+      background-image:
+        linear-gradient(90deg, rgba(255,0,90,.18), transparent 18%, transparent 82%, rgba(0,225,255,.14)),
+        repeating-linear-gradient(180deg, rgba(255,255,255,.1) 0 2px, rgba(0,0,0,0) 2px 6px),
+        linear-gradient(135deg, #222, #000 44%, #444 58%, #111 100%);
+    }
+    .demo-plate.lines::before {
+      background-image:
+        linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,0)),
+        repeating-linear-gradient(63deg, #d7d7d7 0 2px, transparent 2px 22px),
+        linear-gradient(180deg, #9b9b9b, #4d4d4d 72%, #141414);
+    }
+
+    /* ═══════════════════════════════════════
+       ACCENT RULES
+    ═══════════════════════════════════════ */
+    .accent-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap);
+    }
+    .accent-box {
+      border: 3px solid var(--border); background: var(--panel);
+      padding: var(--space-lg);
+    }
+    .accent-box-header {
+      font-family: var(--mono); font-size: .65rem; font-weight: var(--weight-bold);
+      letter-spacing: var(--track-label); text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .accent-box-header.permitted { color: var(--accent-text); }
+    .accent-box-header.prohibited { color: var(--body-muted); }
+    .accent-list {
+      font-family: var(--body); font-size: var(--text-chrome);
+      line-height: var(--lh-normal); color: var(--body-color);
+    }
+    .accent-list-item { margin-bottom: 4px; }
+    .accent-list-item::before {
+      content: ""; display: inline-block;
+      width: 8px; height: 3px; margin-right: 8px;
+      vertical-align: middle;
+    }
+    .permitted .accent-list-item::before { background: var(--accent); }
+    .prohibited .accent-list-item::before { background: var(--body-faint); }
+
+    /* ═══════════════════════════════════════
+       VOICE SECTION
+    ═══════════════════════════════════════ */
+    .voice-example {
+      border: 3px solid var(--border); background: var(--panel);
+      padding: var(--space-xl) 24px; margin-bottom: var(--grid-gap);
+    }
+    .voice-example blockquote {
+      margin: var(--space-0); font-family: var(--body);
+      font-size: var(--text-lede); line-height: var(--lh-loose);
+      color: var(--body-color);
+    }
+    .voice-example .register {
+      font-family: var(--mono); font-size: var(--text-meta); font-weight: var(--weight-bold);
+      letter-spacing: var(--track-label); text-transform: uppercase;
+      color: var(--accent-text); margin-bottom: 12px;
+    }
+
+    /* ═══════════════════════════════════════
+       CAROUSEL DEMOS
+    ═══════════════════════════════════════ */
+    .carousel-spec-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--grid-gap);
+    }
+    .carousel-spec-card {
+      border: 3px solid var(--border); background: var(--panel); padding: var(--space-lg) 18px 16px;
+    }
+    .carousel-spec-card h4 {
+      font-family: var(--mono); font-size: var(--text-meta); font-weight: var(--weight-bold);
+      letter-spacing: var(--track-teaser); text-transform: uppercase; color: var(--accent-text);
+      margin: var(--space-0) var(--space-0) var(--space-xs);
+    }
+    .carousel-spec-card p {
+      font-family: var(--body); font-size: var(--text-nav); line-height: var(--lh-normal);
+      color: var(--body-color); margin: var(--space-0);
+    }
+
+    .slide-demo {
+      width: 100%; aspect-ratio: 4/5;
+      background: #060606; position: relative; overflow: hidden;
+      border: 3px solid var(--border);
+    }
+    .slide-demo::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(to right, transparent 0, transparent calc(100% - 1px), rgba(255,255,255,.10) calc(100% - 1px)),
+        linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), rgba(255,255,255,.10) calc(100% - 1px));
+      background-size: 20px 20px; z-index: 0;
+    }
+    .slide-demo-inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column;
+      margin: var(--space-md) var(--space-sm) var(--space-sm); height: calc(100% - 28px);
+      background: #0d0d0d; border: 2px solid #f3f0e8;
+    }
+    .slide-demo-inner > * { position: relative; z-index: 1; }
+    .slide-demo .sd-eyebrow {
+      font-family: var(--mono); font-size: .42rem; color: #f3f0e8;
+      text-transform: uppercase; letter-spacing: var(--track-eyebrow);
+      padding: var(--space-xs) 12px 6px; border-bottom: 1px solid #c00;
+    }
+    .slide-demo .sd-content {
+      flex: 1; display: flex; flex-direction: column; justify-content: center;
+      padding: var(--space-sm);
+    }
+    .slide-demo .sd-title {
+      font-family: var(--display); color: #f3f0e8;
+      text-transform: uppercase; line-height: var(--lh-display); letter-spacing: var(--track-title);
+      font-size: clamp(.9rem, 2.2vw, 1.5rem); margin: var(--space-0) var(--space-0) var(--space-xs);
+    }
+    .slide-demo .sd-body {
+      font-family: var(--body); font-size: .52rem; color: rgba(243,240,232,.78);
+      line-height: 1.55;
+    }
+    .slide-demo .sd-section-num {
+      font-family: var(--display); font-size: clamp(2rem, 5vw, 3.5rem);
+      color: #c00; line-height: var(--lh-display); letter-spacing: var(--track-display); margin-bottom: 6px;
+    }
+    .slide-demo .sd-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: var(--space-0) 12px 10px;
+    }
+    .slide-demo .sd-logo svg { height: 12px; width: auto; }
+    .slide-demo .sd-num {
+      font-family: var(--mono); font-size: .38rem; color: rgba(243,240,232,.42);
+      letter-spacing: var(--track-indicator);
+    }
+    .slide-demo .sd-pill {
+      font-family: var(--mono); font-size: .34rem; color: #0d0d0d;
+      background: #f3f0e8; border-radius: 20px; padding: var(--space-hairline) var(--space-sm) var(--space-hairline);
+      letter-spacing: var(--track-indicator); text-transform: uppercase;
+    }
+    .slide-demo .sd-scripture-row {
+      display: flex; align-items: baseline; gap: var(--space-xs);
+      padding: var(--space-hairline) 0; border-bottom: 1px dotted rgba(243,240,232,.12);
+    }
+    .slide-demo .sd-cite {
+      font-family: var(--mono); font-size: .36rem; color: #ff4444;
+      text-transform: uppercase; letter-spacing: var(--track-indicator); font-weight: var(--weight-bold);
+    }
+    .slide-demo .sd-ref-desc {
+      font-family: var(--body); font-style: italic; font-size: .42rem;
+      color: rgba(243,240,232,.78); padding: var(--space-hairline) 0 4px 8px;
+      border-left: 1.5px solid #c00;
+    }
+
+    .slide-types-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--grid-gap);
+    }
+    .slide-type-label {
+      font-family: var(--mono); font-size: .55rem; font-weight: var(--weight-bold);
+      letter-spacing: var(--track-tag); text-transform: uppercase; color: var(--ink);
+      margin-top: 8px; text-align: center;
+    }
+
+    .platform-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: var(--grid-gap);
+    }
+    .platform-card {
+      border: 3px solid var(--border); background: var(--panel); padding: var(--space-md);
+    }
+    .platform-card h4 {
+      font-family: var(--mono); font-size: .58rem; font-weight: var(--weight-bold);
+      letter-spacing: var(--track-tag); text-transform: uppercase; color: var(--ink);
+      margin: var(--space-0) var(--space-0) var(--space-sm);
+    }
+    .platform-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: var(--space-hairline) 0; border-bottom: 1px solid var(--rule);
+    }
+    .platform-row:last-child { border-bottom: 0; }
+    .platform-type {
+      font-family: var(--body); font-size: var(--text-label); color: var(--body-color);
+    }
+    .platform-size {
+      font-family: var(--mono); font-size: .55rem; color: var(--accent-text);
+      letter-spacing: var(--track-footer);
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    .footer-strip {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: var(--space-sm); margin-top: 48px;
+      max-width: 900px; margin-left: auto; margin-right: auto;
+    }
+    .footer-strip > * {
+      border: 2px solid var(--border); background: var(--panel);
+      padding: var(--space-sm) 14px 11px; text-transform: uppercase;
+      letter-spacing: var(--track-footer); font-size: var(--text-citation); font-weight: var(--weight-bold);
+      min-height: 44px;
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 1120px) {
+      .demo-plates { grid-template-columns: repeat(8, 1fr); }
+      .demo-plate.span4, .demo-plate.span5, .demo-plate.span3 { grid-column: span 4; }
+    }
+    @media (max-width: 760px) {
+      :root { --outer-pad: 18px; --grid-gap: var(--space-sm); }
+      .demo-plates { grid-template-columns: 1fr; }
+      .demo-plate.span4, .demo-plate.span5, .demo-plate.span3 { grid-column: span 1; }
+      .swatch-grid { grid-template-columns: repeat(2, 1fr); }
+      .accent-grid { grid-template-columns: 1fr; }
+      .ruler-top, .ruler-left { display: none; }
+      .footer-strip { grid-template-columns: 1fr; }
+      .demo-research-cta { flex-direction: column; align-items: flex-start; }
+      /* Long section labels must wrap cleanly on mobile instead of forcing
+         overflow or horizontal compression. */
+      .section-head h2,
+      .demo-section-head h3 {
+        white-space: normal;
+      }
+    }
+
+    /* Reduced motion — honor the full contract the accessibility copy claims. */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 0.001ms !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+      .demo-plate:hover { transform: none !important; }
+    }
+
+    /* Print — the guide governs print-adjacent surfaces; so should the page itself. */
+    @media print {
+      html { scroll-behavior: auto; }
+      body {
+        background: #fff !important;
+        color: #000 !important;
+        background-image: none !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .ruler-top,
+      .ruler-left,
+      .mode-toggle,
+      .skip-link { display: none !important; }
+      .masthead {
+        position: static !important;
+        background: none !important;
+        border-bottom: 2px solid #000;
+      }
+      .page-shell { max-width: none; padding: var(--space-0) 24px 24px; }
+      .section,
+      .guide-hero,
+      .demo-frame,
+      .type-specimen,
+      .voice-example,
+      .carousel-spec-card,
+      .platform-card,
+      .swatch,
+      .logo-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .section { margin-top: 24px; }
+      a { color: #000; text-decoration: underline; }
+      a[href]::after { content: ""; } /* don't print URL suffixes — designed surface */
+    }
+  </style>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="ruler-top" aria-hidden="true"></div>
+  <div class="ruler-left" aria-hidden="true"></div>
+
+  <div class="page-shell">
+
+    <!-- MASTHEAD -->
+    <header class="masthead" role="banner">
+      <a class="brand-block" href="#top" aria-label="I'm Just Dex — Style Guide, back to top">
+        <span class="brand-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true" focusable="false"><path d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/><path d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/></svg></span>
+        <span class="brand-word">Style Guide</span>
+      </a>
+      <button
+        class="mode-toggle"
+        id="modeToggle"
+        type="button"
+        aria-pressed="false"
+        aria-label="Preview theme — demo control for this guide only"
+      >Mode: Light</button>
+    </header>
+
+    <main id="main">
+
+    <!-- HERO -->
+    <div class="guide-hero">
+      <div class="guide-hero-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true" focusable="false">
+          <path fill="var(--ink)" d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/>
+          <path fill="var(--ink)" d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/>
+        </svg>
+      </div>
+      <div class="guide-hero-text">
+        <h1>I&rsquo;m Just Dex<br>Brand Style Guide</h1>
+        <div class="deck">
+          Refined Brutalism. The governing design system for I&rsquo;m Just Dex &mdash; IMJUSTDEX.com, social carousels, print materials, and every surface the brand touches. Every decision exists to make the work feel printed, rigid, and inevitable. If a change makes any artifact feel more like content and less like a publication, the change is wrong.
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         SCOPE
+    ═══════════════════════════════════ -->
+    <div class="demo-frame u-scope-frame">
+      <div class="demo-label">System Scope</div>
+      <div class="section-body">
+        <p>This guide governs the full I&rsquo;m Just Dex brand across all surfaces: IMJUSTDEX.com (editorial site), social carousels, social post graphics, story formats, presentation decks, print materials, merchandise, signage, motion graphics, and any future medium the brand enters. It is not an editorial style guide with aspirations &mdash; it is the operating system.</p>
+        <p><strong>What this document controls:</strong> logo usage, color, typography, component design, editorial voice, microcopy, structural rules, social templates, platform adaptation, accessibility, responsive behavior, interaction states, and motion. If a design decision is not addressed here, the decision defaults to the nearest existing rule &mdash; not to the designer&rsquo;s preference.</p>
+        <p><strong>What this document does not control:</strong> content strategy, publishing cadence, topic selection, audience targeting, or third-party platform UI that the brand cannot modify. Those are editorial and operational decisions, not design system decisions.</p>
+        <p><strong>Enforcement principle:</strong> This system should not require taste to apply correctly. If an implementer follows every rule in this document and produces something that looks wrong, the document is incomplete &mdash; not the implementer. File the gap. Update the guide.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         00. LOGO
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>00. Logo &mdash; DX Monogram</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="section-body">
+        <p>The I&rsquo;m Just Dex monogram &mdash; &ldquo;DX&rdquo; &mdash; set in False Regular. Two letters, no tagline, no explanation. The mark carries the same weight as the writing: dense, architectural, and unapologetic.</p>
+      </div>
+
+      <div class="logo-grid">
+        <!-- Dark mark on light -->
+        <div class="logo-card">
+          <div class="logo-card-render on-light">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true" focusable="false">
+              <path fill="#050505" d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/>
+              <path fill="#050505" d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/>
+            </svg>
+          </div>
+          <div class="logo-card-label">
+            <div class="logo-card-name">On Light</div>
+            <div class="logo-card-note">Primary — #050505 on #f4f4f1</div>
+          </div>
+        </div>
+        <!-- White mark on dark -->
+        <div class="logo-card">
+          <div class="logo-card-render on-dark">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true" focusable="false">
+              <path fill="#fff" d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/>
+              <path fill="#fff" d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/>
+            </svg>
+          </div>
+          <div class="logo-card-label">
+            <div class="logo-card-name">On Dark</div>
+            <div class="logo-card-note">Inverse — #ffffff on #060606</div>
+          </div>
+        </div>
+        <!-- White mark on accent -->
+        <div class="logo-card">
+          <div class="logo-card-render on-accent">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true" focusable="false">
+              <path fill="#fff" d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/>
+              <path fill="#fff" d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/>
+            </svg>
+          </div>
+          <div class="logo-card-label">
+            <div class="logo-card-name">On Accent</div>
+            <div class="logo-card-note">Restricted — #ffffff on var(--accent). Brand-mark context only.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="logo-rules">
+        <h3>Usage Rules</h3>
+        <ul>
+          <li>Typeface: False Regular &mdash; never substitute, never outline, never warp. Delivered as outlined SVG paths; no runtime font dependency (see Typography Layer 1)</li>
+          <li>Minimum clear space: 1&times; the cap-height of the &ldquo;D&rdquo; on all sides</li>
+          <li>Only three approved colorways: dark-on-light, white-on-dark, white-on-accent</li>
+          <li>The on-accent colorway (white mark on #cc0000 ground) is a brand-mark presentation context only &mdash; it does not grant permission for red backgrounds in layouts, cards, banners, or any other production surface. It exists for logo lockups, brand stamps, and identity moments. If the red ground extends beyond the logo&rsquo;s clear-space boundary, it has exceeded its scope</li>
+          <li>Never place the monogram on a busy image, gradient, or pattern without a solid backing panel</li>
+          <li>No drop shadows, bevels, strokes, or effects &mdash; the letterforms are the design</li>
+          <li>Never lock up with a tagline, wordmark, or secondary text adjacent to the mark</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         01. COLOR SYSTEM
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>01. Color System</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="section-body">
+        <p>Two authored modes. Light and dark are not audience-facing preferences &mdash; they are editorial decisions. Each published surface is locked to one mode at authoring time. The <em>Mode</em> toggle in this guide&rsquo;s masthead is a preview control for reviewers only &mdash; it does not represent a user-facing feature on IMJUSTDEX.com or any other surface.</p>
+        <p><strong>Policy:</strong> No color may be introduced to the system outside this palette. No opacity values may be created ad hoc &mdash; use only the defined alpha variants. Dark mode is a complete variable inversion, not a filter or overlay. Every new surface inherits one of these two modes. Never mix light and dark elements on the same surface. If a new token is needed, it is added here first &mdash; not in a stylesheet.</p>
+      </div>
+
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch-color" style="background:#f4f4f1;border-bottom:2px solid var(--border);"></div>
+          <div class="swatch-label"><div class="swatch-name">--bg</div><div class="swatch-value">#f4f4f1</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#f8f8f6;border-bottom:2px solid var(--border);"></div>
+          <div class="swatch-label"><div class="swatch-name">--panel</div><div class="swatch-value">#f8f8f6</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#050505;"></div>
+          <div class="swatch-label"><div class="swatch-name">--ink</div><div class="swatch-value">#050505</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#0a0a0a;"></div>
+          <div class="swatch-label"><div class="swatch-name">--border</div><div class="swatch-value">#0a0a0a</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#cc0000;"></div>
+          <div class="swatch-label"><div class="swatch-name">--accent</div><div class="swatch-value">#c00</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:rgba(0,0,0,.14);border-bottom:2px solid var(--border);"></div>
+          <div class="swatch-label"><div class="swatch-name">--rule</div><div class="swatch-value">rgba(0,0,0,.14)</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:rgba(5,5,5,.82);"></div>
+          <div class="swatch-label"><div class="swatch-name">--body-color</div><div class="swatch-value">rgba(5,5,5,.82)</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:rgba(5,5,5,.56);"></div>
+          <div class="swatch-label"><div class="swatch-name">--body-muted</div><div class="swatch-value">rgba(5,5,5,.56)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         02. ACCENT RED RULES
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>02. Accent Red &mdash; #c00</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="section-body">
+        <p>Red marks editorial emphasis. Never decoration. It is the only color outside the monochrome palette, and its scarcity is what gives it power. Accent is for signal, not garnish. The moment red becomes frequent, it becomes invisible.</p>
+        <p><strong>Hard limits.</strong> Maximum 1&ndash;2 accent moments per viewport on any surface. Maximum 4 per full article page across all scroll positions. Maximum 2 per carousel slide. If you are debating whether something needs red, it does not. Red is earned by function: it marks section structure, scripture citation, callout emphasis, focus rings, and plate hover borders. Nothing else.</p>
+        <p><strong>Background prohibition.</strong> Red is never used as a background fill on any surface &mdash; no red panels, no red cards, no red banners. The only exception is the on-accent logo colorway (white mark on red ground), which is a brand-mark context, not a layout context. If it fills more than a 3px line or a single text span, it has gone too far.</p>
+        <p><strong>Stacking prohibition.</strong> No more than one red-led component may appear in the same module or viewport region unless the layout is intentionally designated as a high-emphasis moment (e.g., a section head directly above a scripture block). Two accent elements side by side is a signal. Three is noise. If the red starts to feel like a color scheme rather than a punctuation mark, the implementation has failed.</p>
+        <p><strong>Cross-surface rule.</strong> #cc0000 is the only red permitted on any DX surface &mdash; site, carousel, deck, print, merch, motion. Never warm it, never cool it, never lighten it, never use it at reduced opacity except where the system explicitly defines an alpha variant. No red on large body copy blocks. No red gradient. No red shadow. No red glow.</p>
+        <p><strong>One structural red, both modes.</strong> <code>--accent</code> holds at <code>#c00</code> in light and dark &mdash; same value, zero flip. The earlier system flipped dark-mode red to <code>#ff4d4d</code> for contrast compliance, but that produced two visible reds in dark mode and diluted the editorial signature. The unified rule is grounded in WCAG: non-text contrast (borders, fills, underlines, large display text) only requires 3:1, and <code>#c00</code> on <code>#060606</code> clears at 3.45:1. Every structural consumer of red &mdash; section rules, callout borders, scripture cites, plate hover borders, focus rings &mdash; stays on <code>#c00</code> in both modes.</p>
+        <p><strong>The small-text exception.</strong> AA normal text requires 4.5:1, which <code>#c00</code> does not clear on <code>#060606</code>. A second token, <code>--accent-text</code>, handles this: it stays <code>#c00</code> in light mode and lifts to <code>#ff4d4d</code> (7.54:1, AAA) in dark mode. <code>--accent-text</code> is reserved for text-tier consumers only &mdash; inline link hover, uppercase micro-labels, sub-18px metadata, callout emphasis spans, scripture citation text. If the element is a line, fill, or border, it uses <code>--accent</code>. If the element is readable type under 18px, it uses <code>--accent-text</code>. Decorative markers on text elements (underline colors on body links) follow the 3:1 non-text floor and stay on <code>--accent</code>; only the letterforms themselves use <code>--accent-text</code>.</p>
+      </div>
+
+      <div class="accent-grid">
+        <div class="accent-box permitted">
+          <div class="accent-box-header permitted">Permitted</div>
+          <div class="accent-list">
+            <div class="accent-list-item">Section head labels + rule lines</div>
+            <div class="accent-list-item">Callout left border + emphasis spans</div>
+            <div class="accent-list-item">Scripture citation text</div>
+            <div class="accent-list-item">Stat block vertical bar</div>
+            <div class="accent-list-item">Identity tagline text</div>
+            <div class="accent-list-item">Article link underlines + hover</div>
+            <div class="accent-list-item">Plate border on hover</div>
+            <div class="accent-list-item">Focus-visible outline rings</div>
+          </div>
+        </div>
+        <div class="accent-box prohibited">
+          <div class="accent-box-header prohibited">Prohibited</div>
+          <div class="accent-list">
+            <div class="accent-list-item">Backgrounds</div>
+            <div class="accent-list-item">Titles (except section heads)</div>
+            <div class="accent-list-item">Navigation elements</div>
+            <div class="accent-list-item">Footer elements</div>
+            <div class="accent-list-item">Body text</div>
+            <div class="accent-list-item">Tags or metadata</div>
+            <div class="accent-list-item">Reading progress bar (uses --ink)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         03. TYPOGRAPHY
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>03. Typography</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <!-- Layer 1: Brand Mark -->
+      <div class="demo-frame u-mb-gap">
+        <div class="demo-label">Layer 1 &mdash; Brand Mark Typography</div>
+        <div class="section-body u-mb-16">
+          <p class="u-mono-helper">Three distinct typographic layers. They do not overlap. Each has a single job and a hard boundary.</p>
+        </div>
+        <div class="section-body u-mb-16">
+          <p>Typeface: <strong>False Regular.</strong> Used exclusively for the DX monogram. Never substituted, never approximated, never set in any other weight. The mark is always delivered as outlined SVG paths &mdash; the font file is a source asset, not a runtime dependency. No surface should ever require False Regular to be installed.</p>
+        </div>
+        <div class="u-flex-row">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true" focusable="false" class="u-logo-specimen">
+            <path fill="var(--ink)" d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/>
+            <path fill="var(--ink)" d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/>
+          </svg>
+          <div class="u-mono-meta">
+            Scope: Logo only<br>
+            Format: Outlined SVG paths<br>
+            Runtime font dependency: None
+          </div>
+        </div>
+      </div>
+
+      <!-- Layer 2: Editorial Display -->
+      <div class="demo-frame u-mb-gap">
+        <div class="demo-label">Layer 2 &mdash; Editorial Display Typography</div>
+        <div class="section-body u-mb-16">
+          <p>One web font, surgically applied. Impact and SF Mono remain system-native. IBM Plex Sans is the only loaded typeface &mdash; carried as a single Google Fonts stylesheet with preconnect hints. The constraint is precision, not asceticism.</p>
+        </div>
+        <div class="type-specimen u-mb-gap">
+          <div class="type-label">--display &middot; Impact / Haettenschweiler &middot; Titles, Headlines, Pull Quotes, Stat Blocks</div>
+          <p class="type-display" style="font-size:clamp(2.5rem, 6vw, 4.5rem);">The Structure Is the Beauty</p>
+        </div>
+        <div class="type-specimen">
+          <div class="type-label">--body &middot; IBM Plex Sans &middot; Article Body, Scripture, Long-form Reading</div>
+          <p class="type-body-text">Every decision &mdash; border weight, title scale, metadata format, accent placement &mdash; exists to make every surface feel printed, rigid, and inevitable. If a change makes any artifact feel more like &ldquo;content&rdquo; and less like a &ldquo;publication,&rdquo; the change is wrong.</p>
+        </div>
+      </div>
+
+      <!-- Layer 3: Utility / Interface -->
+      <div class="demo-frame">
+        <div class="demo-label">Layer 3 &mdash; Utility &amp; Interface Typography</div>
+        <div class="section-body u-mb-16">
+          <p>The mechanical layer. Metadata, navigation, tags, labels, eyebrows, slide numbers. Always uppercase, always monospaced or narrow. Never draws attention to itself &mdash; it stamps and recedes.</p>
+        </div>
+        <div class="type-specimen u-mb-gap">
+          <div class="type-label">--mono &middot; SF Mono / Fira Code / Cascadia Code / Courier New &middot; Metadata, Tags, Section Heads, Navigation, Eyebrows</div>
+          <p class="type-mono-text">Faith &middot; Identity &middot; Work &middot; Grief &middot; 8 Min &middot; Apr 19, 2026</p>
+        </div>
+        <div class="type-specimen">
+          <div class="type-label">--body &middot; IBM Plex Sans &middot; Homepage Plates, Base Interface Copy, Reading Copy</div>
+          <p class="type-plex-text">No highlight reel. Just the full human, documented.</p>
+        </div>
+      </div>
+
+      <!-- Letter-Spacing Scale -->
+      <div class="demo-frame u-mb-gap">
+        <div class="demo-label">Letter-Spacing Scale &mdash; 12 Semantic Slots</div>
+        <div class="section-body u-mb-16">
+          <p>Every distinct tracking value on a brand surface earns its own token. <strong>No consolidation.</strong> At uppercase chrome sizes, a .03em delta is visibly perceptible side-by-side &mdash; collapsing near-neighbors would introduce drift on every tag chip, meta rail, and chrome label in the system.</p>
+        </div>
+        <div class="section-body u-mb-16">
+          <p><strong>Two directions, one doctrine.</strong> Negative tracking (<code>--track-display</code>, <code>--track-title</code>) is display-tier only &mdash; tight letterforms at h1, plate title, pull-quote scale read as editorial confidence. Never applied below 18px. Positive tracking (<code>--track-brand</code> through <code>--track-eyebrow</code>) is chrome and uppercase: the wider the tracking, the smaller and more label-like the element. Tiny eyebrows get .22em. Brand wordmark gets a restrained .03em.</p>
+        </div>
+        <div class="type-specimen u-mb-gap">
+          <div class="type-label">Display Tier &mdash; Negative Tracking</div>
+          <p style="font-family: var(--mono); font-size: var(--text-label); line-height: var(--lh-loose);">
+            <strong>--track-display</strong> &nbsp;&nbsp;&minus;.03em &nbsp;&middot;&nbsp; h1, plate titles, stat block, 404 headline<br>
+            <strong>--track-title</strong> &nbsp;&nbsp;&nbsp;&nbsp;&minus;.02em &nbsp;&middot;&nbsp; pull-quote, nav title, identity tagline
+          </p>
+        </div>
+        <div class="type-specimen">
+          <div class="type-label">Chrome Tier &mdash; Positive Tracking</div>
+          <p style="font-family: var(--mono); font-size: var(--text-label); line-height: var(--lh-loose);">
+            <strong>--track-brand</strong> &nbsp;&nbsp;&nbsp;&nbsp;.03em &nbsp;&middot;&nbsp; brand mark / wordmark only<br>
+            <strong>--track-nav</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.04em &nbsp;&middot;&nbsp; mode toggle, eyebrow date<br>
+            <strong>--track-footer</strong> &nbsp;&nbsp;&nbsp;.06em &nbsp;&middot;&nbsp; footer-strip items<br>
+            <strong>--track-badge</strong> &nbsp;&nbsp;&nbsp;&nbsp;.08em &nbsp;&middot;&nbsp; meta-rail, identity-sub, 404 actions<br>
+            <strong>--track-chrome</strong> &nbsp;&nbsp;&nbsp;.1em&nbsp;&nbsp; &middot;&nbsp; article meta, back button, share bar<br>
+            <strong>--track-tag</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.12em &nbsp;&middot;&nbsp; tag chip, stat microlabel, nav label<br>
+            <strong>--track-teaser</strong> &nbsp;&nbsp;&nbsp;.14em &nbsp;&middot;&nbsp; identity meta-rail, teaser date<br>
+            <strong>--track-label</strong> &nbsp;&nbsp;&nbsp;&nbsp;.15em &nbsp;&middot;&nbsp; section heads, scripture cite, CTA<br>
+            <strong>--track-indicator</strong> .18em &nbsp;&middot;&nbsp; section indicator (fixed mark)<br>
+            <strong>--track-eyebrow</strong> &nbsp;&nbsp;.22em &nbsp;&middot;&nbsp; 404 eyebrow (widest on the system)
+          </p>
+        </div>
+        <div class="section-body u-mb-16" style="margin-top: 24px;">
+          <p><strong>Rule:</strong> every <code>letter-spacing</code> declaration in production CSS points at a <code>--track-*</code> token. Zero exceptions. Raw values are drift.</p>
+        </div>
+      </div>
+
+      <!-- Font-Weight Scale -->
+      <div class="demo-frame">
+        <div class="demo-label">Font-Weight Scale &mdash; Binary</div>
+        <div class="section-body u-mb-16">
+          <p>Font-weight is tokenized as a binary: regular and bold. <strong>No intermediate weights.</strong> The brand uses exactly two &mdash; 400 for all body and display type, 700 for all chrome, labels, tags, and strong emphasis. No medium, semibold, or black.</p>
+        </div>
+        <div class="type-specimen u-mb-gap">
+          <div class="type-label">The Binary</div>
+          <p style="font-family: var(--mono); font-size: var(--text-label); line-height: var(--lh-loose);">
+            <strong>--weight-regular</strong> &nbsp;&nbsp;400 &nbsp;&middot;&nbsp; body, display, drop caps, article copy<br>
+            <strong>--weight-bold</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;700 &nbsp;&middot;&nbsp; chrome, labels, tags, strong emphasis
+          </p>
+        </div>
+        <div class="section-body u-mb-16">
+          <p><strong>Why binary?</strong> The tokens earn their keep by making the binary legible at the call site. <code>var(--weight-bold)</code> tells you the element belongs to the chrome vocabulary; <code>700</code> does not. A medium or semibold intermediate would dilute the hierarchy &mdash; the system's whole visual logic depends on the gap between the two.</p>
+        </div>
+        <div class="section-body">
+          <p><strong>Exception:</strong> <code>@font-face</code> declarations hold raw <code>400</code> / <code>700</code> values because CSS custom properties do not resolve inside <code>@font-face</code> at-rules. This is a language constraint, not a drift.</p>
+        </div>
+      </div>
+
+      <!-- Typography Scale (Phase 5) -->
+      <div class="demo-frame u-mb-gap">
+        <div class="demo-label">Typography Scale &mdash; 19 Primitives, 19 Semantic Aliases</div>
+        <div class="section-body u-mb-16">
+          <p>Every <code>font-size</code> in production CSS points at a semantic alias. The scale is a <strong>two-tier system</strong>: <code>--size-1</code> through <code>--size-19</code> hold raw <code>rem</code> and <code>clamp()</code> values; <code>--text-*</code> aliases give the call site its intent. Consumers declare what they are, not how big they are.</p>
+        </div>
+        <div class="section-body u-mb-16">
+          <p><strong>Why 19 steps and not 7.</strong> A modular scale would force every existing size to round up or down, breaking calibration tuned by eye across months of editorial work. Phase 5 clusters the 42+ raw values found in production CSS and snaps near-neighbors only where differences sat below the perception threshold (sub-pixel noise: <code>.7rem &asymp; .72rem</code>, <code>.8rem &asymp; .82rem</code>). Display sizes preserve every distinct <code>clamp()</code> &mdash; those were tuned with editorial intent and collapsing them would visibly shift the site.</p>
+        </div>
+        <div class="type-specimen u-mb-gap">
+          <div class="type-label">Chrome &amp; Body Tier</div>
+          <p style="font-family: var(--mono); font-size: var(--text-label); line-height: var(--lh-loose);">
+            <strong>--text-meta</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.6rem &nbsp;&middot;&nbsp; meta rail<br>
+            <strong>--text-micro</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.72rem &nbsp;&middot;&nbsp; micro label<br>
+            <strong>--text-label</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.75rem &nbsp;&middot;&nbsp; chip / eyebrow<br>
+            <strong>--text-citation</strong> &nbsp;&nbsp;.82rem &nbsp;&middot;&nbsp; scripture citation<br>
+            <strong>--text-nav</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.88rem &nbsp;&middot;&nbsp; nav chrome<br>
+            <strong>--text-chrome</strong> &nbsp;&nbsp;&nbsp;&nbsp;.92rem &nbsp;&middot;&nbsp; chrome-md &mdash; buttons, share bar<br>
+            <strong>--text-body</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1rem &nbsp;&middot;&nbsp; article body base<br>
+            <strong>--text-lede</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.08rem &nbsp;&middot;&nbsp; article lede<br>
+            <strong>--text-quote</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.15rem &nbsp;&middot;&nbsp; pull-quote base
+          </p>
+        </div>
+        <div class="type-specimen">
+          <div class="type-label">Display Tier &mdash; Responsive Clamps</div>
+          <p style="font-family: var(--mono); font-size: var(--text-label); line-height: var(--lh-loose);">
+            <strong>--text-h3</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clamp(1.2rem, 2vw, 1.6rem) &nbsp;&middot;&nbsp; article h3, nav title<br>
+            <strong>--text-tagline</strong> &nbsp;&nbsp;&nbsp;clamp(1.35rem, 2.4vw, 2.4rem) &nbsp;&middot;&nbsp; identity tagline<br>
+            <strong>--text-h2</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clamp(1.6rem, 4vw, 2.4rem) &nbsp;&middot;&nbsp; pull quote, section h2<br>
+            <strong>--text-stat</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clamp(1.6rem, 5vw, 2.6rem) &nbsp;&middot;&nbsp; stat block<br>
+            <strong>--text-plate</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clamp(2rem, 4vw, 4rem) &nbsp;&middot;&nbsp; plate-title base<br>
+            <strong>--text-plate-med</strong> &nbsp;clamp(2.35rem, 5vw, 5rem) &nbsp;&middot;&nbsp; plate-title medium<br>
+            <strong>--text-h1</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clamp(2.8rem, 7vw, 5rem) &nbsp;&middot;&nbsp; article h1<br>
+            <strong>--text-display</strong> &nbsp;&nbsp;&nbsp;clamp(3rem, 10vw, 9rem) &nbsp;&middot;&nbsp; 404 display<br>
+            <strong>--text-plate-lg</strong> &nbsp;&nbsp;clamp(3.5rem, 7vw, 7.2rem) &nbsp;&middot;&nbsp; plate-title large<br>
+            <strong>--text-identity</strong> &nbsp;clamp(3.8rem, 10vw, 7.5rem) &nbsp;&middot;&nbsp; identity name
+          </p>
+        </div>
+        <div class="section-body u-mb-16" style="margin-top: 24px;">
+          <p><strong>Rule:</strong> every <code>font-size</code> declaration in production CSS points at a <code>--text-*</code> token. Consumers never reach past the alias to the primitive. If a new size is needed, add a primitive slot &mdash; do not inline a raw <code>rem</code>.</p>
+        </div>
+      </div>
+
+      <!-- Line-Height Scale (Phase 5) -->
+      <div class="demo-frame">
+        <div class="demo-label">Line-Height Scale &mdash; 5 Slots</div>
+        <div class="section-body u-mb-16">
+          <p>Five resolved leading values cover every surface on the brand. Display-tier headlines ride <code>.86</code>; pull quotes and h2/h3 ride <code>1.05</code>; chrome rides <code>1.4</code>; article body rides <code>1.7</code>; the article lede rides <code>1.85</code>. Anything outside this ladder is an editorial exception documented at the call site (drop cap multipliers, badge-style <code>line-height: 1</code>, the identity name's <code>.82</code>).</p>
+        </div>
+        <div class="type-specimen">
+          <div class="type-label">The Ladder</div>
+          <p style="font-family: var(--mono); font-size: var(--text-label); line-height: var(--lh-loose);">
+            <strong>--lh-display</strong> &nbsp;&nbsp;.86 &nbsp;&middot;&nbsp; headlines, plate mega, 404<br>
+            <strong>--lh-tight</strong> &nbsp;&nbsp;&nbsp;&nbsp;1.05 &nbsp;&middot;&nbsp; h2, h3, pull quote<br>
+            <strong>--lh-snug</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.4 &nbsp;&middot;&nbsp; chrome, nav, meta<br>
+            <strong>--lh-normal</strong> &nbsp;&nbsp;&nbsp;1.7 &nbsp;&middot;&nbsp; article body<br>
+            <strong>--lh-loose</strong> &nbsp;&nbsp;&nbsp;&nbsp;1.85 &nbsp;&middot;&nbsp; article lede
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         04. HOMEPAGE PLATE GRID
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>04. Homepage Plate Grid</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="section-body">
+        <p>12-column CSS grid. Rows must sum to 12. Adjacent plates must never share the same background treatment &mdash; textures and plain surfaces alternate so every card contrasts its neighbor.</p>
+        <p><strong>Policy:</strong> Plates are the homepage architecture. They are not cards, not tiles, not thumbnails. Every plate is a self-contained unit with a title, metadata, and a texture or color fill. Plates never contain body text, images of people, or calls to action. The identity plate is always span-4 and always first. Plate borders are 3px solid &mdash; never reduced. Hover state: border shifts to var(--accent) + subtle scale. Plates on mobile stack single-column but retain full border, texture, and typography treatment. A plate that loses its structure on any breakpoint is a broken plate.</p>
+        <p><strong>Semantic rule.</strong> Every plate is a single block-level anchor &mdash; the whole card is the link. There are no nested focusable elements, no absolutely-positioned overlay links, no <code>&lt;article&gt;</code> wrappers with a separate <code>&lt;a&gt;</code> inside. The card's semantics, its focus ring, and its hover state all live on one element. This is non-negotiable for accessibility and predictable tab order.</p>
+        <p><strong>Image plates stay dark in both modes.</strong> The grayscale filter and black-to-transparent gradient on image plates hold identically in light and dark. There is no <code>invert(1)</code> flip and no mirrored gradient. The earlier pattern bleached image plates to white in dark mode, which fragmented the visual field against adjacent dark plain plates. One visual field, both modes. Image plates never lighten.</p>
+      </div>
+
+      <div class="demo-plates">
+        <div class="demo-plate span4 identity">
+          <div class="demo-plate-body">
+            <p class="demo-plate-title" style="font-size:clamp(2.2rem, 5vw, 3.5rem);line-height:.82;color:var(--bg);">Dexter Jakes</p>
+          </div>
+          <div class="demo-plate-meta" style="background:transparent;color:var(--bg);opacity:.45;border-top:1px solid var(--bg);border-right:none;">About</div>
+        </div>
+        <div class="demo-plate span5 img-plate concrete">
+          <div class="demo-plate-body">
+            <p class="demo-plate-title inverse">The Groan Beneath the Song</p>
+          </div>
+          <div class="demo-plate-meta u-plate-meta-light">9 Min</div>
+        </div>
+        <div class="demo-plate span3 img-plate lines">
+          <div class="demo-plate-body">
+            <p class="demo-plate-title inverse" style="font-size: var(--text-h3);">The Nets Were Already Full</p>
+          </div>
+          <div class="demo-plate-meta u-plate-meta-light">14 Min</div>
+        </div>
+      </div>
+
+      <div class="u-mt-gap">
+        <div class="demo-label">Texture Classes</div>
+        <div class="demo-plates">
+          <div class="demo-plate span4 img-plate concrete">
+            <div class="demo-plate-body"><p class="demo-plate-title inverse u-plate-texture-title">img-concrete</p></div>
+          </div>
+          <div class="demo-plate span4 img-plate noise">
+            <div class="demo-plate-body"><p class="demo-plate-title inverse u-plate-texture-title">img-noise</p></div>
+          </div>
+          <div class="demo-plate span4 img-plate lines">
+            <div class="demo-plate-body"><p class="demo-plate-title inverse u-plate-texture-title">img-lines</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         05. ARTICLE COMPONENTS
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>05. Article Components</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <!-- Section Head -->
+      <div class="demo-frame">
+        <div class="demo-label">Section Head</div>
+        <div class="demo-section-head">
+          <h3>II. The Theology of Catching</h3>
+          <div class="demo-section-head-line"></div>
+        </div>
+      </div>
+
+      <!-- Pull Quote -->
+      <div class="demo-frame">
+        <div class="demo-label">Pull Quote &middot; Max 2 Per Article</div>
+        <div class="demo-pull-quote">
+          <p>The net didn&rsquo;t break because of the fish. It broke because they tried to carry the blessing alone.</p>
+        </div>
+      </div>
+
+      <!-- Callout -->
+      <div class="demo-frame">
+        <div class="demo-label">Callout + Callout Emphasis</div>
+        <div class="demo-callout">
+          <p>If your grace only extends to people whose Christ-brand enhances yours, it was never grace. It was <span class="demo-callout-emph">partnership</span>.</p>
+        </div>
+      </div>
+
+      <!-- Scripture -->
+      <div class="demo-frame">
+        <div class="demo-label">Scripture Block</div>
+        <div class="demo-scripture">
+          <p>And he said to them, &ldquo;Follow me, and I will make you fishers of men.&rdquo;</p>
+          <cite>Matthew 4:19 (ESV)</cite>
+        </div>
+      </div>
+
+      <!-- Stat Block -->
+      <div class="demo-frame">
+        <div class="demo-label">Stat Block &middot; Max 2 Per Article</div>
+        <div class="demo-stat">
+          <div class="demo-stat-bar"></div>
+          <div class="demo-stat-text">
+            The calling was never about the catch.
+            <span>It was about the leaving.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="demo-frame">
+        <div class="demo-label">Reading Progress Bar</div>
+        <div class="demo-progress-track">
+          <div class="demo-progress-fill"></div>
+        </div>
+      </div>
+
+      <!-- Section Indicator -->
+      <div class="demo-frame">
+        <div class="demo-label">Section Indicator (Boxed) &middot; Fixed Bottom-Left While Reading</div>
+        <div class="u-pad-y-20">
+          <span class="demo-indicator">III. What the Nets Actually Held</span>
+        </div>
+        <div class="section-body u-mb-16" style="margin-top: 16px;">
+          <p><strong>Stamped editorial mark.</strong> The indicator reads as a printed stamp, not a floating tooltip. No <code>border-radius</code>, no <code>box-shadow</code>, no hairline &mdash; just a content-weight hard border on <code>var(--ink)</code>. An earlier pattern used a 1px rule + radius + shadow, which made it feel like a JavaScript chip hovering over the text. Pulled in favor of the stamp.</p>
+        </div>
+      </div>
+
+      <!-- Meta Rail -->
+      <div class="demo-frame">
+        <div class="demo-label">Meta Rail + Tag</div>
+        <div class="u-flex-row-sm">
+          <span class="demo-meta-rail">9 Min</span>
+          <span class="demo-meta-rail">Coming Soon</span>
+          <span class="demo-tag">Faith</span>
+          <span class="demo-tag">Identity</span>
+        </div>
+      </div>
+
+      <!-- Research CTA -->
+      <div class="demo-frame">
+        <div class="demo-label">Research CTA &middot; Links to Backing Study</div>
+        <div class="demo-research-cta">
+          <span class="demo-research-cta-text">This essay is built on a verse-by-verse study of the calling narratives across all three synoptic gospels.</span>
+          <span class="demo-research-cta-link">Read the Full Study &rarr;</span>
+        </div>
+      </div>
+
+      <!-- Ghost Teaser -->
+      <div class="demo-frame">
+        <div class="demo-label">Ghost Teaser Plate &middot; Pre-Launch Placeholder</div>
+        <div class="demo-ghost">
+          <h3 class="demo-ghost-title">The Groan Beneath the Song</h3>
+          <div class="demo-ghost-rule"></div>
+          <span class="demo-ghost-date">Publishing Apr 19</span>
+          <div class="demo-ghost-meta">Coming Soon</div>
+        </div>
+      </div>
+
+      <!-- Component Governance -->
+      <div class="demo-frame u-mt-32">
+        <div class="demo-label">Component Governance</div>
+        <div class="section-body">
+          <p><strong>Pull Quote.</strong> Purpose: arrest the scroll, surface the single line that reframes the argument. Max 2 per article, max 1 per carousel. Never adjacent to a callout or stat block. Never within the first 300 words. Placement: between major sections, never opening or closing.</p>
+          <p><strong>Callout.</strong> Purpose: editorial aside or reframing statement. Max 2 per article. Never adjacent to another callout or a pull quote. Never in the first paragraph. Must contain at least one emphasis span if making a pointed claim.</p>
+          <p><strong>Scripture Block.</strong> Purpose: primary textual anchor. Max 3 per article, 1 per carousel slide. Never adjacent to another scripture block. Always includes book, chapter:verse, and translation abbreviation. Never paraphrased &mdash; exact text only.</p>
+          <p><strong>Stat Block.</strong> Purpose: typographic emphasis on a single data point or declarative statement. Max 2 per article. Never adjacent to a pull quote. Never used for opinions &mdash; only verifiable claims or theological declarations.</p>
+          <p><strong>Research CTA.</strong> Purpose: link to backing study or source material. Max 1 per article, always after the final section. Never mid-article. Never decorative &mdash; only appears when a real study exists.</p>
+          <p><strong>Ghost Teaser.</strong> Purpose: pre-launch placeholder. Only on homepage plates. Never on article pages. Removed the moment the article publishes.</p>
+          <p><strong>Meta Rail + Tags.</strong> Purpose: classification and reading metadata. Always present. Tags are single-word categorical labels from the approved vocabulary. Never more than 3 tags per article. Read time is always shown.</p>
+          <p><strong>Section Head.</strong> Purpose: structural division of the argument. Always numbered (Roman numerals). Always accompanied by the red rule line. Never skipped &mdash; every section gets one. Never nested. One level of hierarchy only.</p>
+          <p><strong>Prohibited Pairings.</strong> Pull quote + callout in the same viewport. Two scripture blocks within 200 words of each other. Stat block immediately following a pull quote. Any ornamental component used without editorial purpose.</p>
+          <p><strong>Responsive Behavior by Component.</strong> Pull quotes: full-width within the article frame at all breakpoints; font-size scales via clamp() but never below 1.4rem. Callouts: left border and padding unchanged; text reflows naturally. Scripture blocks: maintain 2px left border; citation wraps below verse text below 480px. Stat blocks: bar + text remain side by side above 480px; stack vertically below. Meta rail: items wrap; never truncated. Tags: always visible, never collapsed into a &ldquo;more&rdquo; dropdown. Ghost teasers: maintain full structure at all widths; title scales down but never hides.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         06. EDITORIAL VOICE
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>06. Editorial Voice</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="section-body">
+        <p>The writing voice is <strong>Poetic Brutalism + Dry Humor.</strong> Like brutalist architecture: raw material, no ornamentation, the structure is the beauty. Every word is load-bearing. The humor creates breathing room. Neither works without the other. The brutalism without humor becomes a sermon. The humor without brutalism becomes a podcast.</p>
+        <p><strong>Policy:</strong> This voice governs all authored text across the brand &mdash; articles, captions, carousels, deck copy, email subject lines, and any surface where DX speaks in first person. The voice does not soften for social. It does not formalize for decks. It does not simplify for wider audiences. If the reader cannot handle the register, they are not the audience. Ghostwritten content or collaborative copy must pass through this voice filter before publishing. No exclamation points. No rhetorical questions used as engagement bait. No hashtag-driven language. No emoji in body text. Humor is dry, never self-deprecating. Vulnerability is precise, never performed.</p>
+      </div>
+
+      <div class="voice-example">
+        <div class="register">Brutalist Poetic</div>
+        <blockquote>
+          A gathered, called-out, living community.<br>
+          Not a building. Not a brand. Not a broadcast.
+        </blockquote>
+      </div>
+
+      <div class="voice-example">
+        <div class="register">Dry Conversational</div>
+        <blockquote>
+          Nobody told me that in Sunday school.
+        </blockquote>
+      </div>
+
+      <div class="voice-example">
+        <div class="register">Tender / Grave</div>
+        <blockquote>
+          We lost the pregnancy. Just over four weeks. Early enough for some people to minimize it. But there is no &ldquo;barely&rdquo; in loss. There is only before and after.
+        </blockquote>
+      </div>
+
+      <div class="voice-example">
+        <div class="register">Intimate / Vulnerable</div>
+        <blockquote>
+          I held his hand and begged God not to take him. I told Him I still needed my dad. Not as Bishop. Not as a leader. Just as my father.
+        </blockquote>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         07. MICROCOPY
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>07. Microcopy &amp; Interface Voice</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="section-body">
+        <p>All language &mdash; on-screen, on-slide, in print &mdash; follows one register: terse, stamped, authored. No articles or prepositions in labels. No verbs in metadata. No friendliness. The brand does not greet. It presents.</p>
+        <p>&ldquo;8 min&rdquo; &mdash; not &ldquo;Takes 8 minutes to read.&rdquo;<br>
+        &ldquo;Mode: Light&rdquo; &mdash; not &ldquo;Switch to dark mode.&rdquo;<br>
+        &ldquo;Est. 1994&rdquo; &mdash; not &ldquo;Established in 1994.&rdquo;<br>
+        &ldquo;Publishing Apr 19&rdquo; &mdash; not &ldquo;Coming soon on April 19th!&rdquo;</p>
+        <p>Tags are classification, not decoration. Single-word categorical labels. Never cute. Never clever. Permitted vocabulary: Faith, Identity, Work, Grief, Inheritance, Language, Calling, Strategy.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         08. STRUCTURAL RULES
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>08. Structural Rules</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="section-body">
+        <p><strong>Policy:</strong> The border system is the skeleton of the brand. It is not decorative. Borders define hierarchy, separate modules, and signal structural intent. If a surface has no border, it is either background or it is wrong. Border weights are never improvised &mdash; use only the two approved weights below. These rules apply identically across site, carousels, decks, and print.</p>
+        <p><strong>3px solid var(--border)</strong> &mdash; primary structural borders. Plate outlines, article header, article body, share bar, pull quote top/bottom, section head rule, callout left border, carousel slide-inner frame.</p>
+        <p><strong>2px solid var(--border)</strong> &mdash; secondary borders. Tags, meta rail edges, scripture blocks, brand block, mode toggle, footer items, back button, logo card labels, eyebrow rules on carousels (1px exception for eyebrow accent rule).</p>
+        <p><strong>46px repeating grid lines</strong> at var(--rule) opacity on every background surface &mdash; pages, slides, print layouts, deck backgrounds. Non-negotiable. Never scaled, never recolored, never removed for &ldquo;cleaner&rdquo; layouts.</p>
+        <p><strong>Rulers:</strong> Fixed-position decorative rulers (.ruler-top, .ruler-left) on all web pages. Hidden on mobile. Not present on social or print &mdash; the grid lines carry that function instead.</p>
+        <p><strong>Article frame:</strong> max-width 680px. All articles self-contained HTML with inline styles. No external CSS. No build step. This constraint extends to any long-form reading surface &mdash; Substack, email newsletters, or any future publishing channel.</p>
+      </div>
+
+      <!-- Spacing Scale (Phase 6) -->
+      <div class="demo-frame u-mb-gap u-mt-32">
+        <div class="demo-label">Spacing Scale &mdash; 10 Slots</div>
+        <div class="section-body u-mb-16">
+          <p>Every <code>padding</code>, <code>margin</code>, and <code>gap</code> on a brand surface points at a <code>--space-*</code> token. Ten slots, no improvisation. Like the type scale, spacing snaps to natural editorial steps rather than a rigid modular ramp &mdash; the ladder maps to actual component needs, not geometric progression.</p>
+        </div>
+        <div class="type-specimen">
+          <div class="type-label">The Ladder</div>
+          <p style="font-family: var(--mono); font-size: var(--text-label); line-height: var(--lh-loose);">
+            <strong>--space-0</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 &nbsp;&middot;&nbsp; zero-reset<br>
+            <strong>--space-hairline</strong> &nbsp;4px &nbsp;&middot;&nbsp; icon gutters, tiny offsets<br>
+            <strong>--space-xs</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8px &nbsp;&middot;&nbsp; tight internal padding<br>
+            <strong>--space-sm</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12px &nbsp;&middot;&nbsp; standard internal, grid gaps<br>
+            <strong>--space-chrome</strong> &nbsp;&nbsp;14px &nbsp;&middot;&nbsp; chrome tier &mdash; buttons, share bar, meta rails<br>
+            <strong>--space-md</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16px &nbsp;&middot;&nbsp; primary component padding<br>
+            <strong>--space-lg</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24px &nbsp;&middot;&nbsp; generous component padding<br>
+            <strong>--space-xl</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32px &nbsp;&middot;&nbsp; block gaps<br>
+            <strong>--space-2xl</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48px &nbsp;&middot;&nbsp; section gaps, closing block<br>
+            <strong>--space-3xl</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80px &nbsp;&middot;&nbsp; page rhythm, article bottom
+          </p>
+        </div>
+        <div class="section-body u-mb-16" style="margin-top: 24px;">
+          <p><strong>Rule:</strong> if a component needs a value between slots, it does not mean the ladder is wrong &mdash; it means the component is off-rhythm. Snap to the nearest real step. The ladder is the doctrine, not the default.</p>
+        </div>
+      </div>
+
+      <!-- Border Weight + Focus Ring (Phase 4.1 / §4) -->
+      <div class="demo-frame">
+        <div class="demo-label">Border Weight &amp; Focus Ring &mdash; Tokenized</div>
+        <div class="section-body u-mb-16">
+          <p>The border system is tokenized as two weights, no more: <code>--border-weight-content</code> at <strong>3px</strong> for primary structural borders (plate outlines, article frame, pull quote rules, callout left border, section head rule) and <code>--border-weight-chrome</code> at <strong>2px</strong> for secondary borders (tags, meta rail, scripture blocks, mode toggle, footer items, back button). Focus rings use <code>--focus-ring-width</code> at <strong>2px</strong>, unified across both modes.</p>
+        </div>
+        <div class="type-specimen">
+          <div class="type-label">The Skeleton</div>
+          <p style="font-family: var(--mono); font-size: var(--text-label); line-height: var(--lh-loose);">
+            <strong>--border-weight-content</strong> &nbsp;3px &nbsp;&middot;&nbsp; structural borders &mdash; frames, plates, section rules<br>
+            <strong>--border-weight-chrome</strong> &nbsp;&nbsp;2px &nbsp;&middot;&nbsp; chrome borders &mdash; tags, meta, toggles<br>
+            <strong>--focus-ring-width</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2px &nbsp;&middot;&nbsp; :focus-visible outline, both modes
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         09. SOCIAL CAROUSELS
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>09. Social Carousels</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <!-- Canvas spec -->
+      <div class="carousel-spec-grid u-mb-gap">
+        <div class="carousel-spec-card u-span-full">
+          <p class="u-intro-body">Every carousel is a stripped-down version of the article page &mdash; same grid, same panel border, same monospace eyebrow, same display type. Dark mode is default. Light is permitted but never mixed within a single carousel. If a slide could not be a printed broadsheet panel, it is wrong.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Canvas</h4>
+          <p>1080 &times; 1350 px &mdash; 4:5 aspect ratio. Instagram carousel spec. All other platforms accept this ratio without cropping critical content.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Grid</h4>
+          <p>46px repeating background lines at rgba(255,255,255,.16) dark / rgba(0,0,0,.14) light. Identical across all surfaces &mdash; site, carousels, decks, print. Non-negotiable.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Frame</h4>
+          <p>48px inset margin top, 36px sides &amp; bottom. 3px solid --ink border on panel. Grain texture overlay at 0.025 opacity.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Sequence</h4>
+          <p>10 slides max. Cover &rarr; Thesis &rarr; 5&ndash;6 body slides &rarr; Pull quote &rarr; Scripture &rarr; CTA. Footer: DX logo left, bare slide number right.</p>
+        </div>
+      </div>
+
+      <!-- Slide type demos -->
+      <div class="slide-types-grid">
+        <!-- Cover -->
+        <div>
+          <div class="slide-demo">
+            <div class="slide-demo-inner">
+              <div class="sd-content" style="justify-content:flex-end;padding-bottom:24px;">
+                <div class="sd-title" style="font-size:clamp(1.1rem,3vw,1.8rem);margin-bottom:10px;">The Groan<br>Beneath<br>the Song</div>
+                <div class="sd-sub-mono">Faith &bull; Music &bull; Identity</div>
+              </div>
+              <div class="sd-footer">
+                <div class="sd-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true" focusable="false"><path fill="#f3f0e8" d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/><path fill="#f3f0e8" d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/></svg></div>
+                <div class="sd-pill">Swipe &rarr;</div>
+              </div>
+            </div>
+          </div>
+          <div class="slide-type-label">Cover</div>
+        </div>
+
+        <!-- Principle -->
+        <div>
+          <div class="slide-demo">
+            <div class="slide-demo-inner">
+              <div class="sd-eyebrow">Faith + Strategy</div>
+              <div class="sd-content">
+                <div class="sd-section-num">03</div>
+                <div class="sd-title" style="font-size:clamp(.7rem,1.8vw,1.1rem);margin-bottom:8px;">Go Where<br>the Fish Are</div>
+                <div class="sd-body">Strategy means meeting people in their reality, not yours. Jesus didn&rsquo;t build a dock. He got in their boat.</div>
+              </div>
+              <div class="sd-footer">
+                <div class="sd-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true" focusable="false"><path fill="#f3f0e8" d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/><path fill="#f3f0e8" d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/></svg></div>
+                <span class="sd-num">03</span>
+              </div>
+            </div>
+          </div>
+          <div class="slide-type-label">Principle</div>
+        </div>
+
+        <!-- Pull Quote -->
+        <div>
+          <div class="slide-demo">
+            <div class="slide-demo-inner">
+              <div class="sd-content" style="justify-content:center;text-align:center;padding:16px;">
+                <div class="sd-title" style="font-size:clamp(.75rem,2vw,1.2rem);line-height:.92;">Obedience<br>Doesn&rsquo;t<br>Need a<br>Business<br>Case</div>
+              </div>
+              <div class="sd-footer">
+                <div class="sd-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true" focusable="false"><path fill="#f3f0e8" d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/><path fill="#f3f0e8" d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/></svg></div>
+                <span class="sd-num">07</span>
+              </div>
+            </div>
+          </div>
+          <div class="slide-type-label">Pull Quote</div>
+        </div>
+
+        <!-- Scripture -->
+        <div>
+          <div class="slide-demo">
+            <div class="slide-demo-inner">
+              <div class="sd-eyebrow">Scripture</div>
+              <div class="sd-content" style="justify-content:center;padding:10px 12px;">
+                <div class="sd-scripture-row"><span class="sd-cite">Luke</span> <span class="sd-cite" style="font-weight:var(--weight-regular);">5:4&ndash;7</span></div>
+                <div class="sd-ref-desc">&ldquo;Put out into deep water, and let down the nets for a catch.&rdquo;</div>
+                <div class="sd-scripture-row" style="margin-top:6px;"><span class="sd-cite">Prov</span> <span class="sd-cite" style="font-weight:var(--weight-regular);">16:9</span></div>
+                <div class="sd-ref-desc">We plan the way; God directs the steps.</div>
+              </div>
+              <div class="sd-footer">
+                <div class="sd-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true" focusable="false"><path fill="#f3f0e8" d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/><path fill="#f3f0e8" d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/></svg></div>
+                <span class="sd-num">08</span>
+              </div>
+            </div>
+          </div>
+          <div class="slide-type-label">Scripture</div>
+        </div>
+
+        <!-- CTA -->
+        <div>
+          <div class="slide-demo">
+            <div class="slide-demo-inner">
+              <div class="sd-content" style="justify-content:center;text-align:center;padding:16px;">
+                <div style="font-family:var(--mono);font-size:.38rem;color:rgba(243,240,232,.52);text-transform:uppercase;letter-spacing:var(--track-indicator);margin-bottom:10px;">Read the full essay</div>
+                <div class="sd-title" style="font-size:clamp(.6rem,1.5vw,.9rem);margin-bottom:12px;">IMJUSTDEX.com</div>
+                <div style="font-family:var(--mono);font-size:.34rem;color:rgba(243,240,232,.42);text-transform:uppercase;letter-spacing:var(--track-indicator);">@imjustdex</div>
+              </div>
+              <div class="sd-footer">
+                <div class="sd-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true" focusable="false"><path fill="#f3f0e8" d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/><path fill="#f3f0e8" d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/></svg></div>
+                <div class="sd-pill">Read &rarr;</div>
+              </div>
+            </div>
+          </div>
+          <div class="slide-type-label">CTA</div>
+        </div>
+      </div>
+
+      <!-- Carousel typography rules -->
+      <div class="carousel-spec-grid u-mt-gap">
+        <div class="carousel-spec-card">
+          <h4>Display Type</h4>
+          <p>Impact / Anton. Uppercase, line-height 0.85&ndash;0.92, letter-spacing &minus;0.03em. 48&ndash;110px depending on slide type.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Body Type</h4>
+          <p>IBM Plex Sans. 24&ndash;25px, line-height 1.55&ndash;1.65. Color: rgba(243,240,232,0.82) dark, rgba(5,5,5,0.82) light.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Monospace</h4>
+          <p>Space Mono / SF Mono / Fira Code. 11&ndash;14px, uppercase, letter-spacing 0.22em. Eyebrows, slide numbers, CTA pills, scripture citations.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Section Numbers</h4>
+          <p>Display type at 100&ndash;120px. var(--accent) red. Letter-spacing &minus;4px. Only on principle slides.</p>
+        </div>
+      </div>
+
+      <!-- Carousel color notes -->
+      <div class="carousel-spec-grid u-mt-gap">
+        <div class="carousel-spec-card">
+          <h4>Dark Palette</h4>
+          <p>--bg: #060606, --panel: #0d0d0d, --ink: #f3f0e8, --accent: #cc0000, --cite: #ff4444. Default for all carousels.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Light Palette</h4>
+          <p>--bg: #f4f4f1, --panel: #f8f8f6, --ink: #050505, --accent: #cc0000. Permitted but never mixed with dark in the same carousel.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Accent Red</h4>
+          <p>Eyebrow rule (1px), section numbers, scripture citations (#ff4444), callout left-border, accent words in headlines. Never backgrounds.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Grain Overlay</h4>
+          <p>SVG feTurbulence noise on slide-inner at 0.025 opacity, 128px tile. Adds print texture. Always present.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         10. PLATFORM DIMENSIONS
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>10. Platform Dimensions</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="platform-grid">
+        <div class="platform-card u-span-full">
+          <p class="u-intro-body">All social graphics inherit the Refined Brutalism system &mdash; grid background, panel border, monospace metadata, display headlines. Only the canvas size changes. Critical content stays within the central 80% safe zone.</p>
+        </div>
+        <div class="platform-card">
+          <h4>Instagram</h4>
+          <div class="platform-row"><span class="platform-type">Carousel</span><span class="platform-size">1080 &times; 1350</span></div>
+          <div class="platform-row"><span class="platform-type">Post</span><span class="platform-size">1080 &times; 1080</span></div>
+          <div class="platform-row"><span class="platform-type">Story / Reel</span><span class="platform-size">1080 &times; 1920</span></div>
+        </div>
+        <div class="platform-card">
+          <h4>Facebook</h4>
+          <div class="platform-row"><span class="platform-type">Post</span><span class="platform-size">1200 &times; 630</span></div>
+          <div class="platform-row"><span class="platform-type">Story</span><span class="platform-size">1080 &times; 1920</span></div>
+          <div class="platform-row"><span class="platform-type">Cover</span><span class="platform-size">1640 &times; 624</span></div>
+        </div>
+        <div class="platform-card">
+          <h4>Twitter / X</h4>
+          <div class="platform-row"><span class="platform-type">Post</span><span class="platform-size">1200 &times; 675</span></div>
+          <div class="platform-row"><span class="platform-type">Header</span><span class="platform-size">1500 &times; 500</span></div>
+        </div>
+        <div class="platform-card">
+          <h4>LinkedIn</h4>
+          <div class="platform-row"><span class="platform-type">Post</span><span class="platform-size">1200 &times; 627</span></div>
+          <div class="platform-row"><span class="platform-type">Article</span><span class="platform-size">1200 &times; 644</span></div>
+        </div>
+        <div class="platform-card">
+          <h4>YouTube</h4>
+          <div class="platform-row"><span class="platform-type">Thumbnail</span><span class="platform-size">1280 &times; 720</span></div>
+          <div class="platform-row"><span class="platform-type">Banner</span><span class="platform-size">2560 &times; 1440</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         11. ACCESSIBILITY
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>11. Accessibility Standards</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="carousel-spec-grid">
+        <div class="carousel-spec-card u-span-full">
+          <p class="u-intro-body">The aesthetic is uncompromising. Accessibility is also uncompromising. These do not conflict. A system that cannot be read, navigated, or understood by all users is not disciplined &mdash; it is negligent.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Contrast</h4>
+          <p>All body text meets WCAG 2.1 AA minimum (4.5:1). --body-color at 0.82 opacity on --bg passes in both modes. --body-muted at 0.52 opacity is metadata-only and never used for essential content. --body-faint (0.18) and --body-tint (0.04) are decorative only &mdash; never carry meaning alone.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Minimum Type Sizes</h4>
+          <p>Body text: 16px minimum (1rem). Monospace metadata: 11px minimum (0.6875rem). No text on any surface smaller than 11px. Carousel body text: 24px minimum. Carousel monospace: 10px minimum at 1080px canvas width.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Focus States</h4>
+          <p>All interactive elements show a 2px solid var(--focus-ring) outline on :focus-visible with 2px offset. Never removed, never replaced with color-only indication. Tab order follows visual reading order. Skip-to-content link present on all pages.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Touch Targets</h4>
+          <p>Minimum 44&times;44px for all interactive elements. Mode toggle, navigation links, plate cards, share bar items, and tag links all meet this threshold. Padding counts toward target area.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Reduced Motion</h4>
+          <p>All transitions and animations respect prefers-reduced-motion: reduce. When active: no hover transforms, no progress bar animation, no plate scale transitions. Static fallbacks only. The brand does not depend on motion for meaning.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Color Independence</h4>
+          <p>Accent red never carries meaning alone. Every red element is also distinguished by position, border, weight, or label. Section heads have both red text and a red rule line. Scripture citations have both red color and italic styling. A monochrome printout of any page must remain fully legible.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Uppercase &amp; Tracking</h4>
+          <p>Uppercase text-transform is restricted to monospace and display faces. Never applied to body reading copy. Letter-spacing on uppercase mono: 0.12em&ndash;0.25em maximum. Beyond 0.25em, words fragment and readability collapses. Display uppercase uses negative tracking (&minus;0.03em) &mdash; never positive. Uppercase blocks must not exceed 3 lines without a line break or visual pause.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Opacity Floors</h4>
+          <p>Minimum opacity for any text that carries meaning: 0.52 (--body-muted). Below 0.52 is decorative only and must never be the sole carrier of information. Ghost states (0.18) are visual texture &mdash; their content must also be accessible via screen reader or nearby visible text. --body-tint (0.04) is background shading only, never text. Disabled state floor: 0.32 opacity on the full element.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Keyboard Navigation</h4>
+          <p>Every interactive element is reachable via Tab. Focus order matches visual reading order: masthead &rarr; mode toggle &rarr; content &rarr; footer. Visible focus outline on every tab stop. No focus traps. Skip-to-content link present on every page. <strong>Component-scoped bindings:</strong> when a surface introduces expandable components (accordions, disclosure panels) or grouped interactive controls (tag groups, meta rails used as filters), that component must bind Escape to collapse and arrow keys to roving focus within the group. These bindings live with the components that need them &mdash; the page itself is not responsible.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         12. RESPONSIVE BEHAVIOR
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>12. Responsive Behavior</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="carousel-spec-grid">
+        <div class="carousel-spec-card u-span-full">
+          <p class="u-intro-body">The system does not have a &ldquo;mobile version.&rdquo; It has one design that compresses. Components shed secondary elements at narrower widths but never change personality. The grid tightens. The borders remain.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Breakpoints</h4>
+          <p><strong>&le; 768px:</strong> Plates stack single-column. Rulers hidden. Outer padding reduces to 16px. Grid background remains.<br><strong>&le; 480px:</strong> Display type scales via clamp() floor values. Meta rail wraps. Share bar stacks vertically. Section indicator hides.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Plate Grid</h4>
+          <p>12-column at desktop. Single-column stack below 768px. Plates maintain 3px border and full texture treatment at all sizes. Plate titles use clamp() &mdash; never truncated, never hidden.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Article Frame</h4>
+          <p>Max-width 680px at all breakpoints. Padding adjusts from 28px to 16px. Pull quotes, callouts, and scripture blocks remain full-width within the frame. No component is ever hidden on mobile.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Headlines</h4>
+          <p>All display type uses clamp() with a floor, preferred vw unit, and ceiling. Example: clamp(2.2rem, 6vw, 4.5rem). Headlines reflow naturally. Never truncated with ellipsis. Never reduced below the clamp floor.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Carousel Adaptation</h4>
+          <p>Carousels are fixed-canvas (1080&times;1350). No responsive reflow. For story format (1080&times;1920): increase top/bottom margin to 72px, keep side margins at 36px. Headline scale reduces by 15%. Body text unchanged. Footer position stays pinned to bottom.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Platform Adaptation</h4>
+          <p>Wider formats (Facebook post 1200&times;630, Twitter 1200&times;675): center content vertically, increase side margins to 60px, cap headline at 2 lines. Reduce body text to 1 line or remove entirely. Metadata stays bottom-left. DX logo stays bottom-left. Slide number removed on single-image formats.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Line Length</h4>
+          <p>Body reading copy: 55&ndash;75 characters per line (optimal: 65). Enforced by max-width: 680px on the article frame. On mobile, line length compresses naturally but never below 40 characters at 16px body size. Monospace metadata has no line-length constraint &mdash; it is short by design.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Mobile Rhythm</h4>
+          <p>Vertical spacing compresses but maintains proportional relationships. Section margins reduce from 48px to 32px. Component internal padding reduces from 24px to 16px. Grid gap stays at 12px. Border weights never change. The rhythm slows slightly on mobile &mdash; more breathing room between components, not less. Monospace labels below 11px on mobile: remove letter-spacing reduction, maintain 0.12em minimum.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Image Plates</h4>
+          <p>Texture background plates (concrete, noise, lines) crop center on all breakpoints. Never stretch. Never reveal edges. Title overlay stays bottom-left. Meta tag stays bottom-right. If the plate aspect ratio changes (e.g., square post vs. carousel), re-center the texture and re-anchor text to the bottom third.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Metadata Collapse</h4>
+          <p>Below 480px: share bar items stack vertically. Section indicator hides (content is short enough to not need it). Tag pills wrap to second line if needed &mdash; never hidden. Read time always visible. &ldquo;Coming Soon&rdquo; badge always visible. If a component must be removed for space, remove decorative elements first (rulers, section indicator), never structural ones (tags, meta, borders).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         13. MOTION & INTERACTION STATES
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>13. Motion &amp; Interaction States</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="carousel-spec-grid">
+        <div class="carousel-spec-card u-span-full">
+          <p class="u-intro-body">Motion is mechanical, not expressive. Every transition is short, linear or ease-out, and serves a single purpose: confirm that an interaction registered. The brand does not bounce, spring, wobble, or delight. It responds.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Transition Defaults</h4>
+          <p>Duration: 0.18s for color/opacity, 0.25s for transforms. Easing: ease or ease-out only. Never ease-in-out. Never cubic-bezier curves that overshoot. Never transitions longer than 0.4s.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Hover States</h4>
+          <p><strong>Plates:</strong> border-color shifts to var(--accent), subtle scale(1.005) transform. <strong>Links:</strong> underline appears via border-bottom, color unchanged. <strong>Tags/Meta:</strong> background shifts to var(--body-tint). <strong>Buttons:</strong> background and foreground invert.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Active / Pressed</h4>
+          <p>Scale to 0.98 on interactive elements. Immediate &mdash; no transition on press, only on release. Color does not change on active. The press is the only feedback.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Focus / Selected</h4>
+          <p>:focus-visible shows 2px solid var(--accent) outline, 2px offset. Selected/current states (active tag, current section) use var(--ink) background with var(--bg) text &mdash; full inversion. Never a partial highlight.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Disabled / Empty</h4>
+          <p>Disabled elements: 0.32 opacity, cursor: not-allowed, no hover effect. Empty states (no articles, no results): centered monospace text, uppercase, var(--body-muted) color. Never illustrated. Never friendly. Example: &ldquo;Nothing here yet.&rdquo;</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Loading / Progress</h4>
+          <p>Reading progress bar: <code>var(--ink)</code> fill, 3px height, linear left-to-right. Red was pulled from the progress bar because a red strip at the viewport top was competing with the masthead and diluting the accent's semantic weight. Red is reserved for section heads, callouts, underlines, and focus rings &mdash; never for ambient chrome. Page loads: no skeleton screens, no spinners. Content appears when ready. If a delay exceeds 2s, a single monospace status line appears: &ldquo;Loading.&rdquo; &mdash; no animation, no ellipsis cycle.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Expanded / Collapsed</h4>
+          <p>Expandable content (if ever introduced): toggle via border state, not animation. Collapsed: 2px solid var(--rule) border, content hidden. Expanded: 3px solid var(--border), content visible. Transition: height auto with 0.25s ease-out. Chevron or indicator rotates 90&deg; &mdash; no bounce. Expandable controls must expose state with aria-expanded on the trigger.</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Error / Alert</h4>
+          <p>Error states use var(--accent) red &mdash; the system already reserves red for emphasis, so errors inherit the same signal. Error text: monospace, uppercase, var(--accent) color. Error borders: 2px solid var(--accent) on the affected field. No icons. No exclamation marks. No friendly language. Example: &ldquo;Required.&rdquo; or &ldquo;Invalid format.&rdquo;</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Visited</h4>
+          <p>Visited article links on homepage plates: no color change. The system does not differentiate visited from unvisited. The read/unread distinction is not part of the editorial posture. If tracking is needed, it happens in metadata (&ldquo;Read&rdquo; tag), not in link styling.</p>
+        </div>
+      </div>
+    </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer-strip" role="contentinfo">
+      <span>I&rsquo;m Just Dex &middot; Brand Style Guide &middot; April 2026 &middot; Phase 7</span>
+      <span>Living implementation: dxjakes.com / DESIGN-SYSTEM.md</span>
+      <span>Est. 1994</span>
+    </footer>
+
+  </div>
+
+  <script>
+    /* Theme preview toggle.
+       Light and dark are editorial — not user preferences — per the Color System.
+       This control is a preview affordance for the guide itself, nothing more.
+       It exposes its state via aria-pressed and persists across reloads of this
+       file so reviewers can hold a chosen preview mode while scrolling. */
+    (function () {
+      var toggle = document.getElementById('modeToggle');
+      var body = document.body;
+      var STORAGE_KEY = 'dx-style-guide-preview-mode';
+
+      function setLabel() {
+        var dark = body.classList.contains('dark-mode');
+        toggle.textContent = dark ? 'Mode: Dark' : 'Mode: Light';
+        toggle.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      }
+
+      // Restore prior preview choice if available.
+      try {
+        var stored = localStorage.getItem(STORAGE_KEY);
+        if (stored === 'dark') body.classList.add('dark-mode');
+      } catch (e) { /* storage unavailable — silent */ }
+
+      setLabel();
+
+      toggle.addEventListener('click', function () {
+        body.classList.toggle('dark-mode');
+        setLabel();
+        try {
+          localStorage.setItem(
+            STORAGE_KEY,
+            body.classList.contains('dark-mode') ? 'dark' : 'light'
+          );
+        } catch (e) { /* storage unavailable — silent */ }
+      });
+    })();
+  </script>
+</body>
+</html>
