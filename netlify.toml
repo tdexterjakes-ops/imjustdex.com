@@ -52,6 +52,26 @@
     Cross-Origin-Resource-Policy = "same-origin"
 
 # ──────────────────────────────────────────────
+# Brand guide — scoped CSP override
+# The /brand/ style guide is a living specimen. It renders
+# swatches, demo frames, and one-off type samples via
+# element-level inline style="..." attributes (36 of them,
+# each unique to its demonstration). These cannot use the
+# site-wide strict 'style-src self' without converting every
+# demo into a single-use class, which would pollute brand.css
+# with dozens of one-off rules that defeat the purpose of a
+# specimen document.
+#
+# This override adds 'unsafe-inline' to style-src ONLY for
+# /brand/*. script-src stays strict (inline scripts are
+# extracted to /brand/brand.js). All other policies unchanged.
+# ──────────────────────────────────────────────
+[[headers]]
+  for = "/brand/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+
+# ──────────────────────────────────────────────
 # Cache: HTML pages — no cache (always fresh)
 # ──────────────────────────────────────────────
 [[headers]]
