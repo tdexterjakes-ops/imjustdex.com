@@ -356,6 +356,30 @@
       color: var(--body-color);
     }
     .logo-rules li { margin-bottom: 4px; }
+    .logo-download {
+      margin-top: 16px; border: 3px solid var(--border);
+      background: var(--ink); padding: var(--space-lg);
+    }
+    .logo-download h3 {
+      font-family: var(--mono); font-size: .65rem; font-weight: var(--weight-bold);
+      letter-spacing: var(--track-tag); text-transform: uppercase;
+      color: var(--accent-text); margin: 0 0 var(--space-sm);
+    }
+    .logo-download a {
+      display: inline-block; font-family: var(--mono); font-size: .95rem;
+      font-weight: var(--weight-bold); letter-spacing: .02em;
+      color: #f4f4f1; text-decoration: none;
+      border-bottom: 2px solid var(--accent); padding-bottom: 3px;
+      transition: color .18s ease, border-color .18s ease;
+    }
+    .logo-download a:hover, .logo-download a:focus-visible {
+      color: var(--accent); outline: none;
+    }
+    .logo-download p {
+      font-family: var(--mono); font-size: .58rem;
+      letter-spacing: var(--track-footer); color: rgba(244,244,241,.56);
+      margin: var(--space-sm) 0 0;
+    }
 
     .section {
       margin-top: 48px;
