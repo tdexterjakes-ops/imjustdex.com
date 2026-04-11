@@ -479,7 +479,7 @@ Reduced motion is handled globally in `tokens.css` via a blanket override:
 }
 ```
 
-This catches every transition on the site, including those that use `var(--motion-tiny)`. Do not add per-component reduced-motion rules — they are redundant.
+This catches every transition on the site, including those that use `var(--motion-fast/med/slow)`. Do not add per-component reduced-motion rules — they are redundant.
 
 ### Grid Background
 
@@ -579,7 +579,7 @@ A plate is the base archive card. It renders as either:
   justify-content: space-between;
   overflow: hidden; isolation: isolate;
   color: inherit; text-decoration: none;
-  transition: border-color var(--motion-tiny);
+  transition: border-color var(--motion-fast) var(--ease-default);
 }
 /* Native <a> cursor already renders as pointer — no redundant rule. */
 a.plate:hover { border-color: var(--accent); }
@@ -917,7 +917,7 @@ Reusable CTA bar between article body and share bar. Links to external research,
 .reading-progress {
   position: fixed; top: 0; left: 0; width: 0%; height: 3px;
   background: var(--ink); z-index: 9999;
-  transition: width .12s linear; pointer-events: none;
+  transition: width var(--motion-fast) linear; pointer-events: none;
 }
 ```
 
@@ -937,7 +937,7 @@ Fixed-position label at bottom-left. Shows current section head text. Fades in/o
   color: var(--ink); background: var(--bg);
   border: var(--border-weight-content) solid var(--ink);
   padding: var(--space-xs) var(--space-sm); opacity: 0;
-  transition: opacity .3s ease; pointer-events: none;
+  transition: opacity var(--motion-slow) ease; pointer-events: none;
   max-width: 260px; white-space: nowrap;
   overflow: hidden; text-overflow: ellipsis;
 }
@@ -970,18 +970,23 @@ Hidden off-screen, appears on focus: `background: var(--ink)`, `color: var(--bg)
 
 ### Motion Doctrine
 
-Motion is a single token, applied sparingly:
+Motion is a three-rung duration scale + one easing curve, applied sparingly:
 
 ```css
---motion-tiny: 120ms cubic-bezier(.2, .8, .2, 1);
+--motion-fast:   120ms;
+--motion-med:    180ms;
+--motion-slow:   300ms;
+--ease-default:  cubic-bezier(.2, .8, .2, 1);
 ```
 
-Only three surfaces animate:
-- **Mode toggle** — `border-color` and `background` on hover.
-- **Plates** (`a.plate`) — `border-color` on hover.
-- **Article nav cards** (`.article-nav-link`) — `border-color` on hover.
+If a duration isn't in this scale, it doesn't belong in the product.
 
-Everything else stays instant. No fade-ins. No scroll reveals. No page transitions. The reading progress bar uses its own `width .12s linear` because it's tracking a continuous scroll value, not reacting to a discrete event.
+**Where each rung lives:**
+- **`--motion-fast`** — hover chrome (`a.plate`, `.article-nav-link`, `.mode-toggle` border-color/background), reading progress bar `width` (paired with `linear`).
+- **`--motion-med`** — body `background`/`color` mode flip (`html.dark-mode` transition), research CTA `opacity` hover.
+- **`--motion-slow`** — section indicator fade (ambient chrome reveal).
+
+Everything else stays instant. No fade-ins. No scroll reveals. No page transitions. `--motion-tiny` from earlier phases was collapsed into `--motion-fast` + `--ease-default` to keep duration and easing authored as orthogonal tokens.
 
 ### Reduced Motion
 

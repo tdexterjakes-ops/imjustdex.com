@@ -159,7 +159,7 @@ main {
   letter-spacing: var(--track-nav);
   cursor: pointer;
   min-height: 44px;
-  transition: border-color var(--motion-tiny), background var(--motion-tiny);
+  transition: border-color var(--motion-fast) var(--ease-default), background var(--motion-fast) var(--ease-default);
 }
 
 /* ── Hover accents ─────────────────────────────────────────── */

@@ -127,10 +127,31 @@
      so it rides inside the 3px content border without competing. */
   --focus-ring-width: 2px;
 
-  /* Motion — a single tiny-ease curve for hover/focus chrome.
-     Applied sparingly: mode toggle, plate hover borders, article
-     nav hover borders. Everything else stays instant. */
-  --motion-tiny: 120ms cubic-bezier(.2, .8, .2, 1);
+  /* ── Motion scale (Phase 8) ─────────────────────────────────
+     Three-rung duration ladder + one easing curve. Durations
+     and easing are authored as orthogonal tokens so hover
+     chrome, reading progress, and mode transitions compose
+     from the same vocabulary.
+
+     --motion-fast  : 120ms — hover chrome (borders, backgrounds),
+                      reading progress (paired with linear).
+     --motion-med   : 180ms — mode toggle body flip, opacity
+                      transitions on small chrome.
+     --motion-slow  : 300ms — section indicator fade, ambient
+                      reveals where a shorter duration would
+                      feel abrupt.
+     --ease-default : cubic-bezier(.2, .8, .2, 1) — the single
+                      curve. Used anywhere a non-linear feel is
+                      desired. Linear stays linear (progress bar).
+
+     Doctrine: if a duration isn't in this scale, it doesn't
+     belong in the product. --motion-tiny was collapsed into
+     --motion-fast + --ease-default to keep the vocabulary
+     orthogonal. Everything else stays instant. */
+  --motion-fast:   120ms;
+  --motion-med:    180ms;
+  --motion-slow:   300ms;
+  --ease-default:  cubic-bezier(.2, .8, .2, 1);
 
   /* Typography stacks
      Anton: open-source condensed display (Impact-equivalent).
@@ -303,7 +324,7 @@ body {
   line-height: var(--lh-snug);
   min-height: 100vh;
   min-height: 100dvh;
-  transition: background .18s ease, color .18s ease;
+  transition: background var(--motion-med) ease, color var(--motion-med) ease;
 
   /* 46px ruler grid background — locked to the typographic grid */
   background-image:

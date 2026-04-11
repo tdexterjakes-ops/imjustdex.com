@@ -1060,7 +1060,7 @@
         </div>
         <div class="carousel-spec-card">
           <h4>Transition Defaults</h4>
-          <p>Duration: 0.18s for color/opacity, 0.25s for transforms. Easing: ease or ease-out only. Never ease-in-out. Never cubic-bezier curves that overshoot. Never transitions longer than 0.4s.</p>
+          <p>Motion is tokenized as a three-rung duration scale composed with a single easing curve. <code>--motion-fast</code> (120ms) for hover chrome, progress bar fills. <code>--motion-med</code> (180ms) for the body mode flip and small-chrome opacity. <code>--motion-slow</code> (300ms) for ambient reveals like the section indicator. <code>--ease-default</code> (cubic-bezier(.2, .8, .2, 1)) is the one curve; linear stays linear where the motion tracks a continuous value. <strong>If a duration isn&rsquo;t in this scale, it doesn&rsquo;t belong in the product.</strong> Never ease-in-out. Never overshoot curves. Never transitions longer than <code>--motion-slow</code>.</p>
         </div>
         <div class="carousel-spec-card">
           <h4>Hover States</h4>
