@@ -78,10 +78,40 @@
   --body-faint: rgba(5, 5, 5, .18);
   --body-tint: rgba(5, 5, 5, .04);
 
-  /* Layout */
-  --grid-gap: 12px;
+  /* Layout
+     --outer-pad is a scope-excluded layout primitive; it lives
+     outside the spacing scale because the responsive step-down
+     (28→18 at 760px) is tuned to the page frame, not rhythm.
+     --grid-gap points at the scale because it matches naturally. */
+  --grid-gap: var(--space-sm);
   --outer-pad: 28px;
   --tile-min: 190px;
+
+  /* ── Spacing scale (Phase 6) ────────────────────────────────
+     Single-tier semantic system. No primitive/semantic split —
+     spacing has no fluid/fixed or display/sub-display distinction
+     to encode, so one layer is enough.
+
+     Strict 4px base with one deliberate slot (--space-chrome at
+     14px) for the chrome micro-padding tier sitting between sm
+     and md. Chrome breathes differently from content; naming
+     the tier makes that legible.
+
+     Consumers call --space-* aliases. Raw pixel values only
+     appear in three documented optical corrections (uppercase
+     chrome pulling 1px up from visual center on brand-block,
+     mode-toggle, footer-strip) — inline commented where they
+     live. Zero other exceptions. */
+  --space-0:        0;
+  --space-hairline: 4px;   /* icon gutters, tiny offsets */
+  --space-xs:       8px;   /* tight internal padding */
+  --space-sm:       12px;  /* standard internal, grid gaps */
+  --space-chrome:   14px;  /* chrome tier — buttons, share bar, meta rails */
+  --space-md:       16px;  /* primary component padding */
+  --space-lg:       24px;  /* generous component padding */
+  --space-xl:       32px;  /* block gaps */
+  --space-2xl:      48px;  /* section gaps, closing block */
+  --space-3xl:      80px;  /* page rhythm, article bottom */
 
   /* Border weights — codify the "content vs chrome" doctrine.
      Content frames (plates, article header/body/closing, pull

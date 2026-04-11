@@ -13,7 +13,7 @@
 .article-frame {
   max-width: 680px;
   margin: 0 auto;
-  padding: 0 0 80px;
+  padding: 0 0 var(--space-3xl);
 }
 
 /* ── Article header ────────────────────────────────────────── */
@@ -21,15 +21,18 @@
 .article-header {
   border: var(--border-weight-content) solid var(--border);
   background: var(--panel);
-  padding: 28px 24px 22px;
+  /* 28→32 top, 22→24 bottom. Article header is the most prominent
+     content frame on the page; the 4/2 px drift is a deliberate
+     loosening that reads as more editorial. */
+  padding: var(--space-xl) var(--space-lg) var(--space-lg);
   margin-bottom: 0;
 }
 
 .article-eyebrow {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 18px;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md); /* 18→16, 2px tighter */
 }
 
 .article-tag {
@@ -38,7 +41,9 @@
   letter-spacing: .12em;
   text-transform: uppercase;
   font-weight: 700;
-  padding: 4px 8px 3px;
+  /* Phase 6 exception — 3px bottom = 1px optical pull up from the
+     4px top, centering the mono label inside the tag. Sides stay 8. */
+  padding: var(--space-hairline) var(--space-xs) 3px;
   border: var(--border-weight-chrome) solid var(--border);
   background: var(--ink);
   color: var(--bg);
@@ -60,7 +65,7 @@
   text-transform: uppercase;
   line-height: var(--lh-display);
   letter-spacing: -.03em;
-  margin: 0 0 16px;
+  margin: 0 0 var(--space-md);
   text-wrap: balance;
 }
 
@@ -73,7 +78,7 @@
   text-transform: uppercase;
   max-width: 480px;
   border-left: var(--border-weight-content) solid var(--border);
-  padding-left: 14px;
+  padding-left: var(--space-chrome);
 }
 
 /* ── Article body ──────────────────────────────────────────── */
@@ -83,7 +88,9 @@
   border-right: var(--border-weight-content) solid var(--border);
   border-bottom: var(--border-weight-content) solid var(--border);
   background: var(--panel);
-  padding: 40px 24px 48px;
+  /* 40→48 top snap = 8px looser top breathing; flagged as the
+     largest visible drift in the diff preview. Bottom stays --space-2xl. */
+  padding: var(--space-2xl) var(--space-lg) var(--space-2xl);
   font-family: var(--body);
   font-size: var(--text-lede);
   line-height: var(--lh-loose);
@@ -91,13 +98,13 @@
 }
 
 .article-body p {
-  margin: 0 0 1.5em;
+  margin: 0 0 1.5em; /* em-relative paragraph rhythm, scope-excluded from --space-* */
 }
 
 .article-body a {
   text-decoration: underline;
   text-decoration-color: var(--accent);
-  text-underline-offset: 3px;
+  text-underline-offset: 3px; /* underline geometry, scope-excluded */
   text-decoration-thickness: 2px;
 }
 
@@ -125,8 +132,8 @@
   font-weight: 400;
   float: left;
   line-height: .72;
-  margin-right: 8px;
-  margin-top: 4px;
+  margin-right: var(--space-xs);
+  margin-top: var(--space-hairline);
   color: var(--ink);
 }
 
@@ -135,8 +142,11 @@
 .section-head {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin: 48px 0 20px;
+  gap: var(--space-chrome);
+  /* 20→24 bottom snap = 4px looser space between section head
+     and first paragraph. Visible but deliberate — gives the head
+     more rhetorical weight. */
+  margin: var(--space-2xl) 0 var(--space-lg);
 }
 
 .section-head h2 {
@@ -151,15 +161,17 @@
 
 .section-head-line {
   flex: 1;
-  height: 3px;
+  height: 3px; /* rule thickness, scope-excluded */
   background: var(--accent);
 }
 
 /* ── Pull quote ────────────────────────────────────────────── */
 
 .pull-quote {
-  margin: 40px -24px;
-  padding: 32px 24px;
+  /* 40→48 top/bottom margin = 8px looser vertical breathing
+     around the pull quote. Flagged as visible drift. */
+  margin: var(--space-2xl) calc(-1 * var(--space-lg));
+  padding: var(--space-xl) var(--space-lg);
   border-top: var(--border-weight-content) solid var(--border);
   border-bottom: var(--border-weight-content) solid var(--border);
   background: var(--body-tint);
@@ -180,8 +192,9 @@
 /* ── Callout ───────────────────────────────────────────────── */
 
 .callout {
-  margin: 36px 0;
-  padding: 0 0 0 18px;
+  /* 36→32 top/bottom snap = 4px tighter; 18→16 left pad snap. */
+  margin: var(--space-xl) 0;
+  padding: 0 0 0 var(--space-md);
   border-left: var(--border-weight-content) solid var(--accent);
   font-family: var(--body);
   font-size: var(--text-quote);
@@ -204,8 +217,8 @@
 .scripture {
   border: var(--border-weight-chrome) solid var(--body-faint);
   background: var(--body-tint);
-  padding: 24px;
-  margin: 36px 0;
+  padding: var(--space-lg);
+  margin: var(--space-xl) 0; /* 36→32 tighter */
 }
 
 .scripture p {
@@ -214,7 +227,7 @@
   line-height: var(--lh-normal);
   color: var(--body-color);
   font-style: italic;
-  margin: 0 0 10px;
+  margin: 0 0 var(--space-sm); /* 10→12 */
 }
 
 .scripture cite {
@@ -229,11 +242,11 @@
 /* ── Stat block ────────────────────────────────────────────── */
 
 .stat-block {
-  margin: 48px -24px;
-  padding: 0 24px;
+  margin: var(--space-2xl) calc(-1 * var(--space-lg));
+  padding: 0 var(--space-lg);
   display: grid;
-  grid-template-columns: 3px 1fr;
-  gap: 0 20px;
+  grid-template-columns: 3px 1fr; /* bar width, scope-excluded */
+  gap: 0 var(--space-lg); /* 20→24 */
 }
 
 .stat-block-bar {
@@ -258,14 +271,16 @@
   letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--body-muted);
-  margin-top: 8px;
+  margin-top: var(--space-xs);
 }
 
 /* ── Closing ───────────────────────────────────────────────── */
 
 .closing {
-  margin-top: 48px;
-  padding: 28px 24px;
+  margin-top: var(--space-2xl);
+  /* 28→32 top/bottom. Closing block is the last content frame;
+     a touch more padding honors its rhetorical position. */
+  padding: var(--space-xl) var(--space-lg);
   border: var(--border-weight-content) solid var(--border);
   background: var(--panel);
   font-family: var(--body);
@@ -280,9 +295,9 @@
 .share-bar {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: var(--space-chrome);
   margin-top: 0;
-  padding: 14px 24px;
+  padding: var(--space-chrome) var(--space-lg);
   border: var(--border-weight-content) solid var(--border);
   border-top: 0;
   background: var(--panel);
@@ -306,7 +321,7 @@
   border: none;
   cursor: pointer;
   font-weight: 700;
-  padding: 10px 12px;
+  padding: var(--space-sm) var(--space-sm); /* 10→12, symmetric */
   min-height: 44px;
 }
 
@@ -321,7 +336,10 @@
   letter-spacing: .1em;
   text-transform: uppercase;
   font-weight: 700;
-  padding: 10px 14px 9px;
+  /* 10→12 snap, dropping the original 1px optical pull.
+     At sub-button scale (secondary share-bar action) the 1px
+     delta was below the perception threshold. Now symmetric. */
+  padding: var(--space-sm) var(--space-chrome);
   min-height: 44px;
   border: var(--border-weight-chrome) solid var(--border);
   background: var(--ink);
@@ -334,11 +352,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 24px;
+  /* 18→16 top/bottom snap. 2px tighter. */
+  padding: var(--space-md) var(--space-lg);
   border: var(--border-weight-content) solid var(--border);
   border-top: 0;
   background: var(--panel);
-  gap: 16px;
+  gap: var(--space-md);
 }
 
 .research-cta-text {
@@ -357,7 +376,9 @@
   letter-spacing: .1em;
   text-transform: uppercase;
   font-weight: 700;
-  padding: 12px 20px;
+  /* 20→24 sides = 4px wider button. Symmetric, no optical correction
+     here — the original 12/20 was already symmetric. */
+  padding: var(--space-sm) var(--space-lg);
   min-height: 44px;
   border: var(--border-weight-chrome) solid var(--border);
   background: var(--ink);
@@ -380,17 +401,19 @@
 .article-nav {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-top: 36px;
-  padding-top: 28px;
+  gap: var(--space-md);
+  margin-top: var(--space-xl); /* 36→32 */
+  padding-top: var(--space-xl); /* 28→32 */
   border-top: var(--border-weight-content) solid var(--border);
 }
 
 .article-nav-link {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 18px 18px 16px;
+  gap: var(--space-xs); /* 6→8 */
+  /* 18→16 snap, symmetric. 2px tighter top — imperceptible at
+     88px min-height. Not treating as optical correction. */
+  padding: var(--space-md);
   border: var(--border-weight-chrome) solid var(--border);
   background: var(--panel);
   color: inherit;
@@ -451,8 +474,10 @@
 
 .article-back {
   display: inline-block;
-  margin-top: 16px;
-  padding: 12px 14px 11px;
+  margin-top: var(--space-md);
+  /* Phase 6 exception — 11px bottom = 1px optical pull up from
+     --space-sm (12px), centering uppercase chrome on the button. */
+  padding: var(--space-sm) var(--space-chrome) 11px;
   min-height: 44px;
   border: var(--border-weight-chrome) solid var(--border);
   background: var(--panel);
@@ -476,7 +501,7 @@
 .article-nav-link:focus-visible,
 .article-body a:focus-visible {
   outline: var(--focus-ring-width) solid var(--focus-ring);
-  outline-offset: 2px;
+  outline-offset: 2px; /* focus-ring geometry, scope-excluded */
 }
 
 /* ── Reading progress bar ──────────────────────────────────── */
@@ -500,8 +525,10 @@
 
 .section-indicator {
   position: fixed;
-  bottom: 28px;
-  left: 28px;
+  /* 28→32 bottom/left position snap. Floating label, visual change
+     imperceptible against viewport edge. */
+  bottom: var(--space-xl);
+  left: var(--space-xl);
   z-index: 9998;
   font-family: var(--mono);
   font-size: var(--text-meta);
@@ -510,11 +537,11 @@
   color: var(--ink);
   background: var(--bg);
   border: var(--border-weight-content) solid var(--ink);
-  padding: 6px 12px;
+  padding: var(--space-xs) var(--space-sm); /* 6→8 top/bottom */
   opacity: 0;
   transition: opacity .3s ease;
   pointer-events: none;
-  max-width: 260px;
+  max-width: 260px; /* intrinsic label width, scope-excluded */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -528,21 +555,23 @@
 
 @media (max-width: 760px) {
   .article-header {
-    padding: 20px 16px 18px;
+    /* 20→24, 18→16. Content frame loosens slightly on mobile. */
+    padding: var(--space-lg) var(--space-md) var(--space-md);
   }
 
   .article-body {
-    padding: 28px 16px 36px;
+    /* 28→32 top, 36→32 bottom. Symmetric on mobile. */
+    padding: var(--space-xl) var(--space-md);
   }
 
   .share-bar {
-    padding: 12px 16px;
+    padding: var(--space-sm) var(--space-md);
     flex-wrap: wrap;
   }
 
   .research-cta {
     flex-direction: column;
-    padding: 16px;
+    padding: var(--space-md);
     align-items: flex-start;
   }
 
@@ -552,21 +581,22 @@
   }
 
   .pull-quote {
-    margin: 32px -16px;
-    padding: 24px 16px;
+    margin: var(--space-xl) calc(-1 * var(--space-md));
+    padding: var(--space-lg) var(--space-md);
   }
 
   .stat-block {
-    margin: 36px -16px;
-    padding: 0 16px;
+    /* 36→32 */
+    margin: var(--space-xl) calc(-1 * var(--space-md));
+    padding: 0 var(--space-md);
   }
 
   .section-indicator {
-    bottom: 16px;
-    left: 16px;
+    bottom: var(--space-md);
+    left: var(--space-md);
     /* Phase 5 exception — responsive step-down from --text-meta
        (.6rem) for narrow viewports. Not a ramp value. */
     font-size: .52rem;
-    max-width: 200px;
+    max-width: 200px; /* intrinsic label width, scope-excluded */
   }
 }

@@ -52,7 +52,7 @@ a.plate:focus-visible {
 /* ── Plate body ────────────────────────────────────────────── */
 
 .plate-body {
-  padding: 16px 16px 10px;
+  padding: var(--space-md) var(--space-md) var(--space-sm);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -106,7 +106,11 @@ html.dark-mode .plate-title.inverse {
   align-self: flex-start;
   flex-shrink: 0;
   margin: auto 0 0;
-  padding: 7px 10px 6px;
+  /* Phase 6 exception — 7px top / 6px bottom = 1px optical pull up,
+     centering uppercase meta label inside the badge. Sides at
+     --space-xs (8) to keep the badge tight — 10→8 snap, not 10→12,
+     preserving the compact meta-rail proportions. */
+  padding: 7px var(--space-xs) 6px;
   background: var(--meta-bg);
   color: var(--meta-ink);
   border-top: var(--border-weight-chrome) solid var(--border);
@@ -152,7 +156,7 @@ html.dark-mode .plate-title.inverse {
 
 .plate-image .plate-body {
   justify-content: flex-end;
-  padding: 16px;
+  padding: var(--space-md);
 }
 
 .plate-image .plate-title {
@@ -232,14 +236,17 @@ html.dark-mode .plate-title.inverse {
 }
 
 .identity-plate .plate-body {
-  padding: 24px 22px 16px;
+  /* 22→24 side snap is intentional — 2px wider breathing room
+     on the identity plate, well inside perception threshold at
+     346px min-height. */
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
   gap: 0;
 }
 
 .identity-name {
   font-size: var(--text-identity);
   max-width: 7ch;
-  margin-bottom: 4px;
+  margin-bottom: var(--space-hairline);
   /* Phase 5 exception — .82 is a tighter ratio than --lh-display (.86),
      tuned for the identity name's max 7ch width. */
   line-height: .82;
@@ -252,14 +259,18 @@ html.dark-mode .plate-title.inverse {
      14ch width constraint, between --lh-display and --lh-tight. */
   line-height: .9;
   letter-spacing: -.02em;
-  margin-top: 8px;
+  margin-top: var(--space-xs);
   color: var(--accent);
   opacity: .85;
 }
 
 .identity-sub {
   display: inline-block;
-  margin-bottom: 6px;
+  margin-bottom: var(--space-xs);
+  /* Phase 6 exception — identity-sub is a micro-badge sitting below
+     the spacing scale floor. 5/7/4 preserves the tuned proportions:
+     5 top > 4 bottom = 1px optical pull up, 7 horizontal is equally
+     off-scale but tuned to the 3-letter label width. */
   padding: 5px 7px 4px;
   border: var(--border-weight-chrome) solid var(--bg);
   background: var(--bg);
@@ -320,7 +331,9 @@ html.dark-mode .identity-plate .meta-rail {
 .plate-ghost .plate-body {
   justify-content: center;
   align-items: flex-start;
-  padding: 28px 20px;
+  /* 28→32 top/bottom, 20→24 sides. Teaser plate, not load-bearing,
+     4px drift is imperceptible at 346px min-height. */
+  padding: var(--space-xl) var(--space-lg);
 }
 
 .plate-ghost .plate-title {
@@ -329,11 +342,11 @@ html.dark-mode .identity-plate .meta-rail {
 }
 
 .plate-ghost .teaser-rule {
-  width: 40px;
+  width: 40px; /* intrinsic rule width, scope-excluded */
   height: 2px;
   background: var(--ink);
   opacity: .15;
-  margin: 16px 0 10px;
+  margin: var(--space-md) 0 var(--space-sm);
 }
 
 .plate-ghost .teaser-date {
@@ -397,7 +410,7 @@ html.dark-mode .identity-plate .meta-rail {
   .plate-banner,
   .plate-ghost {
     grid-column: span 1;
-    min-height: 210px;
+    min-height: 210px; /* intrinsic mobile tile geometry, scope-excluded */
   }
 
   .plate-title.lg {

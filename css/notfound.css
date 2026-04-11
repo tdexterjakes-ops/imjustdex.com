@@ -22,7 +22,7 @@ body.notfound main {
   flex: 1 1 auto;
   display: flex;
   align-items: stretch;
-  margin: 6px 0 12px;
+  margin: var(--space-xs) 0 var(--space-sm); /* 6→8 top */
 }
 
 /* ── 404 plate ─────────────────────────────────────────────── */
@@ -40,7 +40,9 @@ body.notfound main {
 }
 
 .notfound-eyebrow {
-  padding: 14px 22px 12px;
+  /* 14/22/12 → 14/24/14 symmetric. 2px bottom drift is
+     imperceptible on the 404 eyebrow; not treating as optical. */
+  padding: var(--space-chrome) var(--space-lg);
   border-bottom: var(--border-weight-chrome) solid var(--border);
   background: var(--meta-bg);
   color: var(--meta-ink);
@@ -55,7 +57,7 @@ body.notfound main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-md);
   flex-wrap: wrap;
 }
 
@@ -68,13 +70,14 @@ body.notfound main {
 }
 
 .notfound-body {
-  padding: 48px 28px 32px;
+  /* 28→32 top, 28→32 gap. 404 body loosens slightly. */
+  padding: var(--space-2xl) var(--space-xl);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  gap: 28px;
+  gap: var(--space-xl);
 }
 
 .notfound-headline {
@@ -97,7 +100,7 @@ body.notfound main {
 }
 
 .notfound-rule {
-  width: 80px;
+  width: var(--space-3xl); /* 80px, reuses the page-rhythm token */
   height: 3px;
   background: var(--accent);
   border: 0;
@@ -131,8 +134,11 @@ body.notfound main {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  padding: 22px 24px 21px;
+  gap: var(--space-chrome);
+  /* Phase 6 exception — 21px bottom = 1px optical pull up from
+     the 22px top (snapped to 24 here would be 3px drift; holding
+     22/21 as raw preserves the centered CTA proportions). */
+  padding: 22px var(--space-lg) 21px;
   text-transform: uppercase;
   letter-spacing: .08em;
   font-size: var(--text-chrome);
@@ -149,7 +155,7 @@ body.notfound main {
 
 .notfound-actions a:focus-visible {
   outline: var(--focus-ring-width) solid var(--focus-ring);
-  outline-offset: -4px;
+  outline-offset: -4px; /* focus-ring geometry, scope-excluded */
 }
 
 .notfound-actions a .arrow {
