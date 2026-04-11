@@ -168,6 +168,8 @@ Every `font-weight: 900` in the old system has been normalized to a real shipped
 
 Visual change is zero. The old declarations relied on browser font synthesis, which produced the same effective weight. The system now declares what it ships.
 
+Phase 7 later tokenized both raw weights into `--weight-regular` (400) and `--weight-bold` (700). See §4 Font-Weight Scale.
+
 ### Typography Scale (Phase 5)
 
 Before Phase 5, every CSS file carried raw `font-size` and `line-height` values — 42+ declarations across `article.css`, `plates.css`, `shell.css`, and `notfound.css`, with zero typography tokens. Phase 5 introduces a **two-tier token system** so the scale becomes the single source of truth and consumers express intent, not arithmetic.
@@ -399,6 +401,51 @@ All nine are optical corrections on uppercase chrome text where a 1px bottom-pad
 **Rule for future components:** if you're reaching for a raw pixel value that isn't in the scale, you need either (a) a new scale slot or (b) a documented entry in this exception table. No silent drift. Every deviation is a named choice.
 
 **Rule for existing components:** if a padding or margin value matches a scale slot, it MUST reference the token. `16px` is `var(--space-md)`, not `16px`. The tokens are the source of truth; raw numbers are drift.
+
+### Letter-Spacing Scale
+
+Letter-spacing is tokenized as **12 semantic slots**, each tuned to a specific text role. No consolidation — at uppercase chrome sizes, a `.03em` delta is visibly perceptible, so every distinct editorial tracking value on the site earns its own token.
+
+```css
+/* tokens.css */
+--track-display:    -.03em;  /* article h1, plate titles, stat block, 404 headline */
+--track-title:      -.02em;  /* pull-quote, article-nav title, identity tagline */
+--track-brand:       .03em;  /* brand-mark / brand-word only */
+--track-nav:         .04em;  /* mode toggle, article eyebrow date */
+--track-footer:      .06em;  /* footer-strip items */
+--track-badge:       .08em;  /* meta-rail, identity-sub, 404 actions */
+--track-chrome:      .1em;   /* article meta, article-back, share bar */
+--track-tag:         .12em;  /* tag chip, stat microlabel, article-nav label */
+--track-teaser:      .14em;  /* identity meta-rail, teaser-date */
+--track-label:       .15em;  /* section-head h2, scripture cite, research-cta */
+--track-indicator:   .18em;  /* section-indicator (fixed editorial mark) */
+--track-eyebrow:     .22em;  /* 404 eyebrow (widest tracking on the site) */
+```
+
+**Two directions, one doctrine.**
+
+- **Negative tracking (`--track-display`, `--track-title`)** is display-tier only. Tight letterforms at h1/plate/pull-quote scale read as editorial confidence. Never applied below 18px.
+- **Positive tracking (`--track-brand` through `--track-eyebrow`)** is chrome and uppercase. The wider the tracking, the smaller and more label-like the element — tiny eyebrows get `.22em`, meta rails get `.08em`, brand wordmark gets a restrained `.03em`.
+
+**Why no consolidation?** The spacing scale tolerates 2–4px drift below the perception threshold. Letter-spacing does not — a `.03em` delta on uppercase tag-chips at `.75rem` is visible side-by-side. Collapsing `.08em` and `.1em` into one slot would force a visible shift on every meta rail or chrome label in the system. The 12-slot scale is the minimum that preserves fidelity.
+
+**Rule:** every `letter-spacing` declaration in the site's CSS points at a `--track-*` token. Zero exceptions. Raw values are drift.
+
+### Font-Weight Scale
+
+Font-weight is tokenized as a **binary**: regular and bold. No intermediate weights.
+
+```css
+/* tokens.css */
+--weight-regular: 400;
+--weight-bold:    700;
+```
+
+**Why binary?** The site uses exactly two weights: 400 for all body and display type, 700 for all chrome, labels, tags, and strong emphasis. No medium, semibold, or black. The tokens earn their keep by making the binary legible at the call site — `var(--weight-bold)` tells you the element belongs to the chrome vocabulary; `700` does not.
+
+**Exception:** `@font-face` declarations hold raw `400` / `700` values because CSS custom properties do not resolve inside `@font-face` at-rules. This is a language constraint, not a drift.
+
+**Rule:** every `font-weight` declaration in normal selectors points at a `--weight-*` token. `@font-face` is the only place raw numbers are permitted.
 
 ### Focus Rings
 

@@ -70,9 +70,9 @@ a.plate:focus-visible {
   margin: 0;
   text-transform: uppercase;
   line-height: var(--lh-display);
-  letter-spacing: -.03em;
+  letter-spacing: var(--track-display);
   font-family: var(--display);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   word-break: break-word;
   text-wrap: balance;
 }
@@ -116,9 +116,9 @@ html.dark-mode .plate-title.inverse {
   border-top: var(--border-weight-chrome) solid var(--border);
   border-right: var(--border-weight-chrome) solid var(--border);
   font-size: var(--text-citation);
-  letter-spacing: .08em;
+  letter-spacing: var(--track-badge);
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   /* Phase 5 exception — line-height: 1 is tuned for the meta rail's
      tight badge proportions; not part of the --lh-* ladder. */
   line-height: 1;
@@ -258,7 +258,7 @@ html.dark-mode .plate-title.inverse {
   /* Phase 5 exception — .9 is a tuned ratio for the tagline's
      14ch width constraint, between --lh-display and --lh-tight. */
   line-height: .9;
-  letter-spacing: -.02em;
+  letter-spacing: var(--track-title);
   margin-top: var(--space-xs);
   color: var(--accent);
   opacity: .85;
@@ -276,8 +276,8 @@ html.dark-mode .plate-title.inverse {
   background: var(--bg);
   color: var(--ink);
   text-transform: uppercase;
-  letter-spacing: .08em;
-  font-weight: 700;
+  letter-spacing: var(--track-badge);
+  font-weight: var(--weight-bold);
   font-size: var(--text-label);
 }
 
@@ -288,8 +288,8 @@ html.dark-mode .plate-title.inverse {
   border-top: 1px solid var(--bg);
   border-right: none;
   font-size: var(--text-micro);
-  letter-spacing: .14em;
-  font-weight: 700;
+  letter-spacing: var(--track-teaser);
+  font-weight: var(--weight-bold);
 }
 
 /* Identity plate stays dark in dark mode — matches the editorial
@@ -352,8 +352,8 @@ html.dark-mode .identity-plate .meta-rail {
 .plate-ghost .teaser-date {
   font-family: var(--body);
   font-size: var(--text-citation);
-  font-weight: 700;
-  letter-spacing: .14em;
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-teaser);
   text-transform: uppercase;
   color: var(--ink);
   opacity: .3;

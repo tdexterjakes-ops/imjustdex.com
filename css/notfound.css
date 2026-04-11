@@ -48,9 +48,9 @@ body.notfound main {
   color: var(--meta-ink);
   font-family: var(--mono);
   font-size: var(--text-micro);
-  letter-spacing: .22em;
+  letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   /* Phase 5 exception — line-height: 1 is tuned for the eyebrow's
      tight badge proportions; not part of the --lh-* ladder. */
   line-height: 1;
@@ -83,12 +83,12 @@ body.notfound main {
 .notfound-headline {
   margin: 0;
   font-family: var(--display);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   text-transform: uppercase;
   /* Phase 5 exception — .82 is tighter than --lh-display (.86),
      tuned for the 404 headline's dramatic display scale. */
   line-height: .82;
-  letter-spacing: -.03em;
+  letter-spacing: var(--track-display);
   font-size: var(--text-display);
   max-width: 14ch;
   text-wrap: balance;
@@ -119,7 +119,7 @@ body.notfound main {
 
 .notfound-copy strong {
   color: var(--ink);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
 }
 
 .notfound-copy .break {
@@ -140,9 +140,9 @@ body.notfound main {
      22/21 as raw preserves the centered CTA proportions). */
   padding: 22px var(--space-lg) 21px;
   text-transform: uppercase;
-  letter-spacing: .08em;
+  letter-spacing: var(--track-badge);
   font-size: var(--text-chrome);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   min-height: 60px;
   background: var(--panel);
   color: var(--ink);
@@ -160,7 +160,7 @@ body.notfound main {
 
 .notfound-actions a .arrow {
   font-family: var(--mono);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   opacity: .65;
 }
 

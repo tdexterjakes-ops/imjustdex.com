@@ -38,9 +38,9 @@
 .article-tag {
   font-family: var(--mono);
   font-size: var(--text-label);
-  letter-spacing: .12em;
+  letter-spacing: var(--track-tag);
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   /* Phase 6 exception — 3px bottom = 1px optical pull up from the
      4px top, centering the mono label inside the tag. Sides stay 8. */
   padding: var(--space-hairline) var(--space-xs) 3px;
@@ -53,7 +53,7 @@
 .article-read {
   font-family: var(--mono);
   font-size: var(--text-label);
-  letter-spacing: .1em;
+  letter-spacing: var(--track-chrome);
   text-transform: uppercase;
   color: var(--body-muted);
 }
@@ -61,10 +61,10 @@
 .article-title {
   font-family: var(--display);
   font-size: var(--text-h1);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   text-transform: uppercase;
   line-height: var(--lh-display);
-  letter-spacing: -.03em;
+  letter-spacing: var(--track-display);
   margin: 0 0 var(--space-md);
   text-wrap: balance;
 }
@@ -73,7 +73,7 @@
   font-family: var(--mono);
   font-size: var(--text-citation);
   line-height: var(--lh-snug);
-  letter-spacing: .04em;
+  letter-spacing: var(--track-nav);
   color: var(--body-muted);
   text-transform: uppercase;
   max-width: 480px;
@@ -129,7 +129,7 @@
      paragraph's font-size, not a ramp value. Line-height .72 is a
      drop cap tuning, not part of the --lh-* ladder. */
   font-size: 4.8em;
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   float: left;
   line-height: .72;
   margin-right: var(--space-xs);
@@ -152,8 +152,8 @@
 .section-head h2 {
   font-family: var(--mono);
   font-size: var(--text-label);
-  font-weight: 700;
-  letter-spacing: .15em;
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   color: var(--accent-text);
   margin: 0;
@@ -180,9 +180,9 @@
 .pull-quote p {
   font-family: var(--display);
   font-size: var(--text-h2);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 1.1; /* Phase 5 exception — preserves editorial leading on in-essay pull quotes; --lh-tight (1.05) read too dense */
-  letter-spacing: -.02em;
+  letter-spacing: var(--track-title);
   text-transform: uppercase;
   color: var(--ink);
   margin: 0;
@@ -198,7 +198,7 @@
   border-left: var(--border-weight-content) solid var(--accent);
   font-family: var(--body);
   font-size: var(--text-quote);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   line-height: var(--lh-snug);
   color: var(--ink);
 }
@@ -209,7 +209,7 @@
 
 .callout-emph {
   color: var(--accent-text);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
 }
 
 /* ── Scripture block ───────────────────────────────────────── */
@@ -234,7 +234,7 @@
   font-family: var(--mono);
   font-style: normal;
   font-size: var(--text-micro);
-  letter-spacing: .15em;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   color: var(--accent-text);
 }
@@ -256,8 +256,8 @@
 .stat-block-text {
   font-family: var(--display);
   font-size: var(--text-stat);
-  font-weight: 400;
-  letter-spacing: -.03em;
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--track-display);
   line-height: var(--lh-tight);
   text-transform: uppercase;
   color: var(--ink);
@@ -267,8 +267,8 @@
   display: block;
   font-family: var(--mono);
   font-size: var(--text-micro);
-  font-weight: 400;
-  letter-spacing: .12em;
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--track-tag);
   text-transform: uppercase;
   color: var(--body-muted);
   margin-top: var(--space-xs);
@@ -306,7 +306,7 @@
 .share-label {
   font-family: var(--mono);
   font-size: var(--text-micro);
-  letter-spacing: .15em;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   color: var(--body-muted);
 }
@@ -314,13 +314,13 @@
 .share-link {
   font-family: var(--mono);
   font-size: var(--text-label);
-  letter-spacing: .1em;
+  letter-spacing: var(--track-chrome);
   text-transform: uppercase;
   color: var(--body-muted);
   background: none;
   border: none;
   cursor: pointer;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   padding: var(--space-sm) var(--space-sm); /* 10→12, symmetric */
   min-height: 44px;
 }
@@ -333,9 +333,9 @@
   margin-left: auto;
   font-family: var(--mono);
   font-size: var(--text-label);
-  letter-spacing: .1em;
+  letter-spacing: var(--track-chrome);
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   /* 10→12 snap, dropping the original 1px optical pull.
      At sub-button scale (secondary share-bar action) the 1px
      delta was below the perception threshold. Now symmetric. */
@@ -363,7 +363,7 @@
 .research-cta-text {
   font-family: var(--mono);
   font-size: var(--text-micro);
-  letter-spacing: .15em;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   color: var(--body-muted);
   line-height: var(--lh-snug);
@@ -373,9 +373,9 @@
   flex-shrink: 0;
   font-family: var(--mono);
   font-size: var(--text-label);
-  letter-spacing: .1em;
+  letter-spacing: var(--track-chrome);
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   /* 20→24 sides = 4px wider button. Symmetric, no optical correction
      here — the original 12/20 was already symmetric. */
   padding: var(--space-sm) var(--space-lg);
@@ -434,9 +434,9 @@
 .article-nav-label {
   font-family: var(--mono);
   font-size: var(--text-micro);
-  letter-spacing: .12em;
+  letter-spacing: var(--track-tag);
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   color: var(--body-muted);
 }
 
@@ -446,7 +446,7 @@
   /* Phase 5 exception — .95 is a tuned ratio for short nav titles
      that sits between --lh-display (.86) and --lh-tight (1.05). */
   line-height: .95;
-  letter-spacing: -.02em;
+  letter-spacing: var(--track-title);
   text-transform: uppercase;
   color: var(--ink);
 }
@@ -483,9 +483,9 @@
   background: var(--panel);
   font-family: var(--mono);
   font-size: var(--text-label);
-  letter-spacing: .1em;
+  letter-spacing: var(--track-chrome);
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
 }
 
 .article-back:hover {
@@ -532,7 +532,7 @@
   z-index: 9998;
   font-family: var(--mono);
   font-size: var(--text-meta);
-  letter-spacing: .18em;
+  letter-spacing: var(--track-indicator);
   text-transform: uppercase;
   color: var(--ink);
   background: var(--bg);

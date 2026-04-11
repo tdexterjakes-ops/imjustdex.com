@@ -214,6 +214,41 @@
   --lh-normal:  1.7;   /* article body */
   --lh-loose:   1.85;  /* article lede */
 
+  /* ── Letter-spacing scale (Phase 7) ─────────────────────────
+     12 semantic slots preserving every distinct editorial
+     tracking value on the site. Each value is tuned to a
+     specific text role; consolidating near-neighbors would
+     introduce visible drift on uppercase chrome where a .03em
+     delta IS perceptible at tag-chip sizes.
+
+     Negative tracking is for display type only (h1, plate
+     titles, pull-quotes, stat blocks, taglines) where tight
+     letterforms read as editorial confidence. Positive
+     tracking is for uppercase chrome — brand, nav, labels,
+     badges — where the spacing gives the caps room to breathe.
+
+     Zero exceptions. Every letter-spacing site on the
+     site points at a --track-* token. */
+  --track-display:    -.03em;  /* article h1, plate titles, stat block, 404 headline */
+  --track-title:      -.02em;  /* pull-quote, article-nav title, identity tagline */
+  --track-brand:       .03em;  /* brand-mark / brand-word only */
+  --track-nav:         .04em;  /* mode toggle, article eyebrow date */
+  --track-footer:      .06em;  /* footer-strip items */
+  --track-badge:       .08em;  /* meta-rail, identity-sub, 404 actions */
+  --track-chrome:      .1em;   /* article meta, article-back, share bar */
+  --track-tag:         .12em;  /* tag chip, stat microlabel, article-nav label */
+  --track-teaser:      .14em;  /* identity meta-rail, teaser-date */
+  --track-label:       .15em;  /* section-head h2, scripture cite, research-cta */
+  --track-indicator:   .18em;  /* section-indicator (fixed editorial mark) */
+  --track-eyebrow:     .22em;  /* 404 eyebrow (widest tracking on the site) */
+
+  /* Font weights — binary system. 400 for all body and display
+     type, 700 for all chrome, labels, tags, and strong emphasis.
+     No intermediate weights. Tokens earn their keep by making
+     the binary legible at the call site. */
+  --weight-regular: 400;
+  --weight-bold:    700;
+
   color-scheme: light dark;
 }
 
@@ -264,7 +299,7 @@ body {
   color: var(--ink);
   font-family: var(--body);
   font-size: var(--text-body);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: var(--lh-snug);
   min-height: 100vh;
   min-height: 100dvh;

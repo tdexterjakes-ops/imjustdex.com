@@ -111,9 +111,9 @@ main {
   /* Phase 5 exception — line-height: 1 is tuned for the brand
      block's tight badge proportions; not part of the --lh-* ladder. */
   line-height: 1;
-  letter-spacing: .03em;
+  letter-spacing: var(--track-brand);
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   border-right: var(--border-weight-chrome) solid var(--border);
 }
 
@@ -155,8 +155,8 @@ main {
   text-transform: uppercase;
   font: inherit;
   font-size: var(--text-nav);
-  font-weight: 700;
-  letter-spacing: .04em;
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-nav);
   cursor: pointer;
   min-height: 44px;
   transition: border-color var(--motion-tiny), background var(--motion-tiny);
@@ -188,9 +188,9 @@ main {
      --space-sm (12px), centering uppercase chrome on the strip. */
   padding: var(--space-sm) var(--space-chrome) 11px;
   text-transform: uppercase;
-  letter-spacing: .06em;
+  letter-spacing: var(--track-footer);
   font-size: var(--text-nav);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   min-height: 44px;
 }
 
