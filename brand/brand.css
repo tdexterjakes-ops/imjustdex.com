@@ -368,7 +368,7 @@
     .logo-download a {
       display: inline-block; font-family: var(--mono); font-size: .95rem;
       font-weight: var(--weight-bold); letter-spacing: .02em;
-      color: #f4f4f1; text-decoration: none;
+      color: var(--bg); text-decoration: none;
       border-bottom: 2px solid var(--accent); padding-bottom: 3px;
       transition: color .18s ease, border-color .18s ease;
     }
@@ -377,7 +377,7 @@
     }
     .logo-download p {
       font-family: var(--mono); font-size: .58rem;
-      letter-spacing: var(--track-footer); color: rgba(244,244,241,.56);
+      letter-spacing: var(--track-footer); color: var(--bg); opacity: .56;
       margin: var(--space-sm) 0 0;
     }
 
