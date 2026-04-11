@@ -346,6 +346,60 @@ Border weights are tokenized so a single edit rebalances the whole system. The d
 
 If you're adding a 1px border and the element isn't a decorative ruler or an inner meta separator, you're doing it wrong. Use the token.
 
+### Spacing Scale
+
+Spacing is tokenized on a single semantic scale. No primitive/semantic split — one namespace, ten slots, named for editorial intent.
+
+```css
+/* tokens.css */
+--space-0:        0;
+--space-hairline: 4px;   /* micro gaps, tag chip top padding */
+--space-xs:       8px;   /* tight chrome padding, tag chip sides */
+--space-sm:       12px;  /* grid gap, standard chrome vertical, footer inner, plate-body bottom */
+--space-chrome:   14px;  /* chrome horizontal padding baseline — named tier, not a drift */
+--space-md:       16px;  /* callout inner, plate-body sides, article header sides (mobile) */
+--space-lg:       24px;  /* identity-plate padding, article body sides, section-head margin-bottom */
+--space-xl:       32px;  /* ghost plate padding, article header top, pull-quote/callout margin */
+--space-2xl:      48px;  /* article-body vertical, section-head top margin, pull-quote margin-top */
+--space-3xl:      80px;  /* article-frame bottom breathing room, notfound-rule width */
+```
+
+**The `--space-chrome: 14px` slot is deliberate.** Chrome elements (mode-toggle, footer-strip items, subscribe-link, article-back, notfound eyebrow) need a micro-padding tier that sits between `--space-sm` (12) and `--space-md` (16). Rather than drift a sibling token to fit, the scale owns a dedicated chrome slot. If you add a new chrome element and reach for `13px`, use `--space-chrome`. If you reach for `15px`, you're wrong.
+
+**`--grid-gap` and `--outer-pad` are scope-excluded.**
+
+- `--grid-gap` is repointed at `var(--space-sm)` (12px). The name stays because the homepage grid semantics outrank the raw scale value. **Same value across desktop and mobile** — no breakpoint override.
+- `--outer-pad` stays as its own token (`28px` desktop, `18px` mobile). It's a layout primitive, not a spacing scale consumer — the shell's horizontal rhythm is independent of the component scale.
+
+**Also scope-excluded from the scale:**
+
+- `env(safe-area-inset-*)` — system-driven, not designable
+- `1.5em` relative values in article body (line-height-relative paragraph spacing)
+- `-1px` decorative hairlines (see Border Language above)
+- Intrinsic element dimensions (SVG heights, logo min-widths, 44px tap-target min-heights)
+- Focus-ring geometry (`outline-offset` stays local per Focus Rings below)
+- Ruler mechanics (`22px` ruler width, `44px` tick interval — decorative system)
+
+**Exception Policy — 9 locations hold raw pixel values.**
+
+All nine are optical corrections on uppercase chrome text where a 1px bottom-padding trim is required to visually center glyphs inside their frame. Uppercase geometry puts more mass above the x-height than below; symmetric padding reads bottom-heavy. The fix is a 1px pull that does not belong in the scale.
+
+| # | Selector | Value | Reason |
+|---|----------|-------|--------|
+| 1 | `.brand-mark`, `.brand-word` | `8px 12px 7px` | 1px pull on uppercase DX mark + WORDS label |
+| 2 | `.mode-toggle` | `14px 16px 13px` | 1px pull on "MODE: DARK" / "MODE: LIGHT" |
+| 3 | `.footer-strip > *` | `12px 14px 11px` | 1px pull on uppercase footer labels |
+| 4 | `.meta-rail` | `7px 8px 6px` | Below-scale micro-chrome for plate meta row (7/8/6 all sit under `--space-xs`) |
+| 5 | `.identity-sub` | `5px 7px 4px` | Below-scale micro-badge for identity sub label |
+| 6 | `.article-tag` | `4px 8px 3px` | 1px pull on uppercase section tag |
+| 7 | `.article-back` | `12px 14px 11px` | 1px pull on uppercase BACK button |
+| 8 | `.notfound-actions a` | `22px 24px 21px` | 22/21 held at scale boundary — snapping to 24 would introduce 3px drift |
+| 9 | `.subscribe-link` | `12px 14px` (symmetric) | Optical correction dropped intentionally — sub-button scale is below perception threshold for 1px delta |
+
+**Rule for future components:** if you're reaching for a raw pixel value that isn't in the scale, you need either (a) a new scale slot or (b) a documented entry in this exception table. No silent drift. Every deviation is a named choice.
+
+**Rule for existing components:** if a padding or margin value matches a scale slot, it MUST reference the token. `16px` is `var(--space-md)`, not `16px`. The tokens are the source of truth; raw numbers are drift.
+
 ### Focus Rings
 
 Focus outlines for `:focus-visible` states are tokenized on width but not on offset.
@@ -411,9 +465,9 @@ Hidden on mobile (`< 760px`).
 
 ### Page Shell
 
-`.page-shell`: `max-width: 1440px`, `margin: 0 auto`, `padding: 12px var(--outer-pad) 22px`. Respects `env(safe-area-inset-left/right)`.
+`.page-shell`: `max-width: 1440px`, `margin: 0 auto`, `padding: var(--space-sm) var(--outer-pad) var(--space-lg)`. Respects `env(safe-area-inset-left/right)`.
 
-`--outer-pad`: `28px` desktop, `18px` mobile.
+`--outer-pad`: `28px` desktop, `18px` mobile. Scope-excluded layout primitive — see §4 Spacing Scale.
 
 ---
 
@@ -423,13 +477,13 @@ Hidden on mobile (`< 760px`).
 
 `position: sticky`, `top: 0`, `z-index: 50`. Flex row: brand-block + mode-toggle. `background: linear-gradient(to bottom, var(--bg) 70%, rgba(0,0,0,0))` — fades to transparent.
 
-**Brand block:** Inline-flex, `2px solid var(--border)`, contains:
+**Brand block:** Inline-flex, `var(--border-weight-chrome) solid var(--border)`, contains:
 - `.brand-mark`: DX logo SVG (`height: 28px`), `min-width: 72px`, centered. Logo switches between `logo-dark.svg` (light mode) and `logo-white.svg` (dark mode) via JavaScript.
-- `.brand-word`: "Words" label, inverted fill (`background: var(--ink)`, `color: var(--bg)`), `.92rem`, `font-weight: 700`.
+- `.brand-word`: "Words" label, inverted fill (`background: var(--ink)`, `color: var(--bg)`), `var(--text-chrome)`, `font-weight: 700`.
 
-Both segments: `padding: 8px 10px 7px`, `border-right: 2px solid var(--border)`, uppercase, `letter-spacing: .03em`.
+Both segments: `padding: var(--space-xs) var(--space-sm) 7px` (Exception 1 — 1px optical pull on uppercase DX/WORDS marks; sides snap 10→12 to align with the `--space-sm` slot), `border-right: var(--border-weight-chrome) solid var(--border)`, uppercase, `letter-spacing: .03em`.
 
-**Mode toggle:** `margin-left: auto`. Bordered button, `.88rem`, `font-weight: 700`, `min-height: 44px`. Text reads "Mode: Light" / "Mode: Dark". Cookie-persisted.
+**Mode toggle:** `margin-left: auto`. Bordered button, `var(--text-nav)`, `font-weight: 700`, `min-height: 44px`, `padding: var(--space-chrome) var(--space-md) 13px` (Exception 2 — 1px optical pull on "MODE: DARK" / "MODE: LIGHT"). Text reads "Mode: Light" / "Mode: Dark". Cookie-persisted.
 
 ### Footer Strip
 
@@ -439,13 +493,16 @@ Two-item grid: "Follow @ImJustDex" (links to Instagram) | "Est. 1994".
 .footer-strip {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 12px; margin-top: 12px;
+  gap: var(--space-sm); margin-top: var(--space-sm);
   position: relative; z-index: 2;
 }
 .footer-strip > * {
-  border: 2px solid var(--border); background: var(--panel);
-  padding: 12px 14px 11px; text-transform: uppercase;
-  letter-spacing: .06em; font-size: .84rem; font-weight: 700;
+  border: var(--border-weight-chrome) solid var(--border); background: var(--panel);
+  /* Exception 3 — 11px bottom = 1px optical pull on uppercase footer labels.
+     Horizontal sits on --space-chrome (14), the named chrome tier. */
+  padding: var(--space-sm) var(--space-chrome) 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em; font-size: var(--text-nav); font-weight: 700;
   min-height: 44px;
 }
 ```
@@ -458,7 +515,7 @@ Stacks to single column on mobile (`grid-template-columns: 1fr`).
 
 ### Grid Structure
 
-12-column CSS grid, `gap: var(--grid-gap)` (12px desktop, 10px mobile).
+12-column CSS grid, `gap: var(--grid-gap)`. `--grid-gap` is repointed at `var(--space-sm)` (12px) and holds across breakpoints — the homepage grid semantics outrank the raw scale value, so the name stays even though it now resolves to a token. See §4 Spacing Scale.
 
 ### Plate Base
 
@@ -547,11 +604,14 @@ Stamped label at bottom-left of each plate.
 ```css
 .meta-rail {
   align-self: flex-start; margin: auto 0 0;
-  padding: 7px 10px 6px;
+  /* Exception 4 — 7/6 vertical = 1px optical pull on uppercase meta label.
+     Sides snap 10→8 to --space-xs to keep the badge tight (10→12 would
+     fatten the meta-rail and break compact plate proportions). */
+  padding: 7px var(--space-xs) 6px;
   background: var(--meta-bg); color: var(--meta-ink);
-  border-top: 2px solid var(--border);
-  border-right: 2px solid var(--border);
-  font-size: .8rem; letter-spacing: .08em;
+  border-top: var(--border-weight-chrome) solid var(--border);
+  border-right: var(--border-weight-chrome) solid var(--border);
+  font-size: var(--text-citation); letter-spacing: .08em;
   text-transform: uppercase; font-weight: 700;
   line-height: 1; white-space: nowrap;
 }
@@ -573,7 +633,7 @@ Content format: reading time only (e.g., "8 min"). No dates. No "Read Time:" lab
 .plate-ghost {
   grid-column: span 5; min-height: 346px;
   background: transparent;
-  border: 3px dashed var(--border);
+  border: var(--border-weight-content) dashed var(--border);
   cursor: default;
 }
 .plate-ghost .plate-title { color: var(--ink); opacity: .35; }
@@ -584,7 +644,7 @@ Content format: reading time only (e.g., "8 min"). No dates. No "Read Time:" lab
 }
 .plate-ghost .meta-rail {
   background: transparent; color: var(--ink); opacity: .25;
-  border-top: 2px dashed var(--border); border-right: none;
+  border-top: var(--border-weight-chrome) dashed var(--border); border-right: none;
 }
 ```
 
@@ -602,18 +662,19 @@ Used to tease an upcoming article before its publish date. Contains title (muted
 
 ### Article Frame
 
-`.article-frame`: `max-width: 680px`, `margin: 0 auto`, `padding: 0 0 80px`.
+`.article-frame`: `max-width: 680px`, `margin: 0 auto`, `padding: 0 0 var(--space-3xl)` (80px breathing room before footer).
 
 ### Article Header
 
-`border: var(--border-weight-content) solid var(--border)`, `background: var(--panel)`, `padding: 28px 24px 22px`. Contains eyebrow (tag + date + read time), title, and deck.
+`border: var(--border-weight-content) solid var(--border)`, `background: var(--panel)`, `padding: var(--space-xl) var(--space-lg) var(--space-lg)`. **Phase 6 drift:** top 28→32 (snap to `--space-xl`) and bottom 22→24 (snap to `--space-lg`) — both are well inside perception threshold for the article header's frame size and worth taking to keep the doc on-scale.
 
 ### Section Head
 
 Flex row: `h2` label + horizontal rule line.
 
 ```css
-.section-head { display: flex; align-items: center; gap: 14px; margin: 48px 0 20px; }
+/* Margin bottom drift: 20→24 (snap to --space-lg). */
+.section-head { display: flex; align-items: center; gap: var(--space-chrome); margin: var(--space-2xl) 0 var(--space-lg); }
 .section-head h2 {
   font-family: var(--mono); font-size: .75rem; font-weight: 700;
   letter-spacing: .15em; text-transform: uppercase; color: var(--accent);
@@ -626,8 +687,13 @@ Flex row: `h2` label + horizontal rule line.
 Full-width break inside article body. Bleeds into article padding with negative margins.
 
 ```css
+/* Top/bottom margin drift: 40→48 (snap to --space-2xl).
+   Negative side margins match --space-lg exactly so the pull-quote
+   bleeds flush to the inner edge of the article-body's 3px border —
+   the "full-bleed-within-frame" pattern. */
 .pull-quote {
-  margin: 40px -24px; padding: 32px 24px;
+  margin: var(--space-2xl) calc(-1 * var(--space-lg));
+  padding: var(--space-xl) var(--space-lg);
   border-top: var(--border-weight-content) solid var(--border);
   border-bottom: var(--border-weight-content) solid var(--border);
   background: var(--body-tint);
@@ -646,9 +712,12 @@ Maximum two per article.
 ### Callout
 
 ```css
+/* Drifts: margin 36→32 (snap to --space-xl), left padding 18→16
+   (snap to --space-md). Both pull tighter into the scale without
+   visibly altering the callout's rhythm against surrounding body. */
 .callout {
-  margin: 36px 0; padding: 0 0 0 18px;
-  border-left: 3px solid var(--accent);
+  margin: var(--space-xl) 0; padding: 0 0 0 var(--space-md);
+  border-left: var(--border-weight-content) solid var(--accent);
   font-family: var(--body); font-size: 1.15rem;
   font-weight: 700; line-height: 1.4; color: var(--ink);
 }
@@ -670,10 +739,11 @@ Optional span class inside `.callout` blocks to highlight a single word or phras
 ### Scripture Block
 
 ```css
+/* Margin drift: 36→32 (snap to --space-xl). */
 .scripture {
-  border: 2px solid var(--body-faint);
+  border: var(--border-weight-chrome) solid var(--body-faint);
   background: var(--body-tint);
-  padding: 24px; margin: 36px 0;
+  padding: var(--space-lg); margin: var(--space-xl) 0;
 }
 .scripture p {
   font-family: var(--body); font-size: 1rem;
@@ -690,9 +760,13 @@ Optional span class inside `.callout` blocks to highlight a single word or phras
 ### Stat Block
 
 ```css
+/* Same full-bleed-within-frame pattern as .pull-quote — negative side
+   margins match --space-lg so the bar+text align flush to the inner
+   border. Column gap drift: 20→24 (snap to --space-lg). */
 .stat-block {
-  margin: 48px -24px; padding: 0 24px;
-  display: grid; grid-template-columns: 3px 1fr; gap: 0 20px;
+  margin: var(--space-2xl) calc(-1 * var(--space-lg));
+  padding: 0 var(--space-lg);
+  display: grid; grid-template-columns: 3px 1fr; gap: 0 var(--space-lg);
 }
 .stat-block-bar { background: var(--accent); }
 .stat-block-text {
@@ -715,9 +789,10 @@ Maximum two per article.
 ### Closing Block
 
 ```css
+/* Top padding drift: 28→32 (snap to --space-xl). */
 .closing {
-  margin-top: 48px; padding: 28px 24px;
-  border: 3px solid var(--border);
+  margin-top: var(--space-2xl); padding: var(--space-xl) var(--space-lg);
+  border: var(--border-weight-content) solid var(--border);
   background: var(--panel);
   font-family: var(--body); font-size: 1rem;
   line-height: 1.75; color: var(--body-color);
@@ -733,23 +808,28 @@ Sits directly below article body (no gap, `border-top: 0`).
 
 ```css
 .share-bar {
-  display: flex; align-items: center; gap: 14px;
-  padding: 14px 24px;
-  border: 3px solid var(--border); border-top: 0;
+  display: flex; align-items: center; gap: var(--space-chrome);
+  padding: var(--space-chrome) var(--space-lg);
+  border: var(--border-weight-content) solid var(--border); border-top: 0;
   background: var(--panel);
 }
 ```
+
+The internal `.subscribe-link` button drops the 1px optical pull intentionally — `padding: var(--space-sm) var(--space-chrome)` is symmetric (Exception 9). Sub-button scale is below the perception threshold for a 1px delta, so the pull gets dropped to keep the block reading clean.
 
 Contains: "Share" label (mono, `.7rem`) → X link → Copy Link button → "Follow Me" subscribe button (inverted fill, `margin-left: auto`).
 
 ### Research CTA
 
 ```css
+/* Drifts: vertical padding 18→16 (snap to --space-md), link side
+   padding 20→24 (snap to --space-lg). Both sit comfortably inside the
+   research-cta's frame proportions. */
 .research-cta {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 24px;
-  border: 3px solid var(--border); border-top: 0;
-  background: var(--panel); gap: 16px;
+  padding: var(--space-md) var(--space-lg);
+  border: var(--border-weight-content) solid var(--border); border-top: 0;
+  background: var(--panel); gap: var(--space-md);
 }
 .research-cta-text {
   font-family: var(--mono); font-size: .7rem; letter-spacing: .15em;
@@ -759,8 +839,8 @@ Contains: "Share" label (mono, `.7rem`) → X link → Copy Link button → "Fol
   flex-shrink: 0; font-family: var(--mono);
   font-size: .75rem; letter-spacing: .1em;
   text-transform: uppercase; font-weight: 700;
-  padding: 12px 20px; min-height: 44px;
-  border: 2px solid var(--border);
+  padding: var(--space-sm) var(--space-lg); min-height: 44px;
+  border: var(--border-weight-chrome) solid var(--border);
   background: var(--ink); color: var(--bg);
   text-decoration: none; white-space: nowrap;
 }
@@ -771,10 +851,12 @@ Reusable CTA bar between article body and share bar. Links to external research,
 ### Back Button
 
 ```css
+/* Exception 7 — 11px bottom = 1px optical pull on uppercase BACK label.
+   Horizontal sits on --space-chrome (14), the named chrome tier. */
 .article-back {
-  display: inline-block; margin-top: 16px;
-  padding: 12px 14px 11px; min-height: 44px;
-  border: 2px solid var(--border); background: var(--panel);
+  display: inline-block; margin-top: var(--space-md);
+  padding: var(--space-sm) var(--space-chrome) 11px; min-height: 44px;
+  border: var(--border-weight-chrome) solid var(--border); background: var(--panel);
   font-family: var(--mono); font-size: .75rem;
   letter-spacing: .1em; text-transform: uppercase;
   font-weight: 700;
@@ -799,13 +881,15 @@ Reusable CTA bar between article body and share bar. Links to external research,
 Fixed-position label at bottom-left. Shows current section head text. Fades in/out via `.visible` class.
 
 ```css
+/* Drifts: bottom/left 28→32 (snap to --space-xl), padding 6→8 / 12.
+   The fixed-position editorial mark sits on the scale cleanly. */
 .section-indicator {
-  position: fixed; bottom: 28px; left: 28px; z-index: 9998;
+  position: fixed; bottom: var(--space-xl); left: var(--space-xl); z-index: 9998;
   font-family: var(--mono); font-size: .6rem;
   letter-spacing: .18em; text-transform: uppercase;
   color: var(--ink); background: var(--bg);
   border: var(--border-weight-content) solid var(--ink);
-  padding: 6px 12px; opacity: 0;
+  padding: var(--space-xs) var(--space-sm); opacity: 0;
   transition: opacity .3s ease; pointer-events: none;
   max-width: 260px; white-space: nowrap;
   overflow: hidden; text-overflow: ellipsis;
@@ -835,7 +919,7 @@ Article pages: `::selection { background: rgba(204,0,0,.14); }`
 
 ### Skip Link
 
-Hidden off-screen, appears on focus: `background: var(--ink)`, `color: var(--bg)`, `padding: 10px 14px`.
+Hidden off-screen, appears on focus: `background: var(--ink)`, `color: var(--bg)`, `padding: var(--space-sm) var(--space-chrome)`.
 
 ### Motion Doctrine
 
@@ -875,7 +959,7 @@ Hides: rulers, mode toggle, share bar, reading progress, section indicator, rese
 | Breakpoint | Trigger | Key Changes |
 |------------|---------|-------------|
 | `< 1120px` | Tablet | Plate grid → 8 columns. Feature/secondary/identity → span 4. Wide → span 8. |
-| `< 760px` | Mobile | Single column plates. Masthead wraps. Footer stacks. Rulers hidden. `--outer-pad: 18px`. `--grid-gap: 10px`. Article header/body padding reduces. Share bar wraps. Section indicator shrinks. Article nav stacks to single column. |
+| `< 760px` | Mobile | Single column plates. Masthead wraps. Footer stacks. Rulers hidden. `--outer-pad: 18px`. `--grid-gap` holds at `var(--space-sm)` (12px) across breakpoints. Article header/body padding reduces. Share bar wraps. Section indicator shrinks. Article nav stacks to single column. |
 
 ---
 
