@@ -14,8 +14,9 @@
  *     swaps the brand logo source, and persists the user's
  *     choice to a cookie.
  *
- * Served from /js/mode.js with Cache-Control: no-cache so
- * preference logic stays current across deploys.
+ * Served from /js/mode.js. Netlify serves /js/* with
+ * immutable;max-age=31536000 — bump the ?v= query string
+ * on every HTML <script src> ref when this file changes.
  * ============================================================ */
 
 (function () {
@@ -59,6 +60,37 @@
     return LIGHT;
   }
 
+  /* ── Sync browser-native color-scheme to match mode ───── *
+   * Without this, `color-scheme: light dark` in CSS lets
+   * the browser follow the OS for scrollbars, form controls,
+   * and canvas backgrounds — even when the user toggled the
+   * site to the opposite mode via the cookie.              */
+
+  function syncColorScheme(mode) {
+    document.documentElement.style.colorScheme =
+      mode === DARK ? 'dark' : 'light';
+  }
+
+  /* ── Sync <meta name="theme-color"> to match mode ─────── *
+   * Static media-query meta tags always follow the OS.
+   * This replaces them with a single meta whose content
+   * matches the resolved mode so browser chrome (address
+   * bar, status bar) stays consistent with the page.       */
+
+  function syncThemeColor(mode) {
+    var color = mode === DARK ? '#060606' : '#f4f4f1';
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+      meta.removeAttribute('media');
+      meta.setAttribute('content', color);
+    }
+    // Remove any duplicate media-split theme-color metas
+    var all = document.querySelectorAll('meta[name="theme-color"]');
+    for (var i = 1; i < all.length; i++) {
+      all[i].parentNode.removeChild(all[i]);
+    }
+  }
+
   /* ── Apply mode to <html> (runs immediately) ─────────── */
 
   var root = document.documentElement;
@@ -69,6 +101,8 @@
   } else {
     root.classList.remove(CLASS);
   }
+
+  syncColorScheme(initial);
 
   /* Signal that JS has resolved the mode. tokens.css has a
      @media (prefers-color-scheme: dark) fallback scoped to
@@ -110,12 +144,15 @@
         root.classList.remove(CLASS);
       }
       writeCookie(mode);
+      syncColorScheme(mode);
+      syncThemeColor(mode);
       syncLogo(mode);
       syncLabel(mode);
     }
 
     // Sync UI to the mode the head script already set
     var current = root.classList.contains(CLASS) ? DARK : LIGHT;
+    syncThemeColor(current);
     syncLogo(current);
     syncLabel(current);
 

@@ -290,7 +290,13 @@
   --weight-regular: 400;
   --weight-bold:    700;
 
-  color-scheme: light dark;
+  /* color-scheme is set dynamically by mode.js to match the
+     resolved mode (light or dark). Declaring `light dark` here
+     would let the browser follow the OS for scrollbars, form
+     controls, and canvas backgrounds — even when the user has
+     explicitly toggled to the opposite mode via the site toggle.
+     JS sets document.documentElement.style.colorScheme on load
+     and on every toggle click.                                 */
 }
 
 /* ── Design tokens: dark mode ──────────────────────────────── *
