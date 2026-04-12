@@ -114,6 +114,18 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 # ──────────────────────────────────────────────
+# Mailchimp subscribe proxy
+# The site-wide CSP locks connect-src and form-action to 'self'.
+# This 200-level proxy keeps the browser request same-origin while
+# Netlify's edge forwards it to Mailchimp server-side.
+# ──────────────────────────────────────────────
+[[redirects]]
+  from = "/api/subscribe"
+  to = "https://imjustdex.us20.list-manage.com/subscribe/post"
+  status = 200
+  force = true
+
+# ──────────────────────────────────────────────
 # Trailing-slash canonical redirects
 # Non-slash variants 301 to the slash canonical.
 #
