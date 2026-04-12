@@ -27,9 +27,11 @@
     btn.textContent = '...';
 
     // Build Mailchimp JSONP URL
-    var action = form.getAttribute('action');
-    // Switch from /subscribe/post to /subscribe/post-json
-    var url = action.replace('/subscribe/post', '/subscribe/post-json');
+    // Use form.action (resolved by browser, decodes &amp; entities)
+    // Normalize custom subdomain to standard Mailchimp domain
+    var url = form.action
+      .replace('/subscribe/post', '/subscribe/post-json')
+      .replace(/\/\/[^/]*\.us(\d+)\.list-manage\.com/, '//us$1.list-manage.com');
     url += '&EMAIL=' + encodeURIComponent(email.value);
 
     // Add honeypot value (empty = human)
@@ -71,6 +73,13 @@
     // Inject JSONP script
     var script = document.createElement('script');
     script.src = url;
+    script.onerror = function () {
+      delete window[callbackName];
+      if (script.parentNode) script.parentNode.removeChild(script);
+      label.textContent = 'Network error. Try again.';
+      btn.disabled = false;
+      btn.textContent = 'Notify me';
+    };
 
     // Timeout fallback
     var timeout = setTimeout(function () {
