@@ -1,7 +1,7 @@
 /* ============================================================
  * imjustdex.com — signup.js
- * AJAX email signup via Mailchimp JSONP endpoint.
- * No page navigation, no popups. Inline feedback.
+ * Inline email signup via Mailchimp. Uses fetch (no-cors)
+ * so the reader never leaves the essay page.
  *
  * Loaded on /words/* pages only (deferred).
  * ============================================================ */
@@ -26,78 +26,30 @@
     btn.disabled = true;
     btn.textContent = '...';
 
-    // Build Mailchimp JSONP URL
-    // Use form.action (resolved by browser, decodes &amp; entities)
-    // Normalize custom subdomain to standard Mailchimp domain
-    var url = form.action
-      .replace('/subscribe/post', '/subscribe/post-json')
-      .replace(/\/\/[^/]*\.us(\d+)\.list-manage\.com/, '//us$1.list-manage.com');
-    url += '&EMAIL=' + encodeURIComponent(email.value);
+    // Build form data
+    var data = new FormData();
+    data.append('EMAIL', email.value);
 
-    // Add honeypot value (empty = human)
+    // Honeypot (empty = human)
     var hp = form.querySelector('.email-signup-hp input');
-    if (hp) {
-      url += '&' + encodeURIComponent(hp.name) + '=';
-    }
+    if (hp) data.append(hp.name, '');
 
-    // JSONP callback
-    var callbackName = 'mc_cb_' + Date.now();
-    url += '&c=' + callbackName;
-
-    window[callbackName] = function (data) {
-      // Clean up
-      delete window[callbackName];
-      if (script.parentNode) script.parentNode.removeChild(script);
-
-      if (data.result === 'success') {
-        // Success state
-        form.classList.add('email-signup--done');
-        label.textContent = 'You\u2019re in.';
-        email.style.display = 'none';
-        btn.style.display = 'none';
-      } else {
-        // Error — usually "already subscribed" or invalid
-        var msg = data.msg || 'Something went wrong.';
-        // Strip Mailchimp's HTML from error messages
-        msg = msg.replace(/<[^>]*>/g, '');
-        // Shorten common messages
-        if (msg.indexOf('already subscribed') > -1) {
-          msg = 'Already subscribed.';
-        }
-        label.textContent = msg;
-        btn.disabled = false;
-        btn.textContent = 'Notify me';
-      }
-    };
-
-    // Inject JSONP script
-    var script = document.createElement('script');
-    script.src = url;
-    script.onerror = function () {
-      delete window[callbackName];
-      if (script.parentNode) script.parentNode.removeChild(script);
-      label.textContent = 'Network error. Try again.';
+    // POST to Mailchimp — no-cors means we can't read the
+    // response, but the subscription goes through. We show
+    // an optimistic confirmation.
+    fetch(form.action, {
+      method: 'POST',
+      body: data,
+      mode: 'no-cors'
+    }).then(function () {
+      form.classList.add('email-signup--done');
+      label.textContent = 'You\u2019re in. Check your inbox.';
+      email.style.display = 'none';
+      btn.style.display = 'none';
+    }).catch(function () {
+      label.textContent = 'Something went wrong. Try again.';
       btn.disabled = false;
       btn.textContent = 'Notify me';
-    };
-
-    // Timeout fallback
-    var timeout = setTimeout(function () {
-      if (window[callbackName]) {
-        delete window[callbackName];
-        if (script.parentNode) script.parentNode.removeChild(script);
-        label.textContent = 'Network error. Try again.';
-        btn.disabled = false;
-        btn.textContent = 'Notify me';
-      }
-    }, 8000);
-
-    var origCallback = window[callbackName];
-    window[callbackName] = function (data) {
-      clearTimeout(timeout);
-      origCallback(data);
-    };
-
-    document.body.appendChild(script);
+    });
   });
 })();
