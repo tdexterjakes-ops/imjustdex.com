@@ -1,6 +1,22 @@
 /* ═══════════════════════════════════════
+       SYNC NOTICE
+       This file mirrors the token values in /css/tokens.css.
+       It is NOT imported from that file — it is a manual fork
+       scoped to the brand guide page. If tokens.css is updated,
+       this file must be updated to match. Drift here = drift in
+       the canonical brand reference. Check both on every token change.
+    ═══════════════════════════════════════ */
+
+    /* ═══════════════════════════════════════
        FONT LOADING
     ═══════════════════════════════════════ */
+    @font-face {
+      font-family: 'Anton';
+      src: url('/fonts/Anton-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
     @font-face {
       font-family: 'IBM Plex Sans';
       src: url('/fonts/IBMPlexSans-Regular.woff2') format('woff2');
@@ -42,7 +58,7 @@
       --body-muted: rgba(5,5,5,.56);
       --body-faint: rgba(5,5,5,.18);
       --body-tint: rgba(5,5,5,.04);
-      --display: Impact, Haettenschweiler, sans-serif;
+      --display: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
       --body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
       --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
       /* Letter-spacing scale — 12 semantic slots. Every distinct
