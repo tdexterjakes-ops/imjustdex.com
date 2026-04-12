@@ -508,6 +508,16 @@
   }
 }
 
+/* ── Signup success state ── */
+.email-signup--done .email-signup-label {
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: var(--text-body);
+  font-weight: var(--weight-bold);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
 /* ── Previous / Next essay nav ─────────────────────────────
  * Sits below the share bar, above the Back link.
  * Two columns on wider viewports, stacks on mobile.
