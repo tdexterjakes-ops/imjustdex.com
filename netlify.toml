@@ -72,6 +72,18 @@
     Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
 
 # ──────────────────────────────────────────────
+# Feed: correct Content-Type + no cache
+# Browsers + feed readers both need application/xml.
+# The XSL processing instruction in feed.xml triggers
+# the browser to apply feed.xsl for human-readable rendering.
+# ──────────────────────────────────────────────
+[[headers]]
+  for = "/feed.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=utf-8"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# ──────────────────────────────────────────────
 # Cache: HTML pages — no cache (always fresh)
 # ──────────────────────────────────────────────
 [[headers]]

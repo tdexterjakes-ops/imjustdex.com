@@ -947,6 +947,111 @@ Fixed-position label at bottom-left. Shows current section head text. Fades in/o
 
 Mobile: `bottom: 16px`, `left: 16px`, `font-size: .52rem`, `max-width: 200px`.
 
+### Component Patterns (Canonical HTML)
+
+Every article component has one correct markup shape. These are the production patterns — copy them exactly when creating new articles. CSS classes are defined in `article.css` (and `shell.css` for the email signup honeypot utility).
+
+#### Article Header
+
+```html
+<header class="article-header">
+  <div class="article-eyebrow">
+    <span class="article-tag">Faith + Strategy</span>
+    <span class="article-date"><time datetime="2026-04-08">Apr 8, 2026</time></span>
+    <span class="article-read">14 min</span>
+  </div>
+  <h1 class="article-title">The Nets Were Already Full</h1>
+  <p class="article-deck">What the Galilee shore teaches about the sequence most ministries get wrong.</p>
+</header>
+```
+
+Rules: `article-tag` is the editorial classification (e.g. "Faith + Strategy", "Food", "Faith"). `article-date` wraps a `<time>` with ISO `datetime`. `article-deck` is the single-sentence sub-headline — never more than one sentence.
+
+#### Scripture Block
+
+```html
+<div class="scripture">
+  <p>"I have become all things to all people, that by all means I might save some."</p>
+  <cite>1 Corinthians 9:22, ESV</cite>
+</div>
+```
+
+Rules: Always include translation abbreviation in `<cite>`. Text inside `<p>` is always italicized via CSS (`font-style: italic`). No `<blockquote>` — the `.scripture` class carries the semantic weight. Place at the top of the article body (before the intro paragraph) or inline between paragraphs as structural evidence.
+
+#### Callout
+
+```html
+<div class="callout"><p>The cost of the yes tells you the weight of the ask.</p></div>
+```
+
+With optional accent emphasis:
+
+```html
+<div class="callout"><p>Trust is not a tactic. It's a <span class="callout-emph">timeline</span>.</p></div>
+```
+
+Rules: Single sentence or short phrase. Used for rhetorical pivots. Maximum two per article. The `<p>` is required inside the `<div>`. `.callout-emph` highlights one word or phrase in accent red — uses `--accent-text` so it auto-lifts in dark mode.
+
+#### Pull Quote
+
+```html
+<div class="pull-quote">
+  <p>You don't always need a bigger platform. You need a better position.</p>
+</div>
+```
+
+Rules: Full-bleed within the article frame (negative margins in CSS). One or two sentences max. Used for the essay's most quotable moment — the thing someone would screenshot. Maximum two per article. Never stack adjacent to a callout.
+
+#### Stat Block
+
+```html
+<div class="stat-block">
+  <div class="stat-block-bar" aria-hidden="true"></div>
+  <div class="stat-block-text">
+    The one reached becomes the one reaching.
+    <span>Not through pressure — through transformation.</span>
+  </div>
+</div>
+```
+
+Rules: Full-bleed within frame (same negative-margin pattern as pull quote). The `<span>` inside `.stat-block-text` renders as a micro-label below the main declaration — mono font, muted color, uppercase. The `.stat-block-bar` is a 3px accent-red vertical rule. Maximum two per article. Used for declarations and emotional turning points, not data.
+
+#### Share Bar
+
+```html
+<div class="share-bar" aria-label="Share this essay">
+  <span class="share-label">Share</span>
+  <a href="https://x.com/intent/tweet?url=https://imjustdex.com/words/{slug}/&text={encoded-title}%20%E2%80%94%20DX"
+     target="_blank" rel="noopener noreferrer" class="share-link">X</a>
+  <button type="button" class="share-link" data-copy-link="https://imjustdex.com/words/{slug}/">Copy link</button>
+  <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer" class="subscribe-link">Follow Me</a>
+</div>
+```
+
+Rules: Sits directly below `</article>` (or below `.research-cta` if present). `border-top: 0` in CSS — it shares the top border with the element above. The `data-copy-link` attribute is wired by `essay.js` to copy the URL and swap button text to "Copied" for 2 seconds. Replace `{slug}` and `{encoded-title}` per article.
+
+#### Email Signup
+
+```html
+<form class="email-signup"
+      action="/api/subscribe?u=41b4a69d61d7e6d50724373f0&amp;id=216fb11473&amp;f_id=009345e0f0"
+      method="post">
+  <span class="email-signup-label">Get notified when I publish</span>
+  <div class="email-signup-fields">
+    <label for="email" class="sr-only">Email address</label>
+    <input type="email" name="EMAIL" id="email"
+           class="email-signup-input" placeholder="Your email" required>
+    <button type="submit" class="email-signup-submit">Notify me</button>
+  </div>
+  <div class="email-signup-hp" aria-hidden="true">
+    <input type="text" name="b_41b4a69d61d7e6d50724373f0_216fb11473"
+           tabindex="-1" value="">
+  </div>
+</form>
+```
+
+Rules: Posts through Netlify proxy (`/api/subscribe`) to Mailchimp. The `.email-signup-hp` div is a honeypot for bots — `aria-hidden="true"` and `tabindex="-1"` keep it invisible to users and assistive tech. The `sr-only` label on the input is required for WCAG AA. `signup.js` handles AJAX submission and success/error states (adds `.email-signup--done` class on success). Sits below the share bar in every article.
+
 ---
 
 ## 8. Interaction & Accessibility
