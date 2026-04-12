@@ -153,10 +153,6 @@
   to = "/words/reckonings/"
   status = 301
 
-[[redirects]]
-  from = "/words/pulpit"
-  to = "/words/pulpit/"
-  status = 301
 
 # ──────────────────────────────────────────────
 # Deprecated archive root — /words and /words/
