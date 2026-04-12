@@ -332,7 +332,7 @@ html.dark-mode .identity-plate .meta-rail {
 
 .plate-ghost {
   grid-column: span 5;
-  min-height: 346px;
+  min-height: 230px;
   background: transparent;
   border: var(--border-weight-content) dashed var(--border);
   cursor: default;
@@ -352,6 +352,9 @@ html.dark-mode .identity-plate .meta-rail {
 
 .plate-ghost .plate-title {
   color: var(--ink);
+  /* Ghost plate is upcoming content — visually subordinate to published
+     plates. --text-h2 keeps it readable without driving row height. */
+  font-size: var(--text-h2);
   /* .42 in light mode clears WCAG AA large-text (3.1:1 on #f4f4f1).
      Dark mode (.35) already passes (3.7:1 on #060606) — no change needed. */
   opacity: .42;
