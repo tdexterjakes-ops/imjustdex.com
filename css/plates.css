@@ -15,10 +15,22 @@
   align-items: stretch;
 }
 
+/* ── Article wrapper ────────────────────────────────────────
+ * Essay plates are wrapped in <article> for landmark semantics.
+ * display: contents lets the grid see through to the .plate
+ * child so grid-column spans still work. The <article> adds
+ * meaning for screen readers without affecting layout.
+ * -------------------------------------------------------- */
+
+.plates > article {
+  display: contents;
+}
+
 /* ── Plate base ─────────────────────────────────────────────
  * A plate is the base archive card. It can render as either:
- *   • <a class="plate" href=…>  — the 4 article cards (interactive)
- *   • <article class="plate">   — identity plate, ghost teaser (static)
+ *   • <article><a class="plate" href=…>…</a></article> — essay cards (interactive)
+ *   • <div class="plate">   — identity plate (static, not an article)
+ *   • <article class="plate"> — ghost teaser (upcoming content)
  * The whole card is the single focusable/clickable element.
  * No overlay links. One focus ring per card.
  * -------------------------------------------------------- */
@@ -340,6 +352,12 @@ html.dark-mode .identity-plate .meta-rail {
 
 .plate-ghost .plate-title {
   color: var(--ink);
+  /* .42 in light mode clears WCAG AA large-text (3.1:1 on #f4f4f1).
+     Dark mode (.35) already passes (3.7:1 on #060606) — no change needed. */
+  opacity: .42;
+}
+
+html.dark-mode .plate-ghost .plate-title {
   opacity: .35;
 }
 

@@ -294,9 +294,40 @@
 }
 
 /* ── Design tokens: dark mode ──────────────────────────────── *
- * Applied via html.dark-mode (set by blocking head script in
- * every page <head>, before first paint — prevents FOUC).
+ * Two layers defend against dark-mode FOUC:
+ *
+ *  1. CSS fallback — @media (prefers-color-scheme: dark) fires
+ *     before any JS, giving OS-dark users dark tokens instantly.
+ *     Scoped to :root:not(.mode-resolved) so it yields once JS
+ *     has read the cookie and made its decision.
+ *
+ *  2. JS class — html.dark-mode is set by the blocking <head>
+ *     script (mode.js). Cookie overrides OS preference. JS adds
+ *     .mode-resolved after resolving, retiring the CSS fallback.
+ *
+ * Together: CSS covers the JS-fails / JS-delayed gap. JS covers
+ * explicit user preference. No flash in either scenario.
  * ------------------------------------------------------------ */
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.mode-resolved) {
+    --bg: #060606;
+    --panel: #0d0d0d;
+    --ink: #f3f0e8;
+    --muted: #d7d3ca;
+    --border: #f3f0e8;
+    --rule: rgba(255, 255, 255, .16);
+    --meta-bg: #f3f0e8;
+    --meta-ink: #0a0a0a;
+    --accent-text: var(--accent-on-dark);
+    --body-color: rgba(243, 240, 232, .82);
+    --body-muted: rgba(243, 240, 232, .52);
+    --body-faint: rgba(243, 240, 232, .14);
+    --body-tint: rgba(243, 240, 232, .04);
+    --identity-plate-bg: #0a0a0a;
+    --identity-plate-ink: #f3f0e8;
+  }
+}
 
 html.dark-mode {
   --bg: #060606;

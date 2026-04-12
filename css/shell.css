@@ -194,6 +194,21 @@ main {
   min-height: 44px;
 }
 
+/* Footer link group — multiple links in the left cell, separated
+   by a middot. The group inherits the cell's border + padding;
+   individual links inside it are inline, unstyled. */
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.footer-sep {
+  color: var(--body-muted);
+  font-size: var(--text-micro);
+  user-select: none;
+}
+
 /* ── Focus states (chrome elements) ────────────────────────── */
 
 .mode-toggle:focus-visible,

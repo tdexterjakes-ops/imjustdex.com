@@ -70,6 +70,12 @@
     root.classList.remove(CLASS);
   }
 
+  /* Signal that JS has resolved the mode. tokens.css has a
+     @media (prefers-color-scheme: dark) fallback scoped to
+     :root:not(.mode-resolved) — adding this class retires
+     that fallback so the JS cookie decision takes over. */
+  root.classList.add('mode-resolved');
+
   /* ── Wire up toggle + logo swap on DOM ready ─────────── */
 
   function ready(fn) {
