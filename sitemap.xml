@@ -1,38 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://dxjakes.com/</loc>
+    <loc>https://imjustdex.com/</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://dxjakes.com/about/</loc>
+    <loc>https://imjustdex.com/about/</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://dxjakes.com/words/reckonings/</loc>
+    <loc>https://imjustdex.com/words/reckonings/</loc>
     <lastmod>2026-04-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dxjakes.com/words/price-of-sunday/</loc>
+    <loc>https://imjustdex.com/words/price-of-sunday/</loc>
     <lastmod>2026-04-04</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dxjakes.com/words/gumbo/</loc>
+    <loc>https://imjustdex.com/words/gumbo/</loc>
     <lastmod>2026-04-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dxjakes.com/words/the-nets/</loc>
+    <loc>https://imjustdex.com/words/the-nets/</loc>
     <lastmod>2026-04-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://imjustdex.com/words/pulpit/</loc>
+    <lastmod>2026-03-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>

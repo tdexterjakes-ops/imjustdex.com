@@ -1,12 +1,12 @@
 # DX Editorial Design Standard
 
-This document codifies the design system for dxjakes.com. It exists so the system does not drift. Every value listed here is pulled from production CSS as of April 2026.
+This document codifies the design system for imjustdex.com. It exists so the system does not drift. Every value listed here is pulled from production CSS as of April 2026.
 
 ---
 
 ## 1. System Architecture
 
-The site is a static HTML publishing system. No build step. No framework. As of the April 2026 Phase 1 refactor, every page pulls from a shared layered CSS architecture and self-hosted fonts. Netlify auto-deploys on push to `main` on `tdexterjakes-ops/dxjakes.com`.
+The site is a static HTML publishing system. No build step. No framework. As of the April 2026 Phase 1 refactor, every page pulls from a shared layered CSS architecture and self-hosted fonts. Netlify auto-deploys on push to `main` on `tdexterjakes-ops/imjustdex.com`.
 
 ### CSS Layering
 
@@ -1146,7 +1146,7 @@ New tags may be added. Each must be a single word that names a weight, not a top
 ## 14. File Structure
 
 ```
-dxjakes.com/
+imjustdex.com/
 ├── index.html                    ← Homepage (plate grid + identity)
 ├── 404.html                      ← Custom 404 (served by Netlify fallback)
 ├── about/
@@ -1208,7 +1208,7 @@ The standard governs all production pages. Exceptions are permitted only under t
 
 1. Must use the same shell (masthead, rulers, footer strip, grid background, mode toggle).
 2. Must use the same color variables. No new colors.
-3. Must be visually recognizable as part of dxjakes.com within the first viewport.
+3. Must be visually recognizable as part of imjustdex.com within the first viewport.
 4. Must be documented here with a one-line rationale before it ships.
 
 ### Active Exceptions
@@ -1233,7 +1233,7 @@ Added 2026-04-10 to make the site machine-legible for search engines, feed reade
 
 Every page ships Schema.org JSON-LD in the `<head>`, embedded as `<script type="application/ld+json">`.
 
-- **Homepage (`/`)** — `@graph` with `WebSite` + `Person` nodes. The `Person` node is the canonical identity (`@id: https://dxjakes.com/#person`) referenced from every article's `author` and `publisher` fields.
+- **Homepage (`/`)** — `@graph` with `WebSite` + `Person` nodes. The `Person` node is the canonical identity (`@id: https://imjustdex.com/#person`) referenced from every article's `author` and `publisher` fields.
 - **About (`/about/`)** — `ProfilePage` whose `mainEntity` is the same `Person` node.
 - **Each article (`/words/*/`)** — `BlogPosting` with `headline`, `description`, `datePublished`, `dateModified`, `author`, `publisher`, `mainEntityOfPage`, `image`, `url`, `inLanguage`, and `wordCount`.
 

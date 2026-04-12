@@ -1,5 +1,5 @@
 /* ============================================================
- * dxjakes.com — mode.js
+ * imjustdex.com — mode.js
  * Blocking-safe mode toggle.
  *
  * Runs in two phases:

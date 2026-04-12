@@ -1,5 +1,5 @@
 /* ============================================================
- * dxjakes.com — progress.js
+ * imjustdex.com — progress.js
  * Reading progress bar + section indicator for long-form
  * article pages. Extracted from the inline script that was
  * previously duplicated across every /words/* page.

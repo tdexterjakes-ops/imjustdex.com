@@ -1,5 +1,5 @@
 /* ============================================================
- * dxjakes.com — essay.js
+ * imjustdex.com — essay.js
  * Article-page wiring (CSP-safe replacement for the inline
  * onclick handlers that previously lived in /words/* pages).
  *

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dxjakes.com/sitemap.xml
+Sitemap: https://imjustdex.com/sitemap.xml

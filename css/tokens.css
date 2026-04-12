@@ -1,5 +1,5 @@
 /* ============================================================
- * dxjakes.com — tokens.css
+ * imjustdex.com — tokens.css
  * Design tokens, font-face declarations, base styles.
  *
  * Single source of truth for the editorial design system.
@@ -77,6 +77,26 @@
   --body-muted: rgba(5, 5, 5, .56);
   --body-faint: rgba(5, 5, 5, .18);
   --body-tint: rgba(5, 5, 5, .04);
+
+  /* Plate-scoped surface tokens (Phase 10)
+     Image plates and the identity plate stay dark in both modes.
+     These tokens give that doctrine a name so plates.css never
+     needs raw hex for mode-specific surfaces.
+     --plate-overlay-ink : white text forced on image overlays.
+     --identity-plate-bg : identity plate background — in light mode
+                           inherits --ink; dark mode overrides to #0a0a0a
+                           (slightly lighter than page --bg #060606 so
+                           the plate doesn't vanish into the background).
+     --identity-plate-ink: identity plate text — inverts against bg.
+     --plate-image-meta-* : meta rail on image plates — light-mode
+                            colors forced in both modes because image
+                            plates never invert. */
+  --plate-overlay-ink: #fff;
+  --identity-plate-bg: var(--ink);
+  --identity-plate-ink: var(--bg);
+  --plate-image-meta-bg: #f5f5f1;
+  --plate-image-meta-ink: #0a0a0a;
+  --plate-image-meta-border: #0a0a0a;
 
   /* Layout
      --outer-pad is a scope-excluded layout primitive; it lives
@@ -298,6 +318,10 @@ html.dark-mode {
   --body-muted: rgba(243, 240, 232, .52);
   --body-faint: rgba(243, 240, 232, .14);
   --body-tint: rgba(243, 240, 232, .04);
+  /* Identity plate: #0a0a0a bg (not #060606) so the dark plate
+     lifts off the dark page background by ~4 LAB units. */
+  --identity-plate-bg: #0a0a0a;
+  --identity-plate-ink: #f3f0e8;
 }
 
 /* ── Base reset + root typography ──────────────────────────── */

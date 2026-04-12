@@ -1,5 +1,5 @@
 # ──────────────────────────────────────────────
-# dxjakes.com — Netlify Configuration
+# imjustdex.com — Netlify Configuration
 # Static editorial publishing object
 #
 # Architecture notes:
@@ -153,6 +153,11 @@
   to = "/words/reckonings/"
   status = 301
 
+[[redirects]]
+  from = "/words/pulpit"
+  to = "/words/pulpit/"
+  status = 301
+
 # ──────────────────────────────────────────────
 # Deprecated archive root — /words and /words/
 # The single-archive design lives at / now.
@@ -171,7 +176,7 @@
 
 # ──────────────────────────────────────────────
 # Removed TPH-era routes (moved out of editorial repo)
-# These lived at dxjakes.com during the TPH prototype phase.
+# These lived at imjustdex.com during the TPH prototype phase.
 # Any remaining inbound links should land at home.
 # ──────────────────────────────────────────────
 [[redirects]]

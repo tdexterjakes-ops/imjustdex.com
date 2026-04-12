@@ -1,5 +1,5 @@
 /* ============================================================
- * dxjakes.com — plates.css
+ * imjustdex.com — plates.css
  * The archive grid: plate grid, plate variants, identity plate,
  * image plates, ghost teaser plate.
  *
@@ -90,12 +90,13 @@ a.plate:focus-visible {
 }
 
 .plate-title.inverse {
-  color: #fff;
+  color: var(--plate-overlay-ink);
+  /* Rendering shadow — raw rgba is intentional (not a semantic color). */
   text-shadow: 0 2px 0 rgba(0, 0, 0, .45);
 }
 
 html.dark-mode .plate-title.inverse {
-  color: #fff;
+  color: var(--plate-overlay-ink);
 }
 
 /* ── Meta rail ─────────────────────────────────────────────── */
@@ -160,14 +161,15 @@ html.dark-mode .plate-title.inverse {
 }
 
 .plate-image .plate-title {
-  color: #fff;
+  color: var(--plate-overlay-ink);
+  /* Rendering shadow — raw rgba is intentional (not a semantic color). */
   text-shadow: 0 2px 0 rgba(0, 0, 0, .45);
 }
 
 .plate-image .meta-rail {
-  color: #0a0a0a;
-  background: #f5f5f1;
-  border-color: #0a0a0a;
+  color: var(--plate-image-meta-ink);
+  background: var(--plate-image-meta-bg);
+  border-color: var(--plate-image-meta-border);
 }
 
 .plate-image::before {
@@ -227,8 +229,8 @@ html.dark-mode .plate-title.inverse {
   grid-column: span 4;
   min-height: 346px;
   cursor: default;
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--identity-plate-bg);
+  color: var(--identity-plate-ink);
 }
 
 .identity-plate:hover {
@@ -272,9 +274,9 @@ html.dark-mode .plate-title.inverse {
      5 top > 4 bottom = 1px optical pull up, 7 horizontal is equally
      off-scale but tuned to the 3-letter label width. */
   padding: 5px 7px 4px;
-  border: var(--border-weight-chrome) solid var(--bg);
-  background: var(--bg);
-  color: var(--ink);
+  border: var(--border-weight-chrome) solid var(--identity-plate-ink);
+  background: var(--identity-plate-ink);
+  color: var(--identity-plate-bg);
   text-transform: uppercase;
   letter-spacing: var(--track-badge);
   font-weight: var(--weight-bold);
@@ -283,9 +285,9 @@ html.dark-mode .plate-title.inverse {
 
 .identity-plate .meta-rail {
   background: transparent;
-  color: var(--bg);
+  color: var(--identity-plate-ink);
   opacity: .45;
-  border-top: 1px solid var(--bg);
+  border-top: 1px solid var(--identity-plate-ink);
   border-right: none;
   font-size: var(--text-micro);
   letter-spacing: var(--track-teaser);
@@ -298,20 +300,20 @@ html.dark-mode .plate-title.inverse {
    to live here was removed in Phase 4.1 when --accent unified to
    #c00 across both modes — no longer needed.) */
 html.dark-mode .identity-plate {
-  background: #0a0a0a;
-  color: #f3f0e8;
-  border-color: #0a0a0a;
+  background: var(--identity-plate-bg);
+  color: var(--identity-plate-ink);
+  border-color: var(--identity-plate-bg);
 }
 
 html.dark-mode .identity-sub {
-  background: #f3f0e8;
-  color: #0a0a0a;
-  border-color: #f3f0e8;
+  background: var(--identity-plate-ink);
+  color: var(--identity-plate-bg);
+  border-color: var(--identity-plate-ink);
 }
 
 html.dark-mode .identity-plate .meta-rail {
-  color: #f3f0e8;
-  border-top-color: #f3f0e8;
+  color: var(--identity-plate-ink);
+  border-top-color: var(--identity-plate-ink);
 }
 
 /* ── Ghost plate (teaser) ──────────────────────────────────── */
