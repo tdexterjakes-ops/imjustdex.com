@@ -140,6 +140,15 @@
       --focus-ring-width:      2px;
       --outer-pad: 28px;
       --grid-gap: var(--space-sm);
+      /* Motion — 3-rung scale + single easing curve. Mirrors
+         /css/tokens.css Phase 8 vocabulary. Self-contained here
+         because brand.css does not pull from the main stack.
+         Doctrine: if a duration isn't in this scale, it doesn't
+         belong in the product. */
+      --motion-fast:  120ms;
+      --motion-med:   180ms;
+      --motion-slow:  300ms;
+      --ease-default: cubic-bezier(.2, .8, .2, 1);
     }
     body.dark-mode {
       --bg: #060606;
@@ -166,7 +175,8 @@
     body {
       margin: var(--space-0); background: var(--bg); color: var(--ink);
       font-family: var(--body); line-height: var(--lh-snug);
-      transition: background .18s ease, color .18s ease;
+      transition: background var(--motion-med) var(--ease-default),
+                  color var(--motion-med) var(--ease-default);
       background-image:
         linear-gradient(to right, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px)),
         linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px));
@@ -185,7 +195,7 @@
       border: 2px solid var(--border);
       font-family: var(--mono); font-size: var(--text-micro); font-weight: var(--weight-bold);
       letter-spacing: var(--track-teaser); text-transform: uppercase;
-      transition: top .18s ease;
+      transition: top var(--motion-med) var(--ease-default);
     }
     .skip-link:focus,
     .skip-link:focus-visible { top: 12px; outline: 2px solid var(--focus-ring); outline-offset: 2px; }
@@ -370,7 +380,8 @@
       font-weight: var(--weight-bold); letter-spacing: .02em;
       color: var(--bg); text-decoration: none;
       border-bottom: 2px solid var(--accent); padding-bottom: 3px;
-      transition: color .18s ease, border-color .18s ease;
+      transition: color var(--motion-med) var(--ease-default),
+                  border-color var(--motion-med) var(--ease-default);
     }
     .logo-download a:hover, .logo-download a:focus-visible {
       color: var(--accent); outline: none;
