@@ -392,6 +392,122 @@
   opacity: .8;
 }
 
+/* ── Email signup ─────────────────────────────────────────
+ * Sits below the share bar, continues the bordered panel
+ * stack with no top border. Zero-friction: email only,
+ * native HTML5 validation, Mailchimp POST. No JS deps.
+ * --------------------------------------------------------- */
+
+.email-signup {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding: var(--space-chrome) var(--space-lg);
+  border: var(--border-weight-content) solid var(--border);
+  border-top: 0;
+  background: var(--panel);
+}
+
+.email-signup-label {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  padding-right: var(--space-md);
+  white-space: nowrap;
+}
+
+.email-signup-fields {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.email-signup-input {
+  font-family: var(--body);
+  font-size: var(--text-label);
+  color: var(--ink);
+  background: var(--bg);
+  border: var(--border-weight-chrome) solid var(--border);
+  padding: var(--space-xs) var(--space-sm);
+  min-height: 44px;
+  min-width: 200px;
+  outline: none;
+  transition: border-color var(--motion-fast) var(--ease-default);
+}
+
+.email-signup-input::placeholder {
+  color: var(--body-muted);
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
+.email-signup-input:focus-visible {
+  border-color: var(--focus-ring);
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: -2px;
+}
+
+.email-signup-submit {
+  font-family: var(--mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-chrome);
+  text-transform: uppercase;
+  font-weight: var(--weight-bold);
+  padding: var(--space-xs) var(--space-chrome);
+  min-height: 44px;
+  border: var(--border-weight-chrome) solid var(--border);
+  border-left: 0;
+  background: var(--ink);
+  color: var(--bg);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity var(--motion-med) var(--ease-default);
+}
+
+.email-signup-submit:hover {
+  opacity: .8;
+}
+
+.email-signup-submit:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Honeypot — visually hidden, keeps bots out */
+.email-signup-hp {
+  position: absolute;
+  left: -5000px;
+}
+
+/* ── Responsive: stack on mobile ── */
+@media (max-width: 520px) {
+  .email-signup {
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md) var(--space-lg);
+  }
+  .email-signup-label {
+    margin-right: 0;
+    padding-right: 0;
+    margin-bottom: var(--space-hairline);
+  }
+  .email-signup-fields {
+    width: 100%;
+  }
+  .email-signup-input {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
 /* ── Previous / Next essay nav ─────────────────────────────
  * Sits below the share bar, above the Back link.
  * Two columns on wider viewports, stacks on mobile.
