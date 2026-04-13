@@ -346,6 +346,201 @@
   color: var(--bg);
 }
 
+/* ── Study note (collapsible scriptural footnote) ─────────────
+ * Native <details>/<summary> disclosure — zero JavaScript.
+ * Surfaces research annotations, commentary sources, and
+ * cross-references from the Bible Research Library.
+ *
+ * Placement:
+ *   • After a .scripture block — no top margin, reads as
+ *     continuation of the citation.
+ *   • Standalone (after a paragraph) — top margin matches
+ *     other block components.
+ *
+ * Markup:
+ *   <details class="study-note">
+ *     <summary class="study-note-trigger">
+ *       <span class="study-note-label">Study Note</span>
+ *       <span class="study-note-ref">Luke 5:2-11</span>
+ *       <span class="study-note-toggle" aria-hidden="true"></span>
+ *     </summary>
+ *     <div class="study-note-body">
+ *       <p class="study-note-annotation">...</p>
+ *       <div class="study-note-sources">
+ *         <span class="study-note-sources-label">Sources</span>
+ *         <ul><li>...</li></ul>
+ *       </div>
+ *       <div class="study-note-cross">
+ *         <span class="study-note-cross-label">Cross-references</span>
+ *         <ul><li>...</li></ul>
+ *       </div>
+ *     </div>
+ *   </details>
+ * ---------------------------------------------------------- */
+
+.study-note {
+  margin: var(--space-xl) 0;
+  border: var(--border-weight-chrome) solid var(--body-faint);
+  background: var(--body-tint);
+}
+
+/* Collapse top margin when immediately following a .scripture block
+   so the note reads as a continuation of the citation. */
+.scripture + .study-note {
+  margin-top: calc(-1 * var(--space-xl));
+  border-top: 0;
+}
+
+/* ── Trigger (summary) ── */
+
+.study-note-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  cursor: pointer;
+  user-select: none;
+  min-height: 44px;
+  transition: background var(--motion-fast) var(--ease-default);
+}
+
+.study-note-trigger:hover {
+  background: var(--body-tint);
+}
+
+/* Remove native disclosure marker */
+.study-note-trigger::-webkit-details-marker { display: none; }
+.study-note-trigger::marker { content: ''; }
+.study-note > summary { list-style: none; }
+
+.study-note-label {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--accent-text);
+  flex-shrink: 0;
+}
+
+.study-note-ref {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-chrome);
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+
+.study-note-toggle {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: var(--text-body);
+  font-weight: var(--weight-bold);
+  color: var(--body-muted);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
+
+.study-note-toggle::before {
+  content: '+';
+}
+
+.study-note[open] .study-note-toggle::before {
+  content: '\2212'; /* minus sign */
+}
+
+/* ── Focus state ── */
+
+.study-note-trigger:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: -2px;
+}
+
+/* ── Expanded body ── */
+
+.study-note-body {
+  padding: var(--space-md) var(--space-lg) var(--space-lg);
+  border-top: var(--border-weight-chrome) solid var(--body-faint);
+}
+
+.study-note-annotation {
+  font-family: var(--body);
+  font-size: var(--text-body);
+  line-height: var(--lh-normal);
+  color: var(--body-color);
+  margin: 0 0 var(--space-md);
+}
+
+.study-note-annotation:last-child {
+  margin-bottom: 0;
+}
+
+/* Source and cross-reference sections share the same chrome */
+.study-note-sources,
+.study-note-cross {
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: var(--border-weight-chrome) solid var(--body-faint);
+}
+
+.study-note-sources-label,
+.study-note-cross-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  margin-bottom: var(--space-xs);
+}
+
+.study-note-sources ul,
+.study-note-cross ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.study-note-sources li,
+.study-note-cross li {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  line-height: var(--lh-snug);
+  color: var(--body-muted);
+  padding: var(--space-hairline) 0;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 760px) {
+  .study-note-trigger {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .study-note-body {
+    padding: var(--space-sm) var(--space-md) var(--space-md);
+  }
+}
+
+/* ── Print: expand all notes ── */
+
+@media print {
+  .study-note {
+    border-color: #999 !important;
+  }
+
+  .study-note-body {
+    display: block !important;
+  }
+
+  .study-note-toggle {
+    display: none;
+  }
+}
+
 /* ── Research CTA ──────────────────────────────────────────── */
 
 .research-cta {
