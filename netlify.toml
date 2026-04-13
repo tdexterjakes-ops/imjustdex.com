@@ -200,6 +200,46 @@
   to = "/words/reckonings/"
   status = 301
 
+[[redirects]]
+  from = "/words/gloria"
+  to = "/words/gloria/"
+  status = 301
+
+[[redirects]]
+  from = "/words/pulpit"
+  to = "/words/pulpit/"
+  status = 301
+
+[[redirects]]
+  from = "/words/the-stone"
+  to = "/words/the-stone/"
+  status = 301
+
+[[redirects]]
+  from = "/words/should-have-killed-it"
+  to = "/words/should-have-killed-it/"
+  status = 301
+
+[[redirects]]
+  from = "/words/job"
+  to = "/words/job/"
+  status = 301
+
+[[redirects]]
+  from = "/words/next-verse"
+  to = "/words/next-verse/"
+  status = 301
+
+[[redirects]]
+  from = "/words/music-that-raised-me"
+  to = "/words/music-that-raised-me/"
+  status = 301
+
+[[redirects]]
+  from = "/words/not-the-same-as-alive"
+  to = "/words/not-the-same-as-alive/"
+  status = 301
+
 
 # ──────────────────────────────────────────────
 # Deprecated archive root — /words and /words/

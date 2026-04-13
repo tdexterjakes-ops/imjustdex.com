@@ -247,9 +247,34 @@ main {
   }
 
   .masthead {
-    flex-wrap: wrap;
-    gap: var(--space-sm);
+    flex-wrap: nowrap;
+    gap: var(--space-xs);
+    padding: var(--space-xs) 0 var(--space-xs);
+    padding-top: max(var(--space-xs), env(safe-area-inset-top));
+    margin-top: 0;
     background: var(--bg);
+  }
+
+  /* Compact brand block on mobile — tighter internal padding */
+  .brand-mark,
+  .brand-word {
+    padding: 6px var(--space-xs) 5px;
+  }
+
+  .brand-mark {
+    min-width: auto;
+    padding: 5px var(--space-xs);
+  }
+
+  .brand-logo {
+    height: 22px;
+  }
+
+  /* Compact toggle on mobile — single-line, tighter */
+  .mode-toggle {
+    padding: var(--space-xs) var(--space-sm) 7px;
+    min-height: 36px;
+    white-space: nowrap;
   }
 
   .footer-strip {
