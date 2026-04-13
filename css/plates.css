@@ -390,6 +390,47 @@ html.dark-mode .plate-ghost .plate-title {
   border-right: none;
 }
 
+/* ── Lane badge ────────────────────────────────────────────── *
+ * Editorial lane indicator — top-right corner of each plate.
+ * Mono, smallest readable size, high tracking, low opacity.
+ * Reads as metadata, not decoration. Subordinate to the title.
+ * Adapts to each plate surface (panel, image, identity, ghost).
+ * ------------------------------------------------------------ */
+
+.plate-lane {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  font-family: var(--mono);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-indicator);
+  text-transform: uppercase;
+  padding: 4px var(--space-xs) 3px;
+  border-left: var(--border-weight-chrome) solid var(--border);
+  border-bottom: var(--border-weight-chrome) solid var(--border);
+  background: var(--panel);
+  color: var(--ink);
+  opacity: .55;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* Image plates — forced light-on-dark to match overlay ambient */
+.plate-image .plate-lane {
+  background: rgba(0, 0, 0, .55);
+  color: rgba(255, 255, 255, .7);
+  border-color: rgba(255, 255, 255, .12);
+}
+
+/* Ghost plate — dashed border, transparent bg, deeply muted */
+.plate-ghost .plate-lane {
+  background: transparent;
+  border-style: dashed;
+  opacity: .22;
+}
+
 /* ── Responsive ────────────────────────────────────────────── */
 
 @media (max-width: 1120px) {

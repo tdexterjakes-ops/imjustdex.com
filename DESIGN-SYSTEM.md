@@ -697,6 +697,25 @@ Content format: reading time only (e.g., "8 min"). No dates. No "Read Time:" lab
 
 Used to tease an upcoming article before its publish date. Contains title (muted), "Publishing [date]" microcopy, and "Coming Soon" meta rail. The dashed border and transparency signal *this space is held*. On launch day, swap for the full article plate and remove the ghost CSS from index.html.
 
+### Lane Badge
+
+```css
+.plate-lane {
+  position: absolute; top: 0; right: 0; z-index: 3;
+  font-family: var(--mono); font-size: var(--text-meta);
+  font-weight: var(--weight-bold); letter-spacing: var(--track-indicator);
+  text-transform: uppercase; padding: 4px var(--space-xs) 3px;
+  border-left: var(--border-weight-chrome) solid var(--border);
+  border-bottom: var(--border-weight-chrome) solid var(--border);
+  background: var(--panel); color: var(--ink);
+  opacity: .55; line-height: 1; pointer-events: none;
+}
+.plate-image .plate-lane { background: rgba(0,0,0,.55); color: rgba(255,255,255,.7); border-color: rgba(255,255,255,.12); }
+.plate-ghost .plate-lane { background: transparent; border-style: dashed; opacity: .22; }
+```
+
+Editorial lane indicator — top-right corner of each plate. Three lanes: **Faith**, **Identity**, **Art**. Reads as metadata, not decoration: mono stack, smallest readable size, high tracking, low opacity. Adapts to each plate surface (panel = standard, image = forced light-on-dark, ghost = dashed/transparent). `pointer-events: none` so it doesn't interfere with plate click targets. Each plate carries a `data-lane` attribute on the clickable element (or the ghost `<div>`) for future filtering or JS hooks.
+
 ### Responsive Grid
 
 **Tablet (`< 1120px`):** 8-column grid. Identity/feature/secondary/banner → `span 4`. Wide → `span 8`.
@@ -1240,9 +1259,19 @@ All interface-level language follows one register: **terse, stamped, authored.**
 
 **Tags are classification, not decoration.** Single-word categorical labels. Never cute. Never clever. Never more than two per piece.
 
-### Permitted Tag Vocabulary
+### Editorial Lanes (Homepage Badge System)
 
-Faith, Identity, Work, Grief, Inheritance, Language, Calling, Strategy
+Three active lanes, each a single word naming a weight:
+
+**Faith** — Theological weight essays anchored in specific texts. Confession through Scripture.
+**Identity** — Personal confession, inheritance, self-definition. The human behind the writing.
+**Art** — Music, food, photography, creative practice. Absorbs all craft-driven essays.
+
+Lane badges appear top-right on every homepage plate via `.plate-lane` (see §6 Lane Badge). Each plate carries a `data-lane` attribute. New lanes may be added when the catalog earns them — not before. A fourth lane (e.g. culinary essays) should only be introduced when 2+ articles occupy it.
+
+### Permitted Tag Vocabulary (Article Pages)
+
+Tags on article detail pages use a broader vocabulary than the homepage lane system. Permitted: Faith, Identity, Art, Work, Grief, Inheritance, Language, Calling, Strategy. These appear in the article eyebrow as `.article-tag` classification badges.
 
 New tags may be added. Each must be a single word that names a weight, not a topic.
 
