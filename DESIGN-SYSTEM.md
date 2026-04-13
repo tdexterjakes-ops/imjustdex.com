@@ -702,19 +702,19 @@ Used to tease an upcoming article before its publish date. Contains title (muted
 ```css
 .plate-lane {
   position: absolute; top: 0; right: 0; z-index: 3;
-  font-family: var(--mono); font-size: var(--text-meta);
+  font-family: var(--mono); font-size: var(--text-micro);
   font-weight: var(--weight-bold); letter-spacing: var(--track-indicator);
   text-transform: uppercase; padding: 4px var(--space-xs) 3px;
   border-left: var(--border-weight-chrome) solid var(--border);
   border-bottom: var(--border-weight-chrome) solid var(--border);
-  background: var(--panel); color: var(--ink);
-  opacity: .55; line-height: 1; pointer-events: none;
+  background: var(--panel); color: var(--body-muted);
+  line-height: 1; pointer-events: none;
 }
-.plate-image .plate-lane { background: rgba(0,0,0,.55); color: rgba(255,255,255,.7); border-color: rgba(255,255,255,.12); }
-.plate-ghost .plate-lane { background: transparent; border-style: dashed; opacity: .22; }
+.plate-image .plate-lane { background: rgba(0,0,0,.72); color: rgba(255,255,255,.88); border-color: rgba(255,255,255,.18); }
+.plate-ghost .plate-lane { background: transparent; color: var(--body-muted); border-style: dashed; border-color: var(--body-faint); }
 ```
 
-Editorial lane indicator — top-right corner of each plate. Three lanes: **Faith**, **Identity**, **Art**. Reads as metadata, not decoration: mono stack, smallest readable size, high tracking, low opacity. Adapts to each plate surface (panel = standard, image = forced light-on-dark, ghost = dashed/transparent). `pointer-events: none` so it doesn't interfere with plate click targets. Each plate carries a `data-lane` attribute on the clickable element (or the ghost `<div>`) for future filtering or JS hooks.
+Editorial lane indicator — top-right corner of each plate. Three lanes: **Faith**, **Identity**, **Art**. Subordination comes from size (`.72rem` / `--text-micro`) and tracking (`.18em`), not opacity — no opacity means real contrast, which means accessible. Panel plates hit ~4.8:1 light / ~5.0:1 dark (AA pass). Image plates use an opaque dark badge bg (`.72` alpha) with bright text (`.88` alpha) to guarantee contrast regardless of image content. Ghost plates stay visually muted via `--body-muted` color and dashed `--body-faint` borders. `pointer-events: none` so badges don't interfere with plate click targets. Each plate carries a `data-lane` attribute for future filtering or JS hooks.
 
 ### Responsive Grid
 
