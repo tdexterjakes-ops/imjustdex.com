@@ -137,6 +137,18 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 # ──────────────────────────────────────────────
+# Rate limiting — /api/subscribe
+# Edge function intercepts before the proxy redirect.
+# 5 requests per IP per 60-second window. Returns 429
+# with Retry-After header when exceeded. In-memory store
+# resets on cold start — sufficient for bot deterrence
+# on a low-traffic editorial site.
+# ──────────────────────────────────────────────
+[[edge_functions]]
+  function = "rate-limit"
+  path = "/api/subscribe"
+
+# ──────────────────────────────────────────────
 # Mailchimp subscribe proxy
 # The site-wide CSP locks connect-src and form-action to 'self'.
 # This 200-level proxy keeps the browser request same-origin while
