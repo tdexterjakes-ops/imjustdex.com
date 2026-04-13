@@ -446,6 +446,99 @@ button {
   }
 }
 
+/* ── Windows High Contrast / forced-colors ────────────────── *
+ * When forced-colors is active, the browser overrides all
+ * authored colors with system colors. We can't control the
+ * palette — but we can ensure critical semantic boundaries
+ * remain visible by using system color keywords instead of
+ * letting the browser flatten everything to one border color.
+ *
+ * Strategy:
+ *   - Accent borders → Highlight (system accent, typically
+ *     the user's chosen link/highlight color).
+ *   - Reading progress + section indicator → Highlight so
+ *     they remain visible against Canvas.
+ *   - Plate textures are lost (background-image is stripped),
+ *     which is acceptable — plates degrade to bordered panels.
+ *   - Brand block inverted panel → Mark (system strong text).
+ *   - Focus rings → forced by browser, no override needed.
+ * ------------------------------------------------------------ */
+
+@media (forced-colors: active) {
+  /* Preserve accent semantics on key editorial elements */
+  .pull-quote,
+  .scripture,
+  .callout {
+    border-color: Highlight;
+  }
+
+  /* Reading progress bar must be visible against system canvas */
+  .reading-progress {
+    background: Highlight;
+  }
+
+  /* Section indicator — ensure the floating label reads */
+  .section-indicator {
+    border-color: ButtonBorder;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  /* Brand block — inverted panel needs system strong text */
+  .brand-word {
+    background: Mark;
+    color: MarkText;
+  }
+
+  /* Plate borders — ensure all plates remain bounded */
+  .plate,
+  .article-header,
+  .article-body,
+  .article-closing {
+    border-color: ButtonBorder;
+  }
+
+  /* Hover accent on plates → system Highlight */
+  .plate:hover,
+  .plate:focus-visible {
+    border-color: Highlight;
+  }
+
+  /* Share bar and research CTA — keep borders legible */
+  .share-bar,
+  .research-cta {
+    border-color: ButtonBorder;
+  }
+
+  /* Meta rail — keep the dark/light inversion meaningful */
+  .meta-rail {
+    background: Mark;
+    color: MarkText;
+    border-color: ButtonBorder;
+  }
+
+  /* Study notes — preserve the collapsible boundary */
+  .study-note {
+    border-color: ButtonBorder;
+  }
+
+  .study-note-label {
+    color: Highlight;
+  }
+
+  /* Ghost plate dashed border */
+  .plate-ghost {
+    border-color: GrayText;
+  }
+
+  /* Lane badges */
+  .lane-badge {
+    border-color: ButtonBorder;
+    color: CanvasText;
+    background: Canvas;
+  }
+}
+
 /* ── Reduced motion ────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
