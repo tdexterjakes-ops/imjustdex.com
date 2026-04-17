@@ -1,0 +1,821 @@
+/* ============================================================
+ * imjustdex.com — phase0.css
+ * Ministry Marketing OS — Phase 0 landing page.
+ *
+ * This stylesheet is scoped to the /phase0/ route. It relies on
+ * tokens.css for the design system and shell.css for the site
+ * chrome (masthead, brand block, mode toggle, rulers, footer
+ * strip, skip link, sr-only). Every declaration below is unique
+ * to the phase0 page — any rule that would duplicate tokens.css
+ * or shell.css has been deleted.
+ *
+ * Load order: tokens.css → shell.css → phase0.css
+ * No inline styles. No inline scripts. Strict-CSP compliant.
+ *
+ * Doctrine:
+ *   • Color tokens come from tokens.css (--bg, --ink, --panel,
+ *     --border, --rule, --accent, --accent-text, --body-color,
+ *     --body-muted, --body-tint). Never hard-code.
+ *   • Typography: --display / --body / --mono, paired with
+ *     --size-*, --text-*, --lh-*, --track-*.
+ *   • Spacing: --space-* scale only.
+ *   • Motion: --motion-* + --ease-default.
+ *   • Dark mode: handled by tokens.css via html.dark-mode; this
+ *     file never references html[data-theme], html.dark-mode, or
+ *     @media (prefers-color-scheme). Tokens flip themselves.
+ * ============================================================ */
+
+
+/* ── Page-local primitives ─────────────────────────────────────
+   --phase0-max  : content clamp, matches the editorial container
+                   rhythm of the rest of the site without fighting
+                   .page-shell's 1440px frame.
+   --phase0-prose: measure cap for body paragraphs inside plates.
+   --phase0-pad  : inline padding on section containers. */
+
+.phase0 {
+  --phase0-max: 1240px;
+  --phase0-prose: 680px;
+  --phase0-pad: clamp(16px, 4vw, 32px);
+}
+
+
+/* ── Base: page body is scoped via main.phase0 ───────────────── *
+ * tokens.css already sets body color, font-family, line-height,
+ * and the 46px grid background. phase0 content reads against
+ * those defaults and only overrides where editorial rhythm
+ * requires a looser measure.                                    */
+
+.phase0 {
+  color: var(--body-color);
+  line-height: var(--lh-normal);
+}
+
+.phase0 ::selection { background: var(--accent); color: #fff; }
+.phase0 a { color: inherit; text-underline-offset: .2em; text-decoration-thickness: 1px; }
+
+
+/* ── Section containers ─────────────────────────────────────── */
+
+.phase0-container {
+  width: 100%;
+  max-width: var(--phase0-max);
+  margin-inline: auto;
+  padding-inline: var(--phase0-pad);
+}
+
+.phase0 section {
+  padding: clamp(var(--space-2xl), 9vh, 120px) 0;
+  border-bottom: var(--border-weight-content) solid var(--border);
+}
+
+.phase0 section.panel { background: var(--panel); }
+
+
+/* ── Headings ──────────────────────────────────────────────── */
+
+.phase0 h1,
+.phase0 h2,
+.phase0 h3,
+.phase0 h4 {
+  font-family: var(--display);
+  font-weight: var(--weight-regular);
+  line-height: var(--lh-display);
+  text-transform: uppercase;
+  letter-spacing: var(--track-display);
+  color: var(--ink);
+  margin: 0;
+}
+
+.phase0 h1 { font-size: clamp(3.2rem, 13vw, 9rem); }
+.phase0 h2 { font-size: clamp(2.4rem, 7.5vw, 5.25rem); line-height: .92; }
+.phase0 h3 {
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  line-height: 1;
+  letter-spacing: var(--track-title);
+}
+.phase0 h4 {
+  font-size: 1rem;
+  letter-spacing: var(--track-brand);
+  line-height: 1;
+}
+
+.phase0 p { margin: 0; }
+
+
+/* ── Chrome text utilities ─────────────────────────────────── */
+
+.phase0 .stamp {
+  font-family: var(--mono);
+  font-weight: var(--weight-bold);
+  font-size: .72rem;
+  letter-spacing: var(--track-indicator);
+  text-transform: uppercase;
+  color: var(--body-color);
+}
+.phase0 .stamp--muted { color: var(--body-muted); }
+.phase0 .muted { color: var(--body-muted); }
+
+
+/* ── Section head: roman + label ───────────────────────────── */
+
+.phase0 .sect-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  padding-bottom: var(--space-md);
+  margin-bottom: var(--space-xl);
+  border-bottom: var(--border-weight-content) solid var(--accent);
+}
+.phase0 .sect-head .roman {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  letter-spacing: var(--track-brand);
+  color: var(--accent-text);
+  min-width: 3ch;
+}
+.phase0 .sect-head .label {
+  font-family: var(--mono);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--track-indicator);
+  font-size: .78rem;
+  color: var(--ink);
+  line-height: 1;
+  margin: 0;
+}
+/* h2 resets when it carries .label (semantically h2, visually chrome). */
+.phase0 h2.label { font-size: .78rem; }
+
+
+/* ── Display utility ───────────────────────────────────────── */
+
+.phase0 .h--display {
+  font-family: var(--display);
+  font-weight: var(--weight-regular);
+  text-transform: uppercase;
+  letter-spacing: var(--track-display);
+  font-size: clamp(2.4rem, 7.5vw, 5.25rem);
+  line-height: .92;
+  color: var(--ink);
+  margin: 0;
+}
+.phase0 .h--display .accent { color: var(--accent-text); }
+.phase0 .h--short { max-width: 14ch; }
+.phase0 .h--tight { max-width: 12ch; }
+
+
+/* ── Hero ──────────────────────────────────────────────────── */
+
+.phase0 .hero {
+  padding: clamp(var(--space-2xl), 9vh, 120px) 0;
+  border-bottom: var(--border-weight-content) solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.phase0 .hero .meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  align-items: center;
+  padding-bottom: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+  border-bottom: var(--border-weight-chrome) solid var(--rule);
+}
+.phase0 .hero .meta-row .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: 2px;
+}
+.phase0 .hero h1 { max-width: 16ch; position: relative; z-index: 1; }
+.phase0 .hero h1 .accent { color: var(--accent-text); }
+.phase0 .hero .deck {
+  margin-top: var(--space-xl);
+  max-width: 52ch;
+  font-size: 1.15rem;
+  line-height: var(--lh-normal);
+  color: var(--body-color);
+  position: relative;
+  z-index: 1;
+}
+.phase0 .hero .deck + .deck { margin-top: var(--space-md); }
+.phase0 .hero .cta-row {
+  margin-top: var(--space-2xl);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  position: relative;
+  z-index: 1;
+}
+
+/* Oversized watermark logo — inherits mode swap from mode.js
+   via the [data-base] hook on the <img> element. */
+.phase0 .hero-mark {
+  position: absolute;
+  right: clamp(-80px, -6vw, -40px);
+  bottom: clamp(-40px, -4vw, -20px);
+  width: clamp(280px, 48vw, 640px);
+  height: auto;
+  opacity: .08;
+  pointer-events: none;
+  user-select: none;
+}
+
+.phase0 .serial-rail {
+  position: absolute;
+  right: var(--phase0-pad);
+  top: clamp(80px, 14vh, 160px);
+  display: grid;
+  gap: 2px;
+  text-align: right;
+  font-family: var(--mono);
+  font-weight: var(--weight-bold);
+  font-size: .68rem;
+  letter-spacing: var(--track-indicator);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  pointer-events: none;
+  z-index: 2;
+}
+@media (max-width: 820px) {
+  .phase0 .serial-rail { display: none; }
+}
+
+
+/* ── Buttons (page-local — distinct from .mode-toggle) ─────── */
+
+.phase0 .btn {
+  --btn-bg: var(--ink);
+  --btn-fg: var(--bg);
+  --btn-bd: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-weight: var(--weight-bold);
+  font-size: .78rem;
+  letter-spacing: var(--track-indicator);
+  text-transform: uppercase;
+  padding: 16px 22px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: var(--border-weight-content) solid var(--btn-bd);
+  text-decoration: none;
+  cursor: pointer;
+  min-height: 44px;
+  transition:
+    transform var(--motion-med) var(--ease-default),
+    background var(--motion-med) var(--ease-default),
+    border-color var(--motion-med) var(--ease-default);
+}
+.phase0 .btn:hover { transform: translateY(-1px); border-color: var(--accent); }
+.phase0 .btn:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: 2px;
+}
+.phase0 .btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--ink);
+  --btn-bd: var(--border);
+}
+.phase0 .btn svg { width: 14px; height: 14px; }
+
+
+/* ── Two-column editorial layout ───────────────────────────── */
+
+.phase0 .two-col {
+  display: grid;
+  gap: var(--space-2xl);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 900px) {
+  .phase0 .two-col {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 80px;
+  }
+}
+
+
+/* ── Plate container ───────────────────────────────────────── */
+
+.phase0 .plate {
+  background: var(--panel);
+  border: var(--border-weight-content) solid var(--border);
+  padding: clamp(var(--space-lg), 4vw, var(--space-3xl));
+}
+.phase0 .plate > .plates { border-top: 0; }
+.phase0 .plate > .plates > li:last-child { border-bottom: 0; }
+
+
+/* ── Moment block (Section II) ─────────────────────────────── */
+
+.phase0 .moment .line {
+  font-family: var(--display);
+  font-size: clamp(1.75rem, 4.5vw, 3.25rem);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--track-display);
+  text-transform: uppercase;
+  color: var(--ink);
+  max-width: 22ch;
+}
+.phase0 .moment .line + .line { margin-top: 6px; }
+.phase0 .moment .beat {
+  margin-top: var(--space-xl);
+  max-width: 60ch;
+  line-height: var(--lh-normal);
+}
+.phase0 .moment .stack {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: var(--border-weight-chrome) solid var(--rule);
+  display: grid;
+  gap: 6px;
+}
+.phase0 .moment .stack p {
+  font-family: var(--display);
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+  letter-spacing: var(--track-display);
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+
+/* ── Definition block (Section III) ────────────────────────── */
+
+.phase0 .definition .lede-display {
+  font-family: var(--display);
+  font-size: clamp(2rem, 4.6vw, 3.5rem);
+  letter-spacing: var(--track-display);
+  text-transform: uppercase;
+  line-height: .95;
+  color: var(--ink);
+  max-width: 18ch;
+  margin: 0;
+}
+.phase0 .definition .lede-display .accent { color: var(--accent-text); }
+.phase0 .definition p {
+  margin-top: var(--space-lg);
+  max-width: 58ch;
+  color: var(--body-color);
+}
+
+
+/* ── Plates list (Section IV numbered contents) ────────────── */
+
+.phase0 .plates {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: var(--border-weight-content) solid var(--border);
+}
+.phase0 .plates li {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+  border-bottom: var(--border-weight-content) solid var(--border);
+  align-items: baseline;
+  transition: background var(--motion-med) var(--ease-default);
+}
+.phase0 .plates li:hover { background: var(--panel); }
+.phase0 .plates .num {
+  font-family: var(--mono);
+  font-weight: var(--weight-bold);
+  color: var(--accent-text);
+  font-size: .78rem;
+  letter-spacing: var(--track-indicator);
+}
+.phase0 .plates h4 {
+  font-family: var(--display);
+  font-weight: var(--weight-regular);
+  text-transform: uppercase;
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  letter-spacing: var(--track-title);
+  margin: 0 0 6px;
+  color: var(--ink);
+  line-height: 1;
+}
+.phase0 .plates p {
+  max-width: 60ch;
+  color: var(--body-color);
+  font-size: .96rem;
+  line-height: var(--lh-snug);
+}
+
+
+/* Section IV — inner contents spacing (former inline styles) */
+.phase0 .contents-list { margin-top: var(--space-2xl); }
+.phase0 .contents-note {
+  margin-top: var(--space-xl);
+  max-width: 60ch;
+  font-size: .98rem;
+}
+
+
+/* ── Fit cards (Section V) ─────────────────────────────────── */
+
+.phase0 .fit-grid {
+  display: grid;
+  gap: var(--space-xl);
+  grid-template-columns: 1fr;
+  margin-top: var(--space-2xl);
+}
+@media (min-width: 800px) {
+  .phase0 .fit-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+  }
+}
+.phase0 .fit-card {
+  padding: var(--space-xl);
+  border: var(--border-weight-content) solid var(--border);
+  background: var(--bg);
+}
+.phase0 .fit-card h4 {
+  font-family: var(--mono);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  font-size: .78rem;
+  letter-spacing: var(--track-indicator);
+  padding-bottom: var(--space-sm);
+  border-bottom: var(--border-weight-chrome) solid var(--border);
+  margin: 0 0 var(--space-md);
+  color: var(--ink);
+  line-height: 1;
+}
+.phase0 .fit-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-sm);
+}
+.phase0 .fit-card li {
+  position: relative;
+  padding-left: 22px;
+  font-size: .98rem;
+  line-height: var(--lh-snug);
+  color: var(--body-color);
+}
+.phase0 .fit-card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .65em;
+  width: 12px;
+  height: 2px;
+  background: var(--ink);
+}
+.phase0 .fit-card.not li::before { background: var(--body-muted); }
+.phase0 .fit-note {
+  margin-top: var(--space-xl);
+  max-width: 52ch;
+}
+
+
+/* ── Pull quote (Section VI) ───────────────────────────────── */
+
+.phase0 .pull {
+  padding: clamp(var(--space-xl), 5vw, var(--space-3xl));
+  border: var(--border-weight-content) solid var(--border);
+  background: var(--panel);
+}
+.phase0 .pull blockquote {
+  margin: 0;
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: clamp(1.75rem, 4.6vw, 3.25rem);
+  line-height: .98;
+  letter-spacing: var(--track-display);
+  color: var(--ink);
+  max-width: 22ch;
+}
+.phase0 .pull blockquote .accent { color: var(--accent-text); }
+.phase0 .pull .fine {
+  margin-top: var(--space-lg);
+  max-width: 54ch;
+  color: var(--body-color);
+  font-size: .96rem;
+  line-height: var(--lh-snug);
+}
+.phase0 .pull .fine + .fine { margin-top: var(--space-sm); }
+
+
+/* ── Capture / Access (Section VII) ────────────────────────── */
+
+.phase0 .capture h3.h--display { max-width: 18ch; }
+.phase0 .capture h3.h--display .accent { color: var(--accent-text); }
+
+.phase0 .capture .grid {
+  display: grid;
+  gap: var(--space-2xl);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 920px) {
+  .phase0 .capture .grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: end;
+    gap: 80px;
+  }
+}
+.phase0 .capture .pitch p {
+  margin-top: var(--space-lg);
+  max-width: 46ch;
+  color: var(--body-color);
+}
+
+
+/* ── Signup form — .email-signup shape + phase0 overrides ──── *
+ * The form element carries both .email-signup (so it visually
+ * inherits site signup shape) and .phase0-capture (so phase0.js
+ * binds the richer error-state handler instead of signup.js).
+ * data-no-signup-js on the form tells signup.js to skip it.      */
+
+.phase0 .phase0-capture {
+  display: grid;
+  gap: var(--space-sm);
+  position: relative;
+}
+.phase0 .phase0-capture .email-signup-label {
+  font-family: var(--mono);
+  font-weight: var(--weight-bold);
+  font-size: .7rem;
+  letter-spacing: var(--track-indicator);
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+.phase0 .phase0-capture .email-signup-fields {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  border: var(--border-weight-content) solid var(--border);
+  background: var(--bg);
+}
+.phase0 .phase0-capture .email-signup-input {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-family: var(--body);
+  font-size: 1rem;
+  padding: 18px;
+  min-width: 0;
+  width: 100%;
+  min-height: 44px;
+}
+.phase0 .phase0-capture .email-signup-input::placeholder { color: var(--body-muted); }
+.phase0 .phase0-capture .email-signup-submit {
+  border: 0;
+  border-left: var(--border-weight-content) solid var(--border);
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-weight: var(--weight-bold);
+  font-size: .78rem;
+  letter-spacing: var(--track-indicator);
+  text-transform: uppercase;
+  padding: 0 22px;
+  min-width: 156px;
+  min-height: 44px;
+  cursor: pointer;
+  transition:
+    background var(--motion-med) var(--ease-default),
+    color var(--motion-med) var(--ease-default);
+}
+.phase0 .phase0-capture .email-signup-submit:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.phase0 .phase0-capture .fine {
+  margin-top: 4px;
+  font-family: var(--mono);
+  font-weight: var(--weight-bold);
+  font-size: .7rem;
+  letter-spacing: var(--track-indicator);
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+.phase0 .phase0-capture .fine .accent { color: var(--accent-text); }
+
+/* Honeypot — remains hidden visually but reachable to bots */
+.phase0 .email-signup-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Form states */
+.phase0 .phase0-capture[data-state="success"] .email-signup-fields,
+.phase0 .phase0-capture[data-state="success"] .email-signup-label { display: none; }
+.phase0 .phase0-capture[data-state="error"] .email-signup-fields {
+  border-color: var(--accent);
+}
+.phase0 .form-msg {
+  display: none;
+  padding: var(--space-md);
+  border: var(--border-weight-chrome) solid var(--border);
+  font-family: var(--mono);
+  font-weight: var(--weight-bold);
+  font-size: .78rem;
+  letter-spacing: var(--track-indicator);
+  text-transform: uppercase;
+}
+.phase0 .form-msg[data-kind="success"] { color: var(--ink); border-color: var(--accent); }
+.phase0 .form-msg[data-kind="error"]   { color: var(--accent-text); border-color: var(--accent); }
+.phase0 .phase0-capture[data-state="success"] .form-msg[data-kind="success"] { display: block; }
+.phase0 .phase0-capture[data-state="error"]   .form-msg[data-kind="error"]   { display: block; }
+
+/* noscript fallback state — force-show the error message */
+.phase0 .phase0-capture .form-msg--noscript { display: block; }
+
+/* Mobile: stack field + button */
+@media (max-width: 520px) {
+  .phase0 .phase0-capture .email-signup-fields { grid-template-columns: 1fr; }
+  .phase0 .phase0-capture .email-signup-submit {
+    border-left: 0;
+    border-top: var(--border-weight-content) solid var(--border);
+    min-width: 0;
+    padding: 16px;
+  }
+}
+
+
+/* ── System roadmap (Section VIII) ─────────────────────────── */
+
+.phase0 .next-grid {
+  display: grid;
+  gap: var(--space-2xl);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 900px) {
+  .phase0 .next-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+}
+
+.phase0 .phases {
+  background: var(--panel);
+  border: var(--border-weight-content) solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.phase0 .phases .cell {
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-sm);
+  border-bottom: var(--border-weight-content) solid var(--border);
+  font-family: var(--mono);
+  font-weight: var(--weight-bold);
+  font-size: .82rem;
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  transition:
+    color var(--motion-med) var(--ease-default),
+    background var(--motion-med) var(--ease-default);
+}
+.phase0 .phases .cell:last-child { border-bottom: 0; }
+.phase0 .phases .cell.active { color: var(--ink); background: var(--bg); }
+.phase0 .phases .cell .n {
+  font-family: var(--display);
+  font-size: 1rem;
+  color: var(--accent-text);
+  letter-spacing: 0;
+}
+
+.phase0 .system-blurb {
+  margin-top: var(--space-lg);
+  max-width: 52ch;
+}
+
+
+/* ── Author (Section IX) ───────────────────────────────────── */
+
+.phase0 .about {
+  display: grid;
+  gap: var(--space-2xl);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 800px) {
+  .phase0 .about {
+    grid-template-columns: 320px 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+}
+.phase0 .about h3.name {
+  font-family: var(--display);
+  font-weight: var(--weight-regular);
+  text-transform: uppercase;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: .92;
+  letter-spacing: var(--track-display);
+  color: var(--ink);
+  margin: 0;
+}
+.phase0 .about .role {
+  font-family: var(--mono);
+  font-weight: var(--weight-bold);
+  font-size: .78rem;
+  letter-spacing: var(--track-indicator);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  margin-top: var(--space-sm);
+}
+.phase0 .about p {
+  color: var(--body-color);
+  max-width: 58ch;
+}
+.phase0 .about p + p { margin-top: var(--space-md); }
+.phase0 .about .sig {
+  margin-top: var(--space-lg);
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  letter-spacing: var(--track-title);
+  color: var(--ink);
+}
+
+
+/* ── Interstitial (between IV and V) ───────────────────────── */
+
+.phase0 .interstitial {
+  padding: var(--space-xl) 0;
+  border-bottom: var(--border-weight-content) solid var(--border);
+}
+.phase0 .interstitial .inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+.phase0 .interstitial-line {
+  font-family: var(--mono);
+  font-weight: var(--weight-bold);
+  font-size: .82rem;
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0;
+}
+@media (max-width: 640px) {
+  .phase0 .interstitial .inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+
+/* ── Page footer strip (local to /phase0/) ─────────────────── *
+ * Uses the canonical .footer-strip pattern from shell.css —
+ * the rules below only add the phase0-specific inner layout. */
+
+.phase0-footer-strip {
+  font-family: var(--mono);
+  font-weight: var(--weight-bold);
+  font-size: .72rem;
+  letter-spacing: var(--track-indicator);
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+.phase0-footer-strip a { color: inherit; }
+
+
+/* ── Windows High Contrast / forced-colors ─────────────────── */
+
+@media (forced-colors: active) {
+  .phase0 .plate,
+  .phase0 .fit-card,
+  .phase0 .pull,
+  .phase0 .phases,
+  .phase0 .phase0-capture .email-signup-fields {
+    border-color: ButtonBorder;
+  }
+  .phase0 .sect-head,
+  .phase0 .phase0-capture[data-state="error"] .email-signup-fields,
+  .phase0 .form-msg[data-kind="error"],
+  .phase0 .form-msg[data-kind="success"] {
+    border-color: Highlight;
+  }
+  .phase0 .btn {
+    border-color: ButtonBorder;
+    color: ButtonText;
+    background: ButtonFace;
+  }
+  .phase0 .btn:hover,
+  .phase0 .btn:focus-visible { border-color: Highlight; }
+}

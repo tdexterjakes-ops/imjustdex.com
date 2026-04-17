@@ -181,6 +181,11 @@
   status = 301
 
 [[redirects]]
+  from = "/phase0"
+  to = "/phase0/"
+  status = 301
+
+[[redirects]]
   from = "/words/the-nets"
   to = "/words/the-nets/"
   status = 301

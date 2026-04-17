@@ -11,6 +11,11 @@
   var form = document.querySelector('.email-signup');
   if (!form) return;
 
+  // Pages can opt out of this handler by marking the form with
+  // data-no-signup-js (see /phase0/ for a form that owns its own
+  // state machine via /js/phase0.js).
+  if (form.hasAttribute('data-no-signup-js')) return;
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
