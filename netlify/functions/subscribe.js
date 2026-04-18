@@ -8,7 +8,7 @@
 
 const RATE_LIMIT = 5;
 const RATE_WINDOW_MS = 60000;
-const HONEYPOT_FIELD = 'b_41b4a69d61d7e6d50724373f0_216fb11473';
+const HONEYPOT_FIELD = 'website';
 
 const hits = new Map();
 

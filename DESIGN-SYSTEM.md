@@ -1052,9 +1052,7 @@ Rules: Sits directly below `</article>` (or below `.research-cta` if present). `
 #### Email Signup
 
 ```html
-<form class="email-signup"
-      action="/api/subscribe?u=41b4a69d61d7e6d50724373f0&amp;id=216fb11473&amp;f_id=009345e0f0"
-      method="post">
+<form class="email-signup" action="/api/subscribe" method="post">
   <span class="email-signup-label">Get notified when I publish</span>
   <div class="email-signup-fields">
     <label for="email" class="sr-only">Email address</label>
@@ -1063,13 +1061,12 @@ Rules: Sits directly below `</article>` (or below `.research-cta` if present). `
     <button type="submit" class="email-signup-submit">Notify me</button>
   </div>
   <div class="email-signup-hp" aria-hidden="true">
-    <input type="text" name="b_41b4a69d61d7e6d50724373f0_216fb11473"
-           tabindex="-1" value="">
+    <input type="text" name="website" tabindex="-1" value="">
   </div>
 </form>
 ```
 
-Rules: Posts through Netlify proxy (`/api/subscribe`) to Mailchimp. The `.email-signup-hp` div is a honeypot for bots — `aria-hidden="true"` and `tabindex="-1"` keep it invisible to users and assistive tech. The `sr-only` label on the input is required for WCAG AA. `signup.js` handles AJAX submission and success/error states (adds `.email-signup--done` class on success). Sits below the share bar in every article.
+Rules: Posts to `/api/subscribe` (Netlify Function → Mailchimp). The `.email-signup-hp` div is a honeypot for bots — `aria-hidden="true"` and `tabindex="-1"` keep it invisible to users and assistive tech. The field name `website` is the web-standard honeypot convention; the function rejects any submission where it's populated. The `sr-only` label on the email input is required for WCAG AA. `signup.js` handles AJAX submission and success/error states (adds `.email-signup--done` class on success). Sits below the share bar in every article.
 
 ---
 
