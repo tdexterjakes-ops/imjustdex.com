@@ -407,6 +407,9 @@ html {
   scroll-behavior: smooth;
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  /* iOS Safari's scroll container is html, not body. Clip here stops
+     viewport-level horizontal scroll. Keep body's clip as defense-in-depth. */
+  overflow-x: clip;
 }
 
 body {

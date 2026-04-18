@@ -36,6 +36,10 @@
   padding-left: max(var(--outer-pad), env(safe-area-inset-left));
   padding-right: max(var(--outer-pad), env(safe-area-inset-right));
   position: relative;
+  /* Defense-in-depth: stop any descendant from forcing horizontal scroll
+     at the shell boundary. `clip` preserves position: sticky on the
+     masthead; `hidden` would break it. */
+  overflow-x: clip;
 }
 
 main {

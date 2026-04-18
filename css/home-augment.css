@@ -702,6 +702,15 @@ a.plate-lead:focus-visible {
   margin: var(--space-2xl) 0 var(--space-lg);
   border: var(--border-weight-content) solid var(--border);
   background: var(--panel);
+  /* Containment: grid children default to min-content min-width, which
+     lets display-type force horizontal overflow on narrow viewports.
+     max-width + min-width:0 on children cap the grid to its container. */
+  max-width: 100%;
+  min-width: 0;
+}
+
+.subscribe-manifesto > * {
+  min-width: 0;
 }
 
 .subscribe-manifesto .sm-left {
@@ -729,8 +738,10 @@ a.plate-lead:focus-visible {
   margin: 0;
   font-family: var(--display);
   /* Editorial clamp — above --text-h1. Documented exception.
-     Min raised from 4rem→3.25rem to stop overflow on <400px viewports. */
-  font-size: clamp(3.25rem, 9vw, 7rem);
+     Min lowered to 2.75rem so "WORDS THAT" + "YOUR TIME." always fit
+     a 320px content box (iPhone SE-class), including Anton condensed
+     rendering variance. 9vw fluid middle, 7rem desktop ceiling. */
+  font-size: clamp(2.75rem, 9vw, 7rem);
   line-height: var(--lh-display);
   letter-spacing: var(--track-display);
   text-transform: uppercase;
@@ -738,6 +749,7 @@ a.plate-lead:focus-visible {
   font-weight: var(--weight-regular);
   max-width: 100%;
   overflow-wrap: break-word;
+  word-break: break-word;
 }
 .subscribe-manifesto .sm-title .sm-accent {
   display: inline-block;
