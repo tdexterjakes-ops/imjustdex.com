@@ -96,7 +96,11 @@ body {
      Image plates and the identity plate stay dark in both modes.
      These tokens give that doctrine a name so plates.css never
      needs raw hex for mode-specific surfaces.
-     --plate-overlay-ink : white text forced on image overlays.
+     --plate-overlay-ink : pure white foreground (#fff). Forced on
+                           image plate overlays and anywhere pure
+                           white is needed on chromatic surfaces —
+                           accent selection, accent hover text.
+                           Does not invert.
      --identity-plate-bg : identity plate background — in light mode
                            inherits --ink; dark mode overrides to #0a0a0a
                            (slightly lighter than page --bg #060606 so
@@ -111,6 +115,22 @@ body {
   --plate-image-meta-bg: #f5f5f1;
   --plate-image-meta-ink: #0a0a0a;
   --plate-image-meta-border: #0a0a0a;
+
+  /* Editorial white — the warm off-white (#f5f5f1). Fixed foreground
+     for text and borders on accent red, dark image overlays, and
+     lead-badge chrome. Does NOT invert across modes because the
+     underlying surfaces (accent red, dark overlays) don't invert.
+     Companion to --plate-overlay-ink — use --on-accent for the
+     warm off-white, --plate-overlay-ink for pure white. */
+  --on-accent: #f5f5f1;
+
+  /* Print tier — paper-optimized colors used exclusively inside
+     @media print blocks. Hex is the source of truth here; these
+     are the only print tokens. Not mode-aware by design — print
+     always renders on white paper regardless of display mode. */
+  --print-paper: #fff;
+  --print-ink: #000;
+  --print-muted: #999;
 
   /* Layout
      --outer-pad is a scope-excluded layout primitive; it lives
@@ -432,8 +452,8 @@ button {
 
 @media print {
   body {
-    background: #fff !important;
-    color: #000 !important;
+    background: var(--print-paper) !important;
+    color: var(--print-ink) !important;
     background-image: none !important;
   }
 
@@ -450,7 +470,7 @@ button {
   .plate,
   .article-header,
   .article-body {
-    border-color: #000 !important;
+    border-color: var(--print-ink) !important;
     break-inside: avoid;
   }
 

@@ -415,7 +415,7 @@ a.issue-standfirst:focus-visible {
   z-index: 3;
   display: inline-flex;
   gap: 0;
-  border: var(--border-weight-chrome) solid #f5f5f1;
+  border: var(--border-weight-chrome) solid var(--on-accent);
 }
 .plate-lead .lead-badge-label,
 .plate-lead .lead-badge-lane {
@@ -429,12 +429,12 @@ a.issue-standfirst:focus-visible {
 }
 .plate-lead .lead-badge-label {
   background: var(--accent);
-  color: #f5f5f1;
-  border-right: var(--border-weight-chrome) solid #f5f5f1;
+  color: var(--on-accent);
+  border-right: var(--border-weight-chrome) solid var(--on-accent);
 }
 .plate-lead .lead-badge-lane {
   background: rgba(0, 0, 0, .8);
-  color: #f5f5f1;
+  color: var(--on-accent);
 }
 
 .plate-lead .lead-body {
@@ -707,7 +707,7 @@ a.plate-lead:focus-visible {
 .subscribe-manifesto .sm-left {
   padding: var(--space-2xl) var(--space-xl);
   background: var(--accent);
-  color: #f5f5f1;
+  color: var(--on-accent);
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
@@ -721,7 +721,7 @@ a.plate-lead:focus-visible {
   font-weight: var(--weight-bold);
   letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
-  color: #f5f5f1;
+  color: var(--on-accent);
   line-height: 1;
 }
 
@@ -733,7 +733,7 @@ a.plate-lead:focus-visible {
   line-height: var(--lh-display);
   letter-spacing: var(--track-display);
   text-transform: uppercase;
-  color: #f5f5f1;
+  color: var(--on-accent);
   font-weight: var(--weight-regular);
 }
 .subscribe-manifesto .sm-title .sm-accent {
@@ -846,7 +846,7 @@ a.plate-lead:focus-visible {
 }
 .subscribe-manifesto .sm-submit:hover {
   background: var(--accent);
-  color: #f5f5f1;
+  color: var(--on-accent);
 }
 
 .subscribe-manifesto .sm-fine {

@@ -492,7 +492,7 @@ html.dark-mode .plate-ghost .plate-title {
 
 @media print {
   .plate {
-    border-color: #000 !important;
+    border-color: var(--print-ink) !important;
     break-inside: avoid;
   }
 }

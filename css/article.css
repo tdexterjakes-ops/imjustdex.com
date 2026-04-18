@@ -529,7 +529,7 @@
 
 @media print {
   .study-note {
-    border-color: #999 !important;
+    border-color: var(--print-muted) !important;
   }
 
   .study-note-body {
