@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="/css/tokens.css?v=phase16">
   <link rel="stylesheet" href="/css/shell.css?v=phase14">
   <link rel="stylesheet" href="/css/plates.css?v=phase11">
-  <link rel="stylesheet" href="/css/home-augment.css?v=phase17">
+  <link rel="stylesheet" href="/css/home-augment.css?v=phase18">
 
   <!-- Mode: synchronous in <head> so html.dark-mode is set before first paint -->
   <script src="/js/mode.js?v=phase11"></script>
@@ -264,7 +264,7 @@
           <li><span class="sm-check">✓</span><div><div class="sm-strong">Ad-free, tracking-free</div><div class="sm-faint">Plain text where possible.</div></div></li>
           <li><span class="sm-check">✓</span><div><div class="sm-strong">Unsubscribe in one click</div><div class="sm-faint">No guilt trip footers.</div></div></li>
         </ul>
-        <form class="sm-form" action="/api/subscribe" method="POST" novalidate>
+        <form class="sm-form" action="/api/subscribe" method="POST">
           <input type="hidden" name="source" value="home">
           <label class="sm-hp" aria-hidden="true">
             Leave blank: <input type="text" name="website" tabindex="-1" autocomplete="off">
@@ -289,5 +289,8 @@
       <span>Est. 1994</span>
     </footer>
   </div>
+
+  <!-- Subscribe form progressive enhancement -->
+  <script src="/js/subscribe.js?v=phase18" defer></script>
 </body>
 </html>

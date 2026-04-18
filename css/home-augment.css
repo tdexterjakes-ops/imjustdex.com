@@ -914,3 +914,69 @@ a.plate-lead:focus-visible {
     transition: none;
   }
 }
+
+/* ============================================================
+ * 10 · Subscribe states (phase 18) — inline confirm + error
+ * JS-driven. Form is replaced with .sm-confirm on success; an
+ * .sm-error paragraph is injected after the form on failure.
+ * ============================================================ */
+
+.subscribe-manifesto .sm-form[data-state="loading"] .sm-submit {
+  opacity: .7;
+  cursor: wait;
+}
+
+.subscribe-manifesto .sm-confirm {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-chrome);
+  background: var(--bg);
+  min-height: 44px;
+}
+
+.subscribe-manifesto .sm-confirm-mark {
+  flex: 0 0 auto;
+  font-family: var(--display);
+  font-size: var(--text-h5);
+  line-height: 1;
+  color: var(--accent);
+  padding-top: 2px;
+}
+
+.subscribe-manifesto .sm-confirm-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.subscribe-manifesto .sm-confirm-head {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-footer);
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1.15;
+}
+
+.subscribe-manifesto .sm-confirm-sub {
+  margin: 0;
+  font-family: var(--body);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-badge);
+  color: var(--body-muted);
+  line-height: 1.45;
+}
+
+.subscribe-manifesto .sm-error {
+  margin-top: var(--space-hairline);
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.4;
+}
