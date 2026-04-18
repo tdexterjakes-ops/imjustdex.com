@@ -19,6 +19,8 @@ Entry numbers = chronological rank of all entries (Published + Deployed + Drafte
 
 Cascade rule: the home surfaces the lead + 3 earlier. When a 5th essay publishes, the oldest in view drops to the deep archive. No 4th "earlier" slot.
 
+Meta-rail convention: every meta rail (latest bar, lead plate eyebrow, earlier plates, issue-next) uses `lane · date · read-time`. Never relative time ("in two days," "next week") — it ages wrong and breaks the editorial calm.
+
 ---
 
 ## Next Rotation — Entry No. 05 · Apr 19, 2026
@@ -87,14 +89,14 @@ Reckonings drops off the home.
 <a class="issue-next" href="#subscribe-manifesto" aria-label="Scroll to subscribe and be notified when I Am Not My Father&rsquo;s Pulpit is published">
   <span class="next-tag">Next</span>
   <span class="next-title">I Am Not My Father&rsquo;s Pulpit</span>
-  <span class="next-meta">Identity · Apr 23 · In four days</span>
+  <span class="next-meta">Identity · Apr 23 · 12 min</span>
   <span class="next-cta" aria-hidden="true">Notify me →</span>
 </a>
 ```
 
 ---
 
-## Open questions before execution
+## Decisions (locked 2026-04-18)
 
-- **Lead plate image** for Art lane — no existing `img-art` treatment in `plates.css`. Ship with the current default lead-image pattern or introduce an Art-specific texture?
-- **"In four days" copy** on the Issue-next block — rotate this to a static "Publishing Apr 23" to avoid a copy that ages wrong if Pulpit slips?
+- **Art lane lead plate** — ships on the default lead-image pattern. No `img-art` texture required for Entry 05. Revisit if an Art-specific treatment is introduced later.
+- **No relative time copy** in meta rails. Always `lane · date · read-time`. Applied to the live issue-next (The Groan Beneath the Song) and codified as a protocol rule above.
