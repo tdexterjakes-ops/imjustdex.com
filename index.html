@@ -5,25 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
 
-  <title>DX — Dexter Jakes</title>
-  <meta name="description" content="Most of what matters will never be measured. It is only felt and remembered in the silence of consequence.">
+  <title>Dexter Jakes — Essays on faith, identity and art</title>
+  <meta name="description" content="No highlight reel. Just the full human, documented.">
 
   <link rel="canonical" href="https://imjustdex.com/">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="DX — Dexter Jakes">
-  <meta property="og:description" content="Faith, weight, and the words that carry both.">
+  <meta property="og:title" content="Dexter Jakes — Essays on faith, identity and art">
+  <meta property="og:description" content="No highlight reel. Just the full human, documented.">
   <meta property="og:image" content="https://imjustdex.com/img/og-default.png">
   <meta property="og:url" content="https://imjustdex.com/">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="DX">
+  <meta property="og:site_name" content="Dexter Jakes">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="DX — Dexter Jakes">
-  <meta name="twitter:description" content="Faith, weight, and the words that carry both.">
+  <meta name="twitter:title" content="Dexter Jakes — Essays on faith, identity and art">
+  <meta name="twitter:description" content="No highlight reel. Just the full human, documented.">
   <meta name="twitter:image" content="https://imjustdex.com/img/og-default.png">
 
   <!-- Self-hosted font preloads: first paint of display + body text with no layout shift -->
@@ -35,12 +35,13 @@
   <link rel="stylesheet" href="/css/tokens.css?v=phase16">
   <link rel="stylesheet" href="/css/shell.css?v=phase14">
   <link rel="stylesheet" href="/css/plates.css?v=phase11">
+  <link rel="stylesheet" href="/css/home-augment.css?v=phase17">
 
   <!-- Mode: synchronous in <head> so html.dark-mode is set before first paint -->
   <script src="/js/mode.js?v=phase11"></script>
 
   <!-- Feed discovery -->
-  <link rel="alternate" type="application/atom+xml" title="DX — Dexter Jakes" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="Dexter Jakes — Essays" href="/feed.xml">
 
   <!-- Structured data: WebSite + Person -->
   <script type="application/ld+json">
@@ -51,8 +52,9 @@
       "@type": "WebSite",
       "@id": "https://imjustdex.com/#website",
       "url": "https://imjustdex.com/",
-      "name": "DX — Dexter Jakes",
-      "description": "Faith, weight, and the words that carry both.",
+      "name": "Dexter Jakes",
+      "alternateName": "ImJustDex",
+      "description": "No highlight reel. Just the full human, documented.",
       "inLanguage": "en",
       "publisher": { "@id": "https://imjustdex.com/#person" }
     },
@@ -84,89 +86,195 @@
   <div class="page-shell">
     <header>
       <nav class="masthead" aria-label="Main navigation">
-      <a class="brand-block" href="/" aria-label="DX home">
-        <span class="brand-mark">
-          <img src="/img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28" data-base="/img/">
-        </span>
-        <span class="brand-word">Words</span>
-      </a>
-      <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode" aria-pressed="false">
-        Mode: Light
-      </button>
-    </nav>
+        <a class="brand-block" href="/" aria-label="Dexter Jakes home">
+          <span class="brand-mark">
+            <img src="/img/logo-dark.svg" alt="" class="brand-logo" width="41" height="28" data-base="/img/">
+          </span>
+          <span class="brand-word">Words</span>
+        </a>
+        <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode" aria-pressed="false">
+          Mode: Light
+        </button>
+      </nav>
     </header>
+
+    <!-- 01 · Issue head ────────────────────────────── -->
+    <section class="issue-head" aria-label="Issue">
+      <div class="issue-meta">
+        <span class="issue-no">Vol. III · No. 15</span>
+        <span>Week of April 13, 2026</span>
+      </div>
+      <div class="issue-standfirst issue-latest">
+        <span class="latest-tag">Latest</span>
+        <span class="latest-title">The Nets Were Already Full</span>
+        <span class="latest-meta">Faith · Apr 8 · 14 min</span>
+      </div>
+    </section>
+
+    <!-- 02 · Identity hero ─────────────────────────── -->
+    <section class="identity-hero" aria-label="About the author">
+      <div class="hero-main">
+        <span class="hero-corner">The Writer → 01</span>
+        <div>
+          <span class="hero-sub">ImJustDex</span>
+          <h1 class="hero-name">Dexter<br>Jakes</h1>
+        </div>
+        <p class="hero-tagline">No highlight reel. Just the full human, documented.</p>
+      </div>
+      <div class="hero-side">
+        <div>
+          <p class="hero-eyebrow">About — Est. 2024</p>
+          <p class="hero-bio">Writer working the line between faith, labor, and identity. Essays here are the long form — slow paragraphs, no hot takes, no calls to action. Subscribe if the pace fits; otherwise, the archive is always open.</p>
+        </div>
+        <div class="hero-links">
+          <a class="hero-link primary" href="/about/">Read the About <span class="hero-glyph" aria-hidden="true">→</span></a>
+          <a class="hero-link" href="/subscribe/">Subscribe</a>
+          <a class="hero-link" href="/words/">All Essays</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 · Lane index ────────────────────────────── -->
+    <section class="lane-index" aria-label="Editorial lanes">
+      <div class="lane-cell" data-active="true">
+        <span class="lane-name">Faith</span>
+        <span class="lane-count">02 essays</span>
+      </div>
+      <div class="lane-cell">
+        <span class="lane-name">Identity</span>
+        <span class="lane-count">02 essays</span>
+      </div>
+      <div class="lane-cell">
+        <span class="lane-name">Art</span>
+        <span class="lane-count">In the queue</span>
+      </div>
+    </section>
 
     <main id="archive">
       <section class="plates" aria-label="Essay archive">
 
-        <!-- Identity plate — Row 1 -->
-        <div class="plate identity-plate">
-          <div class="plate-body">
-            <span class="identity-sub">ImJustDex</span>
-            <h1 class="identity-name">Dexter Jakes</h1>
-            <p class="identity-tagline">No highlight reel. Just the full human, documented.</p>
-          </div>
-          <div class="meta-rail"><a href="/about/">About</a></div>
+        <!-- Row head: lead -->
+        <div class="row-head row-head-lead" role="presentation">
+          <span class="row-num">01</span>
+          <span class="row-label">This Week</span>
+          <span class="row-rule" aria-hidden="true"></span>
         </div>
 
-        <!-- The Groan Beneath the Song — Ghost Teaser / Apr 19 -->
-        <div class="plate plate-ghost" data-lane="faith">
-          <span class="plate-lane">Faith</span>
-          <div class="plate-body">
-            <h2 class="plate-title">The Groan Beneath the Song</h2>
-            <div class="teaser-rule"></div>
-            <span class="teaser-date">Publishing Apr 19</span>
-          </div>
-          <div class="meta-rail">Coming Soon</div>
-        </div>
-
-        <!-- The Nets Were Already Full — Apr 8, 2026 -->
+        <!-- Lead plate — The Nets Were Already Full (Apr 8, 2026) -->
         <article>
-          <a class="plate plate-secondary plate-image img-lines" href="/words/the-nets/" aria-label="Read: The Nets Were Already Full" data-lane="faith">
-            <span class="plate-lane">Faith</span>
-            <div class="plate-body">
-              <h2 class="plate-title inverse">The Nets Were Already Full</h2>
+          <a class="plate plate-lead" href="/words/the-nets/" aria-label="Read: The Nets Were Already Full" data-lane="faith">
+            <div class="lead-image" aria-hidden="true">
+              <div class="lead-badge">
+                <span class="lead-badge-label">Latest</span>
+                <span class="lead-badge-lane">Faith</span>
+              </div>
             </div>
-            <div class="meta-rail"><time datetime="2026-04-08">Apr 8</time> · 14 min</div>
+            <div class="lead-body">
+              <div>
+                <div class="lead-eyebrow"><time datetime="2026-04-08">Apr 8</time> · 14 min read</div>
+                <h2 class="lead-title">The Nets Were Already Full</h2>
+                <p class="lead-deck">
+                  Marketing and ministry, the Sea of Galilee, and the work of knowing the room before you ask it to follow.
+                </p>
+              </div>
+              <div class="lead-rail">
+                <span class="rail-meta">Essay · 14 min</span>
+                <span class="rail-cta">Read →</span>
+              </div>
+            </div>
           </a>
         </article>
 
-        <!-- Nobody Handed Me This — Apr 6, 2026 -->
+        <!-- Row head: archive -->
+        <div class="row-head" role="presentation">
+          <span class="row-num">02</span>
+          <span class="row-label">Earlier this Month</span>
+          <span class="row-rule" aria-hidden="true"></span>
+        </div>
+
+        <!-- Nobody Handed Me This — Identity · Apr 6, 2026 -->
         <article>
           <a class="plate plate-wide plate-image img-noise" href="/words/gumbo/" aria-label="Read: Nobody Handed Me This" data-lane="identity">
             <span class="plate-lane">Identity</span>
             <div class="plate-body">
-              <h2 class="plate-title med">Nobody Handed Me This</h2>
+              <h2 class="plate-title med inverse">Nobody Handed Me This</h2>
+              <p class="plate-deck">A gumbo built from scratch — Brazilian wife, Southern upbringing, and the patience a pot demands.</p>
             </div>
-            <div class="meta-rail"><time datetime="2026-04-06">Apr 6</time> · 12 min</div>
+            <div class="meta-rail">
+              <time datetime="2026-04-06">Apr 6</time>
+              <span class="dot" aria-hidden="true">·</span>
+              <span>12 min</span>
+            </div>
           </a>
         </article>
 
-        <!-- The Price of Sunday — Apr 4, 2026 -->
+        <!-- The Price of Sunday — Faith · Apr 4, 2026 -->
         <article>
           <a class="plate plate-secondary" href="/words/price-of-sunday/" aria-label="Read: The Price of Sunday" data-lane="faith">
             <span class="plate-lane">Faith</span>
             <div class="plate-body">
               <h2 class="plate-title">The Price of Sunday</h2>
+              <p class="plate-deck">Holy Saturday — the silent day before resurrection, and the work of being still.</p>
             </div>
-            <div class="meta-rail"><time datetime="2026-04-04">Apr 4</time> · 10 min</div>
+            <div class="meta-rail">
+              <time datetime="2026-04-04">Apr 4</time>
+              <span class="dot" aria-hidden="true">·</span>
+              <span>10 min</span>
+            </div>
           </a>
         </article>
 
-        <!-- I Don't Do Resolutions. I Do Reckonings — Apr 1, 2026 -->
+        <!-- I Don't Do Resolutions I Do Reckonings — Identity · Apr 1, 2026 -->
         <article>
-          <a class="plate plate-banner plate-image img-concrete" href="/words/reckonings/" aria-label="Read: I Don't Do Resolutions I Do Reckonings" data-lane="identity">
+          <a class="plate plate-banner plate-image img-concrete" href="/words/reckonings/" aria-label="Read: I Don't Do Resolutions, I Do Reckonings" data-lane="identity">
             <span class="plate-lane">Identity</span>
             <div class="plate-body">
               <h2 class="plate-title med inverse">I Don't Do Resolutions <br>I Do Reckonings</h2>
+              <p class="plate-deck">A year after a loss — grief and gratitude in the same breath, and refusing the tidy ending.</p>
             </div>
-            <div class="meta-rail"><time datetime="2026-04-01">Apr 1</time> · 8 min</div>
+            <div class="meta-rail">
+              <time datetime="2026-04-01">Apr 1</time>
+              <span class="dot" aria-hidden="true">·</span>
+              <span>8 min</span>
+            </div>
           </a>
         </article>
 
-
       </section>
     </main>
+
+    <!-- 04 · Issue next — clickable, drops into /subscribe?piece= -->
+    <a class="issue-next" href="/subscribe/?piece=groan-beneath-the-song" aria-label="Notify me when The Groan Beneath the Song is published">
+      <span class="next-tag">Next</span>
+      <span class="next-title">The Groan Beneath the Song</span>
+      <span class="next-meta">Art · Apr 19 · In two days</span>
+      <span class="next-cta" aria-hidden="true">Notify me →</span>
+    </a>
+
+    <!-- 05 · Subscribe manifesto — 4-line stack, "won't" in ink accent ── -->
+    <section class="subscribe-manifesto" aria-label="Subscribe">
+      <div class="sm-left">
+        <span class="sm-kicker">The Standing Order</span>
+        <h2 class="sm-title">Words that<br><span class="sm-accent">won't</span><br>waste<br>your time.</h2>
+      </div>
+      <div class="sm-right">
+        <p class="sm-promise">Twice a month, one essay in your inbox. Long enough to mean something, short enough to read before the coffee goes cold.</p>
+        <ul class="sm-toc">
+          <li><span class="sm-check">✓</span><div><div class="sm-strong">No summaries, no digests</div><div class="sm-faint">The essay itself. Always.</div></div></li>
+          <li><span class="sm-check">✓</span><div><div class="sm-strong">Ad-free, tracking-free</div><div class="sm-faint">Plain text where possible.</div></div></li>
+          <li><span class="sm-check">✓</span><div><div class="sm-strong">Unsubscribe in one click</div><div class="sm-faint">No guilt trip footers.</div></div></li>
+        </ul>
+        <form class="sm-form" action="/api/subscribe" method="POST" novalidate>
+          <input type="hidden" name="source" value="home">
+          <label class="sm-hp" aria-hidden="true">
+            Leave blank: <input type="text" name="website" tabindex="-1" autocomplete="off">
+          </label>
+          <input class="sm-input" type="email" name="email" placeholder="you@elsewhere.com" required aria-label="Email address">
+          <button class="sm-submit" type="submit">Send me the next one →</button>
+        </form>
+        <span class="sm-fine">Joining 827 readers · No spam, ever · Est. 2024</span>
+      </div>
+    </section>
 
     <footer class="footer-strip" aria-label="Footer">
       <div class="footer-links">
@@ -175,6 +283,8 @@
         <a href="https://x.com/ImJustDex" target="_blank" rel="noopener noreferrer">X</a>
         <span class="footer-sep" aria-hidden="true">&middot;</span>
         <a href="/feed.xml" aria-label="RSS feed">Feed</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="/about/">About</a>
       </div>
       <span>Est. 1994</span>
     </footer>

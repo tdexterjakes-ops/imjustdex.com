@@ -1,0 +1,916 @@
+/* ============================================================
+ * imjustdex.com — home-augment.css
+ * Home-only editorial components layered on top of plates.css.
+ *
+ * Loaded on / only. After tokens.css → shell.css → plates.css.
+ *
+ * COMPONENTS (Home v2 grammar — canonical)
+ *   01 .issue-head          — ink meta + bordered latest strap
+ *   02 .identity-hero       — about-the-author band (ink main + light side)
+ *   03 .lane-index          — 3-cell chrome (Faith · Identity · Art)
+ *   04 .plate-lead          — magazine-front lead (image + copy)
+ *   05 .plate-deck          — 1-sentence plate standfirst
+ *   06 .meta-rail .dot      — dot separator in meta rails
+ *   07 .row-head            — numbered row divider with thin rule
+ *   08 .issue-next          — "notify me" next-in-queue strip
+ *   09 .subscribe-manifesto — red/ink split subscribe block (4-line title)
+ *
+ * DOCTRINE
+ *   • Spacing: --space-* only
+ *   • Type:    --display / --body / --serif / --mono + --text-*
+ *   • Color:   --ink / --bg / --panel / --accent / --border / --body-*
+ *   • Track:   --track-* only
+ *   • Borders: --border-weight-chrome (2) for chrome,
+ *              --border-weight-content (3) for frames.
+ *   • Overlay white on --accent or image: #f5f5f1 (editorial white).
+ *
+ * Documented exceptions:
+ *   • clamp() display font-sizes in the subscribe manifesto
+ *     (editorial decision, above --text-h1 ladder).
+ *   • Lead-image uses multi-stop gradients with raw grayscale hex
+ *     stops — reuses the img-concrete palette from plates.css.
+ *   • Mid-band rgba(255,255,255,*) tints/shadows used exclusively
+ *     inside .lead-image overlays (not as chrome).
+ * ============================================================ */
+
+/* ============================================================
+ * 01 · Issue head — ink meta + bordered latest-link strap
+ * ============================================================ */
+
+.issue-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: stretch;
+  gap: 0;
+  border: var(--border-weight-chrome) solid var(--border);
+  background: var(--panel);
+  margin-bottom: var(--space-sm);
+  position: relative;
+  z-index: 2;
+}
+
+.issue-head .issue-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-chrome) 11px;
+  border-right: var(--border-weight-chrome) solid var(--border);
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  line-height: 1.15;
+  white-space: nowrap;
+  min-width: 180px;
+}
+.issue-head .issue-meta .issue-no {
+  font-size: var(--text-label);
+  letter-spacing: var(--track-tag);
+  opacity: .62;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.issue-head .issue-standfirst {
+  padding: 13px var(--space-lg) 12px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--track-footer);
+  text-transform: uppercase;
+  color: var(--body-color);
+  line-height: 1.5;
+  text-decoration: none;
+  transition: background var(--motion-fast) var(--ease-default),
+              color var(--motion-fast) var(--ease-default);
+}
+
+.issue-head .latest-tag {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--accent);
+  padding: 5px 7px 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.issue-head .latest-title {
+  font-family: var(--display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--track-title);
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  text-wrap: balance;
+}
+.issue-head .latest-meta {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  opacity: .75;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.issue-head .latest-cta {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-chrome);
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1;
+  padding: 5px 8px 4px;
+  border: var(--border-weight-chrome) solid var(--border);
+  transition: background var(--motion-fast) var(--ease-default),
+              color var(--motion-fast) var(--ease-default);
+}
+a.issue-standfirst:hover { background: var(--ink); }
+a.issue-standfirst:hover .latest-title { color: var(--bg); }
+a.issue-standfirst:hover .latest-meta { color: var(--bg); opacity: .6; }
+a.issue-standfirst:hover .latest-cta {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+a.issue-standfirst:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: -2px;
+}
+
+/* ============================================================
+ * 02 · Identity hero — about-the-author band
+ * ============================================================ */
+
+.identity-hero {
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  border: var(--border-weight-content) solid var(--border);
+  background: var(--panel);
+  margin-bottom: var(--space-md);
+  position: relative;
+}
+
+.identity-hero .hero-main {
+  position: relative;
+  padding: var(--space-lg);
+  background: var(--ink);
+  color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 340px;
+  border-right: var(--border-weight-content) solid var(--border);
+}
+
+.identity-hero .hero-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--bg);
+  opacity: .5;
+  padding: 5px 8px 4px;
+  border-left: var(--border-weight-chrome) solid var(--bg);
+  border-bottom: var(--border-weight-chrome) solid var(--bg);
+  line-height: 1;
+}
+
+.identity-hero .hero-sub {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 5px 7px 4px;
+  background: var(--bg);
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: var(--track-badge);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-label);
+  font-family: var(--mono);
+  line-height: 1;
+  margin-bottom: var(--space-md);
+}
+
+.identity-hero .hero-name {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-identity);
+  line-height: .82;
+  letter-spacing: var(--track-display);
+  text-transform: uppercase;
+  text-wrap: balance;
+  max-width: 9ch;
+  color: var(--bg);
+}
+
+.identity-hero .hero-tagline {
+  margin: var(--space-md) 0 0;
+  font-family: var(--display);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-h2);
+  line-height: .95;
+  letter-spacing: var(--track-title);
+  text-transform: uppercase;
+  color: var(--accent);
+  max-width: 16ch;
+}
+
+.identity-hero .hero-side {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.identity-hero .hero-eyebrow {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent-text);
+  line-height: 1;
+  margin: 0 0 var(--space-sm);
+}
+
+.identity-hero .hero-bio {
+  margin: 0;
+  font-family: var(--body);
+  font-size: var(--text-body);
+  line-height: var(--lh-normal);
+  color: var(--body-color);
+  max-width: 44ch;
+  text-wrap: pretty;
+}
+
+.identity-hero .hero-links {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.identity-hero .hero-link {
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-chrome);
+  text-transform: uppercase;
+  padding: var(--space-sm) var(--space-chrome) 11px;
+  border: var(--border-weight-chrome) solid var(--border);
+  background: var(--panel);
+  color: var(--ink);
+  line-height: 1;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: border-color var(--motion-fast) var(--ease-default),
+              background var(--motion-fast) var(--ease-default),
+              color var(--motion-fast) var(--ease-default);
+}
+.identity-hero .hero-link.primary {
+  background: var(--ink);
+  color: var(--bg);
+}
+.identity-hero .hero-link:hover { border-color: var(--accent); }
+.identity-hero .hero-link.primary:hover { background: var(--accent); color: var(--bg); }
+.identity-hero .hero-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.identity-hero .hero-glyph { font-size: 11px; opacity: .6; line-height: 1; }
+
+@media (max-width: 1120px) {
+  .identity-hero { grid-template-columns: 1fr; }
+  .identity-hero .hero-main {
+    border-right: 0;
+    border-bottom: var(--border-weight-content) solid var(--border);
+  }
+}
+@media (max-width: 760px) {
+  .identity-hero .hero-main,
+  .identity-hero .hero-side { padding: var(--space-md); }
+  .identity-hero .hero-main { min-height: 0; }
+}
+
+/* ============================================================
+ * 03 · Lane index — 3-cell chrome row (Faith · Identity · Art)
+ * ============================================================ */
+
+.lane-index {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gap);
+  margin-bottom: var(--space-sm);
+}
+
+.lane-index .lane-cell {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-chrome) 11px;
+  border: var(--border-weight-chrome) solid var(--border);
+  background: var(--panel);
+  text-transform: uppercase;
+}
+.lane-index .lane-name {
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  color: var(--ink);
+}
+.lane-index .lane-count {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-tag);
+  color: var(--body-muted);
+  line-height: 1;
+}
+.lane-index .lane-cell[data-active="true"] {
+  background: var(--ink);
+  color: var(--bg);
+}
+.lane-index .lane-cell[data-active="true"] .lane-name { color: var(--bg); }
+.lane-index .lane-cell[data-active="true"] .lane-count { color: var(--bg); opacity: .6; }
+
+/* ============================================================
+ * 04 · Plate-lead — magazine-front lead plate (image + body)
+ * ============================================================ */
+
+.plate-lead {
+  grid-column: 1 / -1;
+  min-height: 460px;
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  gap: 0;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  border: var(--border-weight-content) solid var(--border);
+  background: var(--panel);
+  text-decoration: none;
+  transition: border-color var(--motion-fast) var(--ease-default);
+}
+
+.plate-lead .lead-image {
+  position: relative;
+  overflow: hidden;
+  border-right: var(--border-weight-content) solid var(--border);
+  min-height: 340px;
+}
+.plate-lead .lead-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  filter: grayscale(1) contrast(1.18);
+  transform: scale(1.03);
+  z-index: 0;
+  /* reuses img-concrete palette from plates.css */
+  background-image:
+    linear-gradient(135deg, rgba(255, 255, 255, .07), rgba(0, 0, 0, .32)),
+    radial-gradient(circle at 28% 22%, rgba(255, 255, 255, .22), transparent 22%),
+    radial-gradient(circle at 78% 78%, rgba(0, 0, 0, .35), transparent 42%),
+    linear-gradient(180deg, #cfcfcf 0 14%, #8c8c8c 14% 30%, #4d4d4d 30% 60%, #1a1a1a 60% 100%);
+}
+.plate-lead .lead-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, .78), rgba(0, 0, 0, .1) 60%, rgba(0, 0, 0, .2));
+  z-index: 1;
+}
+
+.plate-lead .lead-badge {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  z-index: 3;
+  display: inline-flex;
+  gap: 0;
+  border: var(--border-weight-chrome) solid #f5f5f1;
+}
+.plate-lead .lead-badge-label,
+.plate-lead .lead-badge-lane {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  padding: 5px 8px 4px;
+  line-height: 1;
+}
+.plate-lead .lead-badge-label {
+  background: var(--accent);
+  color: #f5f5f1;
+  border-right: var(--border-weight-chrome) solid #f5f5f1;
+}
+.plate-lead .lead-badge-lane {
+  background: rgba(0, 0, 0, .8);
+  color: #f5f5f1;
+}
+
+.plate-lead .lead-body {
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--panel);
+  position: relative;
+  z-index: 2;
+}
+.plate-lead .lead-eyebrow {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent-text);
+  line-height: 1;
+  margin: 0 0 var(--space-md);
+}
+.plate-lead .lead-title {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-plate-med);
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  text-transform: uppercase;
+  color: var(--ink);
+  text-wrap: balance;
+  max-width: 14ch;
+}
+.plate-lead .lead-deck {
+  margin: var(--space-md) 0 0;
+  font-family: var(--body);
+  font-size: var(--text-lede);
+  line-height: var(--lh-normal);
+  color: var(--body-color);
+  font-weight: var(--weight-regular);
+  max-width: 42ch;
+  text-wrap: pretty;
+}
+.plate-lead .lead-rail {
+  margin-top: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+.plate-lead .lead-rail .rail-meta {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  line-height: 1;
+}
+.plate-lead .lead-rail .rail-cta {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: var(--text-label);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-chrome);
+  text-transform: uppercase;
+  padding: var(--space-sm) var(--space-chrome) 11px;
+  border: var(--border-weight-chrome) solid var(--border);
+  background: var(--ink);
+  color: var(--bg);
+  line-height: 1;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: background var(--motion-fast) var(--ease-default),
+              border-color var(--motion-fast) var(--ease-default);
+}
+a.plate-lead:hover { border-color: var(--accent); }
+a.plate-lead:hover .rail-cta { background: var(--accent); border-color: var(--accent); }
+a.plate-lead:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: -5px;
+}
+
+@media (max-width: 1120px) {
+  .plate-lead {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .plate-lead .lead-image {
+    border-right: 0;
+    border-bottom: var(--border-weight-content) solid var(--border);
+    min-height: 240px;
+  }
+}
+
+/* ============================================================
+ * 05 · Plate deck — 1-sentence summary under plate titles
+ * ============================================================ */
+
+.plate-deck {
+  margin: var(--space-sm) 0 0;
+  font-family: var(--body);
+  font-size: var(--text-citation);
+  line-height: 1.5;
+  color: var(--body-color);
+  font-weight: var(--weight-regular);
+  max-width: 38ch;
+  text-wrap: pretty;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.plate-image .plate-deck {
+  color: rgba(255, 255, 255, .88);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .45);
+}
+
+/* ============================================================
+ * 06 · Meta-rail dot separator
+ * ============================================================ */
+
+.meta-rail .dot {
+  opacity: .55;
+  margin: 0 6px;
+  font-weight: var(--weight-regular);
+}
+
+/* ============================================================
+ * 07 · Row head — numbered divider with thin rule
+ * ============================================================ */
+
+.row-head {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-chrome);
+  margin: var(--space-sm) 0 0;
+}
+.row-head .row-num {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-indicator);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  line-height: 1;
+  white-space: nowrap;
+}
+.row-head .row-label {
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1;
+  white-space: nowrap;
+}
+.row-head .row-rule {
+  flex: 1;
+  height: var(--border-weight-chrome);
+  background: var(--border);
+  opacity: .35;
+}
+
+/* ============================================================
+ * 08 · Issue next — dashed top, chrome bottom, notify-me CTA
+ * ============================================================ */
+
+.issue-next {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  padding: 13px var(--space-lg) 12px;
+  margin-top: var(--space-xl);
+  border-top: 1px dashed var(--border);
+  border-bottom: var(--border-weight-chrome) solid var(--border);
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  letter-spacing: var(--track-footer);
+  text-transform: uppercase;
+  color: var(--body-color);
+  line-height: 1.5;
+  text-decoration: none;
+  transition: background var(--motion-fast) var(--ease-default),
+              color var(--motion-fast) var(--ease-default);
+}
+.issue-next .next-tag {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--body-color);
+  background: transparent;
+  border: 1px dashed var(--border);
+  padding: 4px 6px 3px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.issue-next .next-title {
+  font-family: var(--display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--track-title);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  line-height: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  text-wrap: balance;
+}
+.issue-next .next-meta {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  opacity: .65;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.issue-next .next-cta {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-chrome);
+  text-transform: uppercase;
+  color: var(--body-color);
+  line-height: 1;
+  padding: 5px 8px 4px;
+  border: 1px dashed var(--border);
+  transition: background var(--motion-fast) var(--ease-default),
+              color var(--motion-fast) var(--ease-default),
+              border-color var(--motion-fast) var(--ease-default),
+              border-style var(--motion-fast) var(--ease-default);
+}
+.issue-next:hover .next-title { color: var(--ink); }
+.issue-next:hover .next-cta {
+  border-style: solid;
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.issue-next:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: -2px;
+}
+
+@media (max-width: 760px) {
+  .issue-next { padding: var(--space-md); gap: var(--space-sm); }
+  .issue-next .next-cta { margin-left: 0; }
+}
+
+/* ============================================================
+ * 09 · Subscribe manifesto — red/ink split, 4-line stacked title
+ * ============================================================ */
+
+.subscribe-manifesto {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: 0;
+  margin: var(--space-2xl) 0 var(--space-lg);
+  border: var(--border-weight-content) solid var(--border);
+  background: var(--panel);
+}
+
+.subscribe-manifesto .sm-left {
+  padding: var(--space-2xl) var(--space-xl);
+  background: var(--accent);
+  color: #f5f5f1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  justify-content: center;
+  border-right: var(--border-weight-content) solid var(--border);
+}
+
+.subscribe-manifesto .sm-kicker {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: #f5f5f1;
+  line-height: 1;
+}
+
+.subscribe-manifesto .sm-title {
+  margin: 0;
+  font-family: var(--display);
+  /* Editorial clamp — above --text-h1. Documented exception. */
+  font-size: clamp(4rem, 7vw, 7rem);
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  text-transform: uppercase;
+  color: #f5f5f1;
+  font-weight: var(--weight-regular);
+}
+.subscribe-manifesto .sm-title .sm-accent {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0 .12em;
+}
+
+.subscribe-manifesto .sm-right {
+  padding: var(--space-2xl) var(--space-xl);
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  justify-content: center;
+}
+
+.subscribe-manifesto .sm-promise {
+  margin: 0;
+  font-family: var(--body);
+  font-size: var(--text-lede);
+  line-height: var(--lh-normal);
+  color: var(--ink);
+  max-width: 42ch;
+}
+
+.subscribe-manifesto .sm-toc {
+  list-style: none;
+  margin: var(--space-sm) 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.subscribe-manifesto .sm-toc li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-sm);
+  align-items: start;
+}
+.subscribe-manifesto .sm-check {
+  width: 24px;
+  text-align: center;
+  font-family: var(--display);
+  font-size: var(--text-lede);
+  line-height: 1;
+  color: var(--accent-text);
+}
+.subscribe-manifesto .sm-strong {
+  font-family: var(--body);
+  font-size: var(--text-citation);
+  font-weight: var(--weight-bold);
+  color: var(--ink);
+  line-height: 1.3;
+}
+.subscribe-manifesto .sm-faint {
+  font-family: var(--body);
+  font-size: var(--text-citation);
+  color: var(--body-muted);
+  line-height: 1.3;
+}
+
+.subscribe-manifesto .sm-form {
+  display: flex;
+  margin-top: var(--space-xs);
+  border: var(--border-weight-chrome) solid var(--border);
+  background: var(--bg);
+}
+.subscribe-manifesto .sm-input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-sm) var(--space-chrome);
+  background: transparent;
+  border: none;
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  letter-spacing: var(--track-footer);
+  text-transform: uppercase;
+  color: var(--ink);
+  outline: none;
+  min-height: 44px;
+}
+.subscribe-manifesto .sm-input::placeholder {
+  color: var(--body-muted);
+  opacity: .7;
+  text-transform: uppercase;
+}
+.subscribe-manifesto .sm-input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: -2px;
+}
+.subscribe-manifesto .sm-submit {
+  padding: var(--space-sm) var(--space-chrome) 11px;
+  border: 0;
+  border-left: var(--border-weight-chrome) solid var(--border);
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-footer);
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  min-height: 44px;
+  transition: background var(--motion-fast) var(--ease-default),
+              color var(--motion-fast) var(--ease-default);
+}
+.subscribe-manifesto .sm-submit:hover {
+  background: var(--accent);
+  color: #f5f5f1;
+}
+
+.subscribe-manifesto .sm-fine {
+  margin-top: var(--space-hairline);
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  line-height: 1.4;
+}
+
+/* Honeypot — visually hidden, accessible name preserved. */
+.subscribe-manifesto .sm-hp {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ============================================================
+ * Responsive
+ * ============================================================ */
+
+@media (max-width: 1120px) {
+  .subscribe-manifesto { grid-template-columns: 1fr; }
+  .subscribe-manifesto .sm-left {
+    border-right: 0;
+    border-bottom: var(--border-weight-content) solid var(--border);
+  }
+}
+
+@media (max-width: 760px) {
+  .issue-head {
+    grid-template-columns: 1fr;
+  }
+  .issue-head .issue-meta {
+    border-right: 0;
+    border-bottom: var(--border-weight-chrome) solid var(--border);
+  }
+
+  .lane-index {
+    grid-template-columns: 1fr;
+  }
+
+  .subscribe-manifesto .sm-left,
+  .subscribe-manifesto .sm-right { padding: var(--space-lg) var(--space-md); }
+}
+
+/* ============================================================
+ * Motion preferences — honor prefers-reduced-motion (WCAG 2.3.3)
+ * Disables hover/focus transitions for motion-sensitive users.
+ * ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .issue-head .latest-cta,
+  .identity-hero .hero-link,
+  .plate-lead,
+  .plate-lead .rail-cta,
+  .issue-next,
+  .issue-next .next-cta,
+  .subscribe-manifesto .sm-submit {
+    transition: none;
+  }
+}
