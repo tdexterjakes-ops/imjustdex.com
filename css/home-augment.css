@@ -611,8 +611,11 @@ a.plate-lead:focus-visible {
   flex-wrap: wrap;
   padding: 13px var(--space-lg) 12px;
   margin-top: var(--space-xl);
-  border-top: 1px dashed var(--border);
-  border-bottom: var(--border-weight-chrome) solid var(--border);
+  /* Dashed 4-side frame + panel bg — the card is sealed off the ruler
+     grid, and the dashed perimeter reads as "in the queue, not yet live."
+     Hover promotes to solid ink (see :hover block below). */
+  border: 1px dashed var(--border);
+  background: var(--panel);
   font-family: var(--mono);
   font-size: var(--text-nav);
   letter-spacing: var(--track-footer);
@@ -621,7 +624,8 @@ a.plate-lead:focus-visible {
   line-height: 1.5;
   text-decoration: none;
   transition: background var(--motion-fast) var(--ease-default),
-              color var(--motion-fast) var(--ease-default);
+              color var(--motion-fast) var(--ease-default),
+              border-color var(--motion-fast) var(--ease-default);
 }
 .issue-next .next-tag {
   font-family: var(--mono);
@@ -675,7 +679,13 @@ a.plate-lead:focus-visible {
               border-color var(--motion-fast) var(--ease-default),
               border-style var(--motion-fast) var(--ease-default);
 }
+.issue-next:hover {
+  /* Activate: frame promotes from dashed waiting-state to solid ink. */
+  border-style: solid;
+  border-color: var(--ink);
+}
 .issue-next:hover .next-title { color: var(--ink); }
+.issue-next:hover .next-tag,
 .issue-next:hover .next-cta {
   border-style: solid;
   border-color: var(--ink);
