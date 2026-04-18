@@ -728,13 +728,16 @@ a.plate-lead:focus-visible {
 .subscribe-manifesto .sm-title {
   margin: 0;
   font-family: var(--display);
-  /* Editorial clamp — above --text-h1. Documented exception. */
-  font-size: clamp(4rem, 7vw, 7rem);
+  /* Editorial clamp — above --text-h1. Documented exception.
+     Min raised from 4rem→3.25rem to stop overflow on <400px viewports. */
+  font-size: clamp(3.25rem, 9vw, 7rem);
   line-height: var(--lh-display);
   letter-spacing: var(--track-display);
   text-transform: uppercase;
   color: var(--on-accent);
   font-weight: var(--weight-regular);
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 .subscribe-manifesto .sm-title .sm-accent {
   display: inline-block;

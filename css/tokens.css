@@ -419,6 +419,9 @@ body {
   line-height: var(--lh-snug);
   min-height: 100vh;
   min-height: 100dvh;
+  /* Defense-in-depth: prevent any accidental horizontal scroll.
+     `clip` (vs. `hidden`) preserves position: sticky on descendants. */
+  overflow-x: clip;
   transition: background var(--motion-med) ease, color var(--motion-med) ease;
 
   /* 46px ruler grid background — locked to the typographic grid */
