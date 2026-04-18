@@ -25,7 +25,7 @@ Meta-rail convention: every meta rail (latest bar, lead plate eyebrow, earlier p
 
 ## Next Rotation — Entry No. 05 · Apr 19, 2026
 
-**Publishing:** The Groan Beneath the Song (Art · `/words/gloria/` · 18 min)
+**Publishing:** The Groan Beneath the Song (Faith · `/words/gloria/` · 18 min)
 
 **Drops off home:** I Don't Do Resolutions, I Do Reckonings (still lives at `/words/reckonings/`).
 
@@ -42,7 +42,7 @@ Meta-rail convention: every meta rail (latest bar, lead plate eyebrow, earlier p
 <a class="issue-standfirst issue-latest" href="/words/gloria/" aria-label="Read: The Groan Beneath the Song">
   <span class="latest-tag">Latest</span>
   <span class="latest-title">The Groan Beneath the Song</span>
-  <span class="latest-meta">Art · Apr 19 · 18 min</span>
+  <span class="latest-meta">Faith · Apr 19 · 18 min</span>
   <span class="latest-cta" aria-hidden="true">Read →</span>
 </a>
 ```
@@ -50,11 +50,11 @@ Meta-rail convention: every meta rail (latest bar, lead plate eyebrow, earlier p
 **Lead plate (lines 162–185):**
 ```html
 <article>
-  <a class="plate plate-lead" href="/words/gloria/" aria-label="Read: The Groan Beneath the Song" data-lane="art">
+  <a class="plate plate-lead" href="/words/gloria/" aria-label="Read: The Groan Beneath the Song" data-lane="faith">
     <div class="lead-image" aria-hidden="true">
       <div class="lead-badge">
         <span class="lead-badge-label">Latest</span>
-        <span class="lead-badge-lane">Art</span>
+        <span class="lead-badge-lane">Faith</span>
       </div>
     </div>
     <div class="lead-body">
@@ -82,7 +82,7 @@ Meta-rail convention: every meta rail (latest bar, lead plate eyebrow, earlier p
 
 Reckonings drops off the home.
 
-**Lane index (lines 137–150):** Bump Art from "In the queue" to "01 essay". (First Art essay.)
+**Lane index (lines 137–150):** Bump Faith from "02 essays" to "03 essays". Art stays "In the queue".
 
 **Issue-next (lines 245–251):**
 ```html
@@ -98,5 +98,5 @@ Reckonings drops off the home.
 
 ## Decisions (locked 2026-04-18)
 
-- **Art lane lead plate** — ships on the default lead-image pattern. No `img-art` texture required for Entry 05. Revisit if an Art-specific treatment is introduced later.
+- **Gloria reclassified as Faith** (2026-04-18) — "The Groan Beneath the Song" is a theology-of-lament essay grounded in Psalm 88 and Romans 8. The music frame is the vehicle; the subject is prayer, the Spirit's groaning, and faith that survives articulation collapse. Faith is the correct lane. Art lane remains queued for a future entry where craft/aesthetics is the subject, not the vehicle.
 - **No relative time copy** in meta rails. Always `lane · date · read-time`. Applied to the live issue-next (The Groan Beneath the Song) and codified as a protocol rule above.
