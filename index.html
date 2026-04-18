@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="/css/tokens.css?v=phase23">
   <link rel="stylesheet" href="/css/shell.css?v=phase23">
   <link rel="stylesheet" href="/css/plates.css?v=phase12">
-  <link rel="stylesheet" href="/css/home-augment.css?v=phase24">
+  <link rel="stylesheet" href="/css/home-augment.css?v=phase25">
 
   <!-- Mode: synchronous in <head> so html.dark-mode is set before first paint -->
   <script src="/js/mode.js?v=phase11"></script>
@@ -134,17 +134,17 @@
       </div>
     </section>
 
-    <!-- 03 · Lane index ────────────────────────────── -->
-    <section class="lane-index" aria-label="Editorial lanes">
-      <div class="lane-cell" data-active="true">
+    <!-- 03 · Lane index — click Faith/Identity to filter; Art is queued ── -->
+    <section class="lane-index" aria-label="Filter essays by lane" role="group">
+      <button type="button" class="lane-cell" data-lane="faith" aria-pressed="false">
         <span class="lane-name">Faith</span>
         <span class="lane-count">02 essays</span>
-      </div>
-      <div class="lane-cell">
+      </button>
+      <button type="button" class="lane-cell" data-lane="identity" aria-pressed="false">
         <span class="lane-name">Identity</span>
         <span class="lane-count">02 essays</span>
-      </div>
-      <div class="lane-cell">
+      </button>
+      <div class="lane-cell lane-cell-queued" data-lane="art" aria-disabled="true" aria-label="Art — no essays yet, in the queue">
         <span class="lane-name">Art</span>
         <span class="lane-count">In the queue</span>
       </div>
@@ -292,5 +292,8 @@
 
   <!-- Subscribe form progressive enhancement -->
   <script src="/js/subscribe.js?v=phase18" defer></script>
+
+  <!-- Lane filter — click Faith/Identity to filter archive -->
+  <script src="/js/lane-filter.js?v=phase25" defer></script>
 </body>
 </html>

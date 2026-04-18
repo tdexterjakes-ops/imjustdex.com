@@ -338,6 +338,15 @@ a.issue-standfirst:focus-visible {
   border: var(--border-weight-chrome) solid var(--border);
   background: var(--panel);
   text-transform: uppercase;
+  /* Reset <button> UA styles so the filter cells match the passive div cell */
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  width: 100%;
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--ease-default),
+              border-color var(--motion-fast) var(--ease-default),
+              color var(--motion-fast) var(--ease-default);
 }
 .lane-index .lane-name {
   font-family: var(--mono);
@@ -354,12 +363,39 @@ a.issue-standfirst:focus-visible {
   color: var(--body-muted);
   line-height: 1;
 }
-.lane-index .lane-cell[data-active="true"] {
+
+/* Hover on interactive cells only */
+.lane-index button.lane-cell:hover {
+  border-color: var(--ink);
+}
+
+/* Focus ring parity with other chrome */
+.lane-index button.lane-cell:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Active filter state — inverted ink block */
+.lane-index .lane-cell[aria-pressed="true"] {
   background: var(--ink);
+  border-color: var(--ink);
   color: var(--bg);
 }
-.lane-index .lane-cell[data-active="true"] .lane-name { color: var(--bg); }
-.lane-index .lane-cell[data-active="true"] .lane-count { color: var(--bg); opacity: .6; }
+.lane-index .lane-cell[aria-pressed="true"] .lane-name { color: var(--bg); }
+.lane-index .lane-cell[aria-pressed="true"] .lane-count { color: var(--bg); opacity: .6; }
+
+/* Queued (non-interactive) cell — dashed frame, same semantic as .issue-next:
+   "in the queue, not yet live." No hover, no cursor pointer. */
+.lane-index .lane-cell-queued {
+  border-style: dashed;
+  cursor: default;
+}
+.lane-index .lane-cell-queued .lane-name { color: var(--body-muted); }
+
+/* Filtering: when archive is filtered, row-heads (chronological framing) are
+   suppressed because they don't apply to a lane-scoped view. */
+.plates[data-filter] .row-head { display: none; }
+.plates article[hidden] { display: none; }
 
 /* ============================================================
  * 04 · Plate-lead — magazine-front lead plate (image + body)
