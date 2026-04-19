@@ -165,6 +165,14 @@ html.dark-mode .plate-title.inverse {
   min-height: 230px;
 }
 
+/* Full-row modifier — spans the entire 12-col grid. Stacks on
+   top of any base plate type (secondary, banner, wide) to turn
+   it into a row-length plate without losing its typography set. */
+.plate-row {
+  grid-column: 1 / -1;
+  min-height: 230px;
+}
+
 /* ── Image plates ──────────────────────────────────────────── */
 
 .plate-image .plate-body {
@@ -465,6 +473,10 @@ html.dark-mode .plate-ghost .plate-title {
   .plate-full {
     grid-column: span 8;
   }
+
+  .plate-row {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 760px) {
@@ -478,6 +490,7 @@ html.dark-mode .plate-ghost .plate-title {
   .plate-wide,
   .plate-full,
   .plate-banner,
+  .plate-row,
   .plate-ghost {
     grid-column: span 1;
     min-height: 210px; /* intrinsic mobile tile geometry, scope-excluded */
