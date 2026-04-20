@@ -1,481 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/chrome.css">
-  <title>I Am Not My Father's Pulpit — DX</title>
-  <meta name="description" content="The word says 'some' were called to pastor. I wasn't. But I was called." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
 
+  <title>I Am Not My Father's Pulpit &mdash; DX</title>
+  <meta name="description" content="The word says &lsquo;some&rsquo; were called to pastor. I wasn&rsquo;t. But I was called.">
+
+  <link rel="canonical" href="https://imjustdex.com/words/pulpit/">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
-  <link rel="canonical" href="https://imjustdex.com/words/pulpit">
 
+  <!-- Open Graph -->
   <meta property="og:title" content="I Am Not My Father's Pulpit">
-  <meta property="og:description" content="The word says 'some' were called to pastor. I wasn't. But I was called.">
+  <meta property="og:description" content="The word says &lsquo;some&rsquo; were called to pastor. I wasn&rsquo;t. But I was called.">
   <meta property="og:image" content="https://imjustdex.com/img/og-default.png">
-  <meta property="og:url" content="https://imjustdex.com/words/pulpit">
+  <meta property="og:url" content="https://imjustdex.com/words/pulpit/">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="DX">
   <meta property="article:author" content="Dexter Jakes">
   <meta property="article:published_time" content="2026-04-23">
 
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="I Am Not My Father's Pulpit">
-  <meta name="twitter:description" content="The word says 'some' were called to pastor. I wasn't. But I was called.">
+  <meta name="twitter:description" content="The word says &lsquo;some&rsquo; were called to pastor. I wasn&rsquo;t. But I was called.">
   <meta name="twitter:image" content="https://imjustdex.com/img/og-default.png">
 
-  <style>
-    :root {
-      --bg: #f4f4f1;
-      --panel: #f8f8f6;
-      --ink: #050505;
-      --muted: #202020;
-      --border: #0a0a0a;
-      --rule: rgba(0,0,0,.14);
-      --meta-bg: #0a0a0a;
-      --meta-ink: #f5f5f1;
-      --accent: #c00;
-      --accent-text: #c00;
-      --focus-ring: #c00;
-      --body-color: rgba(5,5,5,.82);
-      --body-muted: rgba(5,5,5,.56);
-      --body-faint: rgba(5,5,5,.18);
-      --body-tint: rgba(5,5,5,.04);
-      --display: Impact, Haettenschweiler, sans-serif;
-      --body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
-      --serif: Georgia, 'Times New Roman', serif;
-      --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
-      --outer-pad: 28px;
-    }
-    body.dark-mode {
-      --bg: #060606;
-      --panel: #0d0d0d;
-      --ink: #f3f0e8;
-      --muted: #d7d3ca;
-      --border: #f3f0e8;
-      --rule: rgba(255,255,255,.16);
-      --accent-text: #ff4d4d;
-      --focus-ring: #ff4d4d;
-      --meta-bg: #f3f0e8;
-      --meta-ink: #0a0a0a;
-      --body-color: rgba(243,240,232,.82);
-      --body-muted: rgba(243,240,232,.52);
-      --body-faint: rgba(243,240,232,.14);
-      --body-tint: rgba(243,240,232,.04);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; touch-action: manipulation; }
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: var(--body);
-      line-height: 1.4;
-      transition: background .18s ease, color .18s ease;
-      min-height: 100vh;
-      min-height: 100dvh;
-      background-image:
-        linear-gradient(to right, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px)),
-        linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), var(--rule) calc(100% - 1px));
-      background-size: 46px 46px;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-    ::selection { background: var(--ink); color: var(--bg); }
+  <!-- Self-hosted font preloads -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Anton-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Bold.woff2" crossorigin>
 
-    /* ── Print (page-specific) ── */
-    @media print {
-      .share-bar { display: none !important; }
-      .article-body { border: none; }
-    }
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/tokens.css?v=phase23">
+  <link rel="stylesheet" href="/css/shell.css?v=phase23">
+  <link rel="stylesheet" href="/css/article.css?v=phase14">
 
-    /* ── Page shell ── */
-    .page-shell {
-      width: 100%;
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 12px var(--outer-pad) 22px;
-      padding-left: max(var(--outer-pad), env(safe-area-inset-left));
-      padding-right: max(var(--outer-pad), env(safe-area-inset-right));
-      position: relative;
-    }
+  <!-- Mode: synchronous in <head> for FOUC prevention -->
+  <script src="/js/mode.js?v=phase11"></script>
 
-    /* ── Article wrapper ── */
-    main { position: relative; z-index: 2; }
-    .article-frame {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 0 0 80px;
-    }
-
-    /* ── Article header ── */
-    .article-header {
-      border: 3px solid var(--border);
-      background: var(--panel);
-      padding: 28px 24px 22px;
-      margin-bottom: 0;
-    }
-    .article-eyebrow {
-      display: flex; align-items: center; gap: 12px;
-      margin-bottom: 18px;
-    }
-    .article-tag {
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .12em;
-      text-transform: uppercase; font-weight: 900;
-      padding: 4px 8px 3px;
-      border: 2px solid var(--border);
-      background: var(--ink); color: var(--bg);
-    }
-    .article-date, .article-read {
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--body-muted);
-    }
-    .article-title {
-      font-family: var(--display);
-      font-size: clamp(2.8rem, 7vw, 5rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: .86;
-      letter-spacing: -.03em;
-      margin-bottom: 16px;
-    }
-    .article-deck {
-      font-family: var(--mono);
-      font-size: .8rem;
-      line-height: 1.5;
-      letter-spacing: .04em;
-      color: var(--body-muted);
-      text-transform: uppercase;
-      max-width: 480px;
-      border-left: 3px solid var(--border);
-      padding-left: 14px;
-    }
-
-    /* ── Article body ── */
-    .article-body {
-      border-left: 3px solid var(--border);
-      border-right: 3px solid var(--border);
-      border-bottom: 3px solid var(--border);
-      background: var(--panel);
-      padding: 40px 24px 48px;
-      font-family: var(--body);
-      font-size: 1.08rem;
-      line-height: 1.85;
-      color: var(--body-color);
-    }
-    .article-body p { margin-bottom: 1.5em; }
-    .article-body a {
-      text-decoration: underline;
-      text-decoration-color: var(--accent);
-      text-underline-offset: 3px;
-      text-decoration-thickness: 2px;
-    }
-    .article-body a:hover { color: var(--accent); }
-
-    /* Drop cap */
-    .article-body .intro::first-letter {
-      font-family: var(--display);
-      font-size: 4.8em;
-      font-weight: 900;
-      float: left;
-      line-height: .72;
-      margin-right: 8px;
-      margin-top: 4px;
-      color: var(--ink);
-    }
-
-    /* ── Section head ── */
-    .section-head {
-      display: flex; align-items: center; gap: 14px;
-      margin: 48px 0 20px;
-    }
-    .section-head h2 {
-      font-family: var(--mono);
-      font-size: .75rem; font-weight: 900;
-      letter-spacing: .15em; text-transform: uppercase;
-      color: var(--accent-text);
-      white-space: nowrap;
-    }
-    .section-head-line {
-      flex: 1; height: 3px;
-      background: var(--accent);
-    }
-
-    /* ── Pull quote ── */
-    .pull-quote {
-      margin: 40px -24px;
-      padding: 32px 24px;
-      border-top: 3px solid var(--border);
-      border-bottom: 3px solid var(--border);
-      background: var(--body-tint);
-    }
-    .pull-quote p {
-      font-family: var(--display);
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -.02em;
-      text-transform: uppercase;
-      color: var(--ink);
-      margin: 0;
-    }
-
-    /* ── Callout ── */
-    .callout {
-      margin: 36px 0;
-      padding: 0 0 0 18px;
-      border-left: 3px solid var(--accent);
-      font-family: var(--body);
-      font-size: 1.15rem;
-      font-weight: 700;
-      line-height: 1.4;
-      color: var(--ink);
-    }
-    .callout p { margin: 0; }
-    .callout-emph {
-      color: var(--accent-text);
-      font-weight: 900;
-    }
-
-    /* ── Scripture block ── */
-    .scripture {
-      border: 2px solid var(--body-faint);
-      background: var(--body-tint);
-      padding: 24px;
-      margin: 36px 0;
-    }
-    .scripture p {
-      font-family: var(--body);
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--body-color);
-      font-style: italic;
-      margin: 0 0 10px !important;
-    }
-    .scripture cite {
-      font-family: var(--mono);
-      font-style: normal;
-      font-size: .7rem;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--accent-text);
-    }
-
-    /* ── Stat block ── */
-    .stat-block {
-      margin: 48px -24px;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: 3px 1fr;
-      gap: 0 20px;
-    }
-    .stat-block-bar { background: var(--accent); }
-    .stat-block-text {
-      font-family: var(--display);
-      font-size: clamp(1.6rem, 5vw, 2.6rem);
-      font-weight: 900;
-      letter-spacing: -.03em;
-      line-height: 1.05;
-      text-transform: uppercase;
-      color: var(--ink);
-    }
-    .stat-block-text span {
-      display: block;
-      font-family: var(--mono);
-      font-size: .7rem;
-      font-weight: 400;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--body-muted);
-      margin-top: 8px;
-    }
-
-    /* ── Closing ── */
-    .closing {
-      margin-top: 48px;
-      padding: 28px 24px;
-      border: 3px solid var(--border);
-      background: var(--panel);
-      font-family: var(--body);
-      font-size: 1rem;
-      line-height: 1.75;
-      color: var(--body-color);
-      font-style: italic;
-    }
-
-    /* ── Share bar ── */
-    .share-bar {
-      display: flex; align-items: center; gap: 14px;
-      margin-top: 0;
-      padding: 14px 24px;
-      border: 3px solid var(--border);
-      border-top: 0;
-      background: var(--panel);
-    }
-    .share-label {
-      font-family: var(--mono);
-      font-size: .7rem; letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--body-muted);
-    }
-    .share-link {
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--body-muted);
-      background: none; border: none;
-      cursor: pointer; font-weight: 700;
-      padding: 10px 12px;
-      min-height: 44px;
-    }
-    .share-link:hover { color: var(--ink); }
-    .subscribe-link {
-      margin-left: auto;
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .1em;
-      text-transform: uppercase;
-      font-weight: 900;
-      padding: 10px 14px 9px;
-      min-height: 44px;
-      border: 2px solid var(--border);
-      background: var(--ink); color: var(--bg);
-    }
-
-    /* ── Research CTA ── */
-    .research-cta {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 24px;
-      border: 3px solid var(--border);
-      border-top: 0;
-      background: var(--panel);
-      gap: 16px;
-    }
-    .research-cta-text {
-      font-family: var(--mono);
-      font-size: .7rem; letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--body-muted);
-      line-height: 1.5;
-    }
-    .research-cta-link {
-      flex-shrink: 0;
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .1em;
-      text-transform: uppercase;
-      font-weight: 900;
-      padding: 12px 20px;
-      min-height: 44px;
-      border: 2px solid var(--border);
-      background: var(--ink); color: var(--bg);
-      text-decoration: none;
-      white-space: nowrap;
-      transition: opacity .2s;
-    }
-    .research-cta-link:hover { opacity: .8; }
-
-    /* ── Article footer ── */
-    .article-back {
-      display: inline-block;
-      margin-top: 16px;
-      padding: 12px 14px 11px;
-      min-height: 44px;
-      border: 2px solid var(--border);
-      background: var(--panel);
-      font-family: var(--mono);
-      font-size: .75rem; letter-spacing: .1em;
-      text-transform: uppercase; font-weight: 900;
-    }
-    .article-back:hover { border-color: var(--accent); }
-
-    /* ── Focus states (page-specific) ── */
-    .share-link:focus-visible,
-    .subscribe-link:focus-visible,
-    .article-back:focus-visible {
-      outline: 2px solid var(--focus-ring);
-      outline-offset: 2px;
-    }
-
-    /* ── Utility ── */
-    .sr-only {
-      position: absolute; width: 1px; height: 1px;
-      padding: 0; margin: -1px; overflow: hidden;
-      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
-    }
-
-    /* ── Progress bar ── */
-    .reading-progress {
-      position: fixed; top: 0; left: 0; width: 0%; height: 3px;
-      background: var(--accent); z-index: 9999;
-      transition: width .12s linear;
-      pointer-events: none;
-    }
-
-    /* ── Section indicator ── */
-    .section-indicator {
-      position: fixed; bottom: 28px; left: 28px; z-index: 9998;
-      font-family: var(--mono); font-size: .6rem;
-      letter-spacing: .18em; text-transform: uppercase;
-      color: var(--ink);
-      background: var(--bg);
-      border: 1px solid var(--rule);
-      padding: 6px 12px;
-      border-radius: 2px;
-      opacity: 0; transition: opacity .3s ease;
-      pointer-events: none;
-      max-width: 260px; white-space: nowrap;
-      overflow: hidden; text-overflow: ellipsis;
-      box-shadow: 0 1px 4px rgba(0,0,0,.12);
-    }
-    .section-indicator.visible { opacity: 1; }
-    @media (max-width: 760px) {
-      .section-indicator { bottom: 16px; left: 16px; font-size: .52rem; max-width: 200px; }
-    }
-
-    /* ── Reduced motion ── */
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after {
-        transition-duration: 0s !important;
-        animation-duration: 0s !important;
-      }
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 760px) {
-      :root { --outer-pad: 18px; }
-      .article-header { padding: 20px 16px 18px; }
-      .article-body { padding: 28px 16px 36px; }
-      .share-bar { padding: 12px 16px; flex-wrap: wrap; }
-      .pull-quote { margin: 32px -16px; padding: 24px 16px; }
-      .stat-block { margin: 36px -16px; padding: 0 16px; }
-      .research-cta { flex-direction: column; padding: 16px; align-items: flex-start; }
-      .research-cta-link { width: 100%; text-align: center; }
-    }
-  </style>
+  <!-- Structured data: BlogPosting -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "I Am Not My Father's Pulpit",
+  "description": "The word says 'some' were called to pastor. I wasn't. But I was called.",
+  "datePublished": "2026-04-23",
+  "dateModified": "2026-04-23",
+  "author": {
+    "@type": "Person",
+    "name": "Dexter Jakes",
+    "url": "https://imjustdex.com/about/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Dexter Jakes",
+    "url": "https://imjustdex.com/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://imjustdex.com/words/pulpit/"
+  },
+  "image": "https://imjustdex.com/img/og-default.png",
+  "url": "https://imjustdex.com/words/pulpit/",
+  "inLanguage": "en",
+  "wordCount": 1800
+}
+  </script>
 </head>
 <body>
-  <div class="reading-progress" aria-hidden="true"></div>
+  <div class="reading-progress" aria-hidden="true" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
   <div class="section-indicator" aria-hidden="true"></div>
   <a href="#article" class="skip-link">Skip to article</a>
   <div class="ruler-top" aria-hidden="true"></div>
   <div class="ruler-left" aria-hidden="true"></div>
 
   <div class="page-shell">
-    <nav class="masthead" aria-label="Main navigation">
-      <a class="brand-block" href="/" aria-label="DX home">
-        <span class="brand-mark"><img src="/img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28"></span>
-        <span class="brand-word">Words</span>
-      </a>
-      <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode">
-        Mode: Light
-      </button>
-    </nav>
+    <header>
+      <nav class="masthead" aria-label="Main navigation">
+        <a class="brand-block" href="/" aria-label="DX home">
+          <span class="brand-mark">
+            <img src="/img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28" data-base="/img/">
+          </span>
+          <span class="brand-word">Words</span>
+        </a>
+        <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode" aria-pressed="false">
+          Mode: Light
+        </button>
+      </nav>
+    </header>
 
     <main id="article">
       <div class="article-frame">
@@ -487,33 +103,33 @@
             <span class="article-date"><time datetime="2026-04-23">Apr 23, 2026</time></span>
             <span class="article-read">12 min</span>
           </div>
-          <h1 class="article-title">I Am Not My Father's Pulpit</h1>
-          <p class="article-deck">The word says "some" were called to pastor. I wasn't. But I was called.</p>
+          <h1 class="article-title">I Am Not My Father&rsquo;s Pulpit</h1>
+          <p class="article-deck">The word says &ldquo;some&rdquo; were called to pastor. I wasn&rsquo;t. But I was called.</p>
         </header>
 
         <article class="article-body">
 
           <p class="intro">I preached twice.</p>
 
-          <p>Once at a local conference, maybe a hundred people in the room. Once at a school chapel service. I was eight the first time. Eleven the second. I don't remember the texts. I remember the scan of the room. That particular kind of church attention — not warm, not hostile, just evaluative. Faces turned toward me the way they turned toward him, like they were checking for resemblance in real time. Like they were waiting to see whether the voice would show up before I did.</p>
+          <p>Once at a local conference, maybe a hundred people in the room. Once at a school chapel service. I was eight the first time. Eleven the second. I don&rsquo;t remember the texts. I remember the scan of the room. That particular kind of church attention &mdash; not warm, not hostile, just evaluative. Faces turned toward me the way they turned toward him, like they were checking for resemblance in real time. Like they were waiting to see whether the voice would show up before I did.</p>
 
-          <p>It didn't.</p>
+          <p>It didn&rsquo;t.</p>
 
           <p>I stood in front of those rooms and felt something I would spend years trying to name: not fear, not incapacity, but distance. Everyone else seemed to think they were watching a beginning. I remember feeling, even then, like I was being mistaken for one.</p>
 
           <p>I was eight years old. Even at eight, I knew the difference between something you do because you can and something you do because you were built for it.</p>
 
-          <p>I didn't even have his voice yet. But I had the name. And somehow that was enough for people to start projecting. As I got older, the resemblance filled in — same build, same tone, if you catch me at the right angle. "You sound just like your daddy." "You look just like him." And the one that always followed: "So when are you gonna preach?"</p>
+          <p>I didn&rsquo;t even have his voice yet. But I had the name. And somehow that was enough for people to start projecting. As I got older, the resemblance filled in &mdash; same build, same tone, if you catch me at the right angle. &ldquo;You sound just like your daddy.&rdquo; &ldquo;You look just like him.&rdquo; And the one that always followed: &ldquo;So when are you gonna preach?&rdquo;</p>
 
           <div class="callout"><p>As if resemblance is a calling. As if sharing a name means sharing an assignment.</p></div>
 
-          <p>Here's what nobody tells you about being a namesake in ministry: the comparison isn't always something people do to you. It's something they do around you. Constantly. Casually. Like the weather. It lives in introductions. In the extra half-second after your last name. In the questions that sound curious but are really diagnostic. People don't always ask who you are. Sometimes they're asking how much of him survived in you.</p>
+          <p>Here&rsquo;s what nobody tells you about being a namesake in ministry: the comparison isn&rsquo;t always something people do to you. It&rsquo;s something they do around you. Constantly. Casually. Like the weather. It lives in introductions. In the extra half-second after your last name. In the questions that sound curious but are really diagnostic. People don&rsquo;t always ask who you are. Sometimes they&rsquo;re asking how much of him survived in you.</p>
 
           <p>For a long time, I measured it too.</p>
 
-          <p>I looked at my father — Bishop T.D. Jakes, a man who has preached to millions, built institutions, shaped theology, counseled presidents — and I tried to find myself in that mirror. I couldn't. Not because I didn't admire it. I admire it more than most people will ever understand. But admiration and assignment are not the same thing. Admiration can make you honor a calling you were never meant to imitate. That may be one of the hardest truths for people raised near visible ministry to accept.</p>
+          <p>I looked at my father &mdash; Bishop T.D. Jakes, a man who has preached to millions, built institutions, shaped theology, counseled presidents &mdash; and I tried to find myself in that mirror. I couldn&rsquo;t. Not because I didn&rsquo;t admire it. I admire it more than most people will ever understand. But admiration and assignment are not the same thing. Admiration can make you honor a calling you were never meant to imitate. That may be one of the hardest truths for people raised near visible ministry to accept.</p>
 
-          <p>I studied the arts. Piano. Music production. I followed appetite before optics. I came home after college and took an internship at The Potter's House for what I thought would be six months — a temporary return, not a life direction. But proximity has a way of revealing assignment. I wasn't drawn to the platform. I was drawn to the architecture around it: the systems, the movement, the machinery that could take one message and put it in front of thousands of people who would never set foot in the room.</p>
+          <p>I studied the arts. Piano. Music production. I followed appetite before optics. I came home after college and took an internship at The Potter&rsquo;s House for what I thought would be six months &mdash; a temporary return, not a life direction. But proximity has a way of revealing assignment. I wasn&rsquo;t drawn to the platform. I was drawn to the architecture around it: the systems, the movement, the machinery that could take one message and put it in front of thousands of people who would never set foot in the room.</p>
 
           <div class="stat-block">
             <div class="stat-block-bar"></div>
@@ -523,9 +139,9 @@
             </div>
           </div>
 
-          <p>I helped manage the machine that delivers the Word of God to people who need it most. Campaigns, platforms, digital distribution — the systems that decide whether a message stays inside a room or reaches somebody at 4 AM who needed it that night.</p>
+          <p>I helped manage the machine that delivers the Word of God to people who need it most. Campaigns, platforms, digital distribution &mdash; the systems that decide whether a message stays inside a room or reaches somebody at 4 AM who needed it that night.</p>
 
-          <p>Eight years now. Eight years of building God's church with my hands — just not the way people assumed a Jakes would.</p>
+          <p>Eight years now. Eight years of building God&rsquo;s church with my hands &mdash; just not the way people assumed a Jakes would.</p>
 
           <div class="section-head">
             <h2>March 12, 2020</h2>
@@ -534,17 +150,17 @@
 
           <p>I got married on March 12, 2020.</p>
 
-          <p>If you remember that week, you remember why the timing matters. The world was shutting down. I was two years into leading the digital marketing team at The Potter's House, and I boarded a plane to my honeymoon as the church met to discuss shutdown plans for what everyone assumed would be two weeks.</p>
+          <p>If you remember that week, you remember why the timing matters. The world was shutting down. I was two years into leading the digital marketing team at The Potter&rsquo;s House, and I boarded a plane to my honeymoon as the church met to discuss shutdown plans for what everyone assumed would be two weeks.</p>
 
-          <p>I'm in the most beautiful season of my life — newly married, basking in that — and my phone is lighting up. My team is working without me. The tension between being a Jakes and working as a Jakes usually hums in the background, but my wife is the line where it stops. When she's involved, the work waits. That was the deal I made with myself, and it held.</p>
+          <p>I&rsquo;m in the most beautiful season of my life &mdash; newly married, basking in that &mdash; and my phone is lighting up. My team is working without me. The tension between being a Jakes and working as a Jakes usually hums in the background, but my wife is the line where it stops. When she&rsquo;s involved, the work waits. That was the deal I made with myself, and it held.</p>
 
-          <p>Still, I caught up with my father on that trip, and of course, the conversation turned to what the church was facing. I felt it — the weight of a world desperate for solace in God's word, and the reality that as the church went digital, the shift would land squarely on us. Not on the pulpit. On the platform. On the infrastructure. On the team I was supposed to be leading.</p>
+          <p>Still, I caught up with my father on that trip, and of course, the conversation turned to what the church was facing. I felt it &mdash; the weight of a world desperate for solace in God&rsquo;s word, and the reality that as the church went digital, the shift would land squarely on us. Not on the pulpit. On the platform. On the infrastructure. On the team I was supposed to be leading.</p>
 
           <p>So I came back, and we went to work.</p>
 
-          <p>During the peak pandemic years, our digital reach multiplied fast — livestream audiences surged, platforms expanded, and in a matter of months we built distribution habits that would have taken years under normal conditions. We grew tenfold. But the thing that fixed the work in me was not the growth curve. It was the comment feed. People asking for prayer from hospital rooms. From shut-in apartments. From the middle of the night in places like Zimbabwe, where the room we were in had become a lifeline they could enter through a screen. The Zoom-led wall we rigged during worship so our members could see each other's faces when they couldn't be in the same room. The thousands we helped feed around the world, even when their communities couldn't. The testimonies of people coming to Christ who had never been touched by a church before.</p>
+          <p>During the peak pandemic years, our digital reach multiplied fast &mdash; livestream audiences surged, platforms expanded, and in a matter of months we built distribution habits that would have taken years under normal conditions. We grew tenfold. But the thing that fixed the work in me was not the growth curve. It was the comment feed. People asking for prayer from hospital rooms. From shut-in apartments. From the middle of the night in places like Zimbabwe, where the room we were in had become a lifeline they could enter through a screen. The Zoom-led wall we rigged during worship so our members could see each other&rsquo;s faces when they couldn&rsquo;t be in the same room. The thousands we helped feed around the world, even when their communities couldn&rsquo;t. The testimonies of people coming to Christ who had never been touched by a church before.</p>
 
-          <div class="callout"><p>I wasn't the one speaking the word. I was helping make sure it arrived. And in a season when arrival could mean consolation, clarity, or one more reason not to give up, that distinction stopped feeling secondary to me. That's ministry. Not adjacent to it. Not a lesser form of it.</p></div>
+          <div class="callout"><p>I wasn&rsquo;t the one speaking the word. I was helping make sure it arrived. And in a season when arrival could mean consolation, clarity, or one more reason not to give up, that distinction stopped feeling secondary to me. That&rsquo;s ministry. Not adjacent to it. Not a lesser form of it.</p></div>
 
           <p>That period clarified something I think the church still struggles to name: ministry is not only what happens on the platform. Sometimes it is the infrastructure that gets grace to people in time.</p>
 
@@ -555,14 +171,15 @@
 
           <p>The church has a vocabulary problem.</p>
 
-          <p>We say "called to ministry," and we mean "called to preach." We say "in ministry," and we picture a pulpit, a collar, a title. And when someone's obedience doesn't look like that, the church often treats them as adjacent instead of assigned — useful, maybe, but not fully consecrated. That is not a small vocabulary issue. That is a formation issue. It teaches people to distrust the shape of their actual calling if it doesn't come with a microphone.</p>
+          <p>We say &ldquo;called to ministry,&rdquo; and we mean &ldquo;called to preach.&rdquo; We say &ldquo;in ministry,&rdquo; and we picture a pulpit, a collar, a title. And when someone&rsquo;s obedience doesn&rsquo;t look like that, the church often treats them as adjacent instead of assigned &mdash; useful, maybe, but not fully consecrated. That is not a small vocabulary issue. That is a formation issue. It teaches people to distrust the shape of their actual calling if it doesn&rsquo;t come with a microphone.</p>
 
-          <p>But Paul makes a distinction the church often flattens. In Ephesians 4, he names specific roles — apostles, prophets, evangelists, pastors, teachers.</p>
+          <p>But Paul makes a distinction the church often flattens. In Ephesians 4, he names specific roles &mdash; apostles, prophets, evangelists, pastors, teachers.</p>
 
           <div class="scripture">
-            <p>"And he gave some, apostles; and some, prophets; and some, evangelists; and some, pastors and teachers."</p>
+            <p>&ldquo;And he gave some, apostles; and some, prophets; and some, evangelists; and some, pastors and teachers.&rdquo;</p>
             <cite>Ephesians 4:11</cite>
           </div>
+
           <details class="study-note">
             <summary class="study-note-trigger">
               <span class="study-note-label">Study Note</span>
@@ -570,19 +187,19 @@
               <span class="study-note-toggle" aria-hidden="true"></span>
             </summary>
             <div class="study-note-body">
-              <p class="study-note-annotation">The Greek construction Paul uses — <em>tous men... tous de... tous de</em> (some... and some... and some) — is a distributive pattern that does exactly what the essay argues: it portions out different gifts to different people. The verb is <em>edōken</em> (gave), aorist active — a decisive, completed act. Christ gave these gifts as a settled arrangement, not an evolving suggestion. And the "pastors and teachers" share a single article (<em>tous de poimenas kai didaskalous</em>), which many scholars read as a single hyphenated role: pastor-teachers. The five-fold ministry framework (apostles, prophets, evangelists, pastors, teachers) has generated centuries of debate, but what's grammatically undeniable is the repeated <em>tous de</em> — "and <em>some</em>" — which Paul hammers like a refrain. Not all. Some. The distribution is the design.</p>
+              <p class="study-note-annotation">The Greek construction Paul uses &mdash; <em>tous men... tous de... tous de</em> (some... and some... and some) &mdash; is a distributive pattern that does exactly what the essay argues: it portions out different gifts to different people. The verb is <em>ed&#333;ken</em> (gave), aorist active &mdash; a decisive, completed act. Christ gave these gifts as a settled arrangement, not an evolving suggestion. And the &ldquo;pastors and teachers&rdquo; share a single article (<em>tous de poimenas kai didaskalous</em>), which many scholars read as a single hyphenated role: pastor-teachers. The five-fold ministry framework (apostles, prophets, evangelists, pastors, teachers) has generated centuries of debate, but what&rsquo;s grammatically undeniable is the repeated <em>tous de</em> &mdash; &ldquo;and <em>some</em>&rdquo; &mdash; which Paul hammers like a refrain. Not all. Some. The distribution is the design.</p>
               <div class="study-note-sources">
                 <span class="study-note-sources-label">Sources</span>
                 <ul>
                   <li>Andrew Lincoln, <em>Ephesians</em> (WBC), on the <em>tous men... tous de</em> distributive pattern and the shared article linking pastors and teachers</li>
-                  <li>Harold Hoehner, <em>Ephesians: An Exegetical Commentary</em>, on the aorist <em>edōken</em> as a settled, definitive act of Christ</li>
+                  <li>Harold Hoehner, <em>Ephesians: An Exegetical Commentary</em>, on the aorist <em>ed&#333;ken</em> as a settled, definitive act of Christ</li>
                 </ul>
               </div>
               <div class="study-note-cross">
                 <span class="study-note-cross-label">Cross-references</span>
                 <ul>
-                  <li><strong>1 Cor 12:29&ndash;30</strong> — Paul's rhetorical questions ("Are all apostles? Are all prophets?") expecting the answer "no" — the same argument from a different angle</li>
-                  <li><strong>Rom 12:4&ndash;8</strong> — The body metaphor with different gifts: prophecy, service, teaching, exhortation, giving, leading, mercy — none of which is "pastor"</li>
+                  <li><strong>1 Cor 12:29&ndash;30</strong> &mdash; Paul&rsquo;s rhetorical questions (&ldquo;Are all apostles? Are all prophets?&rdquo;) expecting the answer &ldquo;no&rdquo; &mdash; the same argument from a different angle</li>
+                  <li><strong>Rom 12:4&ndash;8</strong> &mdash; The body metaphor with different gifts: prophecy, service, teaching, exhortation, giving, leading, mercy &mdash; none of which is &ldquo;pastor&rdquo;</li>
                 </ul>
               </div>
             </div>
@@ -590,13 +207,14 @@
 
           <p><em>Some.</em> Not all.</p>
 
-          <p>Then in 1 Corinthians 12, he presses the point into a question: "Are all apostles? Are all prophets? Are all teachers?" No. The body was never meant to be an echo chamber of identical callings.</p>
+          <p>Then in 1 Corinthians 12, he presses the point into a question: &ldquo;Are all apostles? Are all prophets? Are all teachers?&rdquo; No. The body was never meant to be an echo chamber of identical callings.</p>
 
           <p>And then Peter widens the frame again. Not into sameness, but into dignity: every believer is part of a royal priesthood. Which means sacred work is not limited to the people holding microphones.</p>
 
           <div class="pull-quote">
-            <p>1 Peter 2:9 calls every believer — not every pastor, every believer — a royal priesthood. Your priesthood might look like a sermon. Mine might look like a campaign that puts that sermon in front of tens of thousands of people who would not otherwise hear it. Someone else's might look like hospitality. Administration. Editing. Building. The question is not whether it looks religious enough. The question is whether it is obedient.</p>
+            <p>1 Peter 2:9 calls every believer &mdash; not every pastor, every believer &mdash; a royal priesthood. Your priesthood might look like a sermon. Mine might look like a campaign that puts that sermon in front of tens of thousands of people who would not otherwise hear it. Someone else&rsquo;s might look like hospitality. Administration. Editing. Building. The question is not whether it looks religious enough. The question is whether it is obedient.</p>
           </div>
+
           <details class="study-note">
             <summary class="study-note-trigger">
               <span class="study-note-label">Study Note</span>
@@ -604,7 +222,7 @@
               <span class="study-note-toggle" aria-hidden="true"></span>
             </summary>
             <div class="study-note-body">
-              <p class="study-note-annotation"><em>Basileion hierateuma</em> — "royal priesthood" — is Peter quoting Exodus 19:6 (LXX), where God tells Israel at Sinai what they will become before the Law is even given. The priesthood isn't earned by ordination. It's declared by identity. Peter applies this to the entire church — not to clergy, not to a subset, but to every believer. The Reformation called this the "priesthood of all believers," but the text is older than Luther by fifteen centuries. And <em>hierateuma</em> is a collective noun — it describes the community as a priestly body, not individuals as solo priests. Your priesthood doesn't function in isolation. It functions in the body. The marketer, the musician, the administrator — they're all priests. The only question is what their offering looks like.</p>
+              <p class="study-note-annotation"><em>Basileion hierateuma</em> &mdash; &ldquo;royal priesthood&rdquo; &mdash; is Peter quoting Exodus 19:6 (LXX), where God tells Israel at Sinai what they will become before the Law is even given. The priesthood isn&rsquo;t earned by ordination. It&rsquo;s declared by identity. Peter applies this to the entire church &mdash; not to clergy, not to a subset, but to every believer. The Reformation called this the &ldquo;priesthood of all believers,&rdquo; but the text is older than Luther by fifteen centuries. And <em>hierateuma</em> is a collective noun &mdash; it describes the community as a priestly body, not individuals as solo priests. Your priesthood doesn&rsquo;t function in isolation. It functions in the body. The marketer, the musician, the administrator &mdash; they&rsquo;re all priests. The only question is what their offering looks like.</p>
               <div class="study-note-sources">
                 <span class="study-note-sources-label">Sources</span>
                 <ul>
@@ -615,8 +233,8 @@
               <div class="study-note-cross">
                 <span class="study-note-cross-label">Cross-references</span>
                 <ul>
-                  <li><strong>Exod 19:5&ndash;6</strong> — The original declaration: "a kingdom of priests and a holy nation" — spoken to the whole people, not to Aaron's line</li>
-                  <li><strong>Rev 1:6</strong> — John echoes the same language: Christ "made us a kingdom, priests to his God and Father" — the priesthood language bookends the New Testament</li>
+                  <li><strong>Exod 19:5&ndash;6</strong> &mdash; The original declaration: &ldquo;a kingdom of priests and a holy nation&rdquo; &mdash; spoken to the whole people, not to Aaron&rsquo;s line</li>
+                  <li><strong>Rev 1:6</strong> &mdash; John echoes the same language: Christ &ldquo;made us a kingdom, priests to his God and Father&rdquo; &mdash; the priesthood language bookends the New Testament</li>
                 </ul>
               </div>
             </div>
@@ -627,32 +245,33 @@
             <div class="section-head-line" aria-hidden="true"></div>
           </div>
 
-          <p>I'd be lying if I said this was always clear to me.</p>
+          <p>I&rsquo;d be lying if I said this was always clear to me.</p>
 
-          <p>Growing up as a PK at the altitude my family operates at, you see what it costs. The hours, yes. The public demand, yes. But also the less dramatic things: how often the family has to reorganize itself around the urgency of other people's crises, how rarely a life like that belongs fully to itself, how easily the line between devotion and depletion can disappear if the call is real enough to keep saying yes. I watched my father carry it with grace, but I also watched him carry it. Period. And I became acutely aware, earlier than most, that the calling to pastor is not just a gift — it's a cost. One that should only be borne by the people God specifically built to bear it.</p>
+          <p>Growing up as a PK at the altitude my family operates at, you see what it costs. The hours, yes. The public demand, yes. But also the less dramatic things: how often the family has to reorganize itself around the urgency of other people&rsquo;s crises, how rarely a life like that belongs fully to itself, how easily the line between devotion and depletion can disappear if the call is real enough to keep saying yes. I watched my father carry it with grace, but I also watched him carry it. Period. And I became acutely aware, earlier than most, that the calling to pastor is not just a gift &mdash; it&rsquo;s a cost. One that should only be borne by the people God specifically built to bear it.</p>
 
-          <p>I wasn't built for that. And I respect the calling too much to fake it.</p>
+          <p>I wasn&rsquo;t built for that. And I respect the calling too much to fake it.</p>
 
-          <p>I think people expected to see me climb over pews mid-sermon in an oversized suit — the second coming of "Get ready, get ready, get ready." And I get it. The name writes the script before you ever open your mouth.</p>
+          <p>I think people expected to see me climb over pews mid-sermon in an oversized suit &mdash; the second coming of &ldquo;Get ready, get ready, get ready.&rdquo; And I get it. The name writes the script before you ever open your mouth.</p>
 
-          <p>On any given evening, I'd rather be at home with my wife. Praying together. Then rotating between Pootie Tang quotes, true crime documentaries, gardening tips, and Kendrick Lamar — maybe looking up a quiet omakase spot with Japanese whisky we haven't tried yet.</p>
+          <p>On any given evening, I&rsquo;d rather be at home with my wife. Praying together. Then rotating between Pootie Tang quotes, true crime documentaries, gardening tips, and Kendrick Lamar &mdash; maybe looking up a quiet omakase spot with Japanese whisky we haven&rsquo;t tried yet.</p>
 
-          <p>That's not what you want out of your pastor on a Saturday night. I know that. And I'm not going to put on a clergy collar and greet you each Sunday with a word that makes people feel something just because I can. There are people who were built for that — who carry that anointing and pay the cost of it gladly. I have deep reverence for them. There are plenty of pastors in my family. We're covered.</p>
+          <p>That&rsquo;s not what you want out of your pastor on a Saturday night. I know that. And I&rsquo;m not going to put on a clergy collar and greet you each Sunday with a word that makes people feel something just because I can. There are people who were built for that &mdash; who carry that anointing and pay the cost of it gladly. I have deep reverence for them. There are plenty of pastors in my family. We&rsquo;re covered.</p>
 
           <div class="pull-quote">
-            <p>What we need — what the church needs — is people willing to be human without taking on the inhuman expectations that congregations sometimes place on their leaders.</p>
+            <p>What we need &mdash; what the church needs &mdash; is people willing to be human without taking on the inhuman expectations that congregations sometimes place on their leaders.</p>
           </div>
 
           <p>Somebody has to serve the Kingdom without disappearing into it.</p>
 
           <div class="section-head">
-            <h2>I'm Just Dex</h2>
+            <h2>I&rsquo;m Just Dex</h2>
             <div class="section-head-line" aria-hidden="true"></div>
           </div>
 
-          <p>So if you're a PK — or just someone raised close enough to visible ministry that you started confusing inheritance with assignment — hear me clearly: not feeling called to preach is not deficiency. It may be discernment. Romans 12 lists the gifts — prophecy, ministry, teaching, exhortation, giving, ruling, mercy — and not one of them is "pastor." They're all ministry. They're all essential. And they're all divine.</p>
+          <p>So if you&rsquo;re a PK &mdash; or just someone raised close enough to visible ministry that you started confusing inheritance with assignment &mdash; hear me clearly: not feeling called to preach is not deficiency. It may be discernment. Romans 12 lists the gifts &mdash; prophecy, ministry, teaching, exhortation, giving, ruling, mercy &mdash; and not one of them is &ldquo;pastor.&rdquo; They&rsquo;re all ministry. They&rsquo;re all essential. And they&rsquo;re all divine.</p>
 
-          <p>The Great Commission says the same thing from the other direction. Matthew 28:19 — the last thing Jesus says before ascending — the main verb is <em>mathēteusate</em>. Make disciples. Not "go pastor." Not "go preach." Make disciples. And the promise that follows — "I am with you always, even unto the end of the world" — extends that command past the eleven men on that mountain to every believer in every generation.</p>
+          <p>The Great Commission says the same thing from the other direction. Matthew 28:19 &mdash; the last thing Jesus says before ascending &mdash; the main verb is <em>math&#275;teusate</em>. Make disciples. Not &ldquo;go pastor.&rdquo; Not &ldquo;go preach.&rdquo; Make disciples. And the promise that follows &mdash; &ldquo;I am with you always, even unto the end of the world&rdquo; &mdash; extends that command past the eleven men on that mountain to every believer in every generation.</p>
+
           <details class="study-note">
             <summary class="study-note-trigger">
               <span class="study-note-label">Study Note</span>
@@ -660,19 +279,19 @@
               <span class="study-note-toggle" aria-hidden="true"></span>
             </summary>
             <div class="study-note-body">
-              <p class="study-note-annotation">The Great Commission is routinely quoted as "Go and make disciples" — but the Greek tells a different story. <em>Mathēteusate</em> (make disciples) is the only imperative in the sentence. "Go" (<em>poreuthentes</em>), "baptizing" (<em>baptizontes</em>), and "teaching" (<em>didaskontes</em>) are all participles — they modify the main verb, they don't replace it. The command isn't primarily about movement or ritual. It's about formation. And <em>mathēteusate</em> is an aorist imperative — urgent, decisive, addressed to the whole group. Not "go preach." Not "go pastor." Make disciples. The participles describe how; the imperative describes what. Every believer received the what. The how varies.</p>
+              <p class="study-note-annotation">The Great Commission is routinely quoted as &ldquo;Go and make disciples&rdquo; &mdash; but the Greek tells a different story. <em>Math&#275;teusate</em> (make disciples) is the only imperative in the sentence. &ldquo;Go&rdquo; (<em>poreuthentes</em>), &ldquo;baptizing&rdquo; (<em>baptizontes</em>), and &ldquo;teaching&rdquo; (<em>didaskontes</em>) are all participles &mdash; they modify the main verb, they don&rsquo;t replace it. The command isn&rsquo;t primarily about movement or ritual. It&rsquo;s about formation. And <em>math&#275;teusate</em> is an aorist imperative &mdash; urgent, decisive, addressed to the whole group. Not &ldquo;go preach.&rdquo; Not &ldquo;go pastor.&rdquo; Make disciples. The participles describe how; the imperative describes what. Every believer received the what. The how varies.</p>
               <div class="study-note-sources">
                 <span class="study-note-sources-label">Sources</span>
                 <ul>
-                  <li>D.A. Carson, <em>Matthew</em> (EBC), on <em>mathēteusate</em> as the sole imperative and the participial structure of the commission</li>
+                  <li>D.A. Carson, <em>Matthew</em> (EBC), on <em>math&#275;teusate</em> as the sole imperative and the participial structure of the commission</li>
                   <li>R.T. France, <em>The Gospel of Matthew</em> (NICNT), on the universal scope of the command extending beyond the eleven</li>
                 </ul>
               </div>
               <div class="study-note-cross">
                 <span class="study-note-cross-label">Cross-references</span>
                 <ul>
-                  <li><strong>Acts 1:8</strong> — "You will be my witnesses" — the post-ascension restatement uses <em>martyres</em> (witnesses), not <em>kērykes</em> (preachers) — testimony, not title</li>
-                  <li><strong>2 Tim 2:2</strong> — Paul's multiplication model: "what you have heard from me... entrust to faithful men who will be able to teach others also" — discipleship as relay, not platform</li>
+                  <li><strong>Acts 1:8</strong> &mdash; &ldquo;You will be my witnesses&rdquo; &mdash; the post-ascension restatement uses <em>martyres</em> (witnesses), not <em>k&#275;rykes</em> (preachers) &mdash; testimony, not title</li>
+                  <li><strong>2 Tim 2:2</strong> &mdash; Paul&rsquo;s multiplication model: &ldquo;what you have heard from me... entrust to faithful men who will be able to teach others also&rdquo; &mdash; discipleship as relay, not platform</li>
                 </ul>
               </div>
             </div>
@@ -680,39 +299,55 @@
 
           <p>The question was never whether you are called to ministry in the broad sense. Faithfulness settled that. The real question is narrower and harder: what kind of stewardship has actually been assigned to your life? What burden can you carry without pretending? What work can you do with both conviction and grace?</p>
 
-          <p>Maybe it's teaching. Maybe it's administration. Maybe it's mercy. Maybe it's the thing no one in your church has a title for yet — the creative work, the digital strategy, the quiet labor that makes the loud work possible.</p>
+          <p>Maybe it&rsquo;s teaching. Maybe it&rsquo;s administration. Maybe it&rsquo;s mercy. Maybe it&rsquo;s the thing no one in your church has a title for yet &mdash; the creative work, the digital strategy, the quiet labor that makes the loud work possible.</p>
 
-          <p>For eight years, I've been a steward of something I didn't expect to become my life's work. And I'm grateful for it. But I'd be dishonest if I didn't say this too: I want a life that is not exhausted by one institution, even one I love. I want to make things. Build things. Follow curiosities that do not need ecclesial permission to matter. I am not just another Jakes. Not just a ministry worker. I am a creative, a husband, a person whose life before God is larger than the most familiar room people expect me to occupy.</p>
+          <p>For eight years, I&rsquo;ve been a steward of something I didn&rsquo;t expect to become my life&rsquo;s work. And I&rsquo;m grateful for it. But I&rsquo;d be dishonest if I didn&rsquo;t say this too: I want a life that is not exhausted by one institution, even one I love. I want to make things. Build things. Follow curiosities that do not need ecclesial permission to matter. I am not just another Jakes. Not just a ministry worker. I am a creative, a husband, a person whose life before God is larger than the most familiar room people expect me to occupy.</p>
 
           <div class="stat-block">
             <div class="stat-block-bar"></div>
             <div class="stat-block-text">
-              I'm Just Dex.
-              <span>That's not a brand. It's a request.</span>
+              I&rsquo;m Just Dex.
+              <span>That&rsquo;s not a brand. It&rsquo;s a request.</span>
             </div>
           </div>
 
-          <p>Judge me as an individual — not as a chapter in a script someone else already wrote in their head. I didn't come with a prewritten ending from anyone but God. I'm still figuring out the middle.</p>
+          <p>Judge me as an individual &mdash; not as a chapter in a script someone else already wrote in their head. I didn&rsquo;t come with a prewritten ending from anyone but God. I&rsquo;m still figuring out the middle.</p>
 
-          <p>I'm still learning every day how to balance working with Jakes and being a Jakes. Those are two different things. And some days, the line between them is thinner than I'd like.</p>
+          <p>I&rsquo;m still learning every day how to balance working with Jakes and being a Jakes. Those are two different things. And some days, the line between them is thinner than I&rsquo;d like.</p>
 
-          <p>But I've stopped apologizing for the distinction. And I've stopped shrinking the parts of me that exist beyond it.</p>
+          <p>But I&rsquo;ve stopped apologizing for the distinction. And I&rsquo;ve stopped shrinking the parts of me that exist beyond it.</p>
 
-          <p>I am my father's son.</p>
+          <p>I am my father&rsquo;s son.</p>
 
-          <p>I carry his name. I carry some of his cadence. I carry, too, a love for God's people shaped by watching him give himself to them again and again. That inheritance is real. But inheritance is not duplication.</p>
+          <p>I carry his name. I carry some of his cadence. I carry, too, a love for God&rsquo;s people shaped by watching him give himself to them again and again. That inheritance is real. But inheritance is not duplication.</p>
 
           <p>I am not his pulpit. I never was.</p>
 
         </article>
 
-        <!-- Share bar -->
         <div class="share-bar" aria-label="Share this essay">
           <span class="share-label">Share</span>
-          <a href="https://x.com/intent/tweet?url=https://imjustdex.com/words/pulpit&text=I%20Am%20Not%20My%20Father%E2%80%99s%20Pulpit%20%E2%80%94%20DX" target="_blank" rel="noopener noreferrer" class="share-link">X</a>
-          <button type="button" class="share-link" onclick="navigator.clipboard.writeText('https://imjustdex.com/words/pulpit');this.textContent='Copied';setTimeout(()=>this.textContent='Copy link',2000);">Copy link</button>
-          <a href="https://substack.com/@imjustdex" target="_blank" rel="noopener noreferrer" class="subscribe-link">Subscribe</a>
+          <a href="https://x.com/intent/tweet?url=https://imjustdex.com/words/pulpit/&text=I%20Am%20Not%20My%20Father%E2%80%99s%20Pulpit%20%E2%80%94%20DX" target="_blank" rel="noopener noreferrer" class="share-link">X</a>
+          <button type="button" class="share-link" data-copy-link="https://imjustdex.com/words/pulpit/">Copy link</button>
+          <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer" class="subscribe-link">Follow Me</a>
         </div>
+
+        <!-- Email signup -->
+        <form class="email-signup" action="/api/subscribe?u=41b4a69d61d7e6d50724373f0&amp;id=216fb11473&amp;f_id=009345e0f0" method="post">
+          <span class="email-signup-label">Get notified when I publish</span>
+          <div class="email-signup-fields">
+            <label for="email" class="sr-only">Email address</label>
+            <input type="email" name="EMAIL" id="email" class="email-signup-input" placeholder="Your email" required>
+            <button type="submit" class="email-signup-submit">Notify me</button>
+          </div>
+          <div class="email-signup-hp" aria-hidden="true">
+            <input type="text" name="website" tabindex="-1" value="">
+          </div>
+        </form>
+
+        <!-- Previous / Next essay -->
+        <nav class="article-nav" aria-label="Essay navigation">
+        </nav>
 
         <a href="/" class="article-back">&larr; Back</a>
 
@@ -720,81 +355,20 @@
     </main>
 
     <footer class="footer-strip" aria-label="Footer">
-      <a href="https://imjustdex.substack.com" target="_blank" rel="noopener">Subscribe on Substack</a>
+      <div class="footer-links">
+        <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="https://x.com/ImJustDex" target="_blank" rel="noopener noreferrer">X</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="/feed.xml" aria-label="RSS feed">Feed</a>
+      </div>
       <span>Est. 1994</span>
     </footer>
   </div>
 
-  <script>
-    (function () {
-      var toggle = document.getElementById('modeToggle');
-      var body = document.body;
-      var logo = document.querySelector('.brand-logo');
-      var KEY = 'dxmode';
-      function setLabel() {
-        toggle.textContent = body.classList.contains('dark-mode') ? 'Mode: Dark' : 'Mode: Light';
-      }
-      function applyMode(mode) {
-        if (mode === 'dark') {
-          body.classList.add('dark-mode');
-          if (logo) logo.src = '/img/logo-white.svg';
-        } else {
-          body.classList.remove('dark-mode');
-          if (logo) logo.src = '/img/logo-dark.svg';
-        }
-        document.cookie = KEY + '=' + mode + ';path=/;max-age=31536000;SameSite=Lax';
-        setLabel();
-      }
-      var cookieMatch = document.cookie.match(/(?:^|; )dxmode=([^;]+)/);
-      applyMode(cookieMatch ? cookieMatch[1] : 'light');
-      toggle.addEventListener('click', function () {
-        applyMode(body.classList.contains('dark-mode') ? 'light' : 'dark');
-      });
-    })();
-  </script>
-  <script>
-    (function () {
-      var bar = document.querySelector('.reading-progress');
-      var label = document.querySelector('.section-indicator');
-      var article = document.querySelector('.article-body') || document.querySelector('article');
-      if (!bar || !article) return;
-
-      var sections = [];
-      article.querySelectorAll('.section-head h2').forEach(function (h2) {
-        sections.push({ el: h2.closest('.section-head'), name: h2.textContent.trim() });
-      });
-
-      var ticking = false;
-      function onScroll() {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () {
-          ticking = false;
-          var rect = article.getBoundingClientRect();
-          var total = article.scrollHeight - window.innerHeight;
-          var scrolled = -rect.top;
-          var pct = Math.max(0, Math.min(100, (scrolled / total) * 100));
-          bar.style.width = pct + '%';
-
-          /* Section indicator */
-          var current = '';
-          for (var i = sections.length - 1; i >= 0; i--) {
-            if (sections[i].el.getBoundingClientRect().top < window.innerHeight * 0.4) {
-              current = sections[i].name;
-              break;
-            }
-          }
-          if (current && pct > 2 && pct < 98) {
-            label.textContent = current;
-            label.classList.add('visible');
-          } else {
-            label.classList.remove('visible');
-          }
-        });
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-    })();
-  </script>
+  <!-- Long-form behavior -->
+  <script src="/js/progress.js?v=phase14" defer></script>
+  <script src="/js/essay.js?v=phase14" defer></script>
+  <script src="/js/signup.js?v=phase14" defer></script>
 </body>
 </html>
