@@ -780,6 +780,49 @@
   color: var(--accent-text);
 }
 
+/* ── Ghost nav slot — future-dated essay, not yet posted ────
+ * Mirrors archive ghost plate: dashed border, transparent bg,
+ * dimmed title, scheduled date shown. Non-interactive (<div>).
+ * -------------------------------------------------------- */
+
+.article-nav-ghost {
+  border-style: dashed;
+  background: transparent;
+  cursor: default;
+}
+
+.article-nav-ghost:hover {
+  border-color: var(--border);
+}
+
+.article-nav-ghost:hover .article-nav-label {
+  color: var(--body-muted);
+}
+
+.article-nav-ghost .article-nav-title {
+  opacity: .45;
+}
+
+.article-nav-ghost .article-nav-label {
+  color: var(--body-muted);
+  opacity: .7;
+}
+
+.article-nav-ghost .article-nav-date {
+  margin-top: var(--space-xs);
+  font-family: var(--body);
+  font-size: var(--text-citation);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-teaser);
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: .4;
+}
+
+html.dark-mode .article-nav-ghost .article-nav-title {
+  opacity: .4;
+}
+
 @media (max-width: 640px) {
   .article-nav {
     grid-template-columns: 1fr;
