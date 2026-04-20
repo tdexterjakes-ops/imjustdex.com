@@ -1,25 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>I'm Just Dex — Brand Style Guide — Refined Brutalism Design System</title>
-  <meta name="description" content="I'm Just Dex — Brand Style Guide. Refined Brutalism: the governing design system for IMJUSTDEX.com, social carousels, decks, print, and every surface the brand touches." />
-  <link rel="canonical" href="https://imjustdex.com/brand/" />
-  <meta name="theme-color" content="#f4f4f1" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#060606" media="(prefers-color-scheme: dark)" />
-  <meta name="color-scheme" content="light dark" />
-  <meta property="og:title" content="I'm Just Dex — Brand Style Guide" />
-  <meta property="og:description" content="Refined Brutalism. The governing design system for I'm Just Dex — printed, rigid, inevitable." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://imjustdex.com/brand/" />
-  <meta property="og:site_name" content="I'm Just Dex" />
-  <meta property="og:image" content="https://imjustdex.com/img/og-default.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="I'm Just Dex — Brand Style Guide" />
-  <meta name="twitter:description" content="Refined Brutalism. The governing design system for I'm Just Dex." />
-  <meta name="twitter:image" content="https://imjustdex.com/img/og-default.png" />
-  <link rel="stylesheet" href="/brand/brand.css?v=brand3">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+
+  <title>Refined Brutalism — The Dexter Jakes Design System</title>
+  <meta name="description" content="The governing design system for imjustdex.com — a printed, rigid, inevitable editorial brand. The guide you're reading is built on the same stack it documents.">
+
+  <link rel="canonical" href="https://imjustdex.com/brand/">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Refined Brutalism — The Dexter Jakes Design System">
+  <meta property="og:description" content="The governing design system for imjustdex.com — a printed, rigid, inevitable editorial brand.">
+  <meta property="og:image" content="https://imjustdex.com/img/og-default.png">
+  <meta property="og:url" content="https://imjustdex.com/brand/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Dexter Jakes">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Refined Brutalism — The Dexter Jakes Design System">
+  <meta name="twitter:description" content="The governing design system for imjustdex.com.">
+  <meta name="twitter:image" content="https://imjustdex.com/img/og-default.png">
+
+  <!-- Self-hosted font preloads — same stack as every production page -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Anton-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Bold.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Italic.woff2" crossorigin>
+
+  <!-- Styles: the /brand page runs the production stack plus its own scaffolding -->
+  <link rel="stylesheet" href="/css/tokens.css?v=phase23">
+  <link rel="stylesheet" href="/css/shell.css?v=phase23">
+  <link rel="stylesheet" href="/css/plates.css?v=phase13">
+  <link rel="stylesheet" href="/css/home-augment.css?v=phase25">
+  <link rel="stylesheet" href="/css/article.css?v=phase14">
+  <link rel="stylesheet" href="/brand/brand.css?v=brand5">
+
+  <!-- Mode: synchronous in <head> so html.dark-mode is set before first paint -->
+  <script src="/js/mode.js?v=phase11"></script>
+
+  <!-- Feed discovery -->
+  <link rel="alternate" type="application/atom+xml" title="Dexter Jakes — Essays" href="/feed.xml">
+
+  <!-- Structured data: WebPage + references to site + person -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://imjustdex.com/brand/",
+  "url": "https://imjustdex.com/brand/",
+  "name": "Refined Brutalism — The Dexter Jakes Design System",
+  "description": "The governing design system for imjustdex.com — a printed, rigid, inevitable editorial brand.",
+  "inLanguage": "en",
+  "isPartOf": { "@id": "https://imjustdex.com/#website" },
+  "about": { "@id": "https://imjustdex.com/#person" }
+}
+  </script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -29,19 +69,19 @@
 
   <div class="page-shell">
 
-    <!-- MASTHEAD -->
-    <header class="masthead" role="banner">
-      <a class="brand-block" href="/" aria-label="I'm Just Dex — return to imjustdex.com home">
-        <span class="brand-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true" focusable="false"><path d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/><path d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/></svg></span>
-        <span class="brand-word">Style Guide</span>
-      </a>
-      <button
-        class="mode-toggle"
-        id="modeToggle"
-        type="button"
-        aria-pressed="false"
-        aria-label="Preview theme — demo control for this guide only"
-      >Mode: Light</button>
+    <!-- MASTHEAD — universal brand-block, identical to every production page -->
+    <header>
+      <nav class="masthead" aria-label="Main navigation">
+        <a class="brand-block" href="/" aria-label="Dexter Jakes home">
+          <span class="brand-mark">
+            <img src="/img/logo-dark.svg" alt="" class="brand-logo" width="41" height="28" data-base="/img/">
+          </span>
+          <span class="brand-word">Words</span>
+        </a>
+        <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode" aria-pressed="false">
+          Mode: Light
+        </button>
+      </nav>
     </header>
 
     <main id="main">
@@ -55,9 +95,9 @@
         </svg>
       </div>
       <div class="guide-hero-text">
-        <h1>I&rsquo;m Just Dex<br>Brand Style Guide</h1>
+        <h1>Refined<br>Brutalism</h1>
         <div class="deck">
-          Refined Brutalism. The governing design system for I&rsquo;m Just Dex &mdash; IMJUSTDEX.com, social carousels, print materials, and every surface the brand touches. Every decision exists to make the work feel printed, rigid, and inevitable. If a change makes any artifact feel more like content and less like a publication, the change is wrong.
+          The governing design system for imjustdex.com &mdash; a printed, rigid, inevitable editorial brand. This guide is not a description of the system. It is the system. The masthead, footer, type, color, grid, and components you see on this page are the exact same files every production surface runs. If a rule fails here, it fails everywhere.
         </div>
       </div>
     </div>
@@ -68,10 +108,11 @@
     <div class="demo-frame u-scope-frame">
       <div class="demo-label">System Scope</div>
       <div class="section-body">
-        <p>This guide governs the full I&rsquo;m Just Dex brand across all surfaces: IMJUSTDEX.com (editorial site), social carousels, social post graphics, story formats, presentation decks, print materials, merchandise, signage, motion graphics, and any future medium the brand enters. It is not an editorial style guide with aspirations &mdash; it is the operating system.</p>
-        <p><strong>What this document controls:</strong> logo usage, color, typography, component design, editorial voice, microcopy, structural rules, social templates, platform adaptation, accessibility, responsive behavior, interaction states, and motion. If a design decision is not addressed here, the decision defaults to the nearest existing rule &mdash; not to the designer&rsquo;s preference.</p>
-        <p><strong>What this document does not control:</strong> content strategy, publishing cadence, topic selection, audience targeting, or third-party platform UI that the brand cannot modify. Those are editorial and operational decisions, not design system decisions.</p>
-        <p><strong>Enforcement principle:</strong> This system should not require taste to apply correctly. If an implementer follows every rule in this document and produces something that looks wrong, the document is incomplete &mdash; not the implementer. File the gap. Update the guide.</p>
+        <p>This guide governs the full Dexter Jakes brand across every surface: imjustdex.com (editorial site), social carousels, post graphics, story formats, presentation decks, print, merch, signage, motion, and any future medium. It is not an aspirational document &mdash; it is the operating system.</p>
+        <p><strong>What this document controls:</strong> logo usage, color, typography, component design, editorial voice, microcopy, structural rules, social templates, platform adaptation, accessibility, responsive behavior, interaction states, and motion. If a decision is not addressed here, it defaults to the nearest existing rule &mdash; not to the designer&rsquo;s preference.</p>
+        <p><strong>What this document does not control:</strong> content strategy, publishing cadence, topic selection, audience targeting, or third-party platform UI the brand cannot modify. Those are editorial and operational decisions, not design-system decisions.</p>
+        <p><strong>Enforcement principle:</strong> this system should not require taste to apply correctly. If an implementer follows every rule here and produces something that looks wrong, the document is incomplete &mdash; not the implementer. File the gap. Update the guide.</p>
+        <p><strong>Dogfood rule.</strong> The /brand page runs the same <code>tokens.css</code>, <code>shell.css</code>, <code>plates.css</code>, <code>home-augment.css</code>, and <code>article.css</code> as the live site. Component demos below Section 13 render production classes directly &mdash; not guide clones. If a live component breaks, this page breaks too. That is intentional.</p>
       </div>
     </div>
 
@@ -85,7 +126,7 @@
       </div>
 
       <div class="section-body">
-        <p>The I&rsquo;m Just Dex monogram &mdash; &ldquo;DX&rdquo; &mdash; set in False Regular. Two letters, no tagline, no explanation. The mark carries the same weight as the writing: dense, architectural, and unapologetic.</p>
+        <p>The Dexter Jakes monogram &mdash; &ldquo;DX&rdquo; &mdash; set in False Regular. Two letters, no tagline, no explanation. The mark carries the same weight as the writing: dense, architectural, unapologetic.</p>
       </div>
 
       <div class="logo-grid">
@@ -99,7 +140,7 @@
           </div>
           <div class="logo-card-label">
             <div class="logo-card-name">On Light</div>
-            <div class="logo-card-note">Primary — #050505 on #f4f4f1</div>
+            <div class="logo-card-note">Primary &mdash; #050505 on #f4f4f1</div>
           </div>
         </div>
         <!-- White mark on dark -->
@@ -112,7 +153,7 @@
           </div>
           <div class="logo-card-label">
             <div class="logo-card-name">On Dark</div>
-            <div class="logo-card-note">Inverse — #ffffff on #060606</div>
+            <div class="logo-card-note">Inverse &mdash; #ffffff on #060606</div>
           </div>
         </div>
         <!-- White mark on accent -->
@@ -125,7 +166,7 @@
           </div>
           <div class="logo-card-label">
             <div class="logo-card-name">On Accent</div>
-            <div class="logo-card-note">Restricted — #ffffff on var(--accent). Brand-mark context only.</div>
+            <div class="logo-card-note">Restricted &mdash; #ffffff on var(--accent). Brand-mark context only.</div>
           </div>
         </div>
       </div>
@@ -133,13 +174,14 @@
       <div class="logo-rules">
         <h3>Usage Rules</h3>
         <ul>
-          <li>Typeface: False Regular &mdash; never substitute, never outline, never warp. Delivered as outlined SVG paths; no runtime font dependency (see Typography Layer 1)</li>
-          <li>Minimum clear space: 1&times; the cap-height of the &ldquo;D&rdquo; on all sides</li>
-          <li>Only three approved colorways: dark-on-light, white-on-dark, white-on-accent</li>
-          <li>The on-accent colorway (white mark on #cc0000 ground) is a brand-mark presentation context only &mdash; it does not grant permission for red backgrounds in layouts, cards, banners, or any other production surface. It exists for logo lockups, brand stamps, and identity moments. If the red ground extends beyond the logo&rsquo;s clear-space boundary, it has exceeded its scope</li>
-          <li>Never place the monogram on a busy image, gradient, or pattern without a solid backing panel</li>
-          <li>No drop shadows, bevels, strokes, or effects &mdash; the letterforms are the design</li>
-          <li>Never lock up with a tagline, wordmark, or secondary text adjacent to the mark</li>
+          <li>Typeface: False Regular &mdash; never substitute, never outline, never warp. Delivered as outlined SVG paths; no runtime font dependency (see Typography Layer 1).</li>
+          <li>Minimum clear space: 1&times; the cap-height of the &ldquo;D&rdquo; on all sides.</li>
+          <li>Only three approved colorways: dark-on-light, white-on-dark, white-on-accent.</li>
+          <li>The on-accent colorway (white mark on #c00 ground) is a brand-mark presentation context only &mdash; it does not grant permission for red backgrounds in layouts, cards, banners, or any production surface. It exists for logo lockups, brand stamps, and identity moments. If the red ground extends beyond the logo&rsquo;s clear-space boundary, it has exceeded its scope.</li>
+          <li>Never place the monogram on a busy image, gradient, or pattern without a solid backing panel.</li>
+          <li>No drop shadows, bevels, strokes, or effects &mdash; the letterforms are the design.</li>
+          <li>Never lock up with a tagline, wordmark, or secondary text adjacent to the mark.</li>
+          <li>Production pages serve the mark as a runtime-swapped <code>&lt;img&gt;</code> with <code>data-base="/img/"</code> &mdash; <code>mode.js</code> rewrites the <code>src</code> between <code>logo-dark.svg</code> and <code>logo-white.svg</code> at the class flip.</li>
         </ul>
       </div>
 
@@ -160,8 +202,8 @@
       </div>
 
       <div class="section-body">
-        <p>Two authored modes. Light and dark are not audience-facing preferences &mdash; they are editorial decisions. Each published surface is locked to one mode at authoring time. The <em>Mode</em> toggle in this guide&rsquo;s masthead is a preview control for reviewers only &mdash; it does not represent a user-facing feature on IMJUSTDEX.com or any other surface.</p>
-        <p><strong>Policy:</strong> No color may be introduced to the system outside this palette. No opacity values may be created ad hoc &mdash; use only the defined alpha variants. Dark mode is a complete variable inversion, not a filter or overlay. Every new surface inherits one of these two modes. Never mix light and dark elements on the same surface. If a new token is needed, it is added here first &mdash; not in a stylesheet.</p>
+        <p>Two authored modes. Light and dark are not audience-facing moods &mdash; they are editorial decisions. The mode toggle in the masthead above is the <strong>real, production mode toggle</strong>: a cookie-persisted user preference that controls every page on imjustdex.com. Flip it and watch the site respond. It is the same control served to every reader, not a preview.</p>
+        <p><strong>Policy:</strong> no color may be introduced outside this palette. No opacity values may be created ad hoc &mdash; use only the defined alpha variants. Dark mode is a complete variable inversion, not a filter or overlay. Never mix light and dark elements on the same surface. If a new token is needed, it is added to <code>tokens.css</code> first &mdash; not in a component stylesheet.</p>
       </div>
 
       <div class="swatch-grid">
@@ -211,12 +253,12 @@
 
       <div class="section-body">
         <p>Red marks editorial emphasis. Never decoration. It is the only color outside the monochrome palette, and its scarcity is what gives it power. Accent is for signal, not garnish. The moment red becomes frequent, it becomes invisible.</p>
-        <p><strong>Hard limits.</strong> Maximum 1&ndash;2 accent moments per viewport on any surface. Maximum 4 per full article page across all scroll positions. Maximum 2 per carousel slide. If you are debating whether something needs red, it does not. Red is earned by function: it marks section structure, scripture citation, callout emphasis, focus rings, and plate hover borders. Nothing else.</p>
+        <p><strong>Hard limits.</strong> Maximum 1&ndash;2 accent moments per viewport on any surface. Maximum 4 per full article page across all scroll positions. Maximum 2 per carousel slide. If you are debating whether something needs red, it does not. Red is earned by function: section structure, scripture citation, callout emphasis, focus rings, and plate hover borders. Nothing else.</p>
         <p><strong>Background prohibition.</strong> Red is never used as a background fill on any surface &mdash; no red panels, no red cards, no red banners. The only exception is the on-accent logo colorway (white mark on red ground), which is a brand-mark context, not a layout context. If it fills more than a 3px line or a single text span, it has gone too far.</p>
-        <p><strong>Stacking prohibition.</strong> No more than one red-led component may appear in the same module or viewport region unless the layout is intentionally designated as a high-emphasis moment (e.g., a section head directly above a scripture block). Two accent elements side by side is a signal. Three is noise. If the red starts to feel like a color scheme rather than a punctuation mark, the implementation has failed.</p>
-        <p><strong>Cross-surface rule.</strong> #cc0000 is the only red permitted on any DX surface &mdash; site, carousel, deck, print, merch, motion. Never warm it, never cool it, never lighten it, never use it at reduced opacity except where the system explicitly defines an alpha variant. No red on large body copy blocks. No red gradient. No red shadow. No red glow.</p>
-        <p><strong>One structural red, both modes.</strong> <code>--accent</code> holds at <code>#c00</code> in light and dark &mdash; same value, zero flip. The earlier system flipped dark-mode red to <code>#ff4d4d</code> for contrast compliance, but that produced two visible reds in dark mode and diluted the editorial signature. The unified rule is grounded in WCAG: non-text contrast (borders, fills, underlines, large display text) only requires 3:1, and <code>#c00</code> on <code>#060606</code> clears at 3.45:1. Every structural consumer of red &mdash; section rules, callout borders, scripture cites, plate hover borders, focus rings &mdash; stays on <code>#c00</code> in both modes.</p>
-        <p><strong>The small-text exception.</strong> AA normal text requires 4.5:1, which <code>#c00</code> does not clear on <code>#060606</code>. A second token, <code>--accent-text</code>, handles this: it stays <code>#c00</code> in light mode and lifts to <code>#ff4d4d</code> (7.54:1, AAA) in dark mode. <code>--accent-text</code> is reserved for text-tier consumers only &mdash; inline link hover, uppercase micro-labels, sub-18px metadata, callout emphasis spans, scripture citation text. If the element is a line, fill, or border, it uses <code>--accent</code>. If the element is readable type under 18px, it uses <code>--accent-text</code>. Decorative markers on text elements (underline colors on body links) follow the 3:1 non-text floor and stay on <code>--accent</code>; only the letterforms themselves use <code>--accent-text</code>.</p>
+        <p><strong>Stacking prohibition.</strong> No more than one red-led component may appear in the same module or viewport region unless the layout is intentionally designated as a high-emphasis moment (e.g., a section head directly above a scripture block). Two accent elements side by side is a signal. Three is noise.</p>
+        <p><strong>Cross-surface rule.</strong> #c00 is the only red permitted on any DX surface &mdash; site, carousel, deck, print, merch, motion. Never warm it, never cool it, never lighten it, never use it at reduced opacity except where the system explicitly defines an alpha variant.</p>
+        <p><strong>One structural red, both modes.</strong> <code>--accent</code> holds at <code>#c00</code> in light and dark &mdash; same value, zero flip. WCAG non-text contrast (borders, fills, underlines, large display text) only requires 3:1, and <code>#c00</code> on <code>#060606</code> clears at 3.45:1. Every structural consumer of red &mdash; section rules, callout borders, scripture cites, plate hover borders, focus rings &mdash; stays on <code>#c00</code> in both modes.</p>
+        <p><strong>The small-text exception.</strong> AA normal text requires 4.5:1, which <code>#c00</code> does not clear on <code>#060606</code>. A second token, <code>--accent-text</code>, handles this: <code>#c00</code> in light, <code>#ff4d4d</code> in dark (7.54:1, AAA). Reserved for text-tier consumers only &mdash; inline link hover, uppercase micro-labels, sub-18px metadata, callout emphasis spans, scripture citation text. If the element is a line, fill, or border, it uses <code>--accent</code>. If it is readable type under 18px, it uses <code>--accent-text</code>.</p>
       </div>
 
       <div class="accent-grid">
@@ -283,7 +325,7 @@
       <div class="demo-frame u-mb-gap">
         <div class="demo-label">Layer 2 &mdash; Editorial Display Typography</div>
         <div class="section-body u-mb-16">
-          <p>Two web fonts, surgically applied. Anton (self-hosted WOFF2) is the loaded display typeface &mdash; Impact and Haettenschweiler remain as system-native fallbacks in the stack. IBM Plex Sans (self-hosted WOFF2) is the body typeface. No Google Fonts dependency &mdash; both fonts are served from <code>/fonts/</code>. The constraint is precision, not asceticism.</p>
+          <p>Two web fonts, surgically applied. Anton (self-hosted WOFF2) is the loaded display typeface &mdash; Impact and Haettenschweiler remain as system-native fallbacks in the stack. IBM Plex Sans (self-hosted WOFF2) is the body typeface. IBM Plex Sans Italic is self-hosted as a fourth file &mdash; the body sets <code>font-synthesis: none</code> site-wide, so faked italics are impossible. No Google Fonts dependency &mdash; every font is served from <code>/fonts/</code>.</p>
         </div>
         <div class="type-specimen u-mb-gap">
           <div class="type-label">--display &middot; Anton / Impact &middot; Titles, Headlines, Pull Quotes, Stat Blocks</div>
@@ -361,21 +403,21 @@
           </p>
         </div>
         <div class="section-body u-mb-16">
-          <p><strong>Why binary?</strong> The tokens earn their keep by making the binary legible at the call site. <code>var(--weight-bold)</code> tells you the element belongs to the chrome vocabulary; <code>700</code> does not. A medium or semibold intermediate would dilute the hierarchy &mdash; the system's whole visual logic depends on the gap between the two.</p>
+          <p><strong>Why binary?</strong> The tokens earn their keep by making the binary legible at the call site. <code>var(--weight-bold)</code> tells you the element belongs to the chrome vocabulary; <code>700</code> does not. A medium or semibold intermediate would dilute the hierarchy &mdash; the system&rsquo;s whole visual logic depends on the gap between the two.</p>
         </div>
         <div class="section-body">
           <p><strong>Exception:</strong> <code>@font-face</code> declarations hold raw <code>400</code> / <code>700</code> values because CSS custom properties do not resolve inside <code>@font-face</code> at-rules. This is a language constraint, not a drift.</p>
         </div>
       </div>
 
-      <!-- Typography Scale (Phase 5) -->
+      <!-- Typography Scale -->
       <div class="demo-frame u-mb-gap">
         <div class="demo-label">Typography Scale &mdash; 19 Primitives, 19 Semantic Aliases</div>
         <div class="section-body u-mb-16">
           <p>Every <code>font-size</code> in production CSS points at a semantic alias. The scale is a <strong>two-tier system</strong>: <code>--size-1</code> through <code>--size-19</code> hold raw <code>rem</code> and <code>clamp()</code> values; <code>--text-*</code> aliases give the call site its intent. Consumers declare what they are, not how big they are.</p>
         </div>
         <div class="section-body u-mb-16">
-          <p><strong>Why 19 steps and not 7.</strong> A modular scale would force every existing size to round up or down, breaking calibration tuned by eye across months of editorial work. Phase 5 clusters the 42+ raw values found in production CSS and snaps near-neighbors only where differences sat below the perception threshold (sub-pixel noise: <code>.7rem &asymp; .72rem</code>, <code>.8rem &asymp; .82rem</code>). Display sizes preserve every distinct <code>clamp()</code> &mdash; those were tuned with editorial intent and collapsing them would visibly shift the site.</p>
+          <p><strong>Why 19 steps and not 7.</strong> A modular scale would force every existing size to round up or down, breaking calibration tuned by eye across months of editorial work. Phase 5 clustered the 42+ raw values found in production CSS and snapped near-neighbors only where differences sat below the perception threshold (sub-pixel noise: <code>.7rem &asymp; .72rem</code>, <code>.8rem &asymp; .82rem</code>). Display sizes preserve every distinct <code>clamp()</code> &mdash; those were tuned with editorial intent and collapsing them would visibly shift the site.</p>
         </div>
         <div class="type-specimen u-mb-gap">
           <div class="type-label">Chrome &amp; Body Tier</div>
@@ -411,11 +453,11 @@
         </div>
       </div>
 
-      <!-- Line-Height Scale (Phase 5) -->
+      <!-- Line-Height Scale -->
       <div class="demo-frame">
         <div class="demo-label">Line-Height Scale &mdash; 5 Slots</div>
         <div class="section-body u-mb-16">
-          <p>Five resolved leading values cover every surface on the brand. Display-tier headlines ride <code>.86</code>; pull quotes and h2/h3 ride <code>1.05</code>; chrome rides <code>1.4</code>; article body rides <code>1.7</code>; the article lede rides <code>1.85</code>. Anything outside this ladder is an editorial exception documented at the call site (drop cap multipliers, badge-style <code>line-height: 1</code>, the identity name's <code>.82</code>).</p>
+          <p>Five resolved leading values cover every surface on the brand. Display-tier headlines ride <code>.86</code>; pull quotes and h2/h3 ride <code>1.05</code>; chrome rides <code>1.4</code>; article body rides <code>1.7</code>; the article lede rides <code>1.85</code>. Anything outside this ladder is an editorial exception documented at the call site (drop cap multipliers, badge-style <code>line-height: 1</code>, the identity name&rsquo;s <code>.82</code>).</p>
         </div>
         <div class="type-specimen">
           <div class="type-label">The Ladder</div>
@@ -441,9 +483,10 @@
 
       <div class="section-body">
         <p>12-column CSS grid. Rows must sum to 12. Adjacent plates must never share the same background treatment &mdash; textures and plain surfaces alternate so every card contrasts its neighbor.</p>
-        <p><strong>Policy:</strong> Plates are the homepage architecture. They are not cards, not tiles, not thumbnails. Every plate is a self-contained unit with a title, metadata, and a texture or color fill. Plates never contain body text, images of people, or calls to action. The identity plate is always span-4 and always first. Plate borders are 3px solid &mdash; never reduced. Hover state: border shifts to var(--accent) + subtle scale. Plates on mobile stack single-column but retain full border, texture, and typography treatment. A plate that loses its structure on any breakpoint is a broken plate.</p>
-        <p><strong>Semantic rule.</strong> Every plate is a single block-level anchor &mdash; the whole card is the link. There are no nested focusable elements, no absolutely-positioned overlay links, no <code>&lt;article&gt;</code> wrappers with a separate <code>&lt;a&gt;</code> inside. The card's semantics, its focus ring, and its hover state all live on one element. This is non-negotiable for accessibility and predictable tab order.</p>
-        <p><strong>Image plates stay dark in both modes.</strong> The grayscale filter and black-to-transparent gradient on image plates hold identically in light and dark. There is no <code>invert(1)</code> flip and no mirrored gradient. The earlier pattern bleached image plates to white in dark mode, which fragmented the visual field against adjacent dark plain plates. One visual field, both modes. Image plates never lighten.</p>
+        <p><strong>Policy.</strong> Plates are the homepage architecture. They are not cards, not tiles, not thumbnails. Every plate is a self-contained unit with a title, metadata, and a texture or color fill. Plates never contain body text, images of people, or calls to action. Plate borders are 3px solid &mdash; never reduced. Hover state: border shifts to <code>var(--accent)</code> plus a subtle scale. On mobile plates stack single-column but retain full border, texture, and typography. A plate that loses its structure on any breakpoint is a broken plate.</p>
+        <p><strong>Plate variants.</strong> <code>.plate-lead</code> is the issue-opener &mdash; split body over image, latest-badge, lead-rail. Documented in full in Section 17. <code>.plate-wide</code> spans the row at plate-med scale. <code>.plate-secondary</code> is the three-up row cell. <code>.plate-banner</code> is a wide image-forward card. <code>.plate-row</code> is a modifier that drops the cell into a row layout (title + deck + meta rail on one line) for archive-density moments &mdash; see the <em>Reckonings</em> card at the bottom of the homepage.</p>
+        <p><strong>Semantic rule.</strong> Every plate is a single block-level anchor &mdash; the whole card is the link. There are no nested focusable elements, no absolutely-positioned overlay links, no <code>&lt;article&gt;</code> wrappers with a separate <code>&lt;a&gt;</code> inside. The card&rsquo;s semantics, its focus ring, and its hover state all live on one element. Non-negotiable for accessibility and predictable tab order.</p>
+        <p><strong>Image plates stay dark in both modes.</strong> The grayscale filter and black-to-transparent gradient on image plates hold identically in light and dark. There is no <code>invert(1)</code> flip and no mirrored gradient. One visual field, both modes. Image plates never lighten.</p>
       </div>
 
       <div class="demo-plates">
@@ -490,6 +533,20 @@
       <div class="section-head">
         <h2>05. Article Components</h2>
         <div class="section-head-line"></div>
+      </div>
+
+      <!-- Italic doctrine -->
+      <div class="demo-frame u-mb-gap">
+        <div class="demo-label">Italic Doctrine</div>
+        <div class="section-body u-mb-16">
+          <p>Italics are a <strong>real</strong> font, not a synthesized slant. <code>IBMPlexSans-Italic.woff2</code> is preloaded alongside regular and bold. <code>body { font-synthesis: none }</code> is set site-wide &mdash; if the italic file fails to load, the browser falls back to upright text rather than producing a faked oblique. Scripture blocks, editorial emphasis inside body copy, and the rare titling italic all resolve to the authored file. Never set <code>font-style: italic</code> on a font that has no italic variant authored (Anton does not &mdash; never italicize display).</p>
+        </div>
+        <div class="type-specimen">
+          <div class="type-label">--body &middot; IBM Plex Sans Italic &middot; Scripture &amp; Editorial Emphasis</div>
+          <p style="font-family: var(--body); font-style: italic; font-size: var(--text-body); line-height: var(--lh-normal); color: var(--body-color); margin: 0;">
+            &ldquo;For we know that the whole creation groaneth and travaileth in pain together until now.&rdquo;
+          </p>
+        </div>
       </div>
 
       <!-- Section Head -->
@@ -548,7 +605,7 @@
 
       <!-- Section Indicator -->
       <div class="demo-frame">
-        <div class="demo-label">Section Indicator (Boxed) &middot; Fixed Bottom-Left While Reading</div>
+        <div class="demo-label">Section Indicator (Stamp) &middot; Fixed Bottom-Left While Reading</div>
         <div class="u-pad-y-20">
           <span class="demo-indicator">III. What the Nets Actually Held</span>
         </div>
@@ -588,6 +645,19 @@
         </div>
       </div>
 
+      <!-- Study Note — NEW component demo, preview for Section 20 -->
+      <div class="demo-frame">
+        <div class="demo-label">Study Note &middot; Scripture Articles &middot; Collapsible Footnote</div>
+        <details class="demo-study-note">
+          <summary>
+            <span>Psalms 13, 88 &middot; Lament as Liturgy</span>
+          </summary>
+          <div class="demo-study-note-body">
+            <p>The psalms of lament are the longest category in the psalter &mdash; more than the praise songs, more than the thanksgiving. That ratio alone is a doctrinal statement: the worship of Israel expected the worshipper to bring their grief, not leave it at the door. Psalm 88 never resolves. It ends in the dark. That the ancient liturgy included a prayer with no happy ending is the whole point &mdash; the full <strong>in-depth</strong> treatment is hosted in the essay itself (see <em>The Groan Beneath the Song</em>). The demo you&rsquo;re reading is a shortened preview of the component&rsquo;s behavior.</p>
+          </div>
+        </details>
+      </div>
+
       <!-- Component Governance -->
       <div class="demo-frame u-mt-32">
         <div class="demo-label">Component Governance</div>
@@ -597,11 +667,12 @@
           <p><strong>Scripture Block.</strong> Purpose: primary textual anchor. Max 3 per article, 1 per carousel slide. Never adjacent to another scripture block. Always includes book, chapter:verse, and translation abbreviation. Never paraphrased &mdash; exact text only.</p>
           <p><strong>Stat Block.</strong> Purpose: typographic emphasis on a single data point or declarative statement. Max 2 per article. Never adjacent to a pull quote. Never used for opinions &mdash; only verifiable claims or theological declarations.</p>
           <p><strong>Research CTA.</strong> Purpose: link to backing study or source material. Max 1 per article, always after the final section. Never mid-article. Never decorative &mdash; only appears when a real study exists.</p>
+          <p><strong>Study Note.</strong> Purpose: collapsed footnote surfacing translation, historical, or cross-reference context without disrupting the reading flow. Pattern: <code>&lt;details class="study-note"&gt;</code> with a <code>&lt;summary&gt;</code> label and a body. Appears under the scripture block it annotates. No limit, but use sparingly &mdash; only when the context genuinely changes the reading. Closed by default. Keyboard-expandable (Enter / Space).</p>
           <p><strong>Ghost Teaser.</strong> Purpose: pre-launch placeholder. Only on homepage plates. Never on article pages. Removed the moment the article publishes.</p>
           <p><strong>Meta Rail + Tags.</strong> Purpose: classification and reading metadata. Always present. Tags are single-word categorical labels from the approved vocabulary. Never more than 3 tags per article. Read time is always shown.</p>
           <p><strong>Section Head.</strong> Purpose: structural division of the argument. Always numbered (Roman numerals). Always accompanied by the red rule line. Never skipped &mdash; every section gets one. Never nested. One level of hierarchy only.</p>
           <p><strong>Prohibited Pairings.</strong> Pull quote + callout in the same viewport. Two scripture blocks within 200 words of each other. Stat block immediately following a pull quote. Any ornamental component used without editorial purpose.</p>
-          <p><strong>Responsive Behavior by Component.</strong> Pull quotes: full-width within the article frame at all breakpoints; font-size scales via clamp() but never below 1.4rem. Callouts: left border and padding unchanged; text reflows naturally. Scripture blocks: maintain 2px left border; citation wraps below verse text below 480px. Stat blocks: bar + text remain side by side above 480px; stack vertically below. Meta rail: items wrap; never truncated. Tags: always visible, never collapsed into a &ldquo;more&rdquo; dropdown. Ghost teasers: maintain full structure at all widths; title scales down but never hides.</p>
+          <p><strong>Responsive Behavior by Component.</strong> Pull quotes: full-width within the article frame at all breakpoints; font-size scales via clamp() but never below 1.4rem. Callouts: left border and padding unchanged; text reflows naturally. Scripture blocks: maintain 2px left border; citation wraps below verse text below 480px. Stat blocks: bar + text remain side by side above 480px; stack vertically below. Meta rail: items wrap; never truncated. Tags: always visible, never collapsed into a &ldquo;more&rdquo; dropdown. Ghost teasers: maintain full structure at all widths; title scales down but never hides. Study note: summary wraps onto 2 lines if needed; body reflows with the article frame.</p>
         </div>
       </div>
     </div>
@@ -617,7 +688,7 @@
 
       <div class="section-body">
         <p>The writing voice is <strong>Poetic Brutalism + Dry Humor.</strong> Like brutalist architecture: raw material, no ornamentation, the structure is the beauty. Every word is load-bearing. The humor creates breathing room. Neither works without the other. The brutalism without humor becomes a sermon. The humor without brutalism becomes a podcast.</p>
-        <p><strong>Policy:</strong> This voice governs all authored text across the brand &mdash; articles, captions, carousels, deck copy, email subject lines, and any surface where DX speaks in first person. The voice does not soften for social. It does not formalize for decks. It does not simplify for wider audiences. If the reader cannot handle the register, they are not the audience. Ghostwritten content or collaborative copy must pass through this voice filter before publishing. No exclamation points. No rhetorical questions used as engagement bait. No hashtag-driven language. No emoji in body text. Humor is dry, never self-deprecating. Vulnerability is precise, never performed.</p>
+        <p><strong>Policy:</strong> this voice governs all authored text across the brand &mdash; articles, captions, carousels, deck copy, email subject lines, and any surface where DX speaks in first person. The voice does not soften for social. It does not formalize for decks. It does not simplify for wider audiences. If the reader cannot handle the register, they are not the audience. Ghostwritten or collaborative copy must pass through this filter before publishing. No exclamation points. No rhetorical questions used as engagement bait. No hashtag-driven language. No emoji in body text. Humor is dry, never self-deprecating. Vulnerability is precise, never performed.</p>
       </div>
 
       <div class="voice-example">
@@ -684,10 +755,10 @@
         <p><strong>2px solid var(--border)</strong> &mdash; secondary borders. Tags, meta rail edges, scripture blocks, brand block, mode toggle, footer items, back button, logo card labels, eyebrow rules on carousels (1px exception for eyebrow accent rule).</p>
         <p><strong>46px repeating grid lines</strong> at var(--rule) opacity on every background surface &mdash; pages, slides, print layouts, deck backgrounds. Non-negotiable. Never scaled, never recolored, never removed for &ldquo;cleaner&rdquo; layouts.</p>
         <p><strong>Rulers:</strong> Fixed-position decorative rulers (.ruler-top, .ruler-left) on all web pages. Hidden on mobile. Not present on social or print &mdash; the grid lines carry that function instead.</p>
-        <p><strong>Article frame:</strong> max-width 680px. All articles self-contained HTML with inline styles. No external CSS. No build step. This constraint extends to any long-form reading surface &mdash; Substack, email newsletters, or any future publishing channel.</p>
+        <p><strong>Article frame:</strong> max-width 680px. All articles self-contained HTML with shared production CSS. No inline styles in body copy. This constraint extends to any long-form reading surface &mdash; Substack, email newsletters, or any future publishing channel.</p>
       </div>
 
-      <!-- Spacing Scale (Phase 6) -->
+      <!-- Spacing Scale -->
       <div class="demo-frame u-mb-gap u-mt-32">
         <div class="demo-label">Spacing Scale &mdash; 10 Slots</div>
         <div class="section-body u-mb-16">
@@ -713,7 +784,7 @@
         </div>
       </div>
 
-      <!-- Border Weight + Focus Ring (Phase 4.1 / §4) -->
+      <!-- Border Weight + Focus Ring -->
       <div class="demo-frame">
         <div class="demo-label">Border Weight &amp; Focus Ring &mdash; Tokenized</div>
         <div class="section-body u-mb-16">
@@ -842,7 +913,7 @@
             <div class="slide-demo-inner">
               <div class="sd-content" style="justify-content:center;text-align:center;padding:16px;">
                 <div style="font-family:var(--mono);font-size:.38rem;color:rgba(243,240,232,.52);text-transform:uppercase;letter-spacing:var(--track-indicator);margin-bottom:10px;">Read the full essay</div>
-                <div class="sd-title" style="font-size:clamp(.6rem,1.5vw,.9rem);margin-bottom:12px;">IMJUSTDEX.com</div>
+                <div class="sd-title" style="font-size:clamp(.6rem,1.5vw,.9rem);margin-bottom:12px;">imjustdex.com</div>
                 <div style="font-family:var(--mono);font-size:.34rem;color:rgba(243,240,232,.42);text-transform:uppercase;letter-spacing:var(--track-indicator);">@imjustdex</div>
               </div>
               <div class="sd-footer">
@@ -879,11 +950,11 @@
       <div class="carousel-spec-grid u-mt-gap">
         <div class="carousel-spec-card">
           <h4>Dark Palette</h4>
-          <p>--bg: #060606, --panel: #0d0d0d, --ink: #f3f0e8, --accent: #cc0000, --cite: #ff4444. Default for all carousels.</p>
+          <p>--bg: #060606, --panel: #0d0d0d, --ink: #f3f0e8, --accent: #c00, --cite: #ff4444. Default for all carousels.</p>
         </div>
         <div class="carousel-spec-card">
           <h4>Light Palette</h4>
-          <p>--bg: #f4f4f1, --panel: #f8f8f6, --ink: #050505, --accent: #cc0000. Permitted but never mixed with dark in the same carousel.</p>
+          <p>--bg: #f4f4f1, --panel: #f8f8f6, --ink: #050505, --accent: #c00. Permitted but never mixed with dark in the same carousel.</p>
         </div>
         <div class="carousel-spec-card">
           <h4>Accent Red</h4>
@@ -1006,7 +1077,7 @@
         </div>
         <div class="carousel-spec-card">
           <h4>Breakpoints</h4>
-          <p><strong>&le; 768px:</strong> Plates stack single-column. Rulers hidden. Outer padding reduces to 16px. Grid background remains.<br><strong>&le; 480px:</strong> Display type scales via clamp() floor values. Meta rail wraps. Share bar stacks vertically. Section indicator hides.</p>
+          <p><strong>&le; 768px:</strong> Plates stack single-column. Rulers hidden. Outer padding reduces to 18px. Grid background remains.<br><strong>&le; 480px:</strong> Display type scales via clamp() floor values. Meta rail wraps. Share bar stacks vertically. Section indicator hides.</p>
         </div>
         <div class="carousel-spec-card">
           <h4>Plate Grid</h4>
@@ -1043,6 +1114,10 @@
         <div class="carousel-spec-card">
           <h4>Metadata Collapse</h4>
           <p>Below 480px: share bar items stack vertically. Section indicator hides (content is short enough to not need it). Tag pills wrap to second line if needed &mdash; never hidden. Read time always visible. &ldquo;Coming Soon&rdquo; badge always visible. If a component must be removed for space, remove decorative elements first (rulers, section indicator), never structural ones (tags, meta, borders).</p>
+        </div>
+        <div class="carousel-spec-card">
+          <h4>Horizontal Overflow</h4>
+          <p><code>overflow-x: clip</code> lives on <code>html</code> (not just <code>body</code>) &mdash; iOS Safari requires it on the root to prevent horizontal scroll from off-page descendants. The <code>.page-shell</code> uses <code>overflow-x: clip</code> as defense-in-depth. <code>clip</code> is used instead of <code>hidden</code> so the sticky masthead keeps working.</p>
         </div>
       </div>
     </div>
@@ -1082,11 +1157,11 @@
         </div>
         <div class="carousel-spec-card">
           <h4>Loading / Progress</h4>
-          <p>Reading progress bar: <code>var(--ink)</code> fill, 3px height, linear left-to-right. Red was pulled from the progress bar because a red strip at the viewport top was competing with the masthead and diluting the accent's semantic weight. Red is reserved for section heads, callouts, underlines, and focus rings &mdash; never for ambient chrome. Page loads: no skeleton screens, no spinners. Content appears when ready. If a delay exceeds 2s, a single monospace status line appears: &ldquo;Loading.&rdquo; &mdash; no animation, no ellipsis cycle.</p>
+          <p>Reading progress bar: <code>var(--ink)</code> fill, 3px height, linear left-to-right. Red was pulled from the progress bar because a red strip at the viewport top was competing with the masthead and diluting the accent&rsquo;s semantic weight. Red is reserved for section heads, callouts, underlines, and focus rings &mdash; never for ambient chrome. Page loads: no skeleton screens, no spinners. Content appears when ready. If a delay exceeds 2s, a single monospace status line appears: &ldquo;Loading.&rdquo; &mdash; no animation, no ellipsis cycle.</p>
         </div>
         <div class="carousel-spec-card">
           <h4>Expanded / Collapsed</h4>
-          <p>Expandable content (if ever introduced): toggle via border state, not animation. Collapsed: 2px solid var(--rule) border, content hidden. Expanded: 3px solid var(--border), content visible. Transition: height auto with 0.25s ease-out. Chevron or indicator rotates 90&deg; &mdash; no bounce. Expandable controls must expose state with aria-expanded on the trigger.</p>
+          <p>Expandable content uses native <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code> (see Study Note). Toggle state is exposed via <code>[open]</code> attribute selectors &mdash; no ARIA polyfill required; the element is natively accessible. Transition: <code>--motion-med</code> on the <code>::after</code> indicator rotation. No height animation (content reflow is instant) &mdash; no bounce, no spring.</p>
         </div>
         <div class="carousel-spec-card">
           <h4>Error / Alert</h4>
@@ -1099,18 +1174,284 @@
       </div>
     </div>
 
+    <!-- ═══════════════════════════════════
+         14. ISSUE HEAD + STANDFIRST
+         New — demos the real .issue-head + .issue-standfirst
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>14. Issue Head + Standfirst</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="section-body">
+        <p>The masthead of the editorial issue. Sits directly under the site chrome on the homepage. Carries the issue number, the week stamp, and a &ldquo;latest&rdquo; standfirst that deep-links to the current essay. Modeled on newspaper front-matter &mdash; the reader knows which edition they landed on before they read a word.</p>
+        <p><strong>Rules.</strong> Issue number increments only with a new lead essay. Week stamp is always the publication week, not the current week. The standfirst block is the <em>only</em> place an essay link coexists with editorial metadata above the archive &mdash; everything else lives on the plates.</p>
+      </div>
+
+      <div class="demo-frame">
+        <div class="demo-label">Live component &middot; class="issue-head"</div>
+        <section class="issue-head" aria-label="Issue demo">
+          <div class="issue-meta">
+            <span class="issue-no">Entry No. 05</span>
+            <span>Week of April 19, 2026</span>
+          </div>
+          <div class="issue-standfirst issue-latest" aria-label="Demo — not a live link">
+            <span class="latest-tag">Latest</span>
+            <span class="latest-title">The Groan Beneath the Song</span>
+            <span class="latest-meta">Faith &middot; Apr 19 &middot; 18 min</span>
+            <span class="latest-cta" aria-hidden="true">Read &rarr;</span>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         15. IDENTITY HERO
+         New — demos the real .identity-hero
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>15. Identity Hero</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="section-body">
+        <p>The author block. Split main/side layout &mdash; the name on one side at display scale, a short bio + two actions on the other. Never more than two actions. Primary action links to the full about page; secondary anchors the subscribe manifesto.</p>
+        <p><strong>Hard rules.</strong> One identity hero per site. Never on article pages. Never duplicated on social. The name is <em>always</em> &ldquo;Dexter Jakes&rdquo; &mdash; no first-name-only, no handle-as-name. The corner eyebrow is the edition marker (&ldquo;The Writer &rarr; 01&rdquo;) and maps to issue numbering.</p>
+      </div>
+
+      <div class="demo-frame">
+        <div class="demo-label">Live component &middot; class="identity-hero"</div>
+        <section class="identity-hero" aria-label="Identity hero demo">
+          <div class="hero-main">
+            <span class="hero-corner">The Writer &rarr; 01</span>
+            <div>
+              <span class="hero-sub">ImJustDex</span>
+              <h2 class="hero-name" style="font-size:clamp(2.4rem, 7vw, 5rem);line-height:.88;margin:0;">Dexter<br>Jakes</h2>
+            </div>
+            <p class="hero-tagline">No highlight reel. Just the full human, documented.</p>
+          </div>
+          <div class="hero-side">
+            <div>
+              <p class="hero-eyebrow">About &mdash; Est. 2024</p>
+              <p class="hero-bio">Writer working the line between faith, labor, and identity. Essays here are the long form &mdash; slow paragraphs, no hot takes, no calls to action.</p>
+            </div>
+            <div class="hero-links">
+              <span class="hero-link primary">Read the About <span class="hero-glyph" aria-hidden="true">&rarr;</span></span>
+              <span class="hero-link">Subscribe</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         16. LANE INDEX + FILTER
+         New — demos the real .lane-index
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>16. Lane Index + Filter</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="section-body">
+        <p>A three-cell classification rail. Each cell is a filter trigger &mdash; click &ldquo;Faith&rdquo; and the archive hides every plate not on that lane. The third cell is the <em>queued</em> state: a lane with no essays yet, rendered dashed and non-interactive. The cell stays visible so the taxonomy is always legible, even when a lane is empty.</p>
+        <p><strong>Rules.</strong> Three lanes max: Faith, Identity, Art. No sub-lanes. No badges. Click toggles <code>aria-pressed</code> on the button and adds a filter class to the archive root. One lane active at a time; clicking the active lane resets to &ldquo;all.&rdquo; Queued cells carry <code>aria-disabled="true"</code> and a descriptive <code>aria-label</code>.</p>
+      </div>
+
+      <div class="demo-frame">
+        <div class="demo-label">Live component &middot; class="lane-index"</div>
+        <section class="lane-index" aria-label="Filter essays by lane" role="group">
+          <button type="button" class="lane-cell" aria-pressed="false">
+            <span class="lane-name">Faith</span>
+            <span class="lane-count">03 essays</span>
+          </button>
+          <button type="button" class="lane-cell" aria-pressed="false">
+            <span class="lane-name">Identity</span>
+            <span class="lane-count">02 essays</span>
+          </button>
+          <div class="lane-cell lane-cell-queued" aria-disabled="true" aria-label="Art &mdash; no essays yet, in the queue">
+            <span class="lane-name">Art</span>
+            <span class="lane-count">In the queue</span>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         17. PLATE LEAD + ROW MODIFIER
+         New — demos the real .plate-lead and .plate-row
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>17. Plate Lead + Row Modifier</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="section-body">
+        <p>The issue opener. A two-column plate that splits a textured image (with latest-badge overlay) against an editorial body panel (eyebrow, title, deck, rail). This is the only plate variant that carries a deck &mdash; every other plate is title + meta. Used exactly once per issue.</p>
+        <p><strong>.plate-row</strong> is an archive-density modifier. Drops a <code>.plate-secondary</code> card into a single-row layout so the title, deck, and meta sit inline. Use at the bottom of the archive for older entries where scale-parity with newer plates would be visual noise.</p>
+      </div>
+
+      <div class="demo-frame">
+        <div class="demo-label">Live component &middot; class="plate plate-lead"</div>
+        <article>
+          <a class="plate plate-lead" aria-label="Read: The Groan Beneath the Song (demo — not a live link)" data-lane="faith">
+            <div class="lead-image" aria-hidden="true">
+              <div class="lead-badge">
+                <span class="lead-badge-label">Latest</span>
+                <span class="lead-badge-lane">Faith</span>
+              </div>
+            </div>
+            <div class="lead-body">
+              <div>
+                <div class="lead-eyebrow"><time datetime="2026-04-19">Apr 19</time> &middot; 18 min read</div>
+                <h3 class="lead-title">The Groan Beneath the Song</h3>
+                <p class="lead-deck">
+                  On the Sunday school lie that split sacred from secular, the Psalms that broke it, and the song that met me when I couldn&rsquo;t pray.
+                </p>
+              </div>
+              <div class="lead-rail">
+                <span class="rail-meta">Essay &middot; 18 min</span>
+                <span class="rail-cta">Read &rarr;</span>
+              </div>
+            </div>
+          </a>
+        </article>
+      </div>
+
+      <div class="demo-frame u-mt-gap">
+        <div class="demo-label">Live component &middot; class="plate plate-secondary plate-row"</div>
+        <article>
+          <a class="plate plate-secondary plate-row" aria-label="Read: I Don't Do Resolutions, I Do Reckonings (demo — not a live link)" data-lane="identity">
+            <span class="plate-lane">Identity</span>
+            <div class="plate-body">
+              <h3 class="plate-title">I Don&rsquo;t Do Resolutions,<br>I Do Reckonings</h3>
+              <p class="plate-deck">A year after a loss &mdash; grief and gratitude in the same breath, and refusing the tidy ending.</p>
+            </div>
+            <div class="meta-rail">
+              <time datetime="2026-04-01">Apr 1</time>
+              <span class="dot" aria-hidden="true">&middot;</span>
+              <span>8 min</span>
+            </div>
+          </a>
+        </article>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         18. SUBSCRIBE MANIFESTO
+         New — demos the real .subscribe-manifesto (INERT)
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>18. Subscribe Manifesto</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="section-body">
+        <p>The subscribe block. A two-column split &mdash; ink-saturated title wall on the left (4-line stack, one word in the accent ink slot), receipt-style checklist and email capture on the right. Anti-pattern for every other subscribe block on the web: no hero image, no urgency copy, no social proof, no testimonials. The promise is the design.</p>
+        <p><strong>Rules.</strong> One per site. Always at the bottom of the homepage. The title is fixed at four lines &mdash; rewording is allowed, restructuring is not. The form <code>action</code> on production points at <code>/api/subscribe</code> (Netlify function, Mailchimp REST v3). The demo below is <strong>inert</strong> &mdash; no submission endpoint, no form action. Previewing markup only.</p>
+      </div>
+
+      <div class="demo-frame">
+        <div class="demo-label">Live component &middot; class="subscribe-manifesto" &middot; Demo inert</div>
+        <section class="subscribe-manifesto" aria-label="Subscribe demo">
+          <div class="sm-left">
+            <span class="sm-kicker">The Standing Order</span>
+            <h3 class="sm-title" style="font-size:clamp(2.2rem,6vw,5rem);line-height:.92;margin:0;">Words that<br><span class="sm-accent">won&rsquo;t</span><br>waste<br>your time.</h3>
+          </div>
+          <div class="sm-right">
+            <p class="sm-promise">An essay, a resource, a research note &mdash; whatever earns its way in.</p>
+            <ul class="sm-toc">
+              <li><span class="sm-check">&#10003;</span><div><div class="sm-strong">Only what&rsquo;s worth the send</div><div class="sm-faint">No filler. No recap. No fluff.</div></div></li>
+              <li><span class="sm-check">&#10003;</span><div><div class="sm-strong">Ad-free, tracking-free</div><div class="sm-faint">Plain text where possible.</div></div></li>
+              <li><span class="sm-check">&#10003;</span><div><div class="sm-strong">Unsubscribe in one click</div><div class="sm-faint">No guilt trip footers.</div></div></li>
+            </ul>
+            <div class="sm-form" role="presentation">
+              <input class="sm-input" type="email" placeholder="you@elsewhere.com" aria-label="Email address (demo, inert)" disabled>
+              <button class="sm-submit" type="button" disabled>Send me the next one &rarr;</button>
+            </div>
+            <span class="sm-fine">No spam, ever &middot; Demo form, no submission</span>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         19. ISSUE NEXT (TEASER)
+         New — demos the real .issue-next
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>19. Issue Next</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="section-body">
+        <p>The teaser strip. A single-line announcement for the next essay in the queue &mdash; title, lane, estimated drop date, read time, and a &ldquo;notify me&rdquo; affordance that anchors back to the subscribe manifesto. Sits between the archive and the subscribe block. Disappears the moment the next essay publishes and is replaced by the next-next.</p>
+        <p><strong>Rules.</strong> One per homepage. Dated in absolute format (&ldquo;Apr 23&rdquo;) &mdash; never &ldquo;Next week&rdquo; or relative. Never includes a deck. If a drop date is uncertain, the strip is hidden &mdash; do not publish &ldquo;TBD.&rdquo;</p>
+      </div>
+
+      <div class="demo-frame">
+        <div class="demo-label">Live component &middot; class="issue-next"</div>
+        <a class="issue-next" href="#subscribe-manifesto" aria-label="Scroll to subscribe (demo)">
+          <span class="next-tag">Next</span>
+          <span class="next-title">I Am Not My Father&rsquo;s Pulpit</span>
+          <span class="next-meta">Identity &middot; Apr 23 &middot; 12 min</span>
+          <span class="next-cta" aria-hidden="true">Notify me &rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         20. STUDY NOTE
+         New — collapsible footnote on scripture articles
+    ═══════════════════════════════════ -->
+    <div class="section">
+      <div class="section-head">
+        <h2>20. Study Note</h2>
+        <div class="section-head-line"></div>
+      </div>
+
+      <div class="section-body">
+        <p>Collapsible footnotes surfacing translation, historical, or cross-reference context beneath a scripture block. Native <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code> &mdash; no JavaScript, no ARIA polyfill, keyboard-accessible by default. Closed at first paint. The trigger carries the reference and a mono label; the body carries the actual note, sources, and cross-references.</p>
+        <p><strong>Rules.</strong> Only on scripture-backed essays (currently all nine). Always appears directly under the scripture block it annotates. Never used for author commentary on the main argument &mdash; that belongs in the body. Include at least one source citation per note. Use sparingly: if every scripture block has a note, the reader is being trained to ignore them.</p>
+        <p><strong>Markup.</strong> <code>&lt;details class="study-note"&gt;</code> &rarr; <code>&lt;summary class="study-note-trigger"&gt;</code> with <code>.study-note-label</code>, <code>.study-note-ref</code>, and <code>.study-note-toggle</code> &rarr; <code>.study-note-body</code> containing the note plus optional <code>.study-note-sources</code> and <code>.study-note-cross</code> rails. Full CSS lives in <code>article.css</code>.</p>
+      </div>
+
+      <div class="demo-frame">
+        <div class="demo-label">Live component &middot; demo markup</div>
+        <details class="demo-study-note">
+          <summary>
+            <span>Romans 8:26 &middot; Stenagmos &amp; Al&#257;l&#275;tos</span>
+          </summary>
+          <div class="demo-study-note-body">
+            <p>Paul&rsquo;s phrase in Romans 8:26 &mdash; <em>stenagmois al&#257;l&#275;tois</em> &mdash; is usually rendered &ldquo;groanings which cannot be uttered.&rdquo; <em>Stenagmos</em> is the deep, involuntary groan of the body under compression (the word is used of a siege wall about to collapse). <em>Al&#257;l&#275;tos</em> is the negation of articulate speech &mdash; not wordless, but prior to words. The text is saying the Spirit prays the groan <em>itself</em>, not a translation of it. Commentary: Dunn (1988), Moo (1996), Jewett (2007). See also Psalm 6:6, where the same body-in-grief posture is set to song.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
     </main>
 
-    <!-- FOOTER -->
-    <footer class="footer-strip" role="contentinfo">
-      <span>I&rsquo;m Just Dex &middot; Brand Style Guide &middot; April 2026 &middot; Phase 7</span>
-      <span>Living implementation: imjustdex.com / DESIGN-SYSTEM.md</span>
+    <!-- UNIVERSAL FOOTER — identical to every production page -->
+    <footer class="footer-strip" aria-label="Footer">
+      <div class="footer-links">
+        <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="https://x.com/ImJustDex" target="_blank" rel="noopener noreferrer">X</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="/feed.xml" aria-label="RSS feed">Feed</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="/about/">About</a>
+      </div>
       <span>Est. 1994</span>
     </footer>
 
   </div>
 
-  
-  <script src="/brand/brand.js?v=brand1" defer></script>
 </body>
 </html>
