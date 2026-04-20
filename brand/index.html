@@ -813,11 +813,11 @@
       <!-- Canvas spec -->
       <div class="carousel-spec-grid u-mb-gap">
         <div class="carousel-spec-card u-span-full">
-          <p class="u-intro-body">Every carousel is a stripped-down version of the article page &mdash; same grid, same panel border, same monospace eyebrow, same display type. Dark mode is default. Light is permitted but never mixed within a single carousel. If a slide could not be a printed broadsheet panel, it is wrong.</p>
+          <p class="u-intro-body">Every social artifact is a stripped-down version of the article page &mdash; same grid, same panel border, same monospace eyebrow, same display type. Each template ships in four canonical formats (portrait, story, square, landscape) and two modes (dark, light). Modes may vary <em>between</em> posts in a campaign (e.g., announcement in light, carousel in dark) but never <em>within</em> a single carousel. If a slide could not be a printed broadsheet panel, it is wrong.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Canvas</h4>
-          <p>1080 &times; 1350 px &mdash; 4:5 aspect ratio. Instagram carousel spec. All other platforms accept this ratio without cropping critical content.</p>
+          <h4>Four canvases</h4>
+          <p><strong>Portrait</strong> 1080 &times; 1440 (3:4) &mdash; IG feed, Pinterest. Chosen to survive IG's 3:4 profile-grid crop natively.<br><br><strong>Story</strong> 1080 &times; 1920 (9:16) &mdash; IG/FB/TikTok Stories. Reserves 250/250 top/bottom for platform chrome by default.<br><br><strong>Square</strong> 1080 &times; 1080 (1:1) &mdash; Threads, X, Facebook feed, LinkedIn feed.<br><br><strong>Landscape</strong> 1200 &times; 630 (1.91:1) &mdash; X link card, OG meta image, LinkedIn preview, FB link preview, blog hero.</p>
         </div>
         <div class="carousel-spec-card">
           <h4>Grid</h4>
@@ -829,7 +829,19 @@
         </div>
         <div class="carousel-spec-card">
           <h4>Sequence</h4>
-          <p>10 slides max. Cover &rarr; Thesis &rarr; 5&ndash;6 body slides &rarr; Pull quote &rarr; Scripture &rarr; CTA. Footer: DX logo left, bare slide number right.</p>
+          <p>Carousels open on <code>.c1</code> Cover and close on <code>.c5</code> Closing. Non-negotiable. Interior slides drawn from <code>.c2</code>&ndash;<code>.c10</code> based on what the essay actually does. Target 5 (tight), 8 (default campaign), 10 (max). Above 5 slides, pagination switches from dots to the <code>SLIDE XX / YY</code> mono count rail.</p>
+        </div>
+      </div>
+
+      <!-- Masthead + foot chrome -->
+      <div class="carousel-spec-grid u-mb-gap">
+        <div class="carousel-spec-card u-span-full">
+          <h4>Chrome · masthead + foot</h4>
+          <p><strong>Masthead</strong>: bordered brand-block container on the left (DX mark + display-type text, inverted panel on the right) plus entry number on the right in mono caps. Both <code>.wordmark</code> (reads "IMJUSTDEX" on general entry posts) and <code>.sectional</code> (reads the column name &mdash; "WORDS", "DISPATCH" &mdash; on column-scoped posts) use the same container shape. Every artboard carries the brand-block.<br><br><strong>Foot</strong>: 3-column grid. Left = publish date. Middle = section slug (for non-carousel) or <code>SLIDE XX / YY</code> (for carousel interior slides). Right = <code>IMJUSTDEX.COM</code> brand mark, or a contextual chrome phrase (<code>5 SLIDES</code>, slide theme, <code>&mdash; DEX</code> sign-off on the closing slide).</p>
+        </div>
+        <div class="carousel-spec-card u-span-full">
+          <h4>Chrome no-repeat rule</h4>
+          <p>Any piece of information appears in <strong>exactly one slot per artboard</strong>. Entry № lives in the masthead, not also in the foot. Publish date lives in the foot left, not also in body rail-rows. Slide position lives in the pagination and foot-middle, not also in the masthead. Body eyebrows must not duplicate anything already in chrome. The URL <code>imjustdex.com</code> may appear twice (once as a functional CTA in the body, once as the brand mark in the foot) &mdash; that specific pairing is deliberate belt-and-suspenders; no other duplication is.</p>
         </div>
       </div>
 
@@ -912,9 +924,9 @@
           <div class="slide-demo">
             <div class="slide-demo-inner">
               <div class="sd-content" style="justify-content:center;text-align:center;padding:16px;">
-                <div style="font-family:var(--mono);font-size:.38rem;color:rgba(243,240,232,.52);text-transform:uppercase;letter-spacing:var(--track-indicator);margin-bottom:10px;">Read the full essay</div>
+                <div style="font-family:var(--mono);font-size:.38rem;color:rgba(243,240,232,.52);text-transform:uppercase;letter-spacing:var(--track-indicator);margin-bottom:10px;">Start where it hurts. Stay where it&rsquo;s quiet.</div>
                 <div class="sd-title" style="font-size:clamp(.6rem,1.5vw,.9rem);margin-bottom:12px;">imjustdex.com</div>
-                <div style="font-family:var(--mono);font-size:.34rem;color:rgba(243,240,232,.42);text-transform:uppercase;letter-spacing:var(--track-indicator);">@imjustdex</div>
+                <div style="font-family:var(--mono);font-size:.34rem;color:rgba(243,240,232,.42);text-transform:uppercase;letter-spacing:var(--track-indicator);">&mdash; DEX</div>
               </div>
               <div class="sd-footer">
                 <div class="sd-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true" focusable="false"><path fill="#f3f0e8" d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/><path fill="#f3f0e8" d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/></svg></div>
@@ -926,23 +938,43 @@
         </div>
       </div>
 
+      <!-- All ten slide types -->
+      <div class="carousel-spec-grid u-mt-gap">
+        <div class="carousel-spec-card u-span-full">
+          <h4>Ten slide types · c1&ndash;c10</h4>
+          <p>The five demos above are visual illustrations. The full carousel vocabulary is ten slide types, selected per essay:</p>
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 20px;margin-top:14px;font-family:var(--mono);font-size:13px;line-height:1.6;">
+            <div><strong>c1</strong></div><div>Cover &mdash; sectional, headline, swipe rail. Non-negotiable opener.</div>
+            <div><strong>c2</strong></div><div>Premise &mdash; Plex body at display size (not Anton). Thesis in plain sentences.</div>
+            <div><strong>c3</strong></div><div>Pull Quote &mdash; framed Anton display. <strong>Max one per carousel.</strong></div>
+            <div><strong>c4</strong></div><div>Callout &mdash; 3px left accent bar, Plex bold. Instruction or reframe.</div>
+            <div><strong>c5</strong></div><div>Closing &mdash; final CTA. Non-negotiable closer. Foot-url reads <code>&mdash; DEX</code>.</div>
+            <div><strong>c6</strong></div><div>Key Idea &mdash; Anton display proposition. Doctrinal declaration.</div>
+            <div><strong>c7</strong></div><div>Scripture &mdash; verse ref + <strong>exact verbatim KJV text</strong> + cite.</div>
+            <div><strong>c8</strong></div><div>Stat &mdash; verifiable claim only. Memoir numbers are not stats.</div>
+            <div><strong>c9</strong></div><div>Distinction &mdash; A vs B. Two rows: label + term + definition.</div>
+            <div><strong>c10</strong></div><div>Question &mdash; Anton display + italic Plex sub. Ends on a question mark.</div>
+          </div>
+        </div>
+      </div>
+
       <!-- Carousel typography rules -->
       <div class="carousel-spec-grid u-mt-gap">
         <div class="carousel-spec-card">
           <h4>Display Type</h4>
-          <p>Impact / Anton. Uppercase, line-height 0.85&ndash;0.92, letter-spacing &minus;0.03em. 48&ndash;110px depending on slide type.</p>
+          <p>Anton (self-hosted WOFF2). Impact / Haettenschweiler remain in the stack as system-native fallbacks. Uppercase, line-height 0.85&ndash;0.92, letter-spacing &minus;0.03em. Scales per format: portrait 104px cover / story 144px / square 76px / landscape 52px.</p>
         </div>
         <div class="carousel-spec-card">
           <h4>Body Type</h4>
-          <p>IBM Plex Sans. 24&ndash;25px, line-height 1.55&ndash;1.65. Color: rgba(243,240,232,0.82) dark, rgba(5,5,5,0.82) light.</p>
+          <p>IBM Plex Sans (self-hosted WOFF2, Regular / Bold / Italic). 24&ndash;25px, line-height 1.55&ndash;1.65. Color: rgba(243,240,232,0.82) dark, rgba(5,5,5,0.82) light. <code>font-synthesis: none</code> site-wide &mdash; no faux italics, no faux bold.</p>
         </div>
         <div class="carousel-spec-card">
           <h4>Monospace</h4>
-          <p>Space Mono / SF Mono / Fira Code. 11&ndash;14px, uppercase, letter-spacing 0.22em. Eyebrows, slide numbers, CTA pills, scripture citations.</p>
+          <p>SF Mono / Fira Code / Cascadia Code / Courier New (system fallback stack, no loaded font). 11&ndash;14px, uppercase, letter-spacing 0.22em. Eyebrows, slide numbers, CTA pills, scripture citations.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Section Numbers</h4>
-          <p>Display type at 100&ndash;120px. var(--accent) red. Letter-spacing &minus;4px. Only on principle slides.</p>
+          <h4>Binary weights</h4>
+          <p>Only 400 and 700. No 500, no 600. Anton ships at 400 only &mdash; weight 700 requests render at 400 (which is the only weight available). <code>font-synthesis: none</code> prevents faux-bolding.</p>
         </div>
       </div>
 
@@ -950,19 +982,34 @@
       <div class="carousel-spec-grid u-mt-gap">
         <div class="carousel-spec-card">
           <h4>Dark Palette</h4>
-          <p>--bg: #060606, --panel: #0d0d0d, --ink: #f3f0e8, --accent: #c00, --cite: #ff4444. Default for all carousels.</p>
+          <p>--bg: #060606, --panel: #0d0d0d, --ink: #f3f0e8, --accent: #c00, --accent-on-dark: #ff4d4d. Default for carousel interior slides.</p>
         </div>
         <div class="carousel-spec-card">
           <h4>Light Palette</h4>
-          <p>--bg: #f4f4f1, --panel: #f8f8f6, --ink: #050505, --accent: #c00. Permitted but never mixed with dark in the same carousel.</p>
+          <p>--bg: #f4f4f1, --panel: #f8f8f6, --ink: #050505, --accent: #c00. Common for announcement teasers and Now cards. Mix of light + dark is allowed across posts in a single campaign, never within one carousel.</p>
         </div>
         <div class="carousel-spec-card">
           <h4>Accent Red</h4>
-          <p>Eyebrow rule (1px), section numbers, scripture citations (#ff4444), callout left-border, accent words in headlines. Never backgrounds.</p>
+          <p><code>#c00</code> identical in both modes for borders, fills, and display text &ge;18px. Small red text (&lt;18px) on dark mode flips to <code>#ff4d4d</code> (7.54:1 on #060606) via <code>--accent-on-dark</code>. Never backgrounds unless the whole surface is the accent.</p>
         </div>
         <div class="carousel-spec-card">
           <h4>Grain Overlay</h4>
           <p>SVG feTurbulence noise on slide-inner at 0.025 opacity, 128px tile. Adds print texture. Always present.</p>
+        </div>
+      </div>
+
+      <!-- Safe-zone variants -->
+      <div class="carousel-spec-grid u-mt-gap">
+        <div class="carousel-spec-card u-span-full">
+          <h4>Platform safe-zone variants · opt-in modifiers</h4>
+          <p>The default story format reserves 250/250 top/bottom &mdash; tuned for Instagram Stories. For other distribution targets, the system provides opt-in modifier classes applied at export time via <code>--variant=</code>. One campaign file supports every platform; no HTML duplication.</p>
+          <div style="display:grid;grid-template-columns:auto 1fr auto;gap:6px 20px;margin-top:14px;font-family:var(--mono);font-size:13px;line-height:1.6;">
+            <div><strong>.reels</strong></div><div>IG Reels &mdash; caption expands 3 lines, audio bar, engagement column</div><div>top 210 · bottom 440 · right 90</div>
+            <div><strong>.tiktok</strong></div><div>TikTok &mdash; full right action column + caption + engagement row</div><div>top 140 · bottom 324 · right 164</div>
+            <div><strong>.fb-stories</strong></div><div>Facebook Stories &mdash; taller CTA button row</div><div>top 270 · bottom 380</div>
+            <div><strong>.ig-grid-safe</strong></div><div>IG profile grid 1:1 &rarr; 3:4 crop survival</div><div>top 135 · bottom 135 (square)</div>
+            <div><strong>.og-safe</strong></div><div>OG mobile-crop robustness for link previews</div><div>horizontal +120 (landscape)</div>
+          </div>
         </div>
       </div>
     </div>
@@ -978,34 +1025,50 @@
 
       <div class="platform-grid">
         <div class="platform-card u-span-full">
-          <p class="u-intro-body">All social graphics inherit the Refined Brutalism system &mdash; grid background, panel border, monospace metadata, display headlines. Only the canvas size changes. Critical content stays within the central 80% safe zone.</p>
+          <p class="u-intro-body">Every social template ships in four canonical formats. One campaign file, four dimensional variants, plus opt-in safe-zone modifiers for per-platform UI chrome. All inherit Refined Brutalism &mdash; grid, panel border, mono metadata, display headlines. Upload the matching format per destination.</p>
         </div>
+
         <div class="platform-card">
-          <h4>Instagram</h4>
-          <div class="platform-row"><span class="platform-type">Carousel</span><span class="platform-size">1080 &times; 1350</span></div>
-          <div class="platform-row"><span class="platform-type">Post</span><span class="platform-size">1080 &times; 1080</span></div>
-          <div class="platform-row"><span class="platform-type">Story / Reel</span><span class="platform-size">1080 &times; 1920</span></div>
+          <h4>Portrait &middot; 1080 &times; 1440</h4>
+          <div class="platform-row"><span class="platform-type">Aspect</span><span class="platform-size">3 : 4</span></div>
+          <div class="platform-row"><span class="platform-type">Instagram feed</span><span class="platform-size">native</span></div>
+          <div class="platform-row"><span class="platform-type">IG profile grid</span><span class="platform-size">survives 3:4 crop</span></div>
+          <div class="platform-row"><span class="platform-type">Pinterest</span><span class="platform-size">accepted</span></div>
         </div>
+
         <div class="platform-card">
-          <h4>Facebook</h4>
-          <div class="platform-row"><span class="platform-type">Post</span><span class="platform-size">1200 &times; 630</span></div>
-          <div class="platform-row"><span class="platform-type">Story</span><span class="platform-size">1080 &times; 1920</span></div>
-          <div class="platform-row"><span class="platform-type">Cover</span><span class="platform-size">1640 &times; 624</span></div>
+          <h4>Story &middot; 1080 &times; 1920</h4>
+          <div class="platform-row"><span class="platform-type">Aspect</span><span class="platform-size">9 : 16</span></div>
+          <div class="platform-row"><span class="platform-type">Instagram Stories</span><span class="platform-size">default 250 / 250</span></div>
+          <div class="platform-row"><span class="platform-type">Facebook Stories</span><span class="platform-size">.fb-stories 270 / 380</span></div>
+          <div class="platform-row"><span class="platform-type">Instagram Reels</span><span class="platform-size">.reels 210 / 440 / 90</span></div>
+          <div class="platform-row"><span class="platform-type">TikTok</span><span class="platform-size">.tiktok 140 / 324 / 164</span></div>
         </div>
+
         <div class="platform-card">
-          <h4>Twitter / X</h4>
-          <div class="platform-row"><span class="platform-type">Post</span><span class="platform-size">1200 &times; 675</span></div>
-          <div class="platform-row"><span class="platform-type">Header</span><span class="platform-size">1500 &times; 500</span></div>
+          <h4>Square &middot; 1080 &times; 1080</h4>
+          <div class="platform-row"><span class="platform-type">Aspect</span><span class="platform-size">1 : 1</span></div>
+          <div class="platform-row"><span class="platform-type">Threads</span><span class="platform-size">native</span></div>
+          <div class="platform-row"><span class="platform-type">X / Twitter</span><span class="platform-size">native</span></div>
+          <div class="platform-row"><span class="platform-type">Facebook feed</span><span class="platform-size">native</span></div>
+          <div class="platform-row"><span class="platform-type">LinkedIn feed</span><span class="platform-size">native</span></div>
+          <div class="platform-row"><span class="platform-type">IG grid crop</span><span class="platform-size">.ig-grid-safe 135 / 135</span></div>
         </div>
+
         <div class="platform-card">
-          <h4>LinkedIn</h4>
-          <div class="platform-row"><span class="platform-type">Post</span><span class="platform-size">1200 &times; 627</span></div>
-          <div class="platform-row"><span class="platform-type">Article</span><span class="platform-size">1200 &times; 644</span></div>
+          <h4>Landscape &middot; 1200 &times; 630</h4>
+          <div class="platform-row"><span class="platform-type">Aspect</span><span class="platform-size">1.91 : 1</span></div>
+          <div class="platform-row"><span class="platform-type">OG meta image</span><span class="platform-size">native</span></div>
+          <div class="platform-row"><span class="platform-type">X link card</span><span class="platform-size">native</span></div>
+          <div class="platform-row"><span class="platform-type">LinkedIn preview</span><span class="platform-size">native</span></div>
+          <div class="platform-row"><span class="platform-type">Facebook link</span><span class="platform-size">native</span></div>
+          <div class="platform-row"><span class="platform-type">Mobile crop</span><span class="platform-size">.og-safe horiz +120</span></div>
+          <div class="platform-row"><span class="platform-type">Blog hero</span><span class="platform-size">native</span></div>
         </div>
-        <div class="platform-card">
-          <h4>YouTube</h4>
-          <div class="platform-row"><span class="platform-type">Thumbnail</span><span class="platform-size">1280 &times; 720</span></div>
-          <div class="platform-row"><span class="platform-type">Banner</span><span class="platform-size">2560 &times; 1440</span></div>
+
+        <div class="platform-card u-span-full">
+          <h4>Out of scope (not currently shipped)</h4>
+          <p>Facebook Reels (needs ~670px bottom, not currently a variant), YouTube video thumbnails (1280&times;720 landscape adjacent), LinkedIn 1584&times;396 profile banner, full-bleed TikTok video thumbnail frames. Add as new dimensional classes or modifiers when a distribution channel commits.</p>
         </div>
       </div>
     </div>
@@ -1092,12 +1155,12 @@
           <p>All display type uses clamp() with a floor, preferred vw unit, and ceiling. Example: clamp(2.2rem, 6vw, 4.5rem). Headlines reflow naturally. Never truncated with ellipsis. Never reduced below the clamp floor.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Carousel Adaptation</h4>
-          <p>Carousels are fixed-canvas (1080&times;1350). No responsive reflow. For story format (1080&times;1920): increase top/bottom margin to 72px, keep side margins at 36px. Headline scale reduces by 15%. Body text unchanged. Footer position stays pinned to bottom.</p>
+          <h4>Format Adaptation</h4>
+          <p>Social templates are fixed-canvas per format (1080&times;1440 portrait, 1080&times;1920 story, 1080&times;1080 square, 1200&times;630 landscape). No responsive reflow within a format. Display type scales per format &mdash; story &sim;35&ndash;50% up from portrait, square 25&ndash;35% down, landscape 50&ndash;65% down. Chrome (masthead, foot) auto-scales via dedicated <code>.artboard.&lt;format&gt;</code> selectors.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Platform Adaptation</h4>
-          <p>Wider formats (Facebook post 1200&times;630, Twitter 1200&times;675): center content vertically, increase side margins to 60px, cap headline at 2 lines. Reduce body text to 1 line or remove entirely. Metadata stays bottom-left. DX logo stays bottom-left. Slide number removed on single-image formats.</p>
+          <h4>Landscape Behavior</h4>
+          <p>Landscape (1200&times;630) body auto-centers via <code>.artboard.landscape .body { justify-content: center }</code>. Multi-column blocks (Music Drop, Now Card) reflow to side-by-side grids for the horizontal real estate. Templates with explicit <code>margin-top: auto</code> anchors (carousel pagination) still push chrome to the frame edges because <code>margin: auto</code> beats <code>justify-content</code> in flex.</p>
         </div>
         <div class="carousel-spec-card">
           <h4>Line Length</h4>

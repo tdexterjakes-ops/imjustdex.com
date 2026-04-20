@@ -1104,7 +1104,7 @@
 .slide-demo .sd-cite {
   font-family: var(--mono);
   font-size: .36rem;
-  color: #ff4444;
+  color: #ff4d4d; /* --accent-on-dark — small red text on dark surfaces (7.54:1 on #060606 per WCAG AA) */
   text-transform: uppercase;
   letter-spacing: var(--track-indicator);
   font-weight: var(--weight-bold);
