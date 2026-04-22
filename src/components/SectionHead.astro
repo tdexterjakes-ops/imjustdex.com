@@ -1,0 +1,10 @@
+---
+interface Props {
+  heading: string;
+}
+const { heading } = Astro.props;
+---
+<div class="section-head">
+  <h2>{heading}</h2>
+  <div class="section-head-line" aria-hidden="true"></div>
+</div>

@@ -1,0 +1,213 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'words'>;
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+const slug = entry.slug;
+
+const articleUrl = `https://imjustdex.com/words/${slug}/`;
+const ogImageUrl = `https://imjustdex.com/img/og-${slug}.png?v=${d.ogImagePhase}`;
+const titleSuffix = ' — DX';
+const pageTitle = `${d.title}${titleSuffix}`;
+
+// publishedDate can be either "YYYY-MM-DD" or full ISO "YYYY-MM-DDTHH:MM:SS±HH:MM".
+// Meta tags and <time datetime> use date-only; JSON-LD keeps full timestamp.
+const dateOnly = d.publishedDate.slice(0, 10);
+const publishedIso = d.publishedDate.length === 10
+  ? `${d.publishedDate}T00:00:00-05:00`
+  : d.publishedDate;
+const updatedIso = d.updatedDate
+  ? (d.updatedDate.length === 10 ? `${d.updatedDate}T00:00:00-05:00` : d.updatedDate)
+  : publishedIso;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: d.title,
+  description: d.description,
+  datePublished: publishedIso,
+  dateModified: updatedIso,
+  author: {
+    '@type': 'Person',
+    name: 'Dexter Jakes',
+    url: 'https://imjustdex.com/about/',
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Dexter Jakes',
+    url: 'https://imjustdex.com/',
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': articleUrl,
+  },
+  image: ogImageUrl,
+  url: articleUrl,
+  inLanguage: 'en',
+  wordCount: d.wordCount,
+};
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+
+  <title>{pageTitle}</title>
+  <meta name="description" content={d.description}>
+
+  <link rel="canonical" href={articleUrl}>
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={d.title}>
+  <meta property="og:description" content={d.description}>
+  <meta property="og:image" content={ogImageUrl}>
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content={d.ogImageAlt}>
+  <meta property="og:url" content={articleUrl}>
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DX">
+  <meta property="article:author" content="Dexter Jakes">
+  <meta property="article:published_time" content={dateOnly}>
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={d.title}>
+  <meta name="twitter:description" content={d.description}>
+  <meta name="twitter:image" content={ogImageUrl}>
+
+  <!-- Self-hosted font preloads -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Anton-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Bold.woff2" crossorigin>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/tokens.css?v=phase23">
+  <link rel="stylesheet" href="/css/shell.css?v=phase23">
+  <link rel="stylesheet" href="/css/article.css?v=phase24">
+
+  {d.extraStyles && <style set:html={d.extraStyles} />}
+
+  <!-- Mode: synchronous in <head> for FOUC prevention -->
+  <script src="/js/mode.js?v=phase11" is:inline></script>
+
+  {d.prev && <link rel="prev" href={`https://imjustdex.com/words/${d.prev.slug}/`}>}
+  {d.next && !d.next.ghost && <link rel="next" href={`https://imjustdex.com/words/${d.next.slug}/`}>}
+
+  <!-- Structured data: BlogPosting -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd, null, 2)} />
+</head>
+<body>
+  <div class="reading-progress" aria-hidden="true" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+  <div class="section-indicator" aria-hidden="true"></div>
+  <a href="#article" class="skip-link">Skip to article</a>
+  <div class="ruler-top" aria-hidden="true"></div>
+  <div class="ruler-left" aria-hidden="true"></div>
+
+  <div class="page-shell">
+    <header>
+      <nav class="masthead" aria-label="Main navigation">
+        <a class="brand-block" href="/" aria-label="DX home">
+          <span class="brand-mark">
+            <img src="/img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28" data-base="/img/">
+          </span>
+          <span class="brand-word">Words</span>
+        </a>
+        <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode" aria-pressed="false">
+          Mode: Light
+        </button>
+      </nav>
+    </header>
+
+    <main id="article">
+      <div class="article-frame">
+
+        <header class="article-header">
+          <div class="article-eyebrow">
+            {d.tags.map((tag) => <span class="article-tag">{tag}</span>)}
+            <span class="article-date"><time datetime={dateOnly}>{new Date(dateOnly + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</time></span>
+            <span class="article-read">{d.readTime}</span>
+          </div>
+          <h1 class="article-title">{d.title}</h1>
+          <p class="article-deck">{d.deck}</p>
+        </header>
+
+        <article class="article-body">
+          <slot />
+        </article>
+
+        <div class="share-bar" aria-label="Share this essay">
+          <span class="share-label">Share</span>
+          <a href={`https://x.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(d.title + titleSuffix)}`} target="_blank" rel="noopener noreferrer" class="share-link">X</a>
+          <button type="button" class="share-link" data-copy-link={articleUrl}>Copy link</button>
+          <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer" class="subscribe-link">Follow Me</a>
+        </div>
+
+        <!-- Email signup -->
+        <form class="email-signup" action="/api/subscribe?u=41b4a69d61d7e6d50724373f0&amp;id=216fb11473&amp;f_id=009345e0f0" method="post">
+          <span class="email-signup-label">Get notified when I publish</span>
+          <div class="email-signup-fields">
+            <label for="email" class="sr-only">Email address</label>
+            <input type="email" name="EMAIL" id="email" class="email-signup-input" placeholder="Your email" required>
+            <button type="submit" class="email-signup-submit">Notify me</button>
+          </div>
+          <div class="email-signup-hp" aria-hidden="true">
+            <input type="text" name="website" tabindex="-1" value="">
+          </div>
+        </form>
+
+        {(d.prev || d.next) && (
+          <nav class="article-nav" aria-label="Essay navigation">
+            {d.prev && (
+              <a class="article-nav-link article-nav-prev" rel="prev" href={`/words/${d.prev.slug}/`}>
+                <span class="article-nav-label">&larr; Previous Essay</span>
+                <span class="article-nav-title">{d.prev.title}</span>
+              </a>
+            )}
+            {d.next && d.next.ghost && (
+              <div class="article-nav-link article-nav-next article-nav-ghost">
+                <span class="article-nav-label">Next Essay &rarr;</span>
+                <span class="article-nav-title">{d.next.title}</span>
+                {d.next.date && <span class="article-nav-date">{d.next.date}</span>}
+              </div>
+            )}
+            {d.next && !d.next.ghost && (
+              <a class="article-nav-link article-nav-next" rel="next" href={`/words/${d.next.slug}/`}>
+                <span class="article-nav-label">Next Essay &rarr;</span>
+                <span class="article-nav-title">{d.next.title}</span>
+              </a>
+            )}
+          </nav>
+        )}
+
+        <a href="/" class="article-back">&larr; Back</a>
+
+      </div>
+    </main>
+
+    <footer class="footer-strip" aria-label="Footer">
+      <div class="footer-links">
+        <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="https://x.com/ImJustDex" target="_blank" rel="noopener noreferrer">X</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="/feed.xml" aria-label="RSS feed">Feed</a>
+      </div>
+      <span>Built by Dex &middot; Est. 2026</span>
+    </footer>
+  </div>
+
+  <!-- Long-form behavior -->
+  <script src="/js/progress.js?v=phase14" is:inline defer></script>
+  <script src="/js/essay.js?v=phase14" is:inline defer></script>
+  <script src="/js/signup.js?v=phase14" is:inline defer></script>
+</body>
+</html>

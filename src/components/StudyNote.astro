@@ -1,0 +1,17 @@
+---
+interface Props {
+  label?: string;
+  ref: string;
+}
+const { label = 'Study Note', ref } = Astro.props;
+---
+<details class="study-note">
+  <summary class="study-note-trigger">
+    <span class="study-note-label">{label}</span>
+    <span class="study-note-ref" set:html={ref} />
+    <span class="study-note-toggle" aria-hidden="true"></span>
+  </summary>
+  <div class="study-note-body">
+    <slot />
+  </div>
+</details>
