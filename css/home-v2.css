@@ -1,0 +1,1176 @@
+/* ============================================================
+ * home-v2.css — new editorial components for the redesigned home.
+ *
+ * Loaded AFTER tokens.css, shell.css, plates.css.
+ * Uses ONLY existing design-system tokens. No new colors, no new
+ * fonts. New compositional patterns only, built from the same
+ * chrome vocabulary already on the site.
+ * ============================================================ */
+
+/* ── Issue masthead ─────────────────────────────────────────
+ * A second-tier masthead that sits directly below the nav and
+ * states what this place is. Mono chrome on left (issue + date),
+ * inverted standfirst on right (the editorial one-liner).
+ * -------------------------------------------------------- */
+
+.issue-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: stretch;
+  gap: 0;
+  border: var(--border-weight-chrome) solid var(--border);
+  background: var(--panel);
+  margin-bottom: var(--space-sm);
+  position: relative;
+  z-index: 2;
+}
+
+.issue-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-chrome) 11px; /* match footer-strip pull */
+  border-right: var(--border-weight-chrome) solid var(--border);
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  line-height: 1.15;
+  white-space: nowrap;
+  min-width: 180px;
+}
+
+.issue-meta .issue-no {
+  font-size: var(--text-label);
+  letter-spacing: var(--track-tag);
+  opacity: .62;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.issue-standfirst {
+  padding: var(--space-sm) var(--space-lg) 11px;
+  display: flex;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--track-footer);
+  text-transform: uppercase;
+  color: var(--body-color);
+  line-height: 1.5;
+}
+
+/* Latest-essay variant: whole standfirst becomes a clickable
+ * teaser for the newest piece. Reads like a wire-service slug:
+ * [Latest] Title  ·  lane · date · read-time           Read →
+ */
+.issue-latest {
+  gap: var(--space-md);
+  text-decoration: none;
+  padding: 13px var(--space-lg) 12px;
+  transition: background var(--motion-fast) var(--ease-default),
+              color var(--motion-fast) var(--ease-default);
+  flex-wrap: wrap;
+}
+.issue-latest .latest-tag {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--accent);
+  padding: 5px 7px 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.issue-latest .latest-title {
+  font-family: var(--display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--track-title);
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  text-wrap: balance;
+}
+.issue-latest .latest-meta {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  opacity: .75;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.issue-latest .latest-cta {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-chrome);
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1;
+  padding: 5px 8px 4px;
+  border: var(--border-weight-chrome) solid var(--border);
+  transition: background var(--motion-fast) var(--ease-default),
+              color var(--motion-fast) var(--ease-default);
+}
+.issue-latest:hover { background: var(--ink); }
+.issue-latest:hover .latest-title { color: var(--bg); }
+.issue-latest:hover .latest-meta { color: var(--bg); opacity: .6; }
+.issue-latest:hover .latest-cta {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+.issue-latest:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: -2px;
+}
+
+@media (max-width: 760px) {
+  .issue-latest { padding: var(--space-md); gap: var(--space-sm); }
+  .issue-latest .latest-cta { margin-left: 0; }
+}
+
+/* ── Next-in-queue strip ────────────────────────────────────
+ * Mirrors .issue-latest's rhythm but reads as unfinished: dashed
+ * top rule (signals "not yet"), dashed tag outline (vs. filled
+ * accent on Latest), dim title color. The CTA is "Notify me →"
+ * rather than "Read →" — this piece isn't published yet, but
+ * the strip is still a live hook: click to subscribe for the drop.
+ * Sits at the bottom of the archive so the page bookends with
+ * Latest ↑ / Next ↓.
+ */
+.issue-next {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  padding: 13px var(--space-lg) 12px;
+  margin-top: var(--space-xl);
+  border-top: 1px dashed var(--border);
+  border-bottom: var(--border-weight-chrome) solid var(--border);
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  letter-spacing: var(--track-footer);
+  text-transform: uppercase;
+  color: var(--body-color);
+  line-height: 1.5;
+  text-decoration: none;
+  transition: background var(--motion-fast) var(--ease-default),
+              color var(--motion-fast) var(--ease-default);
+}
+.issue-next .next-tag {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--body-color);
+  background: transparent;
+  border: 1px dashed var(--border);
+  padding: 4px 6px 3px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.issue-next .next-title {
+  font-family: var(--display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--track-title);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  line-height: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  text-wrap: balance;
+}
+.issue-next .next-meta {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  opacity: .65;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.issue-next .next-cta {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-chrome);
+  text-transform: uppercase;
+  color: var(--body-color);
+  line-height: 1;
+  padding: 5px 8px 4px;
+  border: 1px dashed var(--border);
+  transition: background var(--motion-fast) var(--ease-default),
+              color var(--motion-fast) var(--ease-default),
+              border-color var(--motion-fast) var(--ease-default),
+              border-style var(--motion-fast) var(--ease-default);
+}
+/* Hover: strip stays on bg (unlike Latest which inverts to ink —
+ * this one is secondary, shouldn't compete). CTA firms up: dashed
+ * becomes solid, border deepens to ink. Title un-dims a touch. */
+.issue-next:hover .next-title { color: var(--ink); }
+.issue-next:hover .next-cta {
+  border-style: solid;
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.issue-next:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: -2px;
+}
+
+@media (max-width: 760px) {
+  .issue-next { padding: var(--space-md); gap: var(--space-sm); }
+  .issue-next .next-cta { margin-left: 0; }
+}
+
+/* ── Lane index ─────────────────────────────────────────────
+ * Three-cell chrome row indicating the editorial lanes.
+ * Each cell: NAME + count. Reads like a contents page of a
+ * publication. Not clickable by default (filter feature is a
+ * future enhancement) — purely an editorial frame for the grid
+ * below it.
+ * -------------------------------------------------------- */
+
+.lane-index {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gap);
+  margin-bottom: var(--space-sm);
+}
+
+.lane-index .lane-cell {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-chrome) 11px;
+  border: var(--border-weight-chrome) solid var(--border);
+  background: var(--panel);
+  text-transform: uppercase;
+}
+
+.lane-index .lane-name {
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  color: var(--ink);
+}
+
+.lane-index .lane-count {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-tag);
+  color: var(--body-muted);
+  line-height: 1;
+}
+
+.lane-index .lane-cell[data-active="true"] {
+  background: var(--ink);
+  color: var(--bg);
+}
+.lane-index .lane-cell[data-active="true"] .lane-name { color: var(--bg); }
+.lane-index .lane-cell[data-active="true"] .lane-count { color: var(--bg); opacity: .6; }
+
+/* ── Essay deck on plates ───────────────────────────────────
+ * A standfirst line beneath plate titles. Uses body font, not
+ * display — the title is the voice, the deck is the whisper.
+ * Hidden via body[data-decks="off"] so Tweaks can compare.
+ * -------------------------------------------------------- */
+
+.plate-deck {
+  margin: var(--space-sm) 0 0;
+  font-family: var(--body);
+  font-size: var(--text-citation);
+  line-height: 1.5;
+  color: var(--body-color);
+  font-weight: var(--weight-regular);
+  max-width: 38ch;
+  text-wrap: pretty;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.plate-image .plate-deck {
+  color: rgba(255, 255, 255, .88);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .45);
+}
+
+body[data-decks="off"] .plate-deck { display: none; }
+
+/* ── Upgraded meta rail ─────────────────────────────────────
+ * Two-slot meta rail: date + reading time, separated by middot.
+ * Current design-system meta-rail = reading time only; this
+ * composes within the same badge without changing base styles.
+ * -------------------------------------------------------- */
+
+.meta-rail .dot {
+  opacity: .55;
+  margin: 0 6px;
+  font-weight: var(--weight-regular);
+}
+
+/* ── Lead plate (magazine front) ────────────────────────────
+ * Full-bleed row-1 plate that promotes the newest published
+ * essay. Shares the .plate visual grammar but occupies all
+ * 12 columns with a two-pane internal layout: image left,
+ * editorial copy right. Collapses to stacked on tablet.
+ * -------------------------------------------------------- */
+
+.plate-lead {
+  grid-column: span 12;
+  min-height: 460px;
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  gap: 0;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.plate-lead .lead-image {
+  position: relative;
+  overflow: hidden;
+  border-right: var(--border-weight-content) solid var(--border);
+  min-height: 340px;
+}
+
+.plate-lead .lead-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  filter: grayscale(1) contrast(1.18);
+  transform: scale(1.03);
+  z-index: 0;
+  /* reuses img-concrete palette */
+  background-image:
+    linear-gradient(135deg, rgba(255, 255, 255, .07), rgba(0, 0, 0, .32)),
+    radial-gradient(circle at 28% 22%, rgba(255, 255, 255, .22), transparent 22%),
+    radial-gradient(circle at 78% 78%, rgba(0, 0, 0, .35), transparent 42%),
+    linear-gradient(180deg, #cfcfcf 0 14%, #8c8c8c 14% 30%, #4d4d4d 30% 60%, #1a1a1a 60% 100%);
+}
+
+.plate-lead .lead-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, .78), rgba(0, 0, 0, .1) 60%, rgba(0, 0, 0, .2));
+  z-index: 1;
+}
+
+.plate-lead .lead-image .lead-badge {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  z-index: 3;
+  display: inline-flex;
+  gap: 0;
+  border: var(--border-weight-chrome) solid #f5f5f1;
+}
+
+.plate-lead .lead-badge-label,
+.plate-lead .lead-badge-lane {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  padding: 5px 8px 4px;
+  line-height: 1;
+}
+
+.plate-lead .lead-badge-label {
+  background: var(--accent);
+  color: #f5f5f1;
+  border-right: var(--border-weight-chrome) solid #f5f5f1;
+}
+
+.plate-lead .lead-badge-lane {
+  background: rgba(0, 0, 0, .8);
+  color: #f5f5f1;
+}
+
+.plate-lead .lead-body {
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--panel);
+  position: relative;
+  z-index: 2;
+}
+
+.plate-lead .lead-eyebrow {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent-text);
+  line-height: 1;
+  margin: 0 0 var(--space-md);
+}
+
+.plate-lead .lead-title {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-plate-med);
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  text-transform: uppercase;
+  color: var(--ink);
+  text-wrap: balance;
+  max-width: 14ch;
+}
+
+.plate-lead .lead-deck {
+  margin: var(--space-md) 0 0;
+  font-family: var(--body);
+  font-size: var(--text-lede);
+  line-height: var(--lh-normal);
+  color: var(--body-color);
+  font-weight: var(--weight-regular);
+  max-width: 42ch;
+  text-wrap: pretty;
+}
+
+.plate-lead .lead-rail {
+  margin-top: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.plate-lead .lead-rail .rail-meta {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  line-height: 1;
+}
+
+.plate-lead .lead-rail .rail-cta {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: var(--text-label);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-chrome);
+  text-transform: uppercase;
+  padding: var(--space-sm) var(--space-chrome) 11px;
+  border: var(--border-weight-chrome) solid var(--border);
+  background: var(--ink);
+  color: var(--bg);
+  line-height: 1;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+a.plate-lead:hover { border-color: var(--accent); }
+a.plate-lead:hover .rail-cta { background: var(--accent); border-color: var(--accent); }
+a.plate-lead:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: -5px;
+}
+
+/* ── Signature strip (closing editorial) ────────────────────
+ * A short standfirst-from-the-author row that sits above the
+ * footer. Same border + bg vocabulary as .footer-strip but
+ * with a display-type pull quote + subscribe CTA.
+ * -------------------------------------------------------- */
+
+.signature-strip {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: stretch;
+  gap: 0;
+  border: var(--border-weight-content) solid var(--border);
+  background: var(--panel);
+  margin-top: var(--space-2xl);
+  position: relative;
+  z-index: 2;
+}
+
+.signature-body {
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  border-right: var(--border-weight-chrome) solid var(--border);
+}
+
+.signature-eyebrow {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent-text);
+  line-height: 1;
+}
+
+.signature-text {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-h2);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--track-title);
+  text-transform: uppercase;
+  color: var(--ink);
+  text-wrap: balance;
+  max-width: 22ch;
+}
+
+.signature-sub {
+  margin: 0;
+  font-family: var(--body);
+  font-size: var(--text-citation);
+  line-height: 1.6;
+  color: var(--body-muted);
+  max-width: 52ch;
+  text-wrap: pretty;
+}
+
+.signature-action {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  background: var(--ink);
+  color: var(--bg);
+  padding: var(--space-lg);
+  min-width: 260px;
+}
+
+.signature-action .sig-label {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  opacity: .58;
+  line-height: 1;
+  margin-bottom: var(--space-sm);
+}
+
+.signature-action .sig-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0;
+  border: var(--border-weight-chrome) solid var(--bg);
+}
+
+.signature-action .sig-input {
+  appearance: none;
+  background: transparent;
+  color: var(--bg);
+  border: 0;
+  padding: var(--space-sm) var(--space-chrome);
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  letter-spacing: var(--track-footer);
+  text-transform: uppercase;
+  min-height: 44px;
+  min-width: 0;
+}
+.signature-action .sig-input::placeholder {
+  color: var(--bg);
+  opacity: .45;
+  text-transform: uppercase;
+}
+.signature-action .sig-input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: -2px;
+}
+
+.signature-action .sig-submit {
+  appearance: none;
+  border: 0;
+  border-left: var(--border-weight-chrome) solid var(--bg);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-footer);
+  text-transform: uppercase;
+  padding: var(--space-sm) var(--space-chrome) 11px;
+  cursor: pointer;
+  min-height: 44px;
+  line-height: 1;
+  transition: background var(--motion-fast) var(--ease-default),
+              color var(--motion-fast) var(--ease-default);
+}
+.signature-action .sig-submit:hover {
+  background: var(--accent);
+  color: #f5f5f1;
+}
+
+.signature-action .sig-note {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  opacity: .55;
+  margin-top: var(--space-sm);
+  line-height: 1.4;
+}
+
+/* ── Row header: small editorial dividers ───────────────────
+ * Thin labeled dividers between archive rows. "01 — LATEST" etc.
+ * Uses exact same pattern as .section-head from articles but
+ * scoped to the homepage so it doesn't collide.
+ * -------------------------------------------------------- */
+
+.row-head {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-chrome);
+  margin: var(--space-sm) 0 0;
+}
+
+.row-head .row-num {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-indicator);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.row-head .row-label {
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.row-head .row-rule {
+  flex: 1;
+  height: var(--border-weight-chrome);
+  background: var(--border);
+  opacity: .35;
+}
+
+body[data-rowheads="off"] .row-head { display: none; }
+
+/* ── Mode toggle icons ──────────────────────────────────────
+ * Four variants, chosen via body[data-modeicon]. All built from
+ * typography or CSS shapes — no hand-drawn SVGs.
+ *   none  : text only (baseline)
+ *   glyph : Unicode ◐ half-circle, rotates between modes
+ *   dot   : small filled/hollow disc glyph
+ *   block : 10px square, filled in dark, hollow in light
+ * -------------------------------------------------------- */
+.mode-toggle .mode-icon {
+  display: none;
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  vertical-align: -1px;
+  line-height: 1;
+  font-style: normal;
+  text-align: center;
+  flex-shrink: 0;
+}
+body:not([data-modeicon="none"]) .mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}
+
+body[data-modeicon="glyph"] .mode-toggle .mode-icon.is-glyph,
+body[data-modeicon="dot"]   .mode-toggle .mode-icon.is-dot,
+body[data-modeicon="block"] .mode-toggle .mode-icon.is-block,
+body[data-modeicon="sunmoon"] .mode-toggle .mode-icon.is-sunmoon {
+  display: inline-block;
+}
+
+.mode-icon.is-glyph {
+  font-family: var(--mono);
+  font-size: 14px;
+  width: auto;
+  height: auto;
+  transition: transform var(--motion-med) var(--ease-default);
+}
+html.dark-mode .mode-icon.is-glyph { transform: rotate(180deg); }
+
+.mode-icon.is-dot {
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  background: transparent;
+  transition: background var(--motion-fast) var(--ease-default);
+}
+html.dark-mode .mode-icon.is-dot { background: currentColor; }
+
+.mode-icon.is-block {
+  border: 2px solid currentColor;
+  background: transparent;
+  transition: background var(--motion-fast) var(--ease-default);
+}
+html.dark-mode .mode-icon.is-block { background: currentColor; }
+
+/* Sun/moon: one element that morphs.
+   Light mode = sun: filled circle + 8 radial rays via box-shadow.
+   Dark mode  = moon: hollow circle with offset inset shadow creating
+                      a crescent; rays hidden. */
+.mode-icon.is-sunmoon {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: currentColor;
+  /* 8 rays — tiny dots around the sun */
+  box-shadow:
+     0  -7px 0 -3px currentColor,
+     0   7px 0 -3px currentColor,
+    -7px  0  0 -3px currentColor,
+     7px  0  0 -3px currentColor,
+    -5px -5px 0 -3px currentColor,
+     5px -5px 0 -3px currentColor,
+    -5px  5px 0 -3px currentColor,
+     5px  5px 0 -3px currentColor;
+  transition: background var(--motion-med) var(--ease-default),
+              box-shadow var(--motion-med) var(--ease-default);
+}
+html.dark-mode .mode-icon.is-sunmoon {
+  background: transparent;
+  /* Crescent: offset inset shadow carves out a bite. */
+  box-shadow: inset -3px 1px 0 0 currentColor;
+}
+
+/* ── Identity hero ─────────────────────────────────────────
+ * Featured "about" band. Sits between masthead and archive.
+ * Two-pane: dark left (mark + name + tagline), light right
+ * (eyebrow + bio + links). Distinct from the plate grid.
+ * -------------------------------------------------------- */
+
+.identity-hero {
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  border: var(--border-weight-content) solid var(--border);
+  background: var(--panel);
+  margin-bottom: var(--space-md);
+  position: relative;
+}
+
+.identity-hero .hero-main {
+  position: relative;
+  padding: var(--space-lg);
+  background: var(--ink);
+  color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 340px;
+  border-right: var(--border-weight-content) solid var(--border);
+}
+
+.identity-hero .hero-sub {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 5px 7px 4px;
+  background: var(--bg);
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: var(--track-badge);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-label);
+  font-family: var(--mono);
+  line-height: 1;
+  margin-bottom: var(--space-md);
+}
+
+.identity-hero .hero-name {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-identity);
+  line-height: .82;
+  letter-spacing: var(--track-display);
+  text-transform: uppercase;
+  text-wrap: balance;
+  max-width: 9ch;
+  color: var(--bg);
+}
+
+.identity-hero .hero-tagline {
+  margin: var(--space-md) 0 0;
+  font-family: var(--display);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-h2);
+  line-height: .95;
+  letter-spacing: var(--track-title);
+  text-transform: uppercase;
+  color: var(--accent);
+  max-width: 16ch;
+}
+
+.identity-hero .hero-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  color: var(--bg);
+  opacity: .5;
+  padding: 5px 8px 4px;
+  border-left: var(--border-weight-chrome) solid var(--bg);
+  border-bottom: var(--border-weight-chrome) solid var(--bg);
+  line-height: 1;
+}
+
+.identity-hero .hero-side {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.identity-hero .hero-eyebrow {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent-text);
+  line-height: 1;
+  margin: 0 0 var(--space-sm);
+}
+
+.identity-hero .hero-bio {
+  margin: 0;
+  font-family: var(--body);
+  font-size: var(--text-body);
+  line-height: var(--lh-normal);
+  color: var(--body-color);
+  max-width: 44ch;
+  text-wrap: pretty;
+}
+
+.identity-hero .hero-links {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.identity-hero .hero-link {
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-chrome);
+  text-transform: uppercase;
+  padding: var(--space-sm) var(--space-chrome) 11px;
+  border: var(--border-weight-chrome) solid var(--border);
+  background: var(--panel);
+  color: var(--ink);
+  line-height: 1;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: border-color var(--motion-fast) var(--ease-default),
+              background var(--motion-fast) var(--ease-default),
+              color var(--motion-fast) var(--ease-default);
+}
+.identity-hero .hero-link.primary {
+  background: var(--ink);
+  color: var(--bg);
+}
+.identity-hero .hero-link:hover { border-color: var(--accent); }
+.identity-hero .hero-link.primary:hover { background: var(--accent); color: var(--bg); }
+.identity-hero .hero-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.identity-hero .hero-glyph { font-size: 11px; opacity: .6; line-height: 1; }
+
+@media (max-width: 1120px) {
+  .identity-hero { grid-template-columns: 1fr; }
+  .identity-hero .hero-main {
+    border-right: 0;
+    border-bottom: var(--border-weight-content) solid var(--border);
+  }
+}
+@media (max-width: 760px) {
+  .identity-hero .hero-main,
+  .identity-hero .hero-side { padding: var(--space-md); }
+  .identity-hero .hero-main { min-height: 0; }
+}
+
+/* ── View-more button (Earlier section) ─────────────────── */
+
+.earlier-more-wrap {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  padding: var(--space-md) 0 0;
+}
+
+.earlier-more-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 14px var(--space-lg) 13px;
+  border: var(--border-weight-content) solid var(--border);
+  background: var(--panel);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-chrome);
+  text-transform: uppercase;
+  line-height: 1;
+  cursor: pointer;
+  min-height: 52px;
+  transition: background var(--motion-fast) var(--ease-default),
+              color var(--motion-fast) var(--ease-default),
+              border-color var(--motion-fast) var(--ease-default);
+}
+
+.earlier-more-btn .btn-count {
+  font-weight: var(--weight-regular);
+  opacity: .55;
+  letter-spacing: var(--track-badge);
+}
+
+.earlier-more-btn .btn-glyph {
+  font-size: 13px;
+  transition: transform var(--motion-fast) var(--ease-default);
+}
+
+.earlier-more-btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.earlier-more-btn:hover .btn-count { opacity: .7; }
+
+.earlier-more-btn:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.earlier-more-btn[aria-expanded="true"] .btn-glyph { transform: rotate(180deg); }
+
+/* Hide in pure archive layout (back to plate grid only) */
+body[data-layout="archive"] .identity-hero { display: none; }
+
+/* Hide label text when an icon is shown (Tweak: modelabel="off") */
+body[data-modelabel="off"] .mode-toggle > span { display: none; }
+body[data-modelabel="off"] .mode-toggle .mode-icon { margin-right: 0; }
+body[data-modelabel="off"] .mode-toggle {
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+  min-width: 44px;
+  justify-content: center;
+}
+
+/* ── Density modes ──────────────────────────────────────────
+ * Tweaks can switch overall rhythm. Generous by default.
+ * -------------------------------------------------------- */
+
+body[data-density="compact"] .plates { gap: 8px; }
+body[data-density="compact"] .lane-index { gap: 8px; }
+body[data-density="compact"] .plate-lead { min-height: 400px; }
+body[data-density="compact"] .signature-strip { margin-top: var(--space-xl); }
+
+/* ── Layout variants (mode switch via body[data-layout]) ────
+ * magazine : lead plate + lane index + archive rows (default)
+ * editorial: no lead plate, big identity, tight archive
+ * archive  : minimal — identity + stacked archive, no extras
+ * -------------------------------------------------------- */
+
+body[data-layout="editorial"] .plate-lead,
+body[data-layout="editorial"] .row-head-lead,
+body[data-layout="editorial"] .lane-index { display: none; }
+
+body[data-layout="archive"] .plate-lead,
+body[data-layout="archive"] .lane-index,
+body[data-layout="archive"] .issue-head,
+body[data-layout="archive"] .signature-strip,
+body[data-layout="archive"] .row-head { display: none; }
+
+/* ── Responsive ─────────────────────────────────────────── */
+
+@media (max-width: 1120px) {
+  .plate-lead {
+    grid-template-columns: 1fr;
+    grid-column: span 8;
+  }
+  .plate-lead .lead-image {
+    border-right: 0;
+    border-bottom: var(--border-weight-content) solid var(--border);
+    min-height: 240px;
+  }
+  .lane-index { grid-template-columns: repeat(3, 1fr); }
+  .signature-strip { grid-template-columns: 1fr; }
+  .signature-body { border-right: 0; border-bottom: var(--border-weight-chrome) solid var(--border); }
+}
+
+@media (max-width: 760px) {
+  .issue-head { grid-template-columns: 1fr; }
+  .issue-meta { border-right: 0; border-bottom: var(--border-weight-chrome) solid var(--border); min-width: 0; }
+  .lane-index { grid-template-columns: 1fr; }
+  .plate-lead { grid-column: span 1; min-height: 0; }
+  .plate-lead .lead-title { font-size: var(--text-plate); }
+}
+
+/* ── Tweaks panel ──────────────────────────────────────────
+ * Floating bottom-right. Hidden by default; shown when
+ * body[data-tweaks-open="true"]. Matches chrome vocabulary.
+ * -------------------------------------------------------- */
+
+.tweaks-panel {
+  position: fixed;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  width: 320px;
+  max-width: calc(100vw - var(--space-md) * 2);
+  background: var(--panel);
+  border: var(--border-weight-content) solid var(--border);
+  z-index: 200;
+  display: none;
+  font-family: var(--mono);
+}
+
+body[data-tweaks-open="true"] .tweaks-panel { display: block; }
+
+.tweaks-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-chrome) 11px;
+  border-bottom: var(--border-weight-chrome) solid var(--border);
+  background: var(--ink);
+  color: var(--bg);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+}
+
+.tweaks-header button {
+  appearance: none;
+  background: transparent;
+  border: var(--border-weight-chrome) solid var(--bg);
+  color: var(--bg);
+  font: inherit;
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-badge);
+  padding: 3px 7px 2px;
+  cursor: pointer;
+}
+
+.tweaks-body { padding: var(--space-sm) var(--space-chrome) var(--space-sm); }
+
+.tweak-group {
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--body-faint);
+}
+.tweak-group:last-child { border-bottom: 0; }
+
+.tweak-label {
+  display: block;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  margin-bottom: var(--space-xs);
+}
+
+.tweak-row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 4px;
+}
+
+.tweak-row button {
+  appearance: none;
+  border: var(--border-weight-chrome) solid var(--border);
+  background: var(--panel);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  padding: 8px 6px 7px;
+  cursor: pointer;
+  line-height: 1;
+  transition: background var(--motion-fast) var(--ease-default),
+              color var(--motion-fast) var(--ease-default);
+}
+.tweak-row button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.tweak-row button:hover:not([aria-pressed="true"]) {
+  border-color: var(--accent);
+}
+
+/* Hidden when Tweaks global is off */
+.tweaks-launcher {
+  position: fixed;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  z-index: 199;
+  appearance: none;
+  border: var(--border-weight-chrome) solid var(--border);
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-badge);
+  text-transform: uppercase;
+  padding: var(--space-sm) var(--space-chrome) 11px;
+  cursor: pointer;
+  min-height: 44px;
+  line-height: 1;
+  display: none;
+}
+body[data-tweaks-available="true"] .tweaks-launcher { display: inline-block; }
+body[data-tweaks-open="true"] .tweaks-launcher { display: none; }

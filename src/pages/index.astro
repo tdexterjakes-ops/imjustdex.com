@@ -1,0 +1,133 @@
+---
+import { getCollection } from 'astro:content';
+import HomeLayout from '~/layouts/HomeLayout.astro';
+import LatestBar from '~/components/home/LatestBar.astro';
+import IdentityHero from '~/components/home/IdentityHero.astro';
+import LaneIndex from '~/components/home/LaneIndex.astro';
+import RowHead from '~/components/home/RowHead.astro';
+import LeadPlate from '~/components/home/LeadPlate.astro';
+import Plate from '~/components/home/Plate.astro';
+import IssueNext from '~/components/home/IssueNext.astro';
+import SubscribeManifesto from '~/components/home/SubscribeManifesto.astro';
+import type { Lane, PlateVariant } from '~/content/config';
+
+// Build-time date drives published vs. upcoming partition.
+const today = new Date();
+
+// Sort everything by publishedDate desc.
+const all = (await getCollection('words')).sort(
+  (a, b) =>
+    new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime()
+);
+
+// Only published essays count for cascade + entry numbering (per Dex calibration).
+const published = all
+  .filter((e) => e.data.status === 'published')
+  .filter((e) => new Date(e.data.publishedDate) <= today);
+
+const upcoming = all
+  .filter((e) => e.data.status === 'published' || e.data.status === 'upcoming')
+  .filter((e) => new Date(e.data.publishedDate) > today);
+
+// Lead = newest published.
+const lead = published[0];
+if (!lead) throw new Error('No published essays — cannot render homepage.');
+
+const leadDate = new Date(lead.data.publishedDate);
+const leadYear = leadDate.getUTCFullYear();
+const leadMonth = leadDate.getUTCMonth();
+
+// "This Month" = same calendar month as lead, excluding lead.
+const rest = published.slice(1);
+const thisMonth = rest.filter((e) => {
+  const d = new Date(e.data.publishedDate);
+  return d.getUTCFullYear() === leadYear && d.getUTCMonth() === leadMonth;
+});
+
+// "Earlier" = anything older than lead's month.
+const earlier = rest.filter((e) => {
+  const d = new Date(e.data.publishedDate);
+  return d.getUTCFullYear() !== leadYear || d.getUTCMonth() !== leadMonth;
+});
+const EARLIER_VISIBLE = 6;
+const earlierVisible = earlier.slice(0, EARLIER_VISIBLE);
+const earlierMore = earlier.slice(EARLIER_VISIBLE);
+
+// Issue next = first upcoming essay (sorted asc by date).
+const issueNext = upcoming
+  .slice()
+  .sort(
+    (a, b) =>
+      new Date(a.data.publishedDate).getTime() - new Date(b.data.publishedDate).getTime()
+  )[0];
+
+// Lane counts: published essays only, multi-lane articles count for each lane.
+const laneCounts: Record<Lane, number> = {
+  Faith: published.filter((e) => e.data.lanes.includes('Faith')).length,
+  Identity: published.filter((e) => e.data.lanes.includes('Identity')).length,
+  Art: published.filter((e) => e.data.lanes.includes('Art')).length,
+};
+
+// Issue head: derive entry number + week label from lead.
+// Entry number = chronological position of lead among all published essays (zero-padded).
+const entryNo = String(published.length).padStart(2, '0');
+const weekLabel = `Week of ${leadDate.toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+})}`;
+const issueNo = `Entry No. ${entryNo}`;
+
+// Positional plate variant fallback: alternate wide → secondary → banner.
+const PLATE_ROTATION: PlateVariant[] = ['wide', 'secondary', 'banner'];
+const positionalVariant = (i: number): PlateVariant => PLATE_ROTATION[i % PLATE_ROTATION.length];
+---
+<HomeLayout>
+  <LatestBar issueNo={issueNo} weekLabel={weekLabel} latest={lead} />
+
+  <IdentityHero />
+
+  <LaneIndex counts={laneCounts} />
+
+  <main id="archive">
+    <section class="plates" aria-label="Essay archive">
+      <RowHead num="01" label="This Week" variant="lead" />
+      <LeadPlate entry={lead} />
+
+      {thisMonth.length > 0 && (
+        <>
+          <RowHead num="02" label="This Month" />
+          {thisMonth.map((entry, i) => (
+            <Plate entry={entry} positionVariant={positionalVariant(i)} />
+          ))}
+        </>
+      )}
+
+      {earlierVisible.length > 0 && (
+        <>
+          <RowHead num={thisMonth.length > 0 ? '03' : '02'} label="Earlier" />
+          {earlierVisible.map((entry, i) => (
+            <Plate entry={entry} positionVariant={positionalVariant(i)} />
+          ))}
+          {earlierMore.map((entry, i) => (
+            <Plate entry={entry} positionVariant={positionalVariant(EARLIER_VISIBLE + i)} hidden />
+          ))}
+          {earlierMore.length > 0 && (
+            <div class="earlier-more-wrap">
+              <button class="earlier-more-btn" type="button" data-earlier-toggle aria-expanded="false">
+                <span class="btn-label">View Earlier Essays</span>
+                <span class="btn-count" data-earlier-count>{`— ${earlierMore.length} more`}</span>
+                <span class="btn-glyph" aria-hidden="true">↓</span>
+              </button>
+            </div>
+          )}
+        </>
+      )}
+    </section>
+  </main>
+
+  {issueNext && <IssueNext next={issueNext} />}
+
+  <SubscribeManifesto />
+</HomeLayout>

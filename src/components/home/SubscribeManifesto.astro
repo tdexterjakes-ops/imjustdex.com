@@ -1,0 +1,27 @@
+---
+// Production subscribe-manifesto block (NOT the mockup's signature-strip).
+// Mirrors index.html:274-296 from the live site.
+---
+<section id="subscribe-manifesto" class="subscribe-manifesto" aria-label="Subscribe">
+  <div class="sm-left">
+    <span class="sm-kicker">The Standing Order</span>
+    <h2 class="sm-title">Words that<br><span class="sm-accent">won't</span><br>waste<br>your time.</h2>
+  </div>
+  <div class="sm-right">
+    <p class="sm-promise">An essay, a resource, a research note — whatever earns its way in.</p>
+    <ul class="sm-toc">
+      <li><span class="sm-check">✓</span><div><div class="sm-strong">Only what's worth the send</div><div class="sm-faint">No filler. No recap. No fluff.</div></div></li>
+      <li><span class="sm-check">✓</span><div><div class="sm-strong">Ad-free, tracking-free</div><div class="sm-faint">Plain text where possible.</div></div></li>
+      <li><span class="sm-check">✓</span><div><div class="sm-strong">Unsubscribe in one click</div><div class="sm-faint">No guilt trip footers.</div></div></li>
+    </ul>
+    <form class="sm-form" action="/api/subscribe" method="POST">
+      <input type="hidden" name="source" value="home">
+      <label class="sm-hp" aria-hidden="true">
+        Leave blank: <input type="text" name="website" tabindex="-1" autocomplete="off">
+      </label>
+      <input class="sm-input" type="email" name="email" placeholder="you@elsewhere.com" required aria-label="Email address">
+      <button class="sm-submit" type="submit">Send me the next one →</button>
+    </form>
+    <span class="sm-fine">No spam, ever</span>
+  </div>
+</section>

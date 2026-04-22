@@ -1,0 +1,163 @@
+---
+// Homepage layout — head + masthead + footer scaffold.
+// Different CSS payload than ArticleLayout (plates + home-v2 instead of article).
+// Mirrors index.html head + body shell from current production at https://imjustdex.com/.
+
+const siteJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://imjustdex.com/#website',
+      url: 'https://imjustdex.com/',
+      name: 'Dexter Jakes',
+      alternateName: 'ImJustDex',
+      description: 'No highlight reel. Just the full human, documented.',
+      inLanguage: 'en',
+      publisher: { '@id': 'https://imjustdex.com/#person' },
+    },
+    {
+      '@type': 'Person',
+      '@id': 'https://imjustdex.com/#person',
+      name: 'Dexter Jakes',
+      url: 'https://imjustdex.com/',
+      sameAs: [
+        'https://instagram.com/ImJustDex',
+        'https://x.com/ImJustDex',
+      ],
+      mainEntityOfPage: 'https://imjustdex.com/about/',
+      jobTitle: 'Executive Director of Marketing',
+      worksFor: {
+        '@type': 'Organization',
+        name: "The Potter's House of Dallas",
+      },
+    },
+  ],
+};
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+
+  <title>Dexter Jakes — Essays on faith, identity and art</title>
+  <meta name="description" content="No highlight reel. Just the full human, documented.">
+
+  <link rel="canonical" href="https://imjustdex.com/">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Dexter Jakes — Essays on faith, identity and art">
+  <meta property="og:description" content="No highlight reel. Just the full human, documented.">
+  <meta property="og:image" content="https://imjustdex.com/img/og-default.png?v=phase26">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="imjustdex.com — Essays on faith, identity, and art.">
+  <meta property="og:url" content="https://imjustdex.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Dexter Jakes">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dexter Jakes — Essays on faith, identity and art">
+  <meta name="twitter:description" content="No highlight reel. Just the full human, documented.">
+  <meta name="twitter:image" content="https://imjustdex.com/img/og-default.png?v=phase26">
+
+  <!-- Self-hosted font preloads -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Anton-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Bold.woff2" crossorigin>
+
+  <!-- Styles: layered separation of concerns. home-augment carries production shifts
+       (masthead, hero, lane-index, subscribe-manifesto). home-v2 is loaded last so its
+       approved plate-grid + view-more rules cascade-win on the archive section. -->
+  <link rel="stylesheet" href="/css/tokens.css?v=phase23">
+  <link rel="stylesheet" href="/css/shell.css?v=phase23">
+  <link rel="stylesheet" href="/css/plates.css?v=phase13">
+  <link rel="stylesheet" href="/css/home-augment.css?v=phase25">
+  <link rel="stylesheet" href="/css/home-v2.css?v=phase29">
+
+  <!-- Mode: synchronous in <head> so html.dark-mode is set before first paint -->
+  <script src="/js/mode.js?v=phase11" is:inline></script>
+
+  <!-- Feed discovery -->
+  <link rel="alternate" type="application/atom+xml" title="Dexter Jakes — Essays" href="/feed.xml">
+
+  <!-- Structured data: WebSite + Person -->
+  <script type="application/ld+json" set:html={JSON.stringify(siteJsonLd, null, 2)} />
+</head>
+<body>
+  <a href="#archive" class="skip-link">Skip to content</a>
+  <div class="ruler-top" aria-hidden="true"></div>
+  <div class="ruler-left" aria-hidden="true"></div>
+
+  <div class="page-shell">
+    <header>
+      <nav class="masthead" aria-label="Main navigation">
+        <a class="brand-block" href="/" aria-label="Dexter Jakes home">
+          <span class="brand-mark">
+            <img src="/img/logo-dark.svg" alt="" class="brand-logo" width="41" height="28" data-base="/img/">
+          </span>
+          <span class="brand-word">Words</span>
+        </a>
+        <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode" aria-pressed="false">
+          Mode: Light
+        </button>
+      </nav>
+    </header>
+
+    <slot />
+
+    <footer class="footer-strip" aria-label="Footer">
+      <div class="footer-links">
+        <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="https://x.com/ImJustDex" target="_blank" rel="noopener noreferrer">X</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="/feed.xml" aria-label="RSS feed">Feed</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="/about/">About</a>
+      </div>
+      <span>Built by Dex &middot; Est. 2026</span>
+    </footer>
+  </div>
+
+  <!-- Subscribe form progressive enhancement -->
+  <script src="/js/subscribe.js?v=phase18" is:inline defer></script>
+
+  <!-- Lane filter — click Faith/Identity to filter archive -->
+  <script src="/js/lane-filter.js?v=phase25" is:inline defer></script>
+
+  <!-- Earlier → View More: reveals hidden essays on click -->
+  <script is:inline>
+    (function () {
+      const btn = document.querySelector('[data-earlier-toggle]');
+      if (!btn) return;
+      const hidden = document.querySelectorAll('.earlier-more');
+      const count = document.querySelector('[data-earlier-count]');
+      const label = btn.querySelector('.btn-label');
+      const more = hidden.length;
+      const plural = more === 1 ? 'Essay' : 'Essays';
+      if (count) count.textContent = '— ' + more + ' more';
+      if (label) label.textContent = 'View Earlier ' + plural;
+
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        const next = !expanded;
+        hidden.forEach((el) => {
+          if (next) el.removeAttribute('hidden');
+          else el.setAttribute('hidden', '');
+        });
+        btn.setAttribute('aria-expanded', String(next));
+        const more = hidden.length;
+        const plural = more === 1 ? 'Essay' : 'Essays';
+        btn.querySelector('.btn-label').textContent = next ? 'Show Less' : 'View Earlier ' + plural;
+        if (count) count.textContent = next ? '— showing all' : '— ' + more + ' more';
+      });
+    })();
+  </script>
+</body>
+</html>

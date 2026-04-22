@@ -1,0 +1,14 @@
+---
+interface Props {
+  num: string;
+  label: string;
+  variant?: 'lead' | 'default';
+}
+const { num, label, variant = 'default' } = Astro.props;
+const cls = variant === 'lead' ? 'row-head row-head-lead' : 'row-head';
+---
+<div class={cls} role="presentation">
+  <span class="row-num">{num}</span>
+  <span class="row-label">{label}</span>
+  <span class="row-rule" aria-hidden="true"></span>
+</div>

@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'words'>;
+}
+const { entry } = Astro.props;
+const d = entry.data;
+const dateOnly = d.publishedDate.slice(0, 10);
+const dateLabel = new Date(dateOnly + 'T00:00:00Z').toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+const primaryLane = d.lanes[0];
+---
+<article>
+  <a class="plate plate-lead" href={`/words/${entry.slug}/`} aria-label={`Read: ${d.title}`} data-lane={primaryLane.toLowerCase()}>
+    <div class="lead-image" aria-hidden="true">
+      <div class="lead-badge">
+        <span class="lead-badge-label">Latest</span>
+        <span class="lead-badge-lane">{primaryLane}</span>
+      </div>
+    </div>
+    <div class="lead-body">
+      <div>
+        <div class="lead-eyebrow"><time datetime={dateOnly}>{dateLabel}</time> · {d.readTime} read</div>
+        <h2 class="lead-title">{d.title}</h2>
+        <p class="lead-deck">{d.deck}</p>
+      </div>
+      <div class="lead-rail">
+        <span class="rail-meta">Essay · {d.readTime}</span>
+        <span class="rail-cta">Read →</span>
+      </div>
+    </div>
+  </a>
+</article>

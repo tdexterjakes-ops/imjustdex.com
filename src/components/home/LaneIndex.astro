@@ -1,0 +1,32 @@
+---
+import type { Lane } from '~/content/config';
+
+interface Props {
+  counts: Record<Lane, number>;
+  activeLane?: Lane;
+}
+const { counts, activeLane } = Astro.props;
+const lanes: Lane[] = ['Faith', 'Identity', 'Art'];
+const fmt = (n: number) => String(n).padStart(2, '0');
+---
+<section class="lane-index" aria-label="Filter essays by lane" role="group">
+  {lanes.map((lane) => {
+    const count = counts[lane] ?? 0;
+    const queued = count === 0;
+    const isActive = activeLane === lane;
+    if (queued) {
+      return (
+        <div class="lane-cell lane-cell-queued" data-lane={lane.toLowerCase()} aria-disabled="true" aria-label={`${lane} — no essays yet, in the queue`}>
+          <span class="lane-name">{lane}</span>
+          <span class="lane-count">In the queue</span>
+        </div>
+      );
+    }
+    return (
+      <button type="button" class="lane-cell" data-lane={lane.toLowerCase()} aria-pressed={isActive ? 'true' : 'false'}>
+        <span class="lane-name">{lane}</span>
+        <span class="lane-count">{`${fmt(count)} ${count === 1 ? 'essay' : 'essays'}`}</span>
+      </button>
+    );
+  })}
+</section>

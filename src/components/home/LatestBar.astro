@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  issueNo: string;
+  weekLabel: string;
+  latest: CollectionEntry<'words'>;
+}
+const { issueNo, weekLabel, latest } = Astro.props;
+const d = latest.data;
+const dateOnly = d.publishedDate.slice(0, 10);
+const dateLabel = new Date(dateOnly + 'T00:00:00Z').toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+const meta = `${d.lanes[0]} · ${dateLabel} · ${d.readTime}`;
+---
+<section class="issue-head" aria-label="Issue">
+  <div class="issue-meta">
+    <span class="issue-no">{issueNo}</span>
+    <span>{weekLabel}</span>
+  </div>
+  <a class="issue-standfirst issue-latest" href={`/words/${latest.slug}/`} aria-label={`Read the latest essay: ${d.title}`}>
+    <span class="latest-tag">Latest</span>
+    <span class="latest-title">{d.title}</span>
+    <span class="latest-meta">{meta}</span>
+    <span class="latest-cta" aria-hidden="true">Read →</span>
+  </a>
+</section>
