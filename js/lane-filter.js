@@ -25,10 +25,12 @@
   if (!buttons.length) return;
 
   // Pre-index every article by its plate's data-lane so filtering is O(n).
+  // data-lane may hold multiple lanes (space-separated) for multi-lane essays.
   var articles = Array.prototype.slice.call(plates.querySelectorAll('article'));
-  var articleLane = articles.map(function (art) {
+  var articleLanes = articles.map(function (art) {
     var plate = art.querySelector('[data-lane]');
-    return plate ? plate.getAttribute('data-lane') : null;
+    var raw = plate ? plate.getAttribute('data-lane') : '';
+    return raw ? raw.split(/\s+/) : [];
   });
 
   // Live region for screen readers — announce filter result counts.
@@ -41,7 +43,7 @@
   function apply(lane) {
     var visible = 0;
     for (var i = 0; i < articles.length; i++) {
-      var match = lane === null || articleLane[i] === lane;
+      var match = lane === null || articleLanes[i].indexOf(lane) !== -1;
       articles[i].hidden = !match;
       if (match) visible++;
     }
