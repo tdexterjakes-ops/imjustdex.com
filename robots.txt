@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /DESIGN-SYSTEM.md
 
 Sitemap: https://imjustdex.com/sitemap-index.xml
