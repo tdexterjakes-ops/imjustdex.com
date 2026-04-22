@@ -141,6 +141,27 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 # ──────────────────────────────────────────────
+# Legacy-domain canonical — dxjakes.com → imjustdex.com
+# The domain was migrated 2026-04-12 (commit e3789c3) but
+# dxjakes.com is still served by Netlify as a domain alias,
+# returning 200s on both hosts with identical HTML. Canonical
+# <link> already points to imjustdex.com (so SEO is covered),
+# but humans landing on the old URL see the old domain in the
+# address bar. This rule forces a 301 at the edge for any
+# dxjakes.com host, preserving the path via :splat.
+#
+# Runs before /api/subscribe on purpose — the signup endpoint
+# should never be hit from the legacy host; all traffic
+# collapses to imjustdex.com first.
+# ──────────────────────────────────────────────
+[[redirects]]
+  from = "/*"
+  to = "https://imjustdex.com/:splat"
+  status = 301
+  force = true
+  conditions = { Host = ["dxjakes.com", "www.dxjakes.com"] }
+
+# ──────────────────────────────────────────────
 # Subscribe endpoint — Netlify Function
 # /api/subscribe rewrites to /.netlify/functions/subscribe.
 # Function validates, rate-limits, honeypots, then POSTs to
