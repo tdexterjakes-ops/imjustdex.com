@@ -15,9 +15,12 @@
 /* ── Root rhythm ──────────────────────────────────────────── */
 
 .manifesto {
-  /* Measure — every block respects a shared narrative column. */
-  --measure: 640px;
-  --measure-wide: 860px;
+  /* Measure — the text column inside every panel. */
+  --measure: 600px;
+  /* Panel — the width of the printed surface text sits on. The
+     page-shell's grid pattern is the background; panels are the
+     printed matter laid on top. Text never touches the grid. */
+  --panel-w: 860px;
 
   padding: var(--space-3xl) var(--space-lg) var(--space-3xl);
   max-width: 1100px;
@@ -29,26 +32,36 @@
 }
 
 .manifesto > * + * {
-  margin-top: var(--space-3xl);
+  margin-top: var(--space-2xl);
 }
 
 
-/* ── Separator rules between acts ─────────────────────────── */
+/* ── Panel surface — shared across hero + every act.
+      Ends the grid at the panel edge. Text lives on --panel (flat),
+      bordered in --border (ink in light, bone in dark). No shadows,
+      no gradients, no rounded corners. Printed metaphor, literally. */
 
+.m-hero,
+.m-act {
+  background: var(--panel);
+  border: var(--border-weight-content, 3px) solid var(--border);
+  max-width: var(--panel-w);
+  margin-inline: auto;
+  padding: var(--space-3xl) var(--space-xl);
+  position: relative;
+}
+
+/* Horizontal rules between acts are now redundant — each act's own
+   border IS the separator. Kept as a no-op in the DOM so we don't
+   touch the Astro template just to remove <hr>s. */
 .m-rule {
-  max-width: var(--measure-wide);
-  height: 0;
-  margin: var(--space-3xl) auto;
-  border: 0;
-  border-top: var(--border-weight-content, 3px) solid var(--ink);
+  display: none;
 }
 
 
 /* ── Hero ─────────────────────────────────────────────────── */
 
 .m-hero {
-  max-width: var(--measure-wide);
-  margin-inline: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -100,14 +113,20 @@
 }
 
 
-/* ── Act (shared) ─────────────────────────────────────────── */
+/* ── Act (shared) — panel sets the frame, this sets the text
+      column INSIDE the frame. Panel is 860px, the text column
+      inside is ~560px centered within the panel's padding. ───── */
 
 .m-act {
-  max-width: var(--measure);
-  margin-inline: auto;
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
+}
+
+.m-act > *:not(.m-law-list) {
+  max-width: var(--measure);
+  margin-inline: auto;
+  width: 100%;
 }
 
 .m-marker {
@@ -165,26 +184,29 @@
 
 /* ── Laws — seven pronouncements ──────────────────────────── */
 
-.m-laws {
-  max-width: var(--measure);
-}
-
 .m-law-list {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
+  /* Bleed the list to the panel's inner edge so rules span the full
+     printed column, not the narrower text measure. */
+  margin-inline: calc(var(--space-xl) * -1);
   border-top: 1px solid var(--rule, rgba(5, 5, 5, 0.14));
+  border-bottom: 1px solid var(--rule, rgba(5, 5, 5, 0.14));
 }
 
 .m-law-list li {
   display: grid;
   grid-template-columns: clamp(44px, 6vw, 64px) 1fr;
   gap: var(--space-md);
-  padding: var(--space-lg) 0;
-  border-bottom: 1px solid var(--rule, rgba(5, 5, 5, 0.14));
+  padding: var(--space-lg) var(--space-xl);
   align-items: baseline;
+}
+
+.m-law-list li + li {
+  border-top: 1px solid var(--rule, rgba(5, 5, 5, 0.14));
 }
 
 .m-law-num {
@@ -290,15 +312,23 @@ html.dark-mode .m-law-body code {
 
 @media (max-width: 640px) {
   .manifesto {
-    padding: var(--space-2xl) var(--space-md) var(--space-2xl);
+    padding: var(--space-2xl) var(--space-sm) var(--space-2xl);
+    --panel-w: 100%;
+  }
+  .m-hero,
+  .m-act {
+    padding: var(--space-2xl) var(--space-md);
   }
   .m-act {
     gap: var(--space-md);
   }
+  .m-law-list {
+    margin-inline: calc(var(--space-md) * -1);
+  }
   .m-law-list li {
     grid-template-columns: 40px 1fr;
     gap: var(--space-sm);
-    padding: var(--space-md) 0;
+    padding: var(--space-md);
   }
   .m-hero {
     gap: var(--space-lg);
