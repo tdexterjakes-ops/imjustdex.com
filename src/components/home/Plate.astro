@@ -1,0 +1,60 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { PlateVariant, PlateImage } from '~/content/config';
+
+interface Props {
+  entry: CollectionEntry<'words'>;
+  // Position-derived defaults if frontmatter doesn't specify.
+  positionVariant?: PlateVariant;
+  hidden?: boolean;
+}
+const { entry, positionVariant, hidden = false } = Astro.props;
+const d = entry.data;
+
+// Variant resolution: frontmatter declared > position fallback > 'wide' default.
+const variant: PlateVariant = d.plate.variant ?? positionVariant ?? 'wide';
+const image: PlateImage | undefined = d.plate.image;
+const row = d.plate.row;
+
+// Build class string per production conventions:
+//   .plate .plate-{variant} [.plate-image .img-{image}] [.plate-row]
+const classes = ['plate', `plate-${variant}`];
+if (image) {
+  classes.push('plate-image', `img-${image}`);
+}
+if (row) {
+  classes.push('plate-row');
+}
+const cls = classes.join(' ');
+
+// Inverse modifier on title: production uses .inverse on plate-image variants for contrast.
+const titleCls = ['plate-title'];
+if (variant === 'banner' || image) {
+  titleCls.push('med');
+}
+if (image) {
+  titleCls.push('inverse');
+}
+
+const dateOnly = d.publishedDate.slice(0, 10);
+const dateLabel = new Date(dateOnly + 'T00:00:00Z').toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+const primaryLane = d.lanes[0];
+---
+<article {...(hidden ? { class: 'earlier-more', hidden: true } : {})}>
+  <a class={cls} href={`/words/${entry.slug}/`} aria-label={`Read: ${d.title}`} data-lane={primaryLane.toLowerCase()}>
+    <span class="plate-lane">{primaryLane}</span>
+    <div class="plate-body">
+      <h2 class={titleCls.join(' ')}>{d.title}</h2>
+      <p class="plate-deck">{d.deck}</p>
+    </div>
+    <div class="meta-rail">
+      <time datetime={dateOnly}>{dateLabel}</time>
+      <span class="dot" aria-hidden="true">·</span>
+      <span>{d.readTime}</span>
+    </div>
+  </a>
+</article>
