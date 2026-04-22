@@ -8,3 +8,8 @@
 *.swp
 *.swo
 *~
+
+# Build + deps
+node_modules/
+dist/
+.astro/
