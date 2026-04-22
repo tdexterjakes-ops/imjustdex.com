@@ -172,36 +172,75 @@
 }
 
 
-/* ── In-progress stub ─────────────────────────────────────── */
+/* ── Live surface exhibit — real production component rendered
+      on the page itself. The panel frame says "this is the system",
+      the component inside IS the system. ──────────────────────── */
 
-.e-stub {
-  background: var(--body-tint);
-  border: 1px dashed var(--body-faint);
-  padding: var(--space-xl);
+.e-live {
+  background: var(--panel);
+  border: var(--border-weight-content, 3px) solid var(--border);
+  padding: var(--space-2xl) var(--space-xl);
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
-  max-width: 860px;
+  gap: var(--space-lg);
+  max-width: 1020px;
   margin-inline: auto;
   width: 100%;
 }
 
-.e-stub-label {
+.e-live-head {
+  display: flex;
+  gap: var(--space-md);
+  align-items: baseline;
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--rule);
+}
+
+.e-live-num {
   font-family: var(--mono);
   font-size: var(--text-micro);
   letter-spacing: var(--track-tag);
   text-transform: uppercase;
   color: var(--accent);
-  margin: 0;
+  border: 1px solid var(--accent);
+  padding: 2px 8px;
 }
 
-.e-stub p:not(.e-stub-label) {
+.e-live-label {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+
+.e-live-label code {
+  font-family: var(--mono);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--ink);
+}
+
+.e-live-note {
   font-family: var(--body);
+  font-style: italic;
   font-size: clamp(0.95rem, 1.15vw, 1.05rem);
   line-height: 1.55;
   color: var(--body-color);
   margin: 0;
-  max-width: 64ch;
+  padding-left: var(--space-md);
+  border-left: var(--border-weight-chrome, 2px) solid var(--accent);
+  max-width: 72ch;
+}
+
+.e-live-note code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--body-tint);
+  padding: 1px 6px;
+  border: 1px solid var(--body-faint);
+  color: var(--ink);
 }
 
 

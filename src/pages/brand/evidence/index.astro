@@ -12,11 +12,17 @@ interface Exhibit {
   note: string;
 }
 
-// Curated exhibits — pick images that already exist in /img/ and
-// represent range across the three lanes. Each is a real rendered
-// surface, not a mockup. Links point to the essay itself so a reader
-// can verify the claim.
+// Curated exhibits — images that already exist in /img/ and represent
+// range across the three lanes. Each is a real rendered surface, not
+// a mockup. The slug resolves to a production file the live site uses.
 const exhibits: Exhibit[] = [
+  {
+    slug: 'og-home.png',
+    essay: 'Homepage',
+    lane: 'Identity',
+    meta: 'imjustdex.com · 1200 × 630 · Site card',
+    note: 'The site\'s own OG image. The identity hero compressed into a link preview — same display type, same corner eyebrow, same tagline rhythm as the full homepage. This is what a cold reader meets before they arrive.',
+  },
   {
     slug: 'og-gumbo.png',
     essay: 'Nobody Handed Me This',
@@ -44,6 +50,27 @@ const exhibits: Exhibit[] = [
     lane: 'Faith',
     meta: 'Entry № 001 · 1200 × 630 · Link card',
     note: 'Cultural-reply format. The pull quote becomes the whole card. No decoration, no stock photo, no badge — the sentence is the evidence.',
+  },
+  {
+    slug: 'og-the-nets.png',
+    essay: 'The Nets',
+    lane: 'Faith',
+    meta: 'Entry № 005 · 1200 × 630 · Link card',
+    note: 'Carousel-series essay — a fishing-net metaphor tracing call and return. The card\'s pull-quote treatment mirrors the S3 slide of the accompanying IG carousel. One system, many surfaces.',
+  },
+  {
+    slug: 'og-next-verse.png',
+    essay: 'Read the Next Verse',
+    lane: 'Faith',
+    meta: 'Entry № 006 · 1200 × 630 · Link card',
+    note: 'Reckoning format with the <code>.reckoning.exegesis</code> modifier — verse reference sits at display scale under a short eyebrow. The same modifier produces the IG post, the story, and the square feed card.',
+  },
+  {
+    slug: 'og-reckonings.png',
+    essay: 'I Don\'t Do Resolutions I Do Reckonings',
+    lane: 'Identity',
+    meta: 'Entry № 007 · 1200 × 630 · Link card',
+    note: 'The reckoning anchor. Massive date display, quiet reflection underneath. Evidence that the system can carry an argument about time in the typography itself.',
   },
 ];
 
@@ -91,9 +118,12 @@ const pageJsonLd = {
   <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Regular.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Bold.woff2" crossorigin>
 
+  <!-- Load home-augment so the live .issue-head exhibit renders with
+       production classes — dogfood rule, same as the system page. -->
   <link rel="stylesheet" href="/css/tokens.css?v=phase23">
   <link rel="stylesheet" href="/css/shell.css?v=phase23">
-  <link rel="stylesheet" href="/css/brand-evidence.css?v=evidence1">
+  <link rel="stylesheet" href="/css/home-augment.css?v=phase25">
+  <link rel="stylesheet" href="/css/brand-evidence.css?v=evidence2">
 
   <script src="/js/mode.js?v=phase11" is:inline></script>
 
@@ -158,10 +188,28 @@ const pageJsonLd = {
         ))}
       </section>
 
-      <!-- In-progress note -->
-      <section class="e-stub" aria-label="More exhibits">
-        <p class="e-stub-label">More exhibits in progress</p>
-        <p>Homepage plate grid · social carousel (IG 5-slide portrait) · issue masthead in dark mode · email signup manifesto. Each surface ships as the system produces it, not as a mockup.</p>
+      <!-- Live surface — the final exhibit renders on the page
+           itself, not as an image. Same .issue-head production class
+           the homepage uses. If this fails to render cleanly, the
+           homepage fails too. Dogfood rule, one more time. -->
+      <section class="e-live" aria-labelledby="live-head">
+        <header class="e-live-head">
+          <span class="e-live-num">Live</span>
+          <span class="e-live-label">On this page · <code>.issue-head</code> + <code>.issue-standfirst</code></span>
+        </header>
+        <section class="issue-head" aria-label="Live issue-head exhibit">
+          <div class="issue-meta">
+            <span class="issue-no">Entry No. 05</span>
+            <span>Week of April 19, 2026</span>
+          </div>
+          <div class="issue-standfirst issue-latest" aria-label="Demo — not a live link">
+            <span class="latest-tag">Latest</span>
+            <span class="latest-title">The Groan Beneath the Song</span>
+            <span class="latest-meta">Faith · Apr 19 · 18 min</span>
+            <span class="latest-cta" aria-hidden="true">Read →</span>
+          </div>
+        </section>
+        <p class="e-live-note">Not a screenshot. Not a clone. The component above is the homepage's own <code>.issue-head</code>, loaded from the same <code>home-augment.css</code> the live site runs. If it breaks on this page, it breaks on the homepage.</p>
       </section>
 
       <!-- Exit -->
