@@ -1,0 +1,191 @@
+---
+// /brand/ — the manifesto. Layer 1 of the three-layer /brand artifact.
+// Opens the argument. Says what Refined Brutalism is and what it refuses.
+// The system (tokens, components, responsive, motion) lives at /brand/system/.
+// The evidence (production surfaces rendered on-brand) lives at /brand/evidence/.
+
+const pageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://imjustdex.com/brand/',
+  url: 'https://imjustdex.com/brand/',
+  name: 'Refined Brutalism — The Manifesto',
+  description: 'The operating system for imjustdex.com — printed, rigid, inevitable.',
+  inLanguage: 'en',
+  isPartOf: { '@id': 'https://imjustdex.com/#website' },
+  about: { '@id': 'https://imjustdex.com/#person' },
+};
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+
+  <title>Refined Brutalism — DX</title>
+  <meta name="description" content="The operating system for imjustdex.com — printed, rigid, inevitable. A manifesto, not a style guide.">
+
+  <link rel="canonical" href="https://imjustdex.com/brand/">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Refined Brutalism — The Manifesto">
+  <meta property="og:description" content="The operating system for imjustdex.com — printed, rigid, inevitable. A manifesto, not a style guide.">
+  <meta property="og:image" content="https://imjustdex.com/img/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Refined Brutalism — The Dexter Jakes Design System">
+  <meta property="og:url" content="https://imjustdex.com/brand/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DX">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Refined Brutalism — The Manifesto">
+  <meta name="twitter:description" content="The operating system for imjustdex.com.">
+  <meta name="twitter:image" content="https://imjustdex.com/img/og-default.png">
+
+  <!-- Self-hosted font preloads — same stack as every production page -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Anton-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Bold.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Italic.woff2" crossorigin>
+
+  <!-- Styles: shared chrome + manifesto scaffolding only. No component stylesheets — -->
+  <!-- the manifesto argues; it does not demonstrate. -->
+  <link rel="stylesheet" href="/css/tokens.css?v=phase23">
+  <link rel="stylesheet" href="/css/shell.css?v=phase23">
+  <link rel="stylesheet" href="/css/brand-manifesto.css?v=manifesto1">
+
+  <!-- Mode: synchronous in <head> so html.dark-mode is set before first paint -->
+  <script src="/js/mode.js?v=phase11" is:inline></script>
+
+  <!-- Feed discovery -->
+  <link rel="alternate" type="application/atom+xml" title="DX — Dexter Jakes" href="/feed.xml">
+
+  <!-- Structured data: WebPage + references to site + person -->
+  <script type="application/ld+json" set:html={JSON.stringify(pageJsonLd, null, 2)} />
+</head>
+<body id="top">
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <div class="ruler-top" aria-hidden="true"></div>
+  <div class="ruler-left" aria-hidden="true"></div>
+
+  <div class="page-shell">
+
+    <!-- MASTHEAD — identical to every production page -->
+    <header>
+      <nav class="masthead" aria-label="Main navigation">
+        <a class="brand-block" href="/" aria-label="DX home">
+          <span class="brand-mark">
+            <img src="/img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28" data-base="/img/">
+          </span>
+          <span class="brand-word">Words</span>
+        </a>
+        <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode" aria-pressed="false">
+          Mode: Light
+        </button>
+      </nav>
+    </header>
+
+    <main id="main" class="manifesto">
+
+      <!-- ═══════════════════════════════════
+           I. HERO — the identifying gesture
+      ═══════════════════════════════════ -->
+      <section class="m-hero" aria-labelledby="manifesto-title">
+        <span class="m-eyebrow">Refined Brutalism · The Manifesto</span>
+        <div class="m-hero-mark" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1484.43 1027.42" focusable="false">
+            <path fill="currentColor" d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/>
+            <path fill="currentColor" d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/>
+          </svg>
+        </div>
+        <h1 id="manifesto-title" class="m-title">Refined<br>Brutalism</h1>
+        <p class="m-standfirst">The operating system for imjustdex.com — printed, rigid, inevitable. This page is the argument. The system is the file.</p>
+      </section>
+
+      <hr class="m-rule" aria-hidden="true">
+
+      <!-- ═══════════════════════════════════
+           II. NOT — negative-space declaration
+      ═══════════════════════════════════ -->
+      <section class="m-act" aria-labelledby="act-not">
+        <span class="m-marker" aria-hidden="true">I.</span>
+        <h2 id="act-not" class="m-act-head">What it is not.</h2>
+        <div class="m-prose">
+          <p>It is not a template. Templates give you polite defaults. This gives you defaults that argue back.</p>
+          <p>It is not a mood. Moods drift. This holds.</p>
+          <p>It is not <em>clean design</em> — a compliment people pay to work that is afraid of saying anything. This says things.</p>
+          <p>It is not AI-generated taste. There is no indigo. No teal. No glass. No gradient text. No "elegant, seamless experience." There is black. There is bone. There is red, when red means something.</p>
+        </div>
+      </section>
+
+      <hr class="m-rule" aria-hidden="true">
+
+      <!-- ═══════════════════════════════════
+           III. IS — positive declaration
+      ═══════════════════════════════════ -->
+      <section class="m-act" aria-labelledby="act-is">
+        <span class="m-marker" aria-hidden="true">II.</span>
+        <h2 id="act-is" class="m-act-head">What it is.</h2>
+        <div class="m-prose">
+          <p>A complete editorial architecture — typography, grid, color, chrome, component, voice — tuned for a site that reads like a newspaper and thinks like a theology book.</p>
+          <p>A printed metaphor running on a fast stack. The surfaces behave like pages. The pages behave like arguments. The arguments behave like sermons you would not interrupt.</p>
+          <p>A dogfood rule: <strong>the system is the file.</strong> This page runs the same stylesheets every production page runs. If a rule fails here, it fails everywhere. There is no guide mode. There is no demo mode. There is only the site.</p>
+        </div>
+      </section>
+
+      <hr class="m-rule" aria-hidden="true">
+
+      <!-- ═══════════════════════════════════
+           IV. LAWS — seven short pronouncements
+      ═══════════════════════════════════ -->
+      <section class="m-act m-laws" aria-labelledby="act-laws">
+        <span class="m-marker" aria-hidden="true">III.</span>
+        <h2 id="act-laws" class="m-act-head">The seven laws.</h2>
+        <ol class="m-law-list">
+          <li><span class="m-law-num">I.</span><span class="m-law-body">Black before red. Red earns its appearance.</span></li>
+          <li><span class="m-law-num">II.</span><span class="m-law-body">Red exists for structure, not decoration. If it is not doing work, it is not red.</span></li>
+          <li><span class="m-law-num">III.</span><span class="m-law-body">Anton sets identity. Plex sets argument. Nothing else runs paragraph text.</span></li>
+          <li><span class="m-law-num">IV.</span><span class="m-law-body">Weight lives at 400 or 700. There is no 500 and there is no 600.</span></li>
+          <li><span class="m-law-num">V.</span><span class="m-law-body">Dark mode is not a mood. It is a complete inversion — never a filter, never an overlay.</span></li>
+          <li><span class="m-law-num">VI.</span><span class="m-law-body">Grain only on paper. Screens stay flat.</span></li>
+          <li><span class="m-law-num">VII.</span><span class="m-law-body">Every token enters through <code>tokens.css</code> first. If the rule is not there, the rule does not exist.</span></li>
+        </ol>
+      </section>
+
+      <hr class="m-rule" aria-hidden="true">
+
+      <!-- ═══════════════════════════════════
+           V. THRESHOLD — closing + pointer
+      ═══════════════════════════════════ -->
+      <section class="m-act m-threshold" aria-labelledby="act-threshold">
+        <span class="m-marker" aria-hidden="true">IV.</span>
+        <h2 id="act-threshold" class="m-act-head">The threshold.</h2>
+        <div class="m-prose">
+          <p>This is the manifesto.</p>
+          <p>The mechanics — color tokens, type ramp, component specs, accessibility contracts, motion law, platform dimensions — live at <a class="m-link" href="/brand/system/">brand/system</a>. Go there if you are shipping. Stay here if you are deciding whether to trust it.</p>
+          <p>The evidence — real production surfaces produced by this system, unedited — lives at <a class="m-link" href="/brand/evidence/">brand/evidence</a>.</p>
+        </div>
+        <p class="m-signoff">— Dex</p>
+      </section>
+
+    </main>
+
+    <footer class="footer-strip" aria-label="Footer">
+      <div class="footer-links">
+        <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="https://x.com/ImJustDex" target="_blank" rel="noopener noreferrer">X</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="/feed.xml" aria-label="RSS feed">Feed</a>
+      </div>
+      <span>Built by Dex &middot; Est. 2026</span>
+    </footer>
+  </div>
+</body>
+</html>
