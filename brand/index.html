@@ -869,13 +869,21 @@
           <div class="slide-demo"><img src="img/social-examples/carousel-s5-closing.png" alt="c5 carousel closing slide — CTA url, pagination, — DEX sign-off" loading="lazy"></div>
           <div class="slide-type-label">c5 &middot; Closing</div>
         </div>
+        <div>
+          <div class="slide-demo"><img src="img/social-examples/recipe.png" alt="Recipe template — two-column ingredients + method, yield row" loading="lazy"></div>
+          <div class="slide-type-label">Recipe &middot; Craft</div>
+        </div>
+        <div>
+          <div class="slide-demo"><img src="img/social-examples/liner-notes.png" alt="Liner Notes template — album title, track list with gloss, side note" loading="lazy"></div>
+          <div class="slide-type-label">Liner Notes &middot; Sound</div>
+        </div>
       </div>
 
-      <!-- All ten slide types -->
+      <!-- All ten carousel slide types -->
       <div class="carousel-spec-grid u-mt-gap">
         <div class="carousel-spec-card u-span-full">
-          <h4>Ten slide types · c1&ndash;c10</h4>
-          <p>The five demos above are visual illustrations. The full carousel vocabulary is ten slide types, selected per essay:</p>
+          <h4>Ten carousel slide types · c1&ndash;c10</h4>
+          <p>Five of the seven demos above are carousel slides. The full carousel vocabulary is ten slide types, selected per essay:</p>
           <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 20px;margin-top:14px;font-family:var(--mono);font-size:13px;line-height:1.6;">
             <div><strong>c1</strong></div><div>Cover &mdash; sectional, headline, swipe rail. Non-negotiable opener.</div>
             <div><strong>c2</strong></div><div>Premise &mdash; Plex body at display size (not Anton). Thesis in plain sentences.</div>
@@ -888,6 +896,28 @@
             <div><strong>c9</strong></div><div>Distinction &mdash; A vs B. Two rows: label + term + definition.</div>
             <div><strong>c10</strong></div><div>Question &mdash; Anton display + italic Plex sub. Ends on a question mark.</div>
           </div>
+        </div>
+      </div>
+
+      <!-- Modifier classes + orthogonal primitives -->
+      <div class="carousel-spec-grid u-mt-gap">
+        <div class="carousel-spec-card u-span-full">
+          <h4>Modifier classes &amp; primitives</h4>
+          <p>Two affordances extend existing templates without forking; two more compose orthogonally with any template.</p>
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:10px 20px;margin-top:14px;font-family:var(--mono);font-size:13px;line-height:1.55;">
+            <div><strong>.field.memoir</strong></div><div>Warmer <code>.note</code> size + optional <code>.pullquote</code> slot with accent bar. For longer confessional memoir pieces that don't need a full template.</div>
+            <div><strong>.reckoning.exegesis</strong></div><div>Adds an Anton-display <code>.verse-ref</code> anchor + accent-bordered <code>.reflection</code>. For exegetical / doctrinal reckonings.</div>
+            <div><strong>.cycle-marker</strong></div><div>Orthogonal temporal primitive. Replaces the entry № slot in the masthead with a sequence indicator: <code>Triduum &middot; Day 2 / 3</code>, <code>Lenten &middot; Day 12 / 40</code>, <code>Advent &middot; Day 15 / 24</code>, <code>Anniversary &middot; Year 1</code>. Red accent dot + mono text. Any template can opt in.</div>
+            <div><strong>.fn-mark</strong> + <strong>.footnotes</strong></div><div>Annotation affordance. Inline <code>&lt;sup class="fn-mark"&gt;1&lt;/sup&gt;</code> markers plus a <code>&lt;aside class="footnotes"&gt;&lt;ol&gt;</code> at the bottom of <code>.body</code>. Composable with any template. Linter R8 normalizer strips footnote tags before comparing scripture text against the KJV corpus.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Serialized Issue wrapper -->
+      <div class="carousel-spec-grid u-mt-gap">
+        <div class="carousel-spec-card u-span-full">
+          <h4>Serialized Issue wrapper</h4>
+          <p>Not an artboard template &mdash; a standalone HTML file pattern at project root, one per issue. <code>imjustdex-issue-vol-&lt;N&gt;-no-&lt;M&gt;.html</code> turns a cluster of essays into a discrete, citable volume: wordmark + issue index in the masthead, a hero pull-quote, and a numbered table of contents linking back to each essay. Fork the scaffold for each new issue. Makes the 14-essay calendar legible as sequential volumes to agents, editors, and archival readers.</p>
         </div>
       </div>
 
