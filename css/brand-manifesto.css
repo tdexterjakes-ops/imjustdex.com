@@ -150,6 +150,54 @@
   text-wrap: balance;
 }
 
+/* ── Per-act differentiation ──────────────────────────────────
+   The four acts are a sequence, not a loop. Head weight + the
+   presence/absence of marker + eyebrow conduct the reader through
+   negation → affirmation → rules → coda. */
+
+/* Act II ("What it is") — the positive claim carries +15% scale. */
+.m-act[data-act="is"] .m-act-head {
+  font-size: clamp(2.3rem, 5.75vw, 4.14rem);
+}
+
+/* Act IV ("The threshold") — coda. Marker hidden in the HTML,
+   head shrinks. This is exit music, not another main claim. */
+.m-act[data-act="threshold"] .m-act-head {
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  letter-spacing: -0.01em;
+  color: var(--body-color);
+}
+
+/* Eyebrow that reframes a section — under the laws head to signal
+   "short tract" rather than "another main claim." */
+.m-act-eyebrow {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  margin: calc(var(--space-xs) * -1) 0 var(--space-sm);
+}
+
+
+/* ── Personal lede — the stake. Italic Plex, accent left-rail,
+      distinct from the declarative prose that follows. Anchors the
+      manifesto in the writer, not the studio. ──────────────────── */
+
+.m-lede {
+  font-family: var(--body);
+  font-style: italic;
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0;
+  max-width: var(--measure);
+  text-wrap: balance;
+  border-left: var(--border-weight-content, 3px) solid var(--accent);
+  padding: var(--space-xs) 0 var(--space-xs) var(--space-md);
+}
+
+
 .m-prose p {
   font-size: clamp(1.05rem, 1.4vw, 1.25rem);
   line-height: 1.6;

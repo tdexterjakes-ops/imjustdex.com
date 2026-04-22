@@ -57,7 +57,7 @@ const pageJsonLd = {
   <!-- the manifesto argues; it does not demonstrate. -->
   <link rel="stylesheet" href="/css/tokens.css?v=phase23">
   <link rel="stylesheet" href="/css/shell.css?v=phase23">
-  <link rel="stylesheet" href="/css/brand-manifesto.css?v=manifesto2">
+  <link rel="stylesheet" href="/css/brand-manifesto.css?v=manifesto3">
 
   <!-- Mode: synchronous in <head> so html.dark-mode is set before first paint -->
   <script src="/js/mode.js?v=phase11" is:inline></script>
@@ -111,11 +111,14 @@ const pageJsonLd = {
       <hr class="m-rule" aria-hidden="true">
 
       <!-- ═══════════════════════════════════
-           II. NOT — negative-space declaration
+           ACT I · NOT — negative-space declaration
+           Personal lede anchors the manifesto in the writer, not
+           a studio. Everything after earns its weight from this.
       ═══════════════════════════════════ -->
-      <section class="m-act" aria-labelledby="act-not">
+      <section class="m-act" data-act="not" aria-labelledby="act-not">
         <span class="m-marker" aria-hidden="true">I.</span>
         <h2 id="act-not" class="m-act-head">What it is not.</h2>
+        <p class="m-lede">I mixed records before I wrote essays. The first lesson at the console is that the room decides what the song becomes. This is the room I built for my writing.</p>
         <div class="m-prose">
           <p>It is not a template. Templates give you polite defaults. This gives you defaults that argue back.</p>
           <p>It is not a mood. Moods drift. This holds.</p>
@@ -127,9 +130,11 @@ const pageJsonLd = {
       <hr class="m-rule" aria-hidden="true">
 
       <!-- ═══════════════════════════════════
-           III. IS — positive declaration
+           ACT II · IS — positive declaration
+           Head scaled +15% over Act I — the positive claim
+           carries more weight than the negation.
       ═══════════════════════════════════ -->
-      <section class="m-act" aria-labelledby="act-is">
+      <section class="m-act" data-act="is" aria-labelledby="act-is">
         <span class="m-marker" aria-hidden="true">II.</span>
         <h2 id="act-is" class="m-act-head">What it is.</h2>
         <div class="m-prose">
@@ -142,11 +147,14 @@ const pageJsonLd = {
       <hr class="m-rule" aria-hidden="true">
 
       <!-- ═══════════════════════════════════
-           IV. LAWS — seven short pronouncements
+           ACT III · LAWS — seven short pronouncements
+           Paragraph-style eyebrow under the head reframes the
+           section as a printed tract, not another claim.
       ═══════════════════════════════════ -->
-      <section class="m-act m-laws" aria-labelledby="act-laws">
+      <section class="m-act m-laws" data-act="laws" aria-labelledby="act-laws">
         <span class="m-marker" aria-hidden="true">III.</span>
         <h2 id="act-laws" class="m-act-head">The seven laws.</h2>
+        <p class="m-act-eyebrow">A short tract on rules</p>
         <ol class="m-law-list">
           <li><span class="m-law-num">I.</span><span class="m-law-body">Black before red. Red earns its appearance.</span></li>
           <li><span class="m-law-num">II.</span><span class="m-law-body">Red exists for structure, not decoration. If it is not doing work, it is not red.</span></li>
@@ -161,10 +169,11 @@ const pageJsonLd = {
       <hr class="m-rule" aria-hidden="true">
 
       <!-- ═══════════════════════════════════
-           V. THRESHOLD — closing + pointer
+           ACT IV · THRESHOLD — coda + pointer
+           No marker. Head shrinks. This is the sign-off movement,
+           not another main claim. Exit doors visible.
       ═══════════════════════════════════ -->
-      <section class="m-act m-threshold" aria-labelledby="act-threshold">
-        <span class="m-marker" aria-hidden="true">IV.</span>
+      <section class="m-act m-threshold" data-act="threshold" aria-labelledby="act-threshold">
         <h2 id="act-threshold" class="m-act-head">The threshold.</h2>
         <div class="m-prose">
           <p>This is the manifesto.</p>
