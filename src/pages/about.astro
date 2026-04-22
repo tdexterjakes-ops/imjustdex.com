@@ -1,0 +1,158 @@
+---
+import PullQuote from '~/components/PullQuote.astro';
+import Closing from '~/components/Closing.astro';
+
+const profileJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  mainEntity: {
+    '@type': 'Person',
+    '@id': 'https://imjustdex.com/#person',
+    name: 'Dexter Jakes',
+    url: 'https://imjustdex.com/about/',
+    jobTitle: 'Executive Director of Marketing',
+    worksFor: {
+      '@type': 'Organization',
+      name: "The Potter's House of Dallas",
+    },
+    sameAs: [
+      'https://instagram.com/ImJustDex',
+      'https://x.com/ImJustDex',
+    ],
+    description: 'Est. 1994. Marketing director, music degree, husband, son, student of the text.',
+  },
+};
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+
+  <title>About — DX</title>
+  <meta name="description" content="Est. 1994. Marketing director, music degree, husband, son, student of the text.">
+
+  <link rel="canonical" href="https://imjustdex.com/about/">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="About — DX">
+  <meta property="og:description" content="Est. 1994. Marketing director, music degree, husband, son, student of the text.">
+  <meta property="og:image" content="https://imjustdex.com/img/og-about.png?v=phase26">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="No highlight reel. Just the human. — Dexter Jakes">
+  <meta property="og:url" content="https://imjustdex.com/about/">
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="DX">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About — DX">
+  <meta name="twitter:description" content="Est. 1994. Marketing director, music degree, husband, son, student of the text.">
+  <meta name="twitter:image" content="https://imjustdex.com/img/og-about.png?v=phase26">
+
+  <!-- Self-hosted font preloads -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Anton-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Bold.woff2" crossorigin>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/tokens.css?v=phase23">
+  <link rel="stylesheet" href="/css/shell.css?v=phase23">
+  <link rel="stylesheet" href="/css/article.css?v=phase24">
+
+  <!-- Mode: synchronous in <head> for FOUC prevention -->
+  <script src="/js/mode.js?v=phase11" is:inline></script>
+
+  <!-- Feed discovery -->
+  <link rel="alternate" type="application/atom+xml" title="DX — Dexter Jakes" href="/feed.xml">
+
+  <!-- Structured data: Person (profile page) -->
+  <script type="application/ld+json" set:html={JSON.stringify(profileJsonLd, null, 2)} />
+</head>
+<body>
+  <a href="#about" class="skip-link">Skip to content</a>
+  <div class="ruler-top" aria-hidden="true"></div>
+  <div class="ruler-left" aria-hidden="true"></div>
+
+  <div class="page-shell">
+    <header>
+      <nav class="masthead" aria-label="Main navigation">
+        <a class="brand-block" href="/" aria-label="DX home">
+          <span class="brand-mark">
+            <img src="/img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28" data-base="/img/">
+          </span>
+          <span class="brand-word">Words</span>
+        </a>
+        <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode" aria-pressed="false">
+          Mode: Light
+        </button>
+      </nav>
+    </header>
+
+    <main id="about">
+      <div class="article-frame">
+
+        <header class="article-header">
+          <div class="article-eyebrow">
+            <span class="article-tag">About</span>
+          </div>
+          <h1 class="article-title">Dexter Jakes</h1>
+          <p class="article-deck">Est. 1994.</p>
+        </header>
+
+        <article class="article-body">
+
+          <p class="intro">The handle is ImJustDex. That's not branding. That's the whole point.</p>
+
+          <p>I grew up in a house where faith wasn't a side conversation. It was the architecture. Five kids. Two parents who built something from the ground up. A mother whose quiet authority held the family together in ways nobody outside those walls fully understood. A father whose pulpit voice carried further than any of us could have imagined. My parents are Bishop T.D. Jakes and Serita Jakes. I say that early because you'd find out anyway, and I'd rather you hear it from me than read it in a bio someone else wrote.</p>
+
+          <p>The Jakes household was loud, layered, and deeply particular. We were preacher's kids, but we were also just kids — competitive, creative, too smart for our own good, and shaped by a family culture that expected excellence without performing it for anyone else's benefit. That house gave me weight and humor in equal measure, sometimes in the same sentence.</p>
+
+          <p>I'm the Executive Director of Marketing at The Potter's House of Dallas. I run the department that shapes how the ministry meets the world. Brand, campaigns, digital, creative, strategy. Before that, I studied music production and recording. I have a degree in making things sound right. Turns out that skill transfers. A mix has balance. A campaign has balance. A sentence has balance. I just changed the medium.</p>
+
+          <PullQuote>This is not a blog. This is a room where everything I care about lives under one roof.</PullQuote>
+
+          <p>I married Larissa. She's Brazilian, brilliant, and the reason I learned to cook. Everything I know about patience, I learned standing over a dark roux while she lined up my ingredients in small glass bowls like a surgical prep team. She calls it helping. I call it the reason the food is any good.</p>
+
+          <p>I study the Bible the way I study everything else. Obsessively. I pull the Greek. I read the commentaries. I sit with the parts that don't resolve. I'm not a theologian. I'm someone who thinks the text is worth the time, and I write about what I find.</p>
+
+          <p>This site is where all of that lives. Faith. Music. Food. Work. Marriage. Identity. Grief. Whatever I can't stop thinking about long enough to leave alone. I didn't build this to define who I am or package myself into a label that's convenient for a bio. I built it because I'm a lot of things at once, and none of them cancel each other out. ImJustDex. And all that comes with that just might find a home here.</p>
+
+          <Closing>
+            Planted. Assigned. Still learning. Still cooking.
+          </Closing>
+
+        </article>
+
+        <!-- Share bar -->
+        <div class="share-bar" aria-label="Share this page">
+          <span class="share-label">Share</span>
+          <a href="https://x.com/intent/tweet?url=https%3A%2F%2Fimjustdex.com%2Fabout%2F&text=About%20%E2%80%94%20DX" target="_blank" rel="noopener noreferrer" class="share-link">X</a>
+          <button type="button" class="share-link" data-copy-link="https://imjustdex.com/about/">Copy link</button>
+          <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer" class="subscribe-link">Follow Me</a>
+        </div>
+
+        <a href="/" class="article-back">&larr; Back</a>
+
+      </div>
+    </main>
+
+    <footer class="footer-strip" aria-label="Footer">
+      <div class="footer-links">
+        <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="https://x.com/ImJustDex" target="_blank" rel="noopener noreferrer">X</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="/feed.xml" aria-label="RSS feed">Feed</a>
+      </div>
+      <span>Built by Dex &middot; Est. 2026</span>
+    </footer>
+  </div>
+
+  <script src="/js/essay.js?v=phase14" is:inline defer></script>
+</body>
+</html>
