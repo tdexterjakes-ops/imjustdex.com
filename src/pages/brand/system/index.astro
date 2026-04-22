@@ -60,7 +60,7 @@ const pageJsonLd = {
   <link rel="stylesheet" href="/css/article.css?v=phase24">
   <link rel="stylesheet" href="/css/home-augment.css?v=phase25">
   <link rel="stylesheet" href="/css/plates.css?v=phase13">
-  <link rel="stylesheet" href="/css/brand-system.css?v=system2">
+  <link rel="stylesheet" href="/css/brand-system.css?v=system3">
 
   <script src="/js/mode.js?v=phase11" is:inline></script>
 
@@ -103,6 +103,7 @@ const pageJsonLd = {
             <li><a href="#voice">02 · Voice</a></li>
             <li><a href="#components">03 · Components</a></li>
             <li><a href="#system">04 · System</a></li>
+            <li><a href="#social">05 · Social</a></li>
           </ol>
           <a class="s-nav-back" href="/brand/">← Back to the manifesto</a>
         </div>
@@ -225,13 +226,55 @@ const pageJsonLd = {
                 </div>
               </div>
             </div>
-            <p class="s-note"><strong>Accent doctrine.</strong> <code>#c00</code> is identical across both modes for borders, fills, and display text ≥ 18px. For small red text (&lt; 18px) on dark, <code>--accent-on-dark</code> (#ff4d4d, 7.54:1 on #060606) takes over to satisfy WCAG AA.</p>
+            <p class="s-note"><strong>Accent doctrine preview.</strong> <code>#c00</code> is identical across both modes for borders, fills, and display text ≥ 18px. For small red text (&lt; 18px) on dark, <code>--accent-on-dark</code> (#ff4d4d, 7.54:1 on #060606) takes over to satisfy WCAG AA. Full doctrine in §1.3.</p>
+          </article>
+
+          <!-- ACCENT DOCTRINE -->
+          <article class="s-section" id="foundations-accent">
+            <header class="s-section-head">
+              <span class="s-section-num">1.3</span>
+              <h3>Accent red — #c00</h3>
+            </header>
+            <p>Red marks editorial emphasis. Never decoration. It is the only color outside the monochrome palette, and its scarcity is what gives it power. Accent is for signal, not garnish. The moment red becomes frequent, it becomes invisible.</p>
+            <p class="s-note"><strong>Hard limits.</strong> Maximum 1–2 accent moments per viewport on any surface. Maximum 4 per full article page across all scroll positions. Maximum 2 per carousel slide. If you are debating whether something needs red, it does not. Red is earned by function: section structure, scripture citation, callout emphasis, focus rings, plate hover borders. Nothing else.</p>
+            <p><strong>Background prohibition.</strong> Red is never used as a background fill on any surface — no red panels, no red cards, no red banners. The only exception is the on-accent logo colorway (white mark on red ground), which is a brand-mark context, not a layout context. If it fills more than a 3px line or a single text span, it has gone too far.</p>
+            <p><strong>Stacking prohibition.</strong> No more than one red-led component may appear in the same module or viewport region unless the layout is intentionally designated as a high-emphasis moment (e.g., section head directly above a scripture block). Two accent elements side by side is a signal. Three is noise.</p>
+            <p><strong>Cross-surface rule.</strong> <code>#c00</code> is the only red permitted on any DX surface — site, carousel, deck, print, merch, motion. Never warm it, never cool it, never lighten it, never use it at reduced opacity except where the system explicitly defines an alpha variant.</p>
+            <p><strong>The small-text exception.</strong> AA normal text requires 4.5:1, which <code>#c00</code> does not clear on <code>#060606</code>. A second token, <code>--accent-text</code>, handles this: <code>#c00</code> in light, <code>#ff4d4d</code> in dark (7.54:1, AAA). Reserved for text-tier consumers only — inline link hover, uppercase micro-labels, sub-18px metadata, callout emphasis spans, scripture citation text. If the element is a line, fill, or border, it uses <code>--accent</code>. If it is readable type under 18px, it uses <code>--accent-text</code>.</p>
+
+            <div class="s-accent-grid">
+              <div class="s-accent-box s-accent-permitted">
+                <p class="s-accent-head">Permitted</p>
+                <ul>
+                  <li>Section head labels + rule lines</li>
+                  <li>Callout left border + emphasis spans</li>
+                  <li>Scripture citation text</li>
+                  <li>Stat block vertical bar</li>
+                  <li>Identity tagline text</li>
+                  <li>Article link underlines + hover</li>
+                  <li>Plate border on hover</li>
+                  <li>Focus-visible outline rings</li>
+                </ul>
+              </div>
+              <div class="s-accent-box s-accent-prohibited">
+                <p class="s-accent-head">Prohibited</p>
+                <ul>
+                  <li>Backgrounds</li>
+                  <li>Titles (except section heads)</li>
+                  <li>Navigation elements</li>
+                  <li>Footer elements</li>
+                  <li>Body text</li>
+                  <li>Tags or metadata</li>
+                  <li>Reading progress bar (uses <code>--ink</code>)</li>
+                </ul>
+              </div>
+            </div>
           </article>
 
           <!-- TYPOGRAPHY -->
           <article class="s-section" id="foundations-type">
             <header class="s-section-head">
-              <span class="s-section-num">1.3</span>
+              <span class="s-section-num">1.4</span>
               <h3>Typography</h3>
             </header>
             <p>Two families. One for identity, one for argument. Binary weight — 400 or 700. No 500, no 600. <code>font-synthesis: none</code> site-wide so Anton can't be faux-bolded.</p>
@@ -264,14 +307,62 @@ const pageJsonLd = {
             <p class="s-note"><strong>Scale.</strong> 19-step fluid ramp, from <code>--size-1</code> (9.6px meta rail) to <code>--size-19</code> (identity hero name, up to 7.5rem). All sizes live in <code>tokens.css</code>. Component stylesheets pull from the ramp only.</p>
           </article>
 
+          <!-- SPACING -->
+          <article class="s-section" id="foundations-spacing">
+            <header class="s-section-head">
+              <span class="s-section-num">1.5</span>
+              <h3>Spacing scale</h3>
+            </header>
+            <p>Every <code>padding</code>, <code>margin</code>, and <code>gap</code> on a brand surface points at a <code>--space-*</code> token. Ten slots, no improvisation. The ladder maps to actual component needs, not geometric progression.</p>
+            <dl class="s-ladder">
+              <dt><code>--space-0</code></dt>             <dd><span class="s-ladder-val">0</span><span>zero-reset</span></dd>
+              <dt><code>--space-hairline</code></dt>      <dd><span class="s-ladder-val">4px</span><span>icon gutters, tiny offsets</span></dd>
+              <dt><code>--space-xs</code></dt>            <dd><span class="s-ladder-val">8px</span><span>tight internal padding</span></dd>
+              <dt><code>--space-sm</code></dt>            <dd><span class="s-ladder-val">12px</span><span>standard internal, grid gaps</span></dd>
+              <dt><code>--space-chrome</code></dt>        <dd><span class="s-ladder-val">14px</span><span>chrome tier — buttons, share bar, meta rails</span></dd>
+              <dt><code>--space-md</code></dt>            <dd><span class="s-ladder-val">16px</span><span>primary component padding</span></dd>
+              <dt><code>--space-lg</code></dt>            <dd><span class="s-ladder-val">24px</span><span>generous component padding</span></dd>
+              <dt><code>--space-xl</code></dt>            <dd><span class="s-ladder-val">32px</span><span>block gaps</span></dd>
+              <dt><code>--space-2xl</code></dt>           <dd><span class="s-ladder-val">48px</span><span>section gaps, closing block</span></dd>
+              <dt><code>--space-3xl</code></dt>           <dd><span class="s-ladder-val">80px</span><span>page rhythm, article bottom</span></dd>
+            </dl>
+            <p class="s-note"><strong>Rule.</strong> If a component needs a value between slots, it does not mean the ladder is wrong — it means the component is off-rhythm. Snap to the nearest real step. The ladder is doctrine, not default.</p>
+          </article>
+
+          <!-- BORDERS -->
+          <article class="s-section" id="foundations-borders">
+            <header class="s-section-head">
+              <span class="s-section-num">1.6</span>
+              <h3>Border weights &amp; focus ring</h3>
+            </header>
+            <p>Two tokenized weights. No more. Focus ring reuses the chrome weight for consistency across the system.</p>
+            <dl class="s-ladder">
+              <dt><code>--border-weight-content</code></dt>  <dd><span class="s-ladder-val">3px</span><span>structural — frames, plates, pull-quote rules, section-head rule, callout rail</span></dd>
+              <dt><code>--border-weight-chrome</code></dt>   <dd><span class="s-ladder-val">2px</span><span>chrome — tags, meta rails, scripture blocks, mode toggle, footer items, back button</span></dd>
+              <dt><code>--focus-ring-width</code></dt>       <dd><span class="s-ladder-val">2px</span><span><code>:focus-visible</code> outline, unified across both modes, offset 2px</span></dd>
+            </dl>
+          </article>
+
           <!-- GRID -->
           <article class="s-section" id="foundations-grid">
             <header class="s-section-head">
-              <span class="s-section-num">1.4</span>
-              <h3>Grid & spacing</h3>
+              <span class="s-section-num">1.7</span>
+              <h3>Grid motif</h3>
             </header>
-            <p>Strict 4px base. One deliberate slot at 14px (<code>--space-chrome</code>) for button/share-bar rhythm — otherwise every value is a multiple of 4. Consumers call <code>--space-*</code> aliases; raw pixels in component styles are a bug.</p>
-            <p class="s-note">Full spacing scale: <code>0 · 4 · 8 · 12 · 14 · 16 · 24 · 32 · 48 · 80</code>. Grid gap defaults to <code>--space-sm</code> (12px). Page-shell padding uses <code>--outer-pad</code>, which adapts at the 760px breakpoint.</p>
+            <p>46px repeating background lines at <code>var(--rule)</code> opacity on every background surface — pages, slides, print, deck backgrounds. Non-negotiable. Never scaled, never recolored, never removed for "cleaner" layouts. Rulers (<code>.ruler-top</code>, <code>.ruler-left</code>) reinforce the grid on desktop; hidden on mobile where the grid lines carry that function alone.</p>
+          </article>
+
+          <!-- HOMEPAGE PLATE GRID -->
+          <article class="s-section" id="foundations-plategrid">
+            <header class="s-section-head">
+              <span class="s-section-num">1.8</span>
+              <h3>Homepage plate grid</h3>
+            </header>
+            <p>12-column CSS grid. Rows must sum to 12. Adjacent plates must never share the same background treatment — textures and plain surfaces alternate so every card contrasts its neighbor.</p>
+            <p class="s-note"><strong>Policy.</strong> Plates are the homepage architecture. They are not cards, not tiles, not thumbnails. Every plate is a self-contained unit with a title, metadata, and a texture or color fill. Plates never contain body text, images of people, or calls to action. Plate borders are 3px solid — never reduced. Hover: border shifts to <code>var(--accent)</code> plus a subtle scale. On mobile plates stack single-column but retain full border, texture, and typography.</p>
+            <p><strong>Plate variants.</strong> <code>.plate-lead</code> is the issue-opener (split body over image + latest badge + lead rail) — see Components §3.12. <code>.plate-wide</code> spans the row at plate-med scale. <code>.plate-secondary</code> is the three-up row cell. <code>.plate-banner</code> is a wide image-forward card. <code>.plate-row</code> modifier drops the cell into a single-row layout for archive-density moments.</p>
+            <p><strong>Semantic rule.</strong> Every plate is a single block-level anchor — the whole card is the link. No nested focusable elements, no absolutely-positioned overlay links, no <code>&lt;article&gt;</code> wrappers with a separate <code>&lt;a&gt;</code> inside. The card's semantics, focus ring, and hover state all live on one element.</p>
+            <p><strong>Image plates stay dark in both modes.</strong> The grayscale filter and black-to-transparent gradient on image plates hold identically in light and dark. No <code>invert(1)</code> flip, no mirrored gradient. One visual field, both modes.</p>
           </article>
         </section>
 
@@ -432,10 +523,44 @@ const pageJsonLd = {
             </div>
           </article>
 
+          <!-- STAT BLOCK -->
+          <article class="s-section" id="components-stat">
+            <header class="s-section-head">
+              <span class="s-section-num">3.5</span>
+              <h3>Stat block — <code>.stat-block</code></h3>
+            </header>
+            <p>Vertical accent bar + display-weight declarative statement. Maximum two per article. Never for opinions — only verifiable claims or theological declarations.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.stat-block</code></div>
+              <div class="stat-block">
+                <div class="stat-block-bar"></div>
+                <div class="stat-block-text">
+                  The calling was never about the catch.
+                  <span>It was about the leaving.</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- CLOSING -->
+          <article class="s-section" id="components-closing">
+            <header class="s-section-head">
+              <span class="s-section-num">3.6</span>
+              <h3>Closing — <code>.closing</code></h3>
+            </header>
+            <p>The essay's final beat. A short declarative line, centered, bordered top and bottom with content-weight rules. One per essay, at the end. Not a CTA. Not a summary. The last sentence that earns the read.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.closing</code></div>
+              <aside class="closing">
+                <p>Planted. Assigned. Still learning. Still cooking.</p>
+              </aside>
+            </div>
+          </article>
+
           <!-- STUDY NOTE -->
           <article class="s-section" id="components-studynote">
             <header class="s-section-head">
-              <span class="s-section-num">3.5</span>
+              <span class="s-section-num">3.7</span>
               <h3>Study note — <code>&lt;details class="study-note"&gt;</code></h3>
             </header>
             <p>Native <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code> disclosure. Expandable Greek / Hebrew / theological notes inline with the essay. No ARIA polyfill — the element is natively accessible. <code>[open]</code> attribute selector drives the indicator rotation.</p>
@@ -451,6 +576,184 @@ const pageJsonLd = {
                   <p>Greek compound: <i>sun</i> (with) + <i>anti</i> (over against) + <i>lambanō</i> (to take hold of). Literally "takes hold together with, from the opposite side." Not intercession from a distance. Shoulder-to-shoulder labor, carrying the heavy end.</p>
                 </div>
               </details>
+            </div>
+          </article>
+
+          <!-- ═ HOME COMPONENTS ═ -->
+          <header class="s-subchapter-head">
+            <span class="s-subchapter-eyebrow">Home components</span>
+            <p class="s-subchapter-body">The homepage's own components — rendered here on the same <code>home-augment.css</code> the live site loads.</p>
+          </header>
+
+          <!-- ISSUE HEAD -->
+          <article class="s-section" id="components-issuehead">
+            <header class="s-section-head">
+              <span class="s-section-num">3.8</span>
+              <h3>Issue head — <code>.issue-head</code></h3>
+            </header>
+            <p>Masthead of the editorial issue. Sits directly under the site chrome on the homepage. Carries the issue number, week stamp, and a "latest" standfirst that deep-links to the current essay. The reader knows which edition they landed on before they read a word.</p>
+            <p class="s-note"><strong>Rules.</strong> Issue number increments only with a new lead essay. Week stamp is always the publication week, not the current week. The standfirst block is the <em>only</em> place an essay link coexists with editorial metadata above the archive.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.issue-head</code></div>
+              <section class="issue-head" aria-label="Issue demo">
+                <div class="issue-meta">
+                  <span class="issue-no">Entry No. 05</span>
+                  <span>Week of April 19, 2026</span>
+                </div>
+                <div class="issue-standfirst issue-latest" aria-label="Demo — not a live link">
+                  <span class="latest-tag">Latest</span>
+                  <span class="latest-title">The Groan Beneath the Song</span>
+                  <span class="latest-meta">Faith · Apr 19 · 18 min</span>
+                  <span class="latest-cta" aria-hidden="true">Read →</span>
+                </div>
+              </section>
+            </div>
+          </article>
+
+          <!-- IDENTITY HERO -->
+          <article class="s-section" id="components-identityhero">
+            <header class="s-section-head">
+              <span class="s-section-num">3.9</span>
+              <h3>Identity hero — <code>.identity-hero</code></h3>
+            </header>
+            <p>The author block. Split main / side layout — name on one side at display scale, short bio + two actions on the other. Never more than two actions. Primary action links to the full about page; secondary anchors the subscribe manifesto.</p>
+            <p class="s-note"><strong>Hard rules.</strong> One identity hero per site. Never on article pages. Never duplicated on social. The name is <em>always</em> "Dexter Jakes" — no first-name-only, no handle-as-name. The corner eyebrow ("The Writer → 01") maps to issue numbering.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.identity-hero</code></div>
+              <section class="identity-hero" aria-label="Identity hero demo">
+                <div class="hero-main">
+                  <span class="hero-corner">The Writer → 01</span>
+                  <div>
+                    <span class="hero-sub">ImJustDex</span>
+                    <h2 class="hero-name" style="font-size:clamp(2.4rem, 7vw, 5rem);line-height:.88;margin:0;">Dexter<br>Jakes</h2>
+                  </div>
+                  <p class="hero-tagline">No highlight reel. Just the full human, documented.</p>
+                </div>
+                <div class="hero-side">
+                  <div>
+                    <p class="hero-eyebrow">About — Est. 2026</p>
+                    <p class="hero-bio">Someone working the line between faith, art, and identity. Essays here are the long form — slow paragraphs, no hot takes, no calls to action.</p>
+                  </div>
+                  <div class="hero-links">
+                    <span class="hero-link primary">Read the About <span class="hero-glyph" aria-hidden="true">→</span></span>
+                    <span class="hero-link">Subscribe</span>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </article>
+
+          <!-- LANE INDEX -->
+          <article class="s-section" id="components-laneindex">
+            <header class="s-section-head">
+              <span class="s-section-num">3.10</span>
+              <h3>Lane index + filter — <code>.lane-index</code></h3>
+            </header>
+            <p>A three-cell classification rail. Each cell is a filter trigger — click "Faith" and the archive hides every plate not on that lane. The third cell is the <em>queued</em> state: a lane with no essays yet, rendered dashed and non-interactive. The cell stays visible so the taxonomy is always legible, even when a lane is empty.</p>
+            <p class="s-note"><strong>Rules.</strong> Three lanes max: Faith, Identity, Art. No sub-lanes. No badges. Click toggles <code>aria-pressed</code> on the button and adds a filter class to the archive root. One lane active at a time; clicking the active lane resets to "all." Queued cells carry <code>aria-disabled="true"</code> + a descriptive <code>aria-label</code>.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.lane-index</code></div>
+              <section class="lane-index" aria-label="Filter essays by lane" role="group">
+                <button type="button" class="lane-cell" aria-pressed="false">
+                  <span class="lane-name">Faith</span>
+                  <span class="lane-count">03 essays</span>
+                </button>
+                <button type="button" class="lane-cell" aria-pressed="false">
+                  <span class="lane-name">Identity</span>
+                  <span class="lane-count">02 essays</span>
+                </button>
+                <div class="lane-cell lane-cell-queued" aria-disabled="true" aria-label="Art — no essays yet, in the queue">
+                  <span class="lane-name">Art</span>
+                  <span class="lane-count">In the queue</span>
+                </div>
+              </section>
+            </div>
+          </article>
+
+          <!-- PLATE LEAD -->
+          <article class="s-section" id="components-platelead">
+            <header class="s-section-head">
+              <span class="s-section-num">3.11</span>
+              <h3>Plate lead + row modifier — <code>.plate-lead</code></h3>
+            </header>
+            <p>The issue opener. A two-column plate that splits a textured image (with latest-badge overlay) against an editorial body panel (eyebrow, title, deck, rail). Only plate variant that carries a deck. Used exactly once per issue.</p>
+            <p class="s-note"><strong><code>.plate-row</code></strong> is an archive-density modifier. Drops a <code>.plate-secondary</code> card into a single-row layout so the title, deck, and meta sit inline. Use at the bottom of the archive for older entries where scale-parity with newer plates would be visual noise.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.plate.plate-lead</code></div>
+              <article>
+                <a class="plate plate-lead" aria-label="Read: The Groan Beneath the Song (demo — not a live link)" data-lane="faith">
+                  <div class="lead-image" aria-hidden="true">
+                    <div class="lead-badge">
+                      <span class="lead-badge-label">Latest</span>
+                      <span class="lead-badge-lane">Faith</span>
+                    </div>
+                  </div>
+                  <div class="lead-body">
+                    <div>
+                      <div class="lead-eyebrow"><time datetime="2026-04-19">Apr 19</time> · 18 min read</div>
+                      <h3 class="lead-title">The Groan Beneath the Song</h3>
+                      <p class="lead-deck">
+                        On the Sunday school lie that split sacred from secular, the Psalms that broke it, and the song that met me when I couldn't pray.
+                      </p>
+                    </div>
+                    <div class="lead-rail">
+                      <span class="rail-meta">Essay · 18 min</span>
+                      <span class="rail-cta">Read →</span>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            </div>
+          </article>
+
+          <!-- SUBSCRIBE MANIFESTO -->
+          <article class="s-section" id="components-subscribe">
+            <header class="s-section-head">
+              <span class="s-section-num">3.12</span>
+              <h3>Subscribe manifesto — <code>.subscribe-manifesto</code></h3>
+            </header>
+            <p>The subscribe block. A two-column split — ink-saturated title wall on the left (4-line stack, one word in the accent ink slot), receipt-style checklist + email capture on the right. Anti-pattern for every other subscribe block on the web: no hero image, no urgency copy, no social proof, no testimonials. <strong>The promise is the design.</strong></p>
+            <p class="s-note"><strong>Rules.</strong> One per site. Always at the bottom of the homepage. The title is fixed at four lines — rewording is allowed, restructuring is not. The form <code>action</code> on production points at <code>/api/subscribe</code> (Netlify function, Mailchimp REST v3). The demo below is <strong>inert</strong> — no submission endpoint, no form action.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.subscribe-manifesto</code> · demo inert</div>
+              <section class="subscribe-manifesto" aria-label="Subscribe demo">
+                <div class="sm-left">
+                  <span class="sm-kicker">The Standing Order</span>
+                  <h3 class="sm-title" style="font-size:clamp(2.2rem,6vw,5rem);line-height:.92;margin:0;">Words that<br><span class="sm-accent">won&rsquo;t</span><br>waste<br>your time.</h3>
+                </div>
+                <div class="sm-right">
+                  <p class="sm-promise">An essay, a resource, a research note — whatever earns its way in.</p>
+                  <ul class="sm-toc">
+                    <li><span class="sm-check">✓</span><div><div class="sm-strong">Only what&rsquo;s worth the send</div><div class="sm-faint">No filler. No recap. No fluff.</div></div></li>
+                    <li><span class="sm-check">✓</span><div><div class="sm-strong">Ad-free, tracking-free</div><div class="sm-faint">Plain text where possible.</div></div></li>
+                    <li><span class="sm-check">✓</span><div><div class="sm-strong">Unsubscribe in one click</div><div class="sm-faint">No guilt trip footers.</div></div></li>
+                  </ul>
+                  <div class="sm-form" role="presentation">
+                    <input class="sm-input" type="email" placeholder="you@elsewhere.com" aria-label="Email address (demo, inert)" disabled>
+                    <button class="sm-submit" type="button" disabled>Send me the next one →</button>
+                  </div>
+                  <span class="sm-fine">No spam, ever · Demo form, no submission</span>
+                </div>
+              </section>
+            </div>
+          </article>
+
+          <!-- ISSUE NEXT -->
+          <article class="s-section" id="components-issuenext">
+            <header class="s-section-head">
+              <span class="s-section-num">3.13</span>
+              <h3>Issue next — <code>.issue-next</code></h3>
+            </header>
+            <p>The teaser strip. A single-line announcement for the next essay in the queue — title, lane, estimated drop date, read time, and a "notify me" affordance that anchors back to the subscribe manifesto. Sits between the archive and the subscribe block. Disappears the moment the next essay publishes.</p>
+            <p class="s-note"><strong>Rules.</strong> One per homepage. Dated in absolute format ("Apr 23") — never "Next week" or relative. Never includes a deck. If a drop date is uncertain, the strip is hidden — never publish "TBD."</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.issue-next</code></div>
+              <a class="issue-next" href="#subscribe-manifesto" aria-label="Scroll to subscribe (demo)">
+                <span class="next-tag">Next</span>
+                <span class="next-title">I Am Not My Father&rsquo;s Pulpit</span>
+                <span class="next-meta">Identity · Apr 23 · 12 min</span>
+                <span class="next-cta" aria-hidden="true">Notify me →</span>
+              </a>
             </div>
           </article>
         </section>
@@ -536,6 +839,101 @@ const pageJsonLd = {
               <dt>Visited</dt>
               <dd>Visited article links on homepage plates: no color change. The system does not differentiate read from unread. If tracking is needed, it happens in metadata ("Read" tag), not in link styling.</dd>
             </dl>
+          </article>
+        </section>
+
+        <!-- ─────────────────────────────────
+             05 · SOCIAL
+        ───────────────────────────────── -->
+        <section id="social" class="s-chapter" aria-labelledby="social-head">
+          <header class="s-chapter-head">
+            <span class="s-chapter-num">05</span>
+            <h2 id="social-head" class="s-chapter-title">Social</h2>
+            <p class="s-chapter-deck">The social template system. Four canvases, two modes, one doctrine. Every slide is a stripped-down article panel.</p>
+          </header>
+
+          <!-- SOCIAL CAROUSELS -->
+          <article class="s-section" id="social-carousels">
+            <header class="s-section-head">
+              <span class="s-section-num">5.1</span>
+              <h3>Social carousels</h3>
+            </header>
+            <p>Every social artifact is a stripped-down version of the article page — same grid, same panel border, same monospace eyebrow, same display type. Each template ships in four canonical formats (portrait, story, square, landscape) and two modes (dark, light). Modes may vary <em>between</em> posts in a campaign (e.g., announcement in light, carousel in dark) but never <em>within</em> a single carousel. If a slide could not be a printed broadsheet panel, it is wrong.</p>
+            <p class="s-note"><strong>Pattern library.</strong> The full 232-artboard system lives at <code>imjustdex-social-templates.html</code> in the brand-voice repo — 29 filterable buckets, every one shipping all four formats in dark and light. Each bucket is a template (blog announcement, carousel S1–S10, devotional, letter, quote card, music drop, dispatch, field note, essay teaser, now card, reckoning, reader Q&amp;A, speaking/show, cultural reply, recipe, liner notes) plus two modifier extensions (<code>.field.memoir</code>, <code>.reckoning.exegesis</code>) and two primitive affordances (<code>.cycle-marker</code>, <code>.fn-mark</code> + <code>.footnotes</code>).</p>
+
+            <dl class="s-contract">
+              <dt>Grid</dt>
+              <dd>46px repeating background lines at <code>rgba(255,255,255,.16)</code> dark, <code>rgba(0,0,0,.14)</code> light. Identical across all surfaces — site, carousels, decks, print. Non-negotiable.</dd>
+              <dt>Panel border</dt>
+              <dd>Every slide ships the brand-block outline. 3px content borders for frames, 2px chrome borders for inner treatments — same doctrine as the web.</dd>
+              <dt>Type</dt>
+              <dd>Anton for display, IBM Plex Sans for argument, mono for metadata. Binary weight scale (400 / 700) — same as the site. <code>font-synthesis: none</code> site-wide so Anton can't be faux-bolded.</dd>
+              <dt>Red doctrine</dt>
+              <dd><code>#c00</code> identical across both modes for borders, fills, and display text ≥ 18px. <code>--sig-text</code> flips to <code>#ff4d4d</code> (7.54:1 on #060606) for small red text on dark. Same rule as the web.</dd>
+              <dt>Scripture</dt>
+              <dd>Exact KJV only — never paraphrased. Enforced by <code>npm run lint</code> against <code>kjv-verses.json</code>.</dd>
+              <dt>Pagination</dt>
+              <dd>Dots pagination for carousels ≤5 slides. Count rail (<code>01 · 05</code>) for carousels &gt;5.</dd>
+            </dl>
+          </article>
+
+          <!-- PLATFORM DIMENSIONS -->
+          <article class="s-section" id="social-platforms">
+            <header class="s-section-head">
+              <span class="s-section-num">5.2</span>
+              <h3>Platform dimensions</h3>
+            </header>
+            <p>Every social template ships in four canonical formats. One campaign file, four dimensional variants, plus opt-in safe-zone modifiers for per-platform UI chrome. All inherit Refined Brutalism — grid, panel border, mono metadata, display headlines. Upload the matching format per destination.</p>
+
+            <div class="s-platform-grid">
+              <div class="s-platform-card">
+                <h4>Portrait · 1080 × 1440</h4>
+                <dl>
+                  <div><dt>Aspect</dt><dd>3 : 4</dd></div>
+                  <div><dt>Instagram feed</dt><dd>native</dd></div>
+                  <div><dt>IG profile grid</dt><dd>survives 3:4 crop</dd></div>
+                  <div><dt>Pinterest</dt><dd>accepted</dd></div>
+                </dl>
+              </div>
+
+              <div class="s-platform-card">
+                <h4>Story · 1080 × 1920</h4>
+                <dl>
+                  <div><dt>Aspect</dt><dd>9 : 16</dd></div>
+                  <div><dt>Instagram Stories</dt><dd>default 250 / 250</dd></div>
+                  <div><dt>Facebook Stories</dt><dd><code>.fb-stories</code> 270 / 380</dd></div>
+                  <div><dt>Instagram Reels</dt><dd><code>.reels</code> 210 / 440 / 90</dd></div>
+                  <div><dt>TikTok</dt><dd><code>.tiktok</code> 140 / 324 / 164</dd></div>
+                </dl>
+              </div>
+
+              <div class="s-platform-card">
+                <h4>Square · 1080 × 1080</h4>
+                <dl>
+                  <div><dt>Aspect</dt><dd>1 : 1</dd></div>
+                  <div><dt>Threads</dt><dd>native</dd></div>
+                  <div><dt>X / Twitter</dt><dd>native</dd></div>
+                  <div><dt>Facebook feed</dt><dd>native</dd></div>
+                  <div><dt>LinkedIn feed</dt><dd>native</dd></div>
+                  <div><dt>IG grid crop</dt><dd><code>.ig-grid-safe</code> 135 / 135</dd></div>
+                </dl>
+              </div>
+
+              <div class="s-platform-card">
+                <h4>Landscape · 1200 × 630</h4>
+                <dl>
+                  <div><dt>Aspect</dt><dd>1.91 : 1</dd></div>
+                  <div><dt>OG meta image</dt><dd>native</dd></div>
+                  <div><dt>X link card</dt><dd>native</dd></div>
+                  <div><dt>LinkedIn preview</dt><dd>native</dd></div>
+                  <div><dt>Facebook link</dt><dd>native</dd></div>
+                  <div><dt>Mobile crop</dt><dd><code>.og-safe</code> horiz +120</dd></div>
+                  <div><dt>Blog hero</dt><dd>native</dd></div>
+                </dl>
+              </div>
+            </div>
+
+            <p class="s-note"><strong>Out of scope.</strong> Facebook Reels (needs ~670px bottom, not currently a variant), YouTube video thumbnails (1280×720 landscape-adjacent), LinkedIn 1584×396 profile banner, full-bleed TikTok video-thumbnail frames. Add as new dimensional classes or modifiers when a distribution channel commits — never in advance.</p>
           </article>
         </section>
 
