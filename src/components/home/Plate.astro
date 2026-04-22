@@ -43,9 +43,10 @@ const dateLabel = new Date(dateOnly + 'T00:00:00Z').toLocaleDateString('en-US', 
   timeZone: 'UTC',
 });
 const primaryLane = d.lanes[0];
+const laneList = d.lanes.map((l) => l.toLowerCase()).join(' ');
 ---
 <article {...(hidden ? { class: 'earlier-more', hidden: true } : {})}>
-  <a class={cls} href={`/words/${entry.slug}/`} aria-label={`Read: ${d.title}`} data-lane={primaryLane.toLowerCase()}>
+  <a class={cls} href={`/words/${entry.slug}/`} aria-label={`Read: ${d.title}`} data-lane={laneList}>
     <span class="plate-lane">{primaryLane}</span>
     <div class="plate-body">
       <h2 class={titleCls.join(' ')}>{d.title}</h2>
