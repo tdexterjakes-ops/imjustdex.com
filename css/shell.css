@@ -210,6 +210,16 @@ main {
   gap: var(--space-sm);
 }
 
+/* Touch-target compliance (WCAG 2.5.5 / 2.5.8): inline footer links
+   get a 44px tall tap zone via inline-flex + min-height. Visually
+   unchanged — the link text still reads as inline small copy against
+   the middot separator, but the clickable area now meets minimum. */
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
 .footer-sep {
   color: var(--body-muted);
   font-size: var(--text-micro);
