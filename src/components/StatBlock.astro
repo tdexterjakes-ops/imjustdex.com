@@ -1,0 +1,17 @@
+---
+// Vertical-bar stat/quote block. Two children:
+//   - primary line (the main text) in default slot
+//   - optional sub line in the `sub` slot
+// Usage:
+//   <StatBlock>
+//     Job felt like it might hold weight.
+//     <span slot="sub">I didn't know the half of it.</span>
+//   </StatBlock>
+---
+<div class="stat-block">
+  <div class="stat-block-bar"></div>
+  <div class="stat-block-text">
+    <slot />
+    <slot name="sub" />
+  </div>
+</div>

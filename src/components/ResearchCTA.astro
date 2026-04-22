@@ -1,0 +1,13 @@
+---
+// Research CTA block (used in the-nets/index.html). Links to external deep-study.
+interface Props {
+  text: string;
+  href: string;
+  label?: string;
+}
+const { text, href, label = 'Read the Full Study →' } = Astro.props;
+---
+<div class="research-cta">
+  <span class="research-cta-text">{text}</span>
+  <a href={href} target="_blank" rel="noopener noreferrer" class="research-cta-link">{label}</a>
+</div>

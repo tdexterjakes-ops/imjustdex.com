@@ -132,7 +132,7 @@ const jsonLd = {
 
         <header class="article-header">
           <div class="article-eyebrow">
-            {d.tags.map((tag) => <span class="article-tag">{tag}</span>)}
+            {[...d.lanes, ...d.tags].map((t) => <span class="article-tag">{t}</span>)}
             <span class="article-date"><time datetime={dateOnly}>{new Date(dateOnly + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</time></span>
             <span class="article-read">{d.readTime}</span>
           </div>
@@ -211,3 +211,14 @@ const jsonLd = {
   <script src="/js/signup.js?v=phase14" is:inline defer></script>
 </body>
 </html>
+
+<style is:global>
+  /* Multi-tag separator: render "Faith + Identity" from two spans. Normalizes
+     the production inconsistency where some articles used compound strings
+     ("Faith + Strategy") and others used multiple spans without separator. */
+  .article-eyebrow .article-tag + .article-tag::before {
+    content: " + ";
+    margin-right: 0.1em;
+    opacity: 0.6;
+  }
+</style>
