@@ -1,0 +1,289 @@
+/* ============================================================
+ * brand-evidence.css
+ *
+ * Scope: /brand/evidence/ (Layer 3 — the ledger).
+ *
+ * Loads AFTER tokens.css + shell.css. The images are the content;
+ * chrome around them is bordered panels on --panel so grid never
+ * crosses captions or titles.
+ * ============================================================ */
+
+
+/* ── Layout shell ─────────────────────────────────────────── */
+
+.evidence {
+  padding: var(--space-3xl) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+
+/* ── Deck ─────────────────────────────────────────────────── */
+
+.e-deck {
+  background: var(--panel);
+  border: var(--border-weight-content, 3px) solid var(--border);
+  padding: var(--space-3xl) var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 860px;
+  margin-inline: auto;
+  width: 100%;
+}
+
+.e-eyebrow {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  margin: 0;
+}
+
+.e-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  line-height: 0.94;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.e-standfirst {
+  font-family: var(--body);
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--body-color);
+  margin: 0;
+  max-width: 56ch;
+}
+
+
+/* ── Exhibit grid ─────────────────────────────────────────── */
+
+.e-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
+  gap: var(--space-xl);
+  width: 100%;
+}
+
+.e-exhibit {
+  background: var(--panel);
+  border: var(--border-weight-content, 3px) solid var(--border);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.e-exhibit-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--rule);
+}
+
+.e-exhibit-num {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.e-exhibit-lane {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--body-color);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  background: var(--bg);
+}
+
+
+/* ── Figure ───────────────────────────────────────────────── */
+
+.e-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.e-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: var(--border-weight-chrome, 2px) solid var(--border);
+  background: var(--bg);
+}
+
+.e-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--rule);
+  flex-wrap: wrap;
+}
+
+.e-caption-essay {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.e-caption-meta {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+
+
+/* ── Exhibit note — the commentary paragraph ─────────────── */
+
+.e-note {
+  font-family: var(--body);
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.55;
+  color: var(--body-color);
+  margin: 0;
+  padding-left: var(--space-md);
+  border-left: var(--border-weight-chrome, 2px) solid var(--accent);
+}
+
+
+/* ── In-progress stub ─────────────────────────────────────── */
+
+.e-stub {
+  background: var(--body-tint);
+  border: 1px dashed var(--body-faint);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-width: 860px;
+  margin-inline: auto;
+  width: 100%;
+}
+
+.e-stub-label {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0;
+}
+
+.e-stub p:not(.e-stub-label) {
+  font-family: var(--body);
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  line-height: 1.55;
+  color: var(--body-color);
+  margin: 0;
+  max-width: 64ch;
+}
+
+
+/* ── Exit block ───────────────────────────────────────────── */
+
+.e-exit {
+  padding-top: var(--space-2xl);
+  border-top: 1px solid var(--rule);
+  text-align: center;
+  max-width: 720px;
+  margin-inline: auto;
+  width: 100%;
+}
+
+.e-exit-body {
+  font-family: var(--body);
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.55;
+  color: var(--body-color);
+  margin: 0;
+  max-width: 56ch;
+  margin-inline: auto;
+}
+
+
+/* ── Inline link ──────────────────────────────────────────── */
+
+.e-link {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 1px;
+  font-weight: 700;
+  transition: color 0.15s;
+}
+
+.e-link:hover,
+.e-link:focus-visible { color: var(--accent); }
+
+
+/* ── Dark-mode parity ─────────────────────────────────────── */
+
+html.dark-mode .e-exhibit-num,
+html.dark-mode .e-stub-label {
+  color: var(--accent-on-dark);
+}
+
+html.dark-mode .e-link:hover,
+html.dark-mode .e-link:focus-visible {
+  color: var(--accent-on-dark);
+}
+
+html.dark-mode .e-stub {
+  background: rgba(243, 240, 232, 0.04);
+  border-color: rgba(243, 240, 232, 0.18);
+}
+
+
+/* ── Reduced motion ───────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .e-link { transition: none; }
+}
+
+
+/* ── Narrow viewports ─────────────────────────────────────── */
+
+@media (max-width: 720px) {
+  .evidence {
+    padding: var(--space-xl) 0;
+  }
+  .e-deck,
+  .e-exhibit,
+  .e-stub {
+    padding: var(--space-lg) var(--space-md);
+  }
+  .e-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  .e-caption {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+}
