@@ -10,9 +10,10 @@ import Plate from '~/components/home/Plate.astro';
 import IssueNext from '~/components/home/IssueNext.astro';
 import SubscribeManifesto from '~/components/home/SubscribeManifesto.astro';
 import type { Lane, PlateVariant } from '~/content/config';
+import { isPubliclyLive, isUpcoming } from '~/utils/visibility';
 
 // Build-time date drives published vs. upcoming partition.
-const today = new Date();
+const now = new Date();
 
 // Sort everything by publishedDate desc.
 const all = (await getCollection('words')).sort(
@@ -20,14 +21,8 @@ const all = (await getCollection('words')).sort(
     new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime()
 );
 
-// Only published essays count for cascade + entry numbering (per Dex calibration).
-const published = all
-  .filter((e) => e.data.status === 'published')
-  .filter((e) => new Date(e.data.publishedDate) <= today);
-
-const upcoming = all
-  .filter((e) => e.data.status === 'published' || e.data.status === 'upcoming')
-  .filter((e) => new Date(e.data.publishedDate) > today);
+const published = all.filter((e) => isPubliclyLive(e, now));
+const upcoming = all.filter((e) => isUpcoming(e, now));
 
 // Lead = newest published.
 const lead = published[0];
