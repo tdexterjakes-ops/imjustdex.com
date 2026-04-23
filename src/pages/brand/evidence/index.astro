@@ -1,0 +1,234 @@
+---
+// /brand/evidence/ — Layer 3 of the three-layer /brand artifact.
+// The production-surface showcase. Real OG cards, rendered on-brand.
+// If /brand/ is the argument and /brand/system/ is the contract,
+// this is the ledger.
+
+interface Exhibit {
+  slug: string;
+  essay: string;
+  lane: 'Faith' | 'Identity' | 'Art';
+  meta: string;
+  note: string;
+}
+
+// Curated exhibits — images that already exist in /img/ and represent
+// range across the three lanes. Each is a real rendered surface, not
+// a mockup. The slug resolves to a production file the live site uses.
+const exhibits: Exhibit[] = [
+  {
+    slug: 'og-home.png',
+    essay: 'Homepage',
+    lane: 'Identity',
+    meta: 'imjustdex.com · 1200 × 630 · Site card',
+    note: 'The site\'s own OG image. The identity hero compressed into a link preview — same display type, same corner eyebrow, same tagline rhythm as the full homepage. This is what a cold reader meets before they arrive.',
+  },
+  {
+    slug: 'og-gumbo.png',
+    essay: 'Nobody Handed Me This',
+    lane: 'Identity',
+    meta: 'Entry № 003 · 1200 × 630 · Link card',
+    note: 'A craft essay — gumbo as inheritance, a recipe as a claim. The OG card runs the same display type and accent treatment as every other surface in the system. The red rule is the system saying "this matters."',
+  },
+  {
+    slug: 'og-pulpit.png',
+    essay: 'The Pulpit',
+    lane: 'Faith',
+    meta: 'Entry № 004 · 1200 × 630 · Link card',
+    note: 'Faith lane. Dark mode, display type, same grid. Dark is not a mood switch; it is a complete inversion, tuned per platform — this is the Twitter link preview a reader sees before they click.',
+  },
+  {
+    slug: 'og-music-that-raised-me.png',
+    essay: 'The Music That Raised Me',
+    lane: 'Art',
+    meta: 'Entry № 002 · 1200 × 630 · Link card',
+    note: 'Art lane. Music-as-subject essay with the Liner Notes template. The OG card carries the same eyebrow + title + meta rhythm as the Threads post, the IG carousel, and the essay header itself.',
+  },
+  {
+    slug: 'og-the-stone.png',
+    essay: 'The Stone You Are Holding',
+    lane: 'Faith',
+    meta: 'Entry № 001 · 1200 × 630 · Link card',
+    note: 'Cultural-reply format. The pull quote becomes the whole card. No decoration, no stock photo, no badge — the sentence is the evidence.',
+  },
+  {
+    slug: 'og-the-nets.png',
+    essay: 'The Nets',
+    lane: 'Faith',
+    meta: 'Entry № 005 · 1200 × 630 · Link card',
+    note: 'Carousel-series essay — a fishing-net metaphor tracing call and return. The card\'s pull-quote treatment mirrors the S3 slide of the accompanying IG carousel. One system, many surfaces.',
+  },
+  {
+    slug: 'og-next-verse.png',
+    essay: 'Read the Next Verse',
+    lane: 'Faith',
+    meta: 'Entry № 006 · 1200 × 630 · Link card',
+    note: 'Reckoning format with the <code>.reckoning.exegesis</code> modifier — verse reference sits at display scale under a short eyebrow. The same modifier produces the IG post, the story, and the square feed card.',
+  },
+  {
+    slug: 'og-reckonings.png',
+    essay: 'I Don\'t Do Resolutions I Do Reckonings',
+    lane: 'Identity',
+    meta: 'Entry № 007 · 1200 × 630 · Link card',
+    note: 'The reckoning anchor. Massive date display, quiet reflection underneath. Evidence that the system can carry an argument about time in the typography itself.',
+  },
+];
+
+const pageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': 'https://imjustdex.com/brand/evidence/',
+  url: 'https://imjustdex.com/brand/evidence/',
+  name: 'Refined Brutalism — The Evidence',
+  description: 'Real production surfaces produced by the Refined Brutalism system — unedited.',
+  inLanguage: 'en',
+  isPartOf: { '@id': 'https://imjustdex.com/#website' },
+  about: { '@id': 'https://imjustdex.com/#person' },
+};
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+
+  <title>Evidence — Refined Brutalism — DX</title>
+  <meta name="description" content="Real production surfaces produced by the Refined Brutalism system, unedited.">
+
+  <link rel="canonical" href="https://imjustdex.com/brand/evidence/">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+
+  <meta property="og:title" content="Refined Brutalism — The Evidence">
+  <meta property="og:description" content="Real production surfaces produced by the Refined Brutalism system.">
+  <meta property="og:image" content="https://imjustdex.com/img/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://imjustdex.com/brand/evidence/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DX">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Refined Brutalism — The Evidence">
+  <meta name="twitter:description" content="Production surfaces, unedited.">
+  <meta name="twitter:image" content="https://imjustdex.com/img/og-default.png">
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Anton-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Bold.woff2" crossorigin>
+
+  <!-- Load home-augment so the live .issue-head exhibit renders with
+       production classes — dogfood rule, same as the system page. -->
+  <link rel="stylesheet" href="/css/tokens.css?v=phase23">
+  <link rel="stylesheet" href="/css/shell.css?v=phase23">
+  <link rel="stylesheet" href="/css/home-augment.css?v=phase25">
+  <link rel="stylesheet" href="/css/brand-evidence.css?v=evidence2">
+
+  <script src="/js/mode.js?v=phase11" is:inline></script>
+
+  <link rel="alternate" type="application/atom+xml" title="DX — Dexter Jakes" href="/feed.xml">
+
+  <script type="application/ld+json" set:html={JSON.stringify(pageJsonLd, null, 2)} />
+</head>
+<body id="top">
+  <a href="#evidence-main" class="skip-link">Skip to content</a>
+
+  <div class="ruler-top" aria-hidden="true"></div>
+  <div class="ruler-left" aria-hidden="true"></div>
+
+  <div class="page-shell">
+    <header>
+      <nav class="masthead" aria-label="Main navigation">
+        <a class="brand-block" href="/" aria-label="DX home">
+          <span class="brand-mark">
+            <img src="/img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28" data-base="/img/">
+          </span>
+          <span class="brand-word">Words</span>
+        </a>
+        <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode" aria-pressed="false">
+          Mode: Light
+        </button>
+      </nav>
+    </header>
+
+    <main id="evidence-main" class="evidence">
+
+      <!-- Deck -->
+      <section class="e-deck" aria-label="Evidence overview">
+        <p class="e-eyebrow">Refined Brutalism · The Evidence</p>
+        <h1 class="e-title">Surfaces the system made.</h1>
+        <p class="e-standfirst">Four production OG cards, rendered by the live site — unedited. The manifesto argues. The system specifies. This ledger proves the claim.</p>
+      </section>
+
+      <!-- Exhibit grid -->
+      <section class="e-grid" aria-label="Production exhibits">
+        {exhibits.map((x, i) => (
+          <article class="e-exhibit">
+            <header class="e-exhibit-head">
+              <span class="e-exhibit-num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="e-exhibit-lane">{x.lane}</span>
+            </header>
+            <figure class="e-figure">
+              <img
+                src={`/img/${x.slug}`}
+                alt={`OG link-card for the essay "${x.essay}" — 1200 × 630, produced by the Refined Brutalism system.`}
+                width="1200"
+                height="630"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="e-caption">
+                <span class="e-caption-essay">{x.essay}</span>
+                <span class="e-caption-meta">{x.meta}</span>
+              </figcaption>
+            </figure>
+            <p class="e-note">{x.note}</p>
+          </article>
+        ))}
+      </section>
+
+      <!-- Live surface — the final exhibit renders on the page
+           itself, not as an image. Same .issue-head production class
+           the homepage uses. If this fails to render cleanly, the
+           homepage fails too. Dogfood rule, one more time. -->
+      <section class="e-live" aria-labelledby="live-head">
+        <header class="e-live-head">
+          <span class="e-live-num">Live</span>
+          <span class="e-live-label">On this page · <code>.issue-head</code> + <code>.issue-standfirst</code></span>
+        </header>
+        <section class="issue-head" aria-label="Live issue-head exhibit">
+          <div class="issue-meta">
+            <span class="issue-no">Entry No. 05</span>
+            <span>Week of April 19, 2026</span>
+          </div>
+          <div class="issue-standfirst issue-latest" aria-label="Demo — not a live link">
+            <span class="latest-tag">Latest</span>
+            <span class="latest-title">The Groan Beneath the Song</span>
+            <span class="latest-meta">Faith · Apr 19 · 18 min</span>
+            <span class="latest-cta" aria-hidden="true">Read →</span>
+          </div>
+        </section>
+        <p class="e-live-note">Not a screenshot. Not a clone. The component above is the homepage's own <code>.issue-head</code>, loaded from the same <code>home-augment.css</code> the live site runs. If it breaks on this page, it breaks on the homepage.</p>
+      </section>
+
+      <!-- Exit -->
+      <section class="e-exit" aria-label="Next">
+        <p class="e-exit-body">The ledger is the end of the argument. If you want to read the argument, start at <a class="e-link" href="/brand/">the manifesto</a>. If you want the contract, read <a class="e-link" href="/brand/system/">the system</a>.</p>
+      </section>
+
+    </main>
+
+    <footer class="footer-strip" aria-label="Footer">
+      <div class="footer-links">
+        <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="https://x.com/ImJustDex" target="_blank" rel="noopener noreferrer">X</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="/feed.xml" aria-label="RSS feed">Feed</a>
+      </div>
+      <span>Built by Dex &middot; Est. 2026</span>
+    </footer>
+  </div>
+</body>
+</html>

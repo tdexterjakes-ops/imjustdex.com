@@ -1,0 +1,384 @@
+/* ============================================================
+ * brand-manifesto.css
+ *
+ * Scope: /brand/ (Layer 1 — the manifesto).
+ *
+ * Loads AFTER tokens.css + shell.css. Uses only tokens defined
+ * in tokens.css — no forked color values, no new font sizes.
+ *
+ * Doctrine: the manifesto argues. It does not demonstrate. Zero
+ * component CSS lives here — the system's own stylesheets run
+ * at /brand/system/. A short file, on purpose.
+ * ============================================================ */
+
+
+/* ── Root rhythm ──────────────────────────────────────────── */
+
+.manifesto {
+  /* Measure — the text column inside every panel. */
+  --measure: 600px;
+  /* Panel — the width of the printed surface text sits on. The
+     page-shell's grid pattern is the background; panels are the
+     printed matter laid on top. Text never touches the grid. */
+  --panel-w: 860px;
+
+  padding: var(--space-3xl) var(--space-lg) var(--space-3xl);
+  max-width: 1100px;
+  margin: 0 auto;
+  color: var(--body-color);
+  font-family: var(--body);
+  font-size: var(--text-body);
+  line-height: var(--lh-loose);
+}
+
+.manifesto > * + * {
+  margin-top: var(--space-2xl);
+}
+
+
+/* ── Panel surface — shared across hero + every act.
+      Ends the grid at the panel edge. Text lives on --panel (flat),
+      bordered in --border (ink in light, bone in dark). No shadows,
+      no gradients, no rounded corners. Printed metaphor, literally. */
+
+.m-hero,
+.m-act {
+  background: var(--panel);
+  border: var(--border-weight-content, 3px) solid var(--border);
+  max-width: var(--panel-w);
+  margin-inline: auto;
+  padding: var(--space-3xl) var(--space-xl);
+  position: relative;
+}
+
+/* Horizontal rules between acts are now redundant — each act's own
+   border IS the separator. Kept as a no-op in the DOM so we don't
+   touch the Astro template just to remove <hr>s. */
+.m-rule {
+  display: none;
+}
+
+
+/* ── Hero ─────────────────────────────────────────────────── */
+
+.m-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-xl);
+}
+
+.m-eyebrow {
+  font-family: var(--mono);
+  font-size: var(--text-chrome);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+
+.m-hero-mark {
+  color: var(--ink);
+  display: block;
+  width: clamp(120px, 20vw, 180px);
+  margin: var(--space-lg) auto 0;
+}
+
+.m-hero-mark svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.m-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(4rem, 12vw, 9rem);
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-transform: uppercase;
+  margin: 0;
+  max-width: 10ch;
+}
+
+.m-standfirst {
+  font-family: var(--body);
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  line-height: 1.45;
+  color: var(--body-color);
+  max-width: 40ch;
+  margin: 0;
+  text-wrap: balance;
+}
+
+
+/* ── Act (shared) — panel sets the frame, this sets the text
+      column INSIDE the frame. Panel is 860px, the text column
+      inside is ~560px centered within the panel's padding. ───── */
+
+.m-act {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.m-act > *:not(.m-law-list) {
+  max-width: var(--measure);
+  margin-inline: auto;
+  width: 100%;
+}
+
+.m-marker {
+  font-family: var(--mono);
+  font-size: var(--text-chrome);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.m-act-head {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  text-transform: uppercase;
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* ── Per-act differentiation ──────────────────────────────────
+   The four acts are a sequence, not a loop. Head weight + the
+   presence/absence of marker + eyebrow conduct the reader through
+   negation → affirmation → rules → coda. */
+
+/* Act II ("What it is") — the positive claim carries +15% scale. */
+.m-act[data-act="is"] .m-act-head {
+  font-size: clamp(2.3rem, 5.75vw, 4.14rem);
+}
+
+/* Act IV ("The threshold") — coda. Marker hidden in the HTML,
+   head shrinks. This is exit music, not another main claim. */
+.m-act[data-act="threshold"] .m-act-head {
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  letter-spacing: -0.01em;
+  color: var(--body-color);
+}
+
+/* Eyebrow that reframes a section — under the laws head to signal
+   "short tract" rather than "another main claim." */
+.m-act-eyebrow {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  margin: calc(var(--space-xs) * -1) 0 var(--space-sm);
+}
+
+
+/* ── Personal lede — the stake. Italic Plex, accent left-rail,
+      distinct from the declarative prose that follows. Anchors the
+      manifesto in the writer, not the studio. ──────────────────── */
+
+.m-lede {
+  font-family: var(--body);
+  font-style: italic;
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0;
+  max-width: var(--measure);
+  text-wrap: balance;
+  border-left: var(--border-weight-content, 3px) solid var(--accent);
+  padding: var(--space-xs) 0 var(--space-xs) var(--space-md);
+}
+
+
+.m-prose p {
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--body-color);
+  margin: 0;
+  max-width: var(--measure);
+}
+
+.m-prose p + p {
+  margin-top: var(--space-md);
+}
+
+.m-prose strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.m-prose em {
+  font-style: italic;
+  color: var(--body-color);
+}
+
+.m-prose code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: var(--body-tint);
+  padding: 2px 6px;
+  border: 1px solid var(--body-faint);
+  color: var(--ink);
+}
+
+
+/* ── Laws — seven pronouncements ──────────────────────────── */
+
+.m-law-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  /* Bleed the list to the panel's inner edge so rules span the full
+     printed column, not the narrower text measure. */
+  margin-inline: calc(var(--space-xl) * -1);
+  border-top: 1px solid var(--rule, rgba(5, 5, 5, 0.14));
+  border-bottom: 1px solid var(--rule, rgba(5, 5, 5, 0.14));
+}
+
+.m-law-list li {
+  display: grid;
+  grid-template-columns: clamp(44px, 6vw, 64px) 1fr;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-xl);
+  align-items: baseline;
+}
+
+.m-law-list li + li {
+  border-top: 1px solid var(--rule, rgba(5, 5, 5, 0.14));
+}
+
+.m-law-num {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+
+.m-law-body {
+  font-family: var(--body);
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.45;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+.m-law-body code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--body-tint);
+  padding: 1px 6px;
+  border: 1px solid var(--body-faint);
+  color: var(--ink);
+}
+
+
+/* ── Threshold ────────────────────────────────────────────── */
+
+.m-threshold .m-prose p {
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+}
+
+.m-link {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 1px;
+  transition: color 0.15s, border-bottom-color 0.15s;
+  font-weight: 700;
+}
+
+.m-link:hover,
+.m-link:focus-visible {
+  color: var(--accent);
+}
+
+.m-signoff {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: var(--space-xl) 0 0;
+}
+
+
+/* ── Dark-mode parity — complete variable inversion ───────── */
+/* tokens.css already flips --ink / --bg / --body-* / --accent-text */
+/* via html.dark-mode. Only page-local rules need explicit overrides. */
+
+html.dark-mode .m-rule {
+  border-top-color: var(--ink);
+}
+
+html.dark-mode .m-marker {
+  color: var(--accent-on-dark);
+}
+
+html.dark-mode .m-law-num {
+  color: var(--accent-on-dark);
+}
+
+html.dark-mode .m-link {
+  border-bottom-color: var(--accent-on-dark);
+}
+
+html.dark-mode .m-link:hover,
+html.dark-mode .m-link:focus-visible {
+  color: var(--accent-on-dark);
+}
+
+html.dark-mode .m-prose code,
+html.dark-mode .m-law-body code {
+  background: rgba(243, 240, 232, 0.06);
+  border-color: rgba(243, 240, 232, 0.18);
+}
+
+
+/* ── Reduced motion ───────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .m-link {
+    transition: none;
+  }
+}
+
+
+/* ── Narrow viewports ─────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .manifesto {
+    padding: var(--space-2xl) var(--space-sm) var(--space-2xl);
+    --panel-w: 100%;
+  }
+  .m-hero,
+  .m-act {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  .m-act {
+    gap: var(--space-md);
+  }
+  .m-law-list {
+    margin-inline: calc(var(--space-md) * -1);
+  }
+  .m-law-list li {
+    grid-template-columns: 40px 1fr;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+  }
+  .m-hero {
+    gap: var(--space-lg);
+  }
+}

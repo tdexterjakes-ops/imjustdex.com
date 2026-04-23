@@ -14,10 +14,10 @@ export default defineConfig({
       filter: (page) => !page.includes('/404'),
       changefreq: 'weekly',
       priority: 0.8,
-      // Passthrough routes (public/brand, public/phase0) aren't in Astro's route graph,
-      // so inject them explicitly.
+      // Passthrough route (public/phase0) isn't in Astro's route graph,
+      // so inject it explicitly. /brand/ is now a real Astro route
+      // (src/pages/brand/index.astro) and ships via the normal crawler.
       customPages: [
-        'https://imjustdex.com/brand/',
         'https://imjustdex.com/phase0/',
       ],
       // Per-route overrides match the existing hand-maintained sitemap conventions.

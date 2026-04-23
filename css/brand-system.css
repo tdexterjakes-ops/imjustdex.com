@@ -1,0 +1,1111 @@
+/* ============================================================
+ * brand-system.css
+ *
+ * Scope: /brand/system/ (Layer 2 — the mechanics).
+ *
+ * Loads AFTER tokens.css + shell.css. Tokens-only; no forked
+ * color or type values. Panels carry text — the shell's grid
+ * pattern ends at the panel edge, always.
+ * ============================================================ */
+
+
+/* ── Layout shell — nav + content ─────────────────────────── */
+
+.system {
+  display: grid;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  padding: var(--space-2xl) 0;
+  align-items: start;
+}
+
+
+/* ── Sidebar nav · persistent chapter index ───────────────── */
+
+.s-nav {
+  position: sticky;
+  top: var(--space-lg);
+  align-self: start;
+  z-index: 2;
+}
+
+.s-nav-inner {
+  background: var(--panel);
+  border: var(--border-weight-content, 3px) solid var(--border);
+  padding: var(--space-xl) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.s-nav-eyebrow {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  margin: 0;
+}
+
+.s-nav-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 2.4vw, 2.4rem);
+  line-height: 0.94;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0;
+}
+
+.s-nav-toc {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-sm) 0 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--rule);
+}
+
+.s-nav-toc li + li {
+  border-top: 1px solid var(--rule);
+}
+
+.s-nav-toc a {
+  display: block;
+  padding: var(--space-sm) 0;
+  font-family: var(--mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.s-nav-toc a:hover,
+.s-nav-toc a:focus-visible {
+  color: var(--accent);
+}
+
+.s-nav-back {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  text-decoration: none;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--rule);
+  transition: color 0.15s;
+}
+
+.s-nav-back:hover,
+.s-nav-back:focus-visible { color: var(--accent); }
+
+
+/* ── Content column ───────────────────────────────────────── */
+
+.s-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  min-width: 0;
+}
+
+
+/* ── Deck — intro card ────────────────────────────────────── */
+
+.s-deck {
+  background: var(--panel);
+  border: var(--border-weight-content, 3px) solid var(--border);
+  padding: var(--space-2xl) var(--space-xl);
+}
+
+.s-deck-eyebrow {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  margin: 0 0 var(--space-sm);
+}
+
+.s-deck-body {
+  font-family: var(--body);
+  font-size: clamp(1.1rem, 1.4vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0;
+  max-width: 56ch;
+  text-wrap: balance;
+}
+
+
+/* ── Chapter surface ──────────────────────────────────────── */
+
+.s-chapter {
+  background: var(--panel);
+  border: var(--border-weight-content, 3px) solid var(--border);
+  padding: var(--space-3xl) var(--space-xl);
+  scroll-margin-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+.s-chapter-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-bottom: var(--space-lg);
+  border-bottom: var(--border-weight-content, 3px) solid var(--ink);
+}
+
+.s-chapter-num {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.s-chapter-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0;
+}
+
+.s-chapter-deck {
+  font-family: var(--body);
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.55;
+  color: var(--body-color);
+  margin: 0;
+  max-width: 56ch;
+}
+
+
+/* ── Section surface · inside a chapter ───────────────────── */
+
+.s-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--rule);
+}
+
+.s-section:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.s-section-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
+
+.s-section-num {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.s-section h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0;
+}
+
+.s-section p {
+  font-family: var(--body);
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  line-height: 1.6;
+  color: var(--body-color);
+  margin: 0;
+  max-width: 64ch;
+}
+
+.s-section code,
+.s-section p code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: var(--body-tint);
+  padding: 1px 6px;
+  border: 1px solid var(--body-faint);
+  color: var(--ink);
+}
+
+
+/* ── Usage rules list (Logo) ──────────────────────────────── */
+
+.s-rules {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--rule);
+}
+
+.s-rules li {
+  padding: var(--space-md) 0 var(--space-md) var(--space-md);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--body);
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.5;
+  color: var(--body-color);
+  position: relative;
+  max-width: 68ch;
+}
+
+.s-rules li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+
+/* ── Logo grid ────────────────────────────────────────────── */
+
+.s-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-md);
+}
+
+.s-logo-card {
+  border: var(--border-weight-chrome, 2px) solid var(--border);
+  padding: var(--space-lg) var(--space-md) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  align-items: center;
+  text-align: center;
+  min-height: 180px;
+  justify-content: space-between;
+}
+
+.s-logo-card .s-logo-svg {
+  width: 80px;
+  height: auto;
+  display: block;
+  margin: auto;
+}
+
+.s-logo-caption {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  line-height: 1.4;
+  padding-top: var(--space-sm);
+  border-top: 1px solid currentColor;
+  width: 100%;
+}
+
+.s-on-light {
+  background: #f4f4f1;
+  color: #050505;
+  border-color: #050505;
+}
+.s-on-dark {
+  background: #060606;
+  color: #f3f0e8;
+  border-color: #f3f0e8;
+}
+.s-on-accent {
+  background: var(--accent);
+  color: #fff;
+  border-color: #fff;
+}
+
+
+/* ── Color swatches ───────────────────────────────────────── */
+
+.s-swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-md);
+}
+
+.s-swatch {
+  border: var(--border-weight-chrome, 2px) solid var(--border);
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+}
+
+.s-swatch-chip {
+  background: var(--sw);
+  height: 120px;
+}
+
+.s-swatch-meta {
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-top: 1px solid var(--rule);
+}
+
+.s-swatch-token {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.s-swatch-hex {
+  font-family: var(--mono);
+  font-size: var(--text-label);
+  color: var(--body-color);
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.s-swatch-role {
+  font-family: var(--body);
+  font-size: var(--text-citation);
+  font-style: italic;
+  color: var(--body-muted);
+  margin-top: 2px;
+}
+
+.s-swatch-mode {
+  color: var(--accent);
+  font-style: normal;
+  margin-left: 4px;
+}
+
+
+/* ── Type specimens ───────────────────────────────────────── */
+
+.s-type-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.s-type-specimen {
+  border: var(--border-weight-chrome, 2px) solid var(--border);
+  padding: var(--space-lg);
+  background: var(--panel);
+}
+
+.s-type-meta {
+  display: flex;
+  gap: var(--space-md);
+  align-items: baseline;
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: var(--space-md);
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--body-muted);
+}
+
+.s-type-meta code {
+  font-family: var(--mono);
+  color: var(--accent);
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.s-type-role {
+  margin-left: auto;
+  color: var(--ink);
+}
+
+.s-sample-display {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.s-sample-body {
+  font-family: var(--body);
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 56ch;
+}
+
+.s-sample-body strong {
+  font-weight: 700;
+}
+
+.s-sample-mono {
+  font-family: var(--mono);
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+
+/* ── Inline notes ─────────────────────────────────────────── */
+
+.s-note {
+  background: var(--body-tint);
+  border-left: var(--border-weight-content, 3px) solid var(--accent);
+  padding: var(--space-md) var(--space-lg);
+  font-family: var(--body);
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  line-height: 1.55;
+  color: var(--body-color);
+  margin: 0;
+  max-width: none;
+}
+
+.s-note strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.s-note code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--panel);
+  padding: 1px 6px;
+  border: 1px solid var(--body-faint);
+  color: var(--ink);
+}
+
+
+/* ── Voice specimens ──────────────────────────────────────── */
+
+.s-voice-specimens {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-md);
+}
+
+.s-voice-example {
+  margin: 0;
+  border: var(--border-weight-chrome, 2px) solid var(--border);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.s-voice-register {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--rule);
+}
+
+.s-voice-example blockquote {
+  font-family: var(--body);
+  font-style: italic;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 0;
+}
+
+
+/* ── Microcopy grid — yes/no pairing ──────────────────────── */
+
+.s-microcopy-grid {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--rule);
+}
+
+.s-microcopy-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  line-height: 1.5;
+}
+
+.s-microcopy-yes,
+.s-microcopy-no {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--ink);
+  position: relative;
+  padding-left: var(--space-lg);
+  display: block;
+}
+
+.s-microcopy-yes::before,
+.s-microcopy-no::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+}
+
+.s-microcopy-yes::before { background: var(--accent); }
+.s-microcopy-no::before  { background: var(--body-faint); }
+
+.s-microcopy-no {
+  color: var(--body-muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--body-faint);
+}
+
+@media (max-width: 640px) {
+  .s-microcopy-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+}
+
+
+/* ── Rules list variant for Voice / Structural rules ──────── */
+/* (reuses .s-rules already defined; no additional rule needed) */
+
+
+/* ── Contract definition list — System chapter ────────────── */
+
+.s-contract {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) minmax(0, 2fr);
+  gap: var(--space-md) var(--space-lg);
+  border-top: 1px solid var(--rule);
+  padding-top: var(--space-md);
+  margin: 0;
+}
+
+.s-contract dt {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding-top: 2px;
+}
+
+.s-contract dd {
+  font-family: var(--body);
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.55;
+  color: var(--body-color);
+  margin: 0;
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--rule);
+}
+
+.s-contract dt {
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--rule);
+}
+
+.s-contract dt:last-of-type,
+.s-contract dd:last-of-type {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.s-contract code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--body-tint);
+  padding: 1px 6px;
+  border: 1px solid var(--body-faint);
+  color: var(--ink);
+}
+
+@media (max-width: 720px) {
+  .s-contract {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+  .s-contract dt {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+
+/* ── Component demo frame — wraps a live production component
+      so it reads clearly as "demonstration" on the system page.
+      Uses --body-tint background + 1px dashed border so the demo
+      surface looks distinct from the surrounding s-section panel
+      but doesn't compete with the component it contains. ─────── */
+
+.s-demo-frame {
+  background: var(--body-tint);
+  border: 1px dashed var(--body-faint);
+  padding: var(--space-lg);
+  margin-top: var(--space-md);
+  overflow: hidden;
+}
+
+.s-demo-label {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--body-muted);
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
+  border-bottom: 1px solid var(--rule);
+}
+
+.s-demo-label code {
+  font-family: var(--mono);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--accent);
+}
+
+/* Pull-quote inside demo frame: cancel its negative side margins
+   (designed to bleed past the article frame) so it stays inside
+   the demo. */
+.s-demo-frame .pull-quote {
+  margin-inline: 0;
+}
+
+
+/* ── Stub chapters (kept for legacy/emergency stub pattern) ─ */
+
+.s-chapter-stub .s-stub-panel {
+  background: var(--body-tint);
+  border: 1px dashed var(--body-faint);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+
+/* ── Accent doctrine grid — permitted vs prohibited ───────── */
+
+.s-accent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.s-accent-box {
+  border: var(--border-weight-chrome, 2px) solid var(--border);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.s-accent-permitted { border-left: var(--border-weight-content, 3px) solid var(--accent); }
+.s-accent-prohibited { border-left: var(--border-weight-content, 3px) solid var(--body-faint); }
+
+.s-accent-head {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--ink);
+  font-weight: 700;
+  margin: 0;
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--rule);
+}
+
+.s-accent-permitted .s-accent-head { color: var(--accent); }
+.s-accent-prohibited .s-accent-head { color: var(--body-muted); }
+
+.s-accent-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.s-accent-box li {
+  font-family: var(--body);
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  line-height: 1.5;
+  color: var(--body-color);
+}
+
+.s-accent-prohibited li {
+  color: var(--body-muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--body-faint);
+}
+
+
+/* ── Spacing / border ladder ──────────────────────────────── */
+
+.s-ladder {
+  display: grid;
+  grid-template-columns: minmax(180px, auto) 1fr;
+  gap: 0 var(--space-lg);
+  margin: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.s-ladder dt {
+  padding: var(--space-sm) 0;
+  font-family: var(--mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule);
+}
+
+.s-ladder dt code {
+  font-family: var(--mono);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--accent);
+  font-size: inherit;
+}
+
+.s-ladder dd {
+  padding: var(--space-sm) 0;
+  margin: 0;
+  font-family: var(--body);
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  line-height: 1.45;
+  color: var(--body-color);
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: minmax(70px, auto) 1fr;
+  gap: var(--space-md);
+  align-items: baseline;
+}
+
+.s-ladder-val {
+  font-family: var(--mono);
+  font-size: var(--text-label);
+  color: var(--ink);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 640px) {
+  .s-ladder { grid-template-columns: 1fr; }
+  .s-ladder dt { border-bottom: 0; padding-bottom: 0; }
+  .s-ladder dd { padding-top: 0; }
+}
+
+
+/* ── Sub-chapter header — divides Components into article vs
+      home without creating a new chapter entry. ──────────────── */
+
+.s-subchapter-head {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: var(--border-weight-content, 3px) solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.s-subchapter-eyebrow {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.s-subchapter-body {
+  font-family: var(--body);
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.55;
+  color: var(--body-color);
+  margin: 0;
+  max-width: 64ch;
+}
+
+.s-subchapter-body code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--body-tint);
+  padding: 1px 6px;
+  border: 1px solid var(--body-faint);
+  color: var(--ink);
+}
+
+
+/* ── Platform dimensions grid (Social chapter) ────────────── */
+
+.s-platform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.s-platform-card {
+  border: var(--border-weight-chrome, 2px) solid var(--border);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--panel);
+}
+
+.s-platform-card h4 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 var(--space-sm);
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--rule);
+}
+
+.s-platform-card dl {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.s-platform-card dl > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-sm);
+  font-family: var(--mono);
+  font-size: clamp(0.78rem, 0.9vw, 0.88rem);
+  letter-spacing: var(--track-chrome);
+  text-transform: uppercase;
+  color: var(--body-color);
+  padding: 4px 0;
+  border-bottom: 1px dotted var(--rule);
+  line-height: 1.4;
+}
+
+.s-platform-card dl > div:last-child { border-bottom: 0; }
+
+.s-platform-card dt {
+  color: var(--body-color);
+  font-weight: 400;
+  flex-shrink: 0;
+}
+
+.s-platform-card dd {
+  margin: 0;
+  color: var(--accent);
+  font-weight: 700;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.s-platform-card dd code {
+  font-family: var(--mono);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--accent);
+}
+
+
+/* ── Dark-mode parity for new primitives ─────────────────── */
+
+html.dark-mode .s-accent-permitted .s-accent-head,
+html.dark-mode .s-platform-card dd,
+html.dark-mode .s-platform-card dd code,
+html.dark-mode .s-ladder dt code {
+  color: var(--accent-on-dark);
+}
+
+.s-stub-label {
+  font-family: var(--mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0;
+}
+
+.s-chapter-stub .s-stub-panel p:not(.s-stub-label) {
+  font-family: var(--body);
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  line-height: 1.55;
+  color: var(--body-color);
+  margin: 0;
+  max-width: 64ch;
+}
+
+
+/* ── Exit block ───────────────────────────────────────────── */
+
+.s-exit {
+  padding: var(--space-2xl) var(--space-xl);
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  text-align: center;
+}
+
+.s-exit-body {
+  font-family: var(--body);
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  color: var(--body-color);
+  margin: 0;
+  max-width: 56ch;
+  margin-inline: auto;
+}
+
+.s-exit-back {
+  margin-inline: auto;
+  font-family: var(--mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 1px;
+  display: inline-block;
+}
+
+
+/* ── Links (inline, inside copy) ──────────────────────────── */
+
+.s-link {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 1px;
+  font-weight: 700;
+  transition: color 0.15s;
+}
+
+.s-link:hover,
+.s-link:focus-visible { color: var(--accent); }
+
+
+/* ── Dark-mode parity ─────────────────────────────────────── */
+
+html.dark-mode .s-chapter-num,
+html.dark-mode .s-section-num,
+html.dark-mode .s-swatch-mode,
+html.dark-mode .s-type-meta code,
+html.dark-mode .s-stub-label {
+  color: var(--accent-on-dark);
+}
+
+html.dark-mode .s-nav-toc a:hover,
+html.dark-mode .s-nav-toc a:focus-visible,
+html.dark-mode .s-nav-back:hover,
+html.dark-mode .s-nav-back:focus-visible,
+html.dark-mode .s-link:hover,
+html.dark-mode .s-link:focus-visible {
+  color: var(--accent-on-dark);
+}
+
+html.dark-mode .s-note,
+html.dark-mode .s-chapter-stub .s-stub-panel {
+  background: rgba(243, 240, 232, 0.04);
+}
+
+html.dark-mode .s-chapter-stub .s-stub-panel {
+  border-color: rgba(243, 240, 232, 0.18);
+}
+
+
+/* ── Reduced motion ───────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .s-nav-toc a,
+  .s-nav-back,
+  .s-link { transition: none; }
+}
+
+
+/* ── Narrow viewports — sidebar collapses to a chapter rail ─ */
+
+@media (max-width: 900px) {
+  .system {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    padding: var(--space-lg) 0;
+  }
+  .s-nav {
+    position: static;
+  }
+  .s-nav-inner {
+    padding: var(--space-md);
+  }
+  .s-nav-toc {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--rule);
+  }
+  .s-nav-toc li {
+    border-top: 0;
+  }
+  .s-nav-toc li + li {
+    border-top: 0;
+  }
+  .s-nav-toc a {
+    padding: var(--space-sm);
+    border-bottom: 1px solid var(--rule);
+  }
+  .s-chapter,
+  .s-deck {
+    padding: var(--space-xl) var(--space-md);
+  }
+  .s-chapter-stub .s-stub-panel {
+    padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 560px) {
+  .s-nav-toc {
+    grid-template-columns: 1fr;
+  }
+}

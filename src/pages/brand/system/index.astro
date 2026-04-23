@@ -1,0 +1,961 @@
+---
+// /brand/system/ — Layer 2 of the three-layer /brand artifact.
+// The mechanics behind the manifesto.
+// Foundations · Voice · Components · System.
+//
+// Single-page Astro route with a persistent sidebar nav on desktop.
+// Sections are anchored; hash jumps within the page. Reuses the
+// same panel idiom as the manifesto so text never touches grid.
+
+const pageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  '@id': 'https://imjustdex.com/brand/system/',
+  url: 'https://imjustdex.com/brand/system/',
+  name: 'Refined Brutalism — The System',
+  headline: 'The mechanics behind the manifesto — foundations, voice, components, system.',
+  description: 'Tokens, type ramp, component specs, accessibility contracts, motion law, platform dimensions.',
+  inLanguage: 'en',
+  isPartOf: { '@id': 'https://imjustdex.com/#website' },
+  author: { '@id': 'https://imjustdex.com/#person' },
+};
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+
+  <title>System — Refined Brutalism — DX</title>
+  <meta name="description" content="The mechanics behind the manifesto. Foundations, voice, components, system.">
+
+  <link rel="canonical" href="https://imjustdex.com/brand/system/">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+
+  <meta property="og:title" content="Refined Brutalism — The System">
+  <meta property="og:description" content="Tokens, type ramp, component specs, accessibility contracts, motion law, platform dimensions.">
+  <meta property="og:image" content="https://imjustdex.com/img/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://imjustdex.com/brand/system/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DX">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Refined Brutalism — The System">
+  <meta name="twitter:description" content="The mechanics behind the manifesto.">
+  <meta name="twitter:image" content="https://imjustdex.com/img/og-default.png">
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Anton-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Bold.woff2" crossorigin>
+
+  <!-- Production stylesheets load FIRST so Components chapter demos
+       render with real classes, not clones. This is the dogfood rule:
+       if the live article runs it, the system page runs it. -->
+  <link rel="stylesheet" href="/css/tokens.css?v=phase23">
+  <link rel="stylesheet" href="/css/shell.css?v=phase23">
+  <link rel="stylesheet" href="/css/article.css?v=phase24">
+  <link rel="stylesheet" href="/css/home-augment.css?v=phase25">
+  <link rel="stylesheet" href="/css/plates.css?v=phase13">
+  <link rel="stylesheet" href="/css/brand-system.css?v=system3">
+
+  <script src="/js/mode.js?v=phase11" is:inline></script>
+
+  <link rel="alternate" type="application/atom+xml" title="DX — Dexter Jakes" href="/feed.xml">
+
+  <script type="application/ld+json" set:html={JSON.stringify(pageJsonLd, null, 2)} />
+</head>
+<body id="top">
+  <a href="#system-main" class="skip-link">Skip to content</a>
+
+  <div class="ruler-top" aria-hidden="true"></div>
+  <div class="ruler-left" aria-hidden="true"></div>
+
+  <div class="page-shell">
+    <header>
+      <nav class="masthead" aria-label="Main navigation">
+        <a class="brand-block" href="/" aria-label="DX home">
+          <span class="brand-mark">
+            <img src="/img/logo-dark.svg" alt="DX" class="brand-logo" width="41" height="28" data-base="/img/">
+          </span>
+          <span class="brand-word">Words</span>
+        </a>
+        <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode" aria-pressed="false">
+          Mode: Light
+        </button>
+      </nav>
+    </header>
+
+    <main id="system-main" class="system">
+
+      <!-- ═══════════════════════════════════
+           NAV · persistent chapter index
+      ═══════════════════════════════════ -->
+      <nav class="s-nav" aria-label="System chapters">
+        <div class="s-nav-inner">
+          <p class="s-nav-eyebrow">Refined Brutalism</p>
+          <h1 class="s-nav-title">System</h1>
+          <ol class="s-nav-toc" aria-label="Chapters">
+            <li><a href="#foundations">01 · Foundations</a></li>
+            <li><a href="#voice">02 · Voice</a></li>
+            <li><a href="#components">03 · Components</a></li>
+            <li><a href="#system">04 · System</a></li>
+            <li><a href="#social">05 · Social</a></li>
+          </ol>
+          <a class="s-nav-back" href="/brand/">← Back to the manifesto</a>
+        </div>
+      </nav>
+
+      <!-- ═══════════════════════════════════
+           CONTENT
+      ═══════════════════════════════════ -->
+      <div class="s-content">
+
+        <!-- Deck -->
+        <section class="s-deck" aria-label="System overview">
+          <p class="s-deck-eyebrow">A mechanical reference</p>
+          <p class="s-deck-body">The manifesto argues. The system delivers. Every rule on this page is something the production site enforces today — or is about to. If you are shipping, this is your contract.</p>
+        </section>
+
+        <!-- ─────────────────────────────────
+             01 · FOUNDATIONS
+        ───────────────────────────────── -->
+        <section id="foundations" class="s-chapter" aria-labelledby="foundations-head">
+          <header class="s-chapter-head">
+            <span class="s-chapter-num">01</span>
+            <h2 id="foundations-head" class="s-chapter-title">Foundations</h2>
+            <p class="s-chapter-deck">The non-negotiables. Logo, color, type, grid.</p>
+          </header>
+
+          <!-- LOGO -->
+          <article class="s-section" id="foundations-logo">
+            <header class="s-section-head">
+              <span class="s-section-num">1.1</span>
+              <h3>Logo — DX monogram</h3>
+            </header>
+            <p>The monogram is set in False Regular, delivered as outlined SVG — no runtime font dependency. Two letters, no tagline, no lockup. Three approved colorways: dark on light, white on dark, white on accent.</p>
+            <div class="s-logo-grid">
+              <div class="s-logo-card s-on-light">
+                <svg class="s-logo-svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true">
+                  <path fill="#050505" d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/>
+                  <path fill="#050505" d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/>
+                </svg>
+                <span class="s-logo-caption">Primary · #050505 on #f4f4f1</span>
+              </div>
+              <div class="s-logo-card s-on-dark">
+                <svg class="s-logo-svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true">
+                  <path fill="#f3f0e8" d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/>
+                  <path fill="#f3f0e8" d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/>
+                </svg>
+                <span class="s-logo-caption">Inverse · #f3f0e8 on #060606</span>
+              </div>
+              <div class="s-logo-card s-on-accent">
+                <svg class="s-logo-svg" viewBox="0 0 1484.43 1027.42" aria-hidden="true">
+                  <path fill="#fff" d="M134.2,846V169H0L134.2,0h331.66c63.75,0,120.84,9.27,171.28,27.8s93.41,45.94,128.91,82.19,62.73,81.38,81.7,135.36,28.45,116.42,28.45,187.33-9.69,131.12-29.05,183.09c-19.38,51.97-47.02,95.08-82.92,129.33s-79.28,59.62-130.12,76.14-108.12,24.77-171.88,24.77H134.2ZM352.2,677h95.56c26.61,0,52.22-3.62,76.81-10.88s46.38-20.16,65.33-38.7c18.94-18.55,34.06-44.36,45.36-77.42,11.28-33.06,16.94-75.39,16.94-127s-5.45-94.95-16.33-127.61c-10.89-32.66-25.61-58.45-44.16-77.41-18.56-18.94-39.94-31.84-64.12-38.7-24.19-6.84-49.59-10.28-76.2-10.28h-99.19v508Z"/>
+                  <path fill="#fff" d="M456.78,0h264.77l200.7,270.72L1127.78,0h257.52l-336.11,441.12,435.25,586.3-336.11-96.72-232.12-313.12-174.09,228.42h-257.52l303.45-400.03L456.78,0Z"/>
+                </svg>
+                <span class="s-logo-caption">Restricted · #fff on #c00 · logo lockups only</span>
+              </div>
+            </div>
+            <ul class="s-rules">
+              <li>Minimum clear space: 1× the cap-height of the "D" on all sides.</li>
+              <li>Never place on a busy image, gradient, or pattern without a solid backing panel.</li>
+              <li>No drop shadows, bevels, strokes, or effects — the letterforms are the design.</li>
+              <li>The on-accent colorway is a brand-mark presentation context only. It does not grant permission for red backgrounds in layouts.</li>
+              <li>Never lock up with a tagline or wordmark adjacent to the mark.</li>
+            </ul>
+          </article>
+
+          <!-- COLOR -->
+          <article class="s-section" id="foundations-color">
+            <header class="s-section-head">
+              <span class="s-section-num">1.2</span>
+              <h3>Color</h3>
+            </header>
+            <p>Two authored modes. Light and dark are editorial decisions, not moods — the toggle in the masthead is the real production control, cookie-persisted across every page. Dark mode is a complete variable inversion. No color enters outside this palette. No opacity is created ad hoc.</p>
+            <div class="s-swatch-grid">
+              <div class="s-swatch" style="--sw: #f4f4f1; --sw-ink: #050505;">
+                <div class="s-swatch-chip"></div>
+                <div class="s-swatch-meta">
+                  <code class="s-swatch-token">--bg</code>
+                  <code class="s-swatch-hex">#f4f4f1</code>
+                  <span class="s-swatch-role">Paper</span>
+                </div>
+              </div>
+              <div class="s-swatch" style="--sw: #050505; --sw-ink: #f4f4f1;">
+                <div class="s-swatch-chip"></div>
+                <div class="s-swatch-meta">
+                  <code class="s-swatch-token">--ink</code>
+                  <code class="s-swatch-hex">#050505</code>
+                  <span class="s-swatch-role">Ink</span>
+                </div>
+              </div>
+              <div class="s-swatch" style="--sw: #c00; --sw-ink: #fff;">
+                <div class="s-swatch-chip"></div>
+                <div class="s-swatch-meta">
+                  <code class="s-swatch-token">--accent</code>
+                  <code class="s-swatch-hex">#c00</code>
+                  <span class="s-swatch-role">Structural red</span>
+                </div>
+              </div>
+              <div class="s-swatch" style="--sw: #060606; --sw-ink: #f3f0e8;">
+                <div class="s-swatch-chip"></div>
+                <div class="s-swatch-meta">
+                  <code class="s-swatch-token">--bg <span class="s-swatch-mode">dark</span></code>
+                  <code class="s-swatch-hex">#060606</code>
+                  <span class="s-swatch-role">Paper · dark mode</span>
+                </div>
+              </div>
+              <div class="s-swatch" style="--sw: #f3f0e8; --sw-ink: #060606;">
+                <div class="s-swatch-chip"></div>
+                <div class="s-swatch-meta">
+                  <code class="s-swatch-token">--ink <span class="s-swatch-mode">dark</span></code>
+                  <code class="s-swatch-hex">#f3f0e8</code>
+                  <span class="s-swatch-role">Ink · dark mode</span>
+                </div>
+              </div>
+              <div class="s-swatch" style="--sw: #ff4d4d; --sw-ink: #060606;">
+                <div class="s-swatch-chip"></div>
+                <div class="s-swatch-meta">
+                  <code class="s-swatch-token">--accent-on-dark</code>
+                  <code class="s-swatch-hex">#ff4d4d</code>
+                  <span class="s-swatch-role">Small red text on dark</span>
+                </div>
+              </div>
+            </div>
+            <p class="s-note"><strong>Accent doctrine preview.</strong> <code>#c00</code> is identical across both modes for borders, fills, and display text ≥ 18px. For small red text (&lt; 18px) on dark, <code>--accent-on-dark</code> (#ff4d4d, 7.54:1 on #060606) takes over to satisfy WCAG AA. Full doctrine in §1.3.</p>
+          </article>
+
+          <!-- ACCENT DOCTRINE -->
+          <article class="s-section" id="foundations-accent">
+            <header class="s-section-head">
+              <span class="s-section-num">1.3</span>
+              <h3>Accent red — #c00</h3>
+            </header>
+            <p>Red marks editorial emphasis. Never decoration. It is the only color outside the monochrome palette, and its scarcity is what gives it power. Accent is for signal, not garnish. The moment red becomes frequent, it becomes invisible.</p>
+            <p class="s-note"><strong>Hard limits.</strong> Maximum 1–2 accent moments per viewport on any surface. Maximum 4 per full article page across all scroll positions. Maximum 2 per carousel slide. If you are debating whether something needs red, it does not. Red is earned by function: section structure, scripture citation, callout emphasis, focus rings, plate hover borders. Nothing else.</p>
+            <p><strong>Background prohibition.</strong> Red is never used as a background fill on any surface — no red panels, no red cards, no red banners. The only exception is the on-accent logo colorway (white mark on red ground), which is a brand-mark context, not a layout context. If it fills more than a 3px line or a single text span, it has gone too far.</p>
+            <p><strong>Stacking prohibition.</strong> No more than one red-led component may appear in the same module or viewport region unless the layout is intentionally designated as a high-emphasis moment (e.g., section head directly above a scripture block). Two accent elements side by side is a signal. Three is noise.</p>
+            <p><strong>Cross-surface rule.</strong> <code>#c00</code> is the only red permitted on any DX surface — site, carousel, deck, print, merch, motion. Never warm it, never cool it, never lighten it, never use it at reduced opacity except where the system explicitly defines an alpha variant.</p>
+            <p><strong>The small-text exception.</strong> AA normal text requires 4.5:1, which <code>#c00</code> does not clear on <code>#060606</code>. A second token, <code>--accent-text</code>, handles this: <code>#c00</code> in light, <code>#ff4d4d</code> in dark (7.54:1, AAA). Reserved for text-tier consumers only — inline link hover, uppercase micro-labels, sub-18px metadata, callout emphasis spans, scripture citation text. If the element is a line, fill, or border, it uses <code>--accent</code>. If it is readable type under 18px, it uses <code>--accent-text</code>.</p>
+
+            <div class="s-accent-grid">
+              <div class="s-accent-box s-accent-permitted">
+                <p class="s-accent-head">Permitted</p>
+                <ul>
+                  <li>Section head labels + rule lines</li>
+                  <li>Callout left border + emphasis spans</li>
+                  <li>Scripture citation text</li>
+                  <li>Stat block vertical bar</li>
+                  <li>Identity tagline text</li>
+                  <li>Article link underlines + hover</li>
+                  <li>Plate border on hover</li>
+                  <li>Focus-visible outline rings</li>
+                </ul>
+              </div>
+              <div class="s-accent-box s-accent-prohibited">
+                <p class="s-accent-head">Prohibited</p>
+                <ul>
+                  <li>Backgrounds</li>
+                  <li>Titles (except section heads)</li>
+                  <li>Navigation elements</li>
+                  <li>Footer elements</li>
+                  <li>Body text</li>
+                  <li>Tags or metadata</li>
+                  <li>Reading progress bar (uses <code>--ink</code>)</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- TYPOGRAPHY -->
+          <article class="s-section" id="foundations-type">
+            <header class="s-section-head">
+              <span class="s-section-num">1.4</span>
+              <h3>Typography</h3>
+            </header>
+            <p>Two families. One for identity, one for argument. Binary weight — 400 or 700. No 500, no 600. <code>font-synthesis: none</code> site-wide so Anton can't be faux-bolded.</p>
+            <div class="s-type-stack">
+              <div class="s-type-specimen">
+                <div class="s-type-meta">
+                  <code>--display</code>
+                  <span>Anton · Regular</span>
+                  <span class="s-type-role">Identity</span>
+                </div>
+                <div class="s-type-sample s-sample-display">Refined Brutalism</div>
+              </div>
+              <div class="s-type-specimen">
+                <div class="s-type-meta">
+                  <code>--body</code>
+                  <span>IBM Plex Sans · 400 / 700</span>
+                  <span class="s-type-role">Argument</span>
+                </div>
+                <div class="s-type-sample s-sample-body">The surfaces behave like pages. The pages behave like arguments. <strong>The arguments behave like sermons you would not interrupt.</strong></div>
+              </div>
+              <div class="s-type-specimen">
+                <div class="s-type-meta">
+                  <code>--mono</code>
+                  <span>SF Mono / Fira Code</span>
+                  <span class="s-type-role">Meta, labels, code</span>
+                </div>
+                <div class="s-type-sample s-sample-mono">ENTRY № 05 · APR 19, 2026 · FAITH · 18 MIN</div>
+              </div>
+            </div>
+            <p class="s-note"><strong>Scale.</strong> 19-step fluid ramp, from <code>--size-1</code> (9.6px meta rail) to <code>--size-19</code> (identity hero name, up to 7.5rem). All sizes live in <code>tokens.css</code>. Component stylesheets pull from the ramp only.</p>
+          </article>
+
+          <!-- SPACING -->
+          <article class="s-section" id="foundations-spacing">
+            <header class="s-section-head">
+              <span class="s-section-num">1.5</span>
+              <h3>Spacing scale</h3>
+            </header>
+            <p>Every <code>padding</code>, <code>margin</code>, and <code>gap</code> on a brand surface points at a <code>--space-*</code> token. Ten slots, no improvisation. The ladder maps to actual component needs, not geometric progression.</p>
+            <dl class="s-ladder">
+              <dt><code>--space-0</code></dt>             <dd><span class="s-ladder-val">0</span><span>zero-reset</span></dd>
+              <dt><code>--space-hairline</code></dt>      <dd><span class="s-ladder-val">4px</span><span>icon gutters, tiny offsets</span></dd>
+              <dt><code>--space-xs</code></dt>            <dd><span class="s-ladder-val">8px</span><span>tight internal padding</span></dd>
+              <dt><code>--space-sm</code></dt>            <dd><span class="s-ladder-val">12px</span><span>standard internal, grid gaps</span></dd>
+              <dt><code>--space-chrome</code></dt>        <dd><span class="s-ladder-val">14px</span><span>chrome tier — buttons, share bar, meta rails</span></dd>
+              <dt><code>--space-md</code></dt>            <dd><span class="s-ladder-val">16px</span><span>primary component padding</span></dd>
+              <dt><code>--space-lg</code></dt>            <dd><span class="s-ladder-val">24px</span><span>generous component padding</span></dd>
+              <dt><code>--space-xl</code></dt>            <dd><span class="s-ladder-val">32px</span><span>block gaps</span></dd>
+              <dt><code>--space-2xl</code></dt>           <dd><span class="s-ladder-val">48px</span><span>section gaps, closing block</span></dd>
+              <dt><code>--space-3xl</code></dt>           <dd><span class="s-ladder-val">80px</span><span>page rhythm, article bottom</span></dd>
+            </dl>
+            <p class="s-note"><strong>Rule.</strong> If a component needs a value between slots, it does not mean the ladder is wrong — it means the component is off-rhythm. Snap to the nearest real step. The ladder is doctrine, not default.</p>
+          </article>
+
+          <!-- BORDERS -->
+          <article class="s-section" id="foundations-borders">
+            <header class="s-section-head">
+              <span class="s-section-num">1.6</span>
+              <h3>Border weights &amp; focus ring</h3>
+            </header>
+            <p>Two tokenized weights. No more. Focus ring reuses the chrome weight for consistency across the system.</p>
+            <dl class="s-ladder">
+              <dt><code>--border-weight-content</code></dt>  <dd><span class="s-ladder-val">3px</span><span>structural — frames, plates, pull-quote rules, section-head rule, callout rail</span></dd>
+              <dt><code>--border-weight-chrome</code></dt>   <dd><span class="s-ladder-val">2px</span><span>chrome — tags, meta rails, scripture blocks, mode toggle, footer items, back button</span></dd>
+              <dt><code>--focus-ring-width</code></dt>       <dd><span class="s-ladder-val">2px</span><span><code>:focus-visible</code> outline, unified across both modes, offset 2px</span></dd>
+            </dl>
+          </article>
+
+          <!-- GRID -->
+          <article class="s-section" id="foundations-grid">
+            <header class="s-section-head">
+              <span class="s-section-num">1.7</span>
+              <h3>Grid motif</h3>
+            </header>
+            <p>46px repeating background lines at <code>var(--rule)</code> opacity on every background surface — pages, slides, print, deck backgrounds. Non-negotiable. Never scaled, never recolored, never removed for "cleaner" layouts. Rulers (<code>.ruler-top</code>, <code>.ruler-left</code>) reinforce the grid on desktop; hidden on mobile where the grid lines carry that function alone.</p>
+          </article>
+
+          <!-- HOMEPAGE PLATE GRID -->
+          <article class="s-section" id="foundations-plategrid">
+            <header class="s-section-head">
+              <span class="s-section-num">1.8</span>
+              <h3>Homepage plate grid</h3>
+            </header>
+            <p>12-column CSS grid. Rows must sum to 12. Adjacent plates must never share the same background treatment — textures and plain surfaces alternate so every card contrasts its neighbor.</p>
+            <p class="s-note"><strong>Policy.</strong> Plates are the homepage architecture. They are not cards, not tiles, not thumbnails. Every plate is a self-contained unit with a title, metadata, and a texture or color fill. Plates never contain body text, images of people, or calls to action. Plate borders are 3px solid — never reduced. Hover: border shifts to <code>var(--accent)</code> plus a subtle scale. On mobile plates stack single-column but retain full border, texture, and typography.</p>
+            <p><strong>Plate variants.</strong> <code>.plate-lead</code> is the issue-opener (split body over image + latest badge + lead rail) — see Components §3.12. <code>.plate-wide</code> spans the row at plate-med scale. <code>.plate-secondary</code> is the three-up row cell. <code>.plate-banner</code> is a wide image-forward card. <code>.plate-row</code> modifier drops the cell into a single-row layout for archive-density moments.</p>
+            <p><strong>Semantic rule.</strong> Every plate is a single block-level anchor — the whole card is the link. No nested focusable elements, no absolutely-positioned overlay links, no <code>&lt;article&gt;</code> wrappers with a separate <code>&lt;a&gt;</code> inside. The card's semantics, focus ring, and hover state all live on one element.</p>
+            <p><strong>Image plates stay dark in both modes.</strong> The grayscale filter and black-to-transparent gradient on image plates hold identically in light and dark. No <code>invert(1)</code> flip, no mirrored gradient. One visual field, both modes.</p>
+          </article>
+        </section>
+
+        <!-- ─────────────────────────────────
+             02 · VOICE
+        ───────────────────────────────── -->
+        <section id="voice" class="s-chapter" aria-labelledby="voice-head">
+          <header class="s-chapter-head">
+            <span class="s-chapter-num">02</span>
+            <h2 id="voice-head" class="s-chapter-title">Voice</h2>
+            <p class="s-chapter-deck">How the brand sounds. Editorial tone, microcopy, structural rules.</p>
+          </header>
+
+          <!-- EDITORIAL VOICE -->
+          <article class="s-section" id="voice-editorial">
+            <header class="s-section-head">
+              <span class="s-section-num">2.1</span>
+              <h3>Editorial voice</h3>
+            </header>
+            <p>The writing voice is <strong>Poetic Brutalism + Dry Humor.</strong> Like brutalist architecture: raw material, no ornamentation, the structure is the beauty. Every word is load-bearing. The humor creates breathing room. Neither works without the other. The brutalism without humor becomes a sermon. The humor without brutalism becomes a podcast.</p>
+            <p class="s-note"><strong>Policy.</strong> This voice governs all authored text — articles, captions, carousels, deck copy, email subject lines. No exclamation points. No rhetorical questions as engagement bait. No hashtag-driven language. No emoji in body text. Humor is dry, never self-deprecating. Vulnerability is precise, never performed. If the reader cannot handle the register, they are not the audience.</p>
+
+            <div class="s-voice-specimens">
+              <figure class="s-voice-example">
+                <figcaption class="s-voice-register">Brutalist poetic</figcaption>
+                <blockquote>A gathered, called-out, living community. Not a building. Not a brand. Not a broadcast.</blockquote>
+              </figure>
+              <figure class="s-voice-example">
+                <figcaption class="s-voice-register">Dry conversational</figcaption>
+                <blockquote>Nobody told me that in Sunday school.</blockquote>
+              </figure>
+              <figure class="s-voice-example">
+                <figcaption class="s-voice-register">Tender / grave</figcaption>
+                <blockquote>We lost the pregnancy. Just over four weeks. Early enough for some people to minimize it. But there is no "barely" in loss. There is only before and after.</blockquote>
+              </figure>
+              <figure class="s-voice-example">
+                <figcaption class="s-voice-register">Intimate / vulnerable</figcaption>
+                <blockquote>I held his hand and begged God not to take him. I told Him I still needed my dad. Not as Bishop. Not as a leader. Just as my father.</blockquote>
+              </figure>
+            </div>
+          </article>
+
+          <!-- MICROCOPY -->
+          <article class="s-section" id="voice-microcopy">
+            <header class="s-section-head">
+              <span class="s-section-num">2.2</span>
+              <h3>Microcopy &amp; interface voice</h3>
+            </header>
+            <p>All language — on-screen, on-slide, in print — follows one register: terse, stamped, authored. No articles or prepositions in labels. No verbs in metadata. No friendliness. The brand does not greet. It presents.</p>
+
+            <div class="s-microcopy-grid">
+              <div class="s-microcopy-row">
+                <code class="s-microcopy-yes">"8 min"</code>
+                <code class="s-microcopy-no">"Takes 8 minutes to read"</code>
+              </div>
+              <div class="s-microcopy-row">
+                <code class="s-microcopy-yes">"Mode: Light"</code>
+                <code class="s-microcopy-no">"Switch to dark mode"</code>
+              </div>
+              <div class="s-microcopy-row">
+                <code class="s-microcopy-yes">"Est. 1994"</code>
+                <code class="s-microcopy-no">"Established in 1994"</code>
+              </div>
+              <div class="s-microcopy-row">
+                <code class="s-microcopy-yes">"Publishing Apr 19"</code>
+                <code class="s-microcopy-no">"Coming soon on April 19th!"</code>
+              </div>
+            </div>
+            <p class="s-note">Tags are classification, not decoration. Single-word categorical labels. Never cute. Never clever. Permitted vocabulary: <strong>Faith · Identity · Art</strong>. Any new lane requires a rewrite of the taxonomy, not a new tag.</p>
+          </article>
+
+          <!-- STRUCTURAL RULES -->
+          <article class="s-section" id="voice-structural">
+            <header class="s-section-head">
+              <span class="s-section-num">2.3</span>
+              <h3>Structural rules</h3>
+            </header>
+            <p>The border system is the skeleton of the brand. It is not decorative. Borders define hierarchy, separate modules, signal structural intent. If a surface has no border, it is either background or it is wrong.</p>
+            <ul class="s-rules">
+              <li><strong>3px solid var(--border)</strong> — primary structural borders. Plate outlines, article header, article body, share bar, pull quote top/bottom, section head rule, callout left border, carousel slide-inner frame.</li>
+              <li><strong>2px solid var(--border)</strong> — secondary borders. Tags, meta rail edges, scripture blocks, brand block, mode toggle, footer items, back button, logo card labels.</li>
+              <li><strong>46px repeating grid lines</strong> at <code>var(--rule)</code> opacity on every background surface — pages, slides, print, deck backgrounds. Non-negotiable. Never scaled, never recolored, never removed for "cleaner" layouts.</li>
+              <li><strong>Rulers</strong> (<code>.ruler-top</code>, <code>.ruler-left</code>) on all web pages. Hidden on mobile. Not present on social or print — the grid lines carry that function instead.</li>
+              <li><strong>Article frame</strong> — max-width 680px, all breakpoints. No inline styles in body copy. The constraint extends to any long-form reading surface (Substack, email, any future publishing channel).</li>
+            </ul>
+          </article>
+        </section>
+
+        <!-- ─────────────────────────────────
+             03 · COMPONENTS · live demos on production classes
+        ───────────────────────────────── -->
+        <section id="components" class="s-chapter" aria-labelledby="components-head">
+          <header class="s-chapter-head">
+            <span class="s-chapter-num">03</span>
+            <h2 id="components-head" class="s-chapter-title">Components</h2>
+            <p class="s-chapter-deck">Live demos on production classes. The article.css and home-augment.css that render these are the same files every essay and homepage component load.</p>
+          </header>
+
+          <!-- PULL QUOTE -->
+          <article class="s-section" id="components-pullquote">
+            <header class="s-section-head">
+              <span class="s-section-num">3.1</span>
+              <h3>Pull quote — <code>.pull-quote</code></h3>
+            </header>
+            <p>Three-pixel top/bottom rules in ink. Anton display uppercased, negative tracking, text-wrap balance. Used once per essay, for the sentence the reader should be able to screenshot.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.pull-quote</code></div>
+              <figure class="pull-quote">
+                <blockquote><p>The surfaces behave like pages. The pages behave like arguments. The arguments behave like sermons you would not interrupt.</p></blockquote>
+              </figure>
+            </div>
+          </article>
+
+          <!-- CALLOUT -->
+          <article class="s-section" id="components-callout">
+            <header class="s-section-head">
+              <span class="s-section-num">3.2</span>
+              <h3>Callout — <code>.callout</code></h3>
+            </header>
+            <p>3px left rail in accent red. Plex bold body, not display. For the "quiet conviction" moment inside an essay — the sentence that isn't the pull quote but wants emphasis.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.callout</code></div>
+              <aside class="callout">
+                <p>The system is the file. This page runs the same stylesheets every production page runs. If a rule fails here, it fails everywhere.</p>
+              </aside>
+            </div>
+          </article>
+
+          <!-- SCRIPTURE -->
+          <article class="s-section" id="components-scripture">
+            <header class="s-section-head">
+              <span class="s-section-num">3.3</span>
+              <h3>Scripture — <code>.scripture</code></h3>
+            </header>
+            <p>Bordered panel in body-tint, italic Plex body, mono accent-red cite. Exact KJV only, never paraphrased. Citation always follows the verse.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.scripture</code></div>
+              <blockquote class="scripture">
+                <p>Likewise the Spirit also helpeth our infirmities: for we know not what we should pray for as we ought: but the Spirit itself maketh intercession for us with groanings which cannot be uttered.</p>
+                <cite>KJV · Romans 8:26</cite>
+              </blockquote>
+            </div>
+          </article>
+
+          <!-- SECTION HEAD -->
+          <article class="s-section" id="components-sectionhead">
+            <header class="s-section-head">
+              <span class="s-section-num">3.4</span>
+              <h3>Section head — <code>.section-head</code></h3>
+            </header>
+            <p>In-essay structural divider. Roman numeral eyebrow in accent, Anton display title with a 3px underline. Used at most 3–5 times per essay to denote major movements.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.section-head</code></div>
+              <div class="section-head">
+                <h2>The room decides the song.</h2>
+                <div class="section-head-line"></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- STAT BLOCK -->
+          <article class="s-section" id="components-stat">
+            <header class="s-section-head">
+              <span class="s-section-num">3.5</span>
+              <h3>Stat block — <code>.stat-block</code></h3>
+            </header>
+            <p>Vertical accent bar + display-weight declarative statement. Maximum two per article. Never for opinions — only verifiable claims or theological declarations.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.stat-block</code></div>
+              <div class="stat-block">
+                <div class="stat-block-bar"></div>
+                <div class="stat-block-text">
+                  The calling was never about the catch.
+                  <span>It was about the leaving.</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- CLOSING -->
+          <article class="s-section" id="components-closing">
+            <header class="s-section-head">
+              <span class="s-section-num">3.6</span>
+              <h3>Closing — <code>.closing</code></h3>
+            </header>
+            <p>The essay's final beat. A short declarative line, centered, bordered top and bottom with content-weight rules. One per essay, at the end. Not a CTA. Not a summary. The last sentence that earns the read.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.closing</code></div>
+              <aside class="closing">
+                <p>Planted. Assigned. Still learning. Still cooking.</p>
+              </aside>
+            </div>
+          </article>
+
+          <!-- STUDY NOTE -->
+          <article class="s-section" id="components-studynote">
+            <header class="s-section-head">
+              <span class="s-section-num">3.7</span>
+              <h3>Study note — <code>&lt;details class="study-note"&gt;</code></h3>
+            </header>
+            <p>Native <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code> disclosure. Expandable Greek / Hebrew / theological notes inline with the essay. No ARIA polyfill — the element is natively accessible. <code>[open]</code> attribute selector drives the indicator rotation.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.study-note</code></div>
+              <details class="study-note">
+                <summary class="study-note-trigger">
+                  <span class="study-note-label">Study note</span>
+                  <span class="study-note-ref">Romans 8:26 · <i>sunantilambanomai</i></span>
+                  <span class="study-note-toggle" aria-hidden="true">+</span>
+                </summary>
+                <div class="study-note-body">
+                  <p>Greek compound: <i>sun</i> (with) + <i>anti</i> (over against) + <i>lambanō</i> (to take hold of). Literally "takes hold together with, from the opposite side." Not intercession from a distance. Shoulder-to-shoulder labor, carrying the heavy end.</p>
+                </div>
+              </details>
+            </div>
+          </article>
+
+          <!-- ═ HOME COMPONENTS ═ -->
+          <header class="s-subchapter-head">
+            <span class="s-subchapter-eyebrow">Home components</span>
+            <p class="s-subchapter-body">The homepage's own components — rendered here on the same <code>home-augment.css</code> the live site loads.</p>
+          </header>
+
+          <!-- ISSUE HEAD -->
+          <article class="s-section" id="components-issuehead">
+            <header class="s-section-head">
+              <span class="s-section-num">3.8</span>
+              <h3>Issue head — <code>.issue-head</code></h3>
+            </header>
+            <p>Masthead of the editorial issue. Sits directly under the site chrome on the homepage. Carries the issue number, week stamp, and a "latest" standfirst that deep-links to the current essay. The reader knows which edition they landed on before they read a word.</p>
+            <p class="s-note"><strong>Rules.</strong> Issue number increments only with a new lead essay. Week stamp is always the publication week, not the current week. The standfirst block is the <em>only</em> place an essay link coexists with editorial metadata above the archive.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.issue-head</code></div>
+              <section class="issue-head" aria-label="Issue demo">
+                <div class="issue-meta">
+                  <span class="issue-no">Entry No. 05</span>
+                  <span>Week of April 19, 2026</span>
+                </div>
+                <div class="issue-standfirst issue-latest" aria-label="Demo — not a live link">
+                  <span class="latest-tag">Latest</span>
+                  <span class="latest-title">The Groan Beneath the Song</span>
+                  <span class="latest-meta">Faith · Apr 19 · 18 min</span>
+                  <span class="latest-cta" aria-hidden="true">Read →</span>
+                </div>
+              </section>
+            </div>
+          </article>
+
+          <!-- IDENTITY HERO -->
+          <article class="s-section" id="components-identityhero">
+            <header class="s-section-head">
+              <span class="s-section-num">3.9</span>
+              <h3>Identity hero — <code>.identity-hero</code></h3>
+            </header>
+            <p>The author block. Split main / side layout — name on one side at display scale, short bio + two actions on the other. Never more than two actions. Primary action links to the full about page; secondary anchors the subscribe manifesto.</p>
+            <p class="s-note"><strong>Hard rules.</strong> One identity hero per site. Never on article pages. Never duplicated on social. The name is <em>always</em> "Dexter Jakes" — no first-name-only, no handle-as-name. The corner eyebrow ("The Writer → 01") maps to issue numbering.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.identity-hero</code></div>
+              <section class="identity-hero" aria-label="Identity hero demo">
+                <div class="hero-main">
+                  <span class="hero-corner">The Writer → 01</span>
+                  <div>
+                    <span class="hero-sub">ImJustDex</span>
+                    <h2 class="hero-name" style="font-size:clamp(2.4rem, 7vw, 5rem);line-height:.88;margin:0;">Dexter<br>Jakes</h2>
+                  </div>
+                  <p class="hero-tagline">No highlight reel. Just the full human, documented.</p>
+                </div>
+                <div class="hero-side">
+                  <div>
+                    <p class="hero-eyebrow">About — Est. 2026</p>
+                    <p class="hero-bio">Someone working the line between faith, art, and identity. Essays here are the long form — slow paragraphs, no hot takes, no calls to action.</p>
+                  </div>
+                  <div class="hero-links">
+                    <span class="hero-link primary">Read the About <span class="hero-glyph" aria-hidden="true">→</span></span>
+                    <span class="hero-link">Subscribe</span>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </article>
+
+          <!-- LANE INDEX -->
+          <article class="s-section" id="components-laneindex">
+            <header class="s-section-head">
+              <span class="s-section-num">3.10</span>
+              <h3>Lane index + filter — <code>.lane-index</code></h3>
+            </header>
+            <p>A three-cell classification rail. Each cell is a filter trigger — click "Faith" and the archive hides every plate not on that lane. The third cell is the <em>queued</em> state: a lane with no essays yet, rendered dashed and non-interactive. The cell stays visible so the taxonomy is always legible, even when a lane is empty.</p>
+            <p class="s-note"><strong>Rules.</strong> Three lanes max: Faith, Identity, Art. No sub-lanes. No badges. Click toggles <code>aria-pressed</code> on the button and adds a filter class to the archive root. One lane active at a time; clicking the active lane resets to "all." Queued cells carry <code>aria-disabled="true"</code> + a descriptive <code>aria-label</code>.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.lane-index</code></div>
+              <section class="lane-index" aria-label="Filter essays by lane" role="group">
+                <button type="button" class="lane-cell" aria-pressed="false">
+                  <span class="lane-name">Faith</span>
+                  <span class="lane-count">03 essays</span>
+                </button>
+                <button type="button" class="lane-cell" aria-pressed="false">
+                  <span class="lane-name">Identity</span>
+                  <span class="lane-count">02 essays</span>
+                </button>
+                <div class="lane-cell lane-cell-queued" aria-disabled="true" aria-label="Art — no essays yet, in the queue">
+                  <span class="lane-name">Art</span>
+                  <span class="lane-count">In the queue</span>
+                </div>
+              </section>
+            </div>
+          </article>
+
+          <!-- PLATE LEAD -->
+          <article class="s-section" id="components-platelead">
+            <header class="s-section-head">
+              <span class="s-section-num">3.11</span>
+              <h3>Plate lead + row modifier — <code>.plate-lead</code></h3>
+            </header>
+            <p>The issue opener. A two-column plate that splits a textured image (with latest-badge overlay) against an editorial body panel (eyebrow, title, deck, rail). Only plate variant that carries a deck. Used exactly once per issue.</p>
+            <p class="s-note"><strong><code>.plate-row</code></strong> is an archive-density modifier. Drops a <code>.plate-secondary</code> card into a single-row layout so the title, deck, and meta sit inline. Use at the bottom of the archive for older entries where scale-parity with newer plates would be visual noise.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.plate.plate-lead</code></div>
+              <article>
+                <a class="plate plate-lead" aria-label="Read: The Groan Beneath the Song (demo — not a live link)" data-lane="faith">
+                  <div class="lead-image" aria-hidden="true">
+                    <div class="lead-badge">
+                      <span class="lead-badge-label">Latest</span>
+                      <span class="lead-badge-lane">Faith</span>
+                    </div>
+                  </div>
+                  <div class="lead-body">
+                    <div>
+                      <div class="lead-eyebrow"><time datetime="2026-04-19">Apr 19</time> · 18 min read</div>
+                      <h3 class="lead-title">The Groan Beneath the Song</h3>
+                      <p class="lead-deck">
+                        On the Sunday school lie that split sacred from secular, the Psalms that broke it, and the song that met me when I couldn't pray.
+                      </p>
+                    </div>
+                    <div class="lead-rail">
+                      <span class="rail-meta">Essay · 18 min</span>
+                      <span class="rail-cta">Read →</span>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            </div>
+          </article>
+
+          <!-- SUBSCRIBE MANIFESTO -->
+          <article class="s-section" id="components-subscribe">
+            <header class="s-section-head">
+              <span class="s-section-num">3.12</span>
+              <h3>Subscribe manifesto — <code>.subscribe-manifesto</code></h3>
+            </header>
+            <p>The subscribe block. A two-column split — ink-saturated title wall on the left (4-line stack, one word in the accent ink slot), receipt-style checklist + email capture on the right. Anti-pattern for every other subscribe block on the web: no hero image, no urgency copy, no social proof, no testimonials. <strong>The promise is the design.</strong></p>
+            <p class="s-note"><strong>Rules.</strong> One per site. Always at the bottom of the homepage. The title is fixed at four lines — rewording is allowed, restructuring is not. The form <code>action</code> on production points at <code>/api/subscribe</code> (Netlify function, Mailchimp REST v3). The demo below is <strong>inert</strong> — no submission endpoint, no form action.</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.subscribe-manifesto</code> · demo inert</div>
+              <section class="subscribe-manifesto" aria-label="Subscribe demo">
+                <div class="sm-left">
+                  <span class="sm-kicker">The Standing Order</span>
+                  <h3 class="sm-title" style="font-size:clamp(2.2rem,6vw,5rem);line-height:.92;margin:0;">Words that<br><span class="sm-accent">won&rsquo;t</span><br>waste<br>your time.</h3>
+                </div>
+                <div class="sm-right">
+                  <p class="sm-promise">An essay, a resource, a research note — whatever earns its way in.</p>
+                  <ul class="sm-toc">
+                    <li><span class="sm-check">✓</span><div><div class="sm-strong">Only what&rsquo;s worth the send</div><div class="sm-faint">No filler. No recap. No fluff.</div></div></li>
+                    <li><span class="sm-check">✓</span><div><div class="sm-strong">Ad-free, tracking-free</div><div class="sm-faint">Plain text where possible.</div></div></li>
+                    <li><span class="sm-check">✓</span><div><div class="sm-strong">Unsubscribe in one click</div><div class="sm-faint">No guilt trip footers.</div></div></li>
+                  </ul>
+                  <div class="sm-form" role="presentation">
+                    <input class="sm-input" type="email" placeholder="you@elsewhere.com" aria-label="Email address (demo, inert)" disabled>
+                    <button class="sm-submit" type="button" disabled>Send me the next one →</button>
+                  </div>
+                  <span class="sm-fine">No spam, ever · Demo form, no submission</span>
+                </div>
+              </section>
+            </div>
+          </article>
+
+          <!-- ISSUE NEXT -->
+          <article class="s-section" id="components-issuenext">
+            <header class="s-section-head">
+              <span class="s-section-num">3.13</span>
+              <h3>Issue next — <code>.issue-next</code></h3>
+            </header>
+            <p>The teaser strip. A single-line announcement for the next essay in the queue — title, lane, estimated drop date, read time, and a "notify me" affordance that anchors back to the subscribe manifesto. Sits between the archive and the subscribe block. Disappears the moment the next essay publishes.</p>
+            <p class="s-note"><strong>Rules.</strong> One per homepage. Dated in absolute format ("Apr 23") — never "Next week" or relative. Never includes a deck. If a drop date is uncertain, the strip is hidden — never publish "TBD."</p>
+            <div class="s-demo-frame">
+              <div class="s-demo-label">Live · <code>.issue-next</code></div>
+              <a class="issue-next" href="#subscribe-manifesto" aria-label="Scroll to subscribe (demo)">
+                <span class="next-tag">Next</span>
+                <span class="next-title">I Am Not My Father&rsquo;s Pulpit</span>
+                <span class="next-meta">Identity · Apr 23 · 12 min</span>
+                <span class="next-cta" aria-hidden="true">Notify me →</span>
+              </a>
+            </div>
+          </article>
+        </section>
+
+        <!-- ─────────────────────────────────
+             04 · SYSTEM
+        ───────────────────────────────── -->
+        <section id="system" class="s-chapter" aria-labelledby="system-head">
+          <header class="s-chapter-head">
+            <span class="s-chapter-num">04</span>
+            <h2 id="system-head" class="s-chapter-title">System</h2>
+            <p class="s-chapter-deck">The operating contracts. Accessibility, responsive, motion.</p>
+          </header>
+
+          <!-- ACCESSIBILITY -->
+          <article class="s-section" id="system-a11y">
+            <header class="s-section-head">
+              <span class="s-section-num">4.1</span>
+              <h3>Accessibility standards</h3>
+            </header>
+            <p>The aesthetic is uncompromising. Accessibility is also uncompromising. These do not conflict. A system that cannot be read, navigated, or understood by all users is not disciplined — it is negligent. Baseline: WCAG 2.2 AA.</p>
+            <dl class="s-contract">
+              <dt>Contrast</dt>
+              <dd>All body text meets 4.5:1 minimum. <code>--body-color</code> at 0.82 opacity passes in both modes. <code>--body-muted</code> (0.52) is metadata-only and never carries essential content. <code>--body-faint</code> (0.18) and <code>--body-tint</code> (0.04) are decorative — never carry meaning alone.</dd>
+              <dt>Minimum type sizes</dt>
+              <dd>Body: 16px. Mono metadata: 11px. No text smaller than 11px on any surface. Carousel body: 24px. Carousel mono: 10px at 1080 canvas.</dd>
+              <dt>Focus states</dt>
+              <dd>All interactives show a 2px solid <code>var(--accent)</code> outline on <code>:focus-visible</code> with 2px offset. Never removed. Never replaced with color-only indication. Tab order follows visual reading order.</dd>
+              <dt>Touch targets</dt>
+              <dd>Minimum 44×44px for all interactives. Mode toggle, nav links, plate cards, share-bar items, tags. Padding counts.</dd>
+              <dt>Reduced motion</dt>
+              <dd>All transitions respect <code>prefers-reduced-motion: reduce</code>. When active: no hover transforms, no progress-bar animation, no plate scale transitions. Static fallbacks only. The brand does not depend on motion for meaning.</dd>
+              <dt>Color independence</dt>
+              <dd>Accent red never carries meaning alone. Every red element is also distinguished by position, border, weight, or label. A monochrome printout of any page must remain fully legible.</dd>
+              <dt>Keyboard navigation</dt>
+              <dd>Every interactive element reachable via Tab. Visible focus on every tab stop. No focus traps. Skip-to-content link on every page. Component-scoped bindings (Escape to collapse, arrow keys for roving focus) live with the components that need them.</dd>
+            </dl>
+          </article>
+
+          <!-- RESPONSIVE -->
+          <article class="s-section" id="system-responsive">
+            <header class="s-section-head">
+              <span class="s-section-num">4.2</span>
+              <h3>Responsive behavior</h3>
+            </header>
+            <p>The system does not have a "mobile version." It has one design that compresses. Components shed secondary elements at narrower widths but never change personality. The grid tightens. The borders remain.</p>
+            <dl class="s-contract">
+              <dt>Breakpoints</dt>
+              <dd><strong>≤ 768px:</strong> plates stack single-column, rulers hide, outer padding drops to 18px. Grid stays. <strong>≤ 480px:</strong> display type hits its <code>clamp()</code> floor, meta rail wraps, share bar stacks, section indicator hides.</dd>
+              <dt>Article frame</dt>
+              <dd>Max-width 680px at every breakpoint. Padding adjusts 28px → 16px. Pull quotes, callouts, scripture blocks remain full-width within the frame. No component is ever hidden on mobile.</dd>
+              <dt>Headlines</dt>
+              <dd>All display type uses <code>clamp()</code> with a floor + vw preferred + ceiling. Example: <code>clamp(2.2rem, 6vw, 4.5rem)</code>. Never truncated with ellipsis. Never below the clamp floor.</dd>
+              <dt>Line length</dt>
+              <dd>Body copy: 55–75 characters per line (optimal 65). Enforced by the 680px frame. On mobile: compresses naturally but never below 40 characters at 16px body.</dd>
+              <dt>Mobile rhythm</dt>
+              <dd>Vertical spacing compresses but maintains proportion. Section margins 48 → 32px. Component padding 24 → 16px. Grid gap stays at 12px. Border weights never change. Rhythm slows slightly on mobile — more breathing room, not less.</dd>
+              <dt>Horizontal overflow</dt>
+              <dd><code>overflow-x: clip</code> on <code>html</code> (iOS Safari requires it on the root). <code>.page-shell</code> uses <code>clip</code> as defense-in-depth. <code>clip</code> instead of <code>hidden</code> so sticky masthead keeps working.</dd>
+            </dl>
+          </article>
+
+          <!-- MOTION -->
+          <article class="s-section" id="system-motion">
+            <header class="s-section-head">
+              <span class="s-section-num">4.3</span>
+              <h3>Motion &amp; interaction states</h3>
+            </header>
+            <p>Motion is mechanical, not expressive. Every transition is short, linear or ease-out, and serves one purpose: confirm that an interaction registered. The brand does not bounce, spring, wobble, or delight. It responds.</p>
+            <dl class="s-contract">
+              <dt>Transition tokens</dt>
+              <dd><code>--motion-fast</code> (120ms) for hover chrome + progress fills. <code>--motion-med</code> (180ms) for mode flip + small-chrome opacity. <code>--motion-slow</code> (300ms) for ambient reveals. <code>--ease-default</code> (<code>cubic-bezier(.2, .8, .2, 1)</code>) is the one curve. <strong>If a duration isn't in this scale, it doesn't belong in the product.</strong> Never ease-in-out. Never overshoot curves. Never transitions longer than <code>--motion-slow</code>.</dd>
+              <dt>Hover states</dt>
+              <dd>Plates: border-color shifts to <code>var(--accent)</code>, <code>scale(1.005)</code>. Links: border-bottom appears, color unchanged. Tags/meta: background to <code>var(--body-tint)</code>. Buttons: fg/bg invert.</dd>
+              <dt>Active / pressed</dt>
+              <dd>Scale to 0.98 on interactives. Immediate — no transition on press, only on release. Color does not change on active. The press is the only feedback.</dd>
+              <dt>Disabled / empty</dt>
+              <dd>Disabled: 0.32 opacity, <code>cursor: not-allowed</code>, no hover. Empty states: centered mono caps, <code>var(--body-muted)</code>. Never illustrated. Never friendly. Example: "Nothing here yet."</dd>
+              <dt>Loading / progress</dt>
+              <dd>Reading progress bar: <code>var(--ink)</code> fill, 3px height, linear left-to-right. Red was pulled from the progress bar because a red strip at viewport top competed with the masthead and diluted the accent's semantic weight. Red stays reserved for section heads, callouts, underlines, focus. Never ambient chrome.</dd>
+              <dt>Error / alert</dt>
+              <dd>Errors inherit the accent — the system already reserves red for emphasis. Error text: mono, uppercase, <code>var(--accent)</code>. Error borders: 2px solid <code>var(--accent)</code> on the affected field. No icons. No exclamation marks. "Required." or "Invalid format." — that register.</dd>
+              <dt>Visited</dt>
+              <dd>Visited article links on homepage plates: no color change. The system does not differentiate read from unread. If tracking is needed, it happens in metadata ("Read" tag), not in link styling.</dd>
+            </dl>
+          </article>
+        </section>
+
+        <!-- ─────────────────────────────────
+             05 · SOCIAL
+        ───────────────────────────────── -->
+        <section id="social" class="s-chapter" aria-labelledby="social-head">
+          <header class="s-chapter-head">
+            <span class="s-chapter-num">05</span>
+            <h2 id="social-head" class="s-chapter-title">Social</h2>
+            <p class="s-chapter-deck">The social template system. Four canvases, two modes, one doctrine. Every slide is a stripped-down article panel.</p>
+          </header>
+
+          <!-- SOCIAL CAROUSELS -->
+          <article class="s-section" id="social-carousels">
+            <header class="s-section-head">
+              <span class="s-section-num">5.1</span>
+              <h3>Social carousels</h3>
+            </header>
+            <p>Every social artifact is a stripped-down version of the article page — same grid, same panel border, same monospace eyebrow, same display type. Each template ships in four canonical formats (portrait, story, square, landscape) and two modes (dark, light). Modes may vary <em>between</em> posts in a campaign (e.g., announcement in light, carousel in dark) but never <em>within</em> a single carousel. If a slide could not be a printed broadsheet panel, it is wrong.</p>
+            <p class="s-note"><strong>Pattern library.</strong> The full 232-artboard system lives at <code>imjustdex-social-templates.html</code> in the brand-voice repo — 29 filterable buckets, every one shipping all four formats in dark and light. Each bucket is a template (blog announcement, carousel S1–S10, devotional, letter, quote card, music drop, dispatch, field note, essay teaser, now card, reckoning, reader Q&amp;A, speaking/show, cultural reply, recipe, liner notes) plus two modifier extensions (<code>.field.memoir</code>, <code>.reckoning.exegesis</code>) and two primitive affordances (<code>.cycle-marker</code>, <code>.fn-mark</code> + <code>.footnotes</code>).</p>
+
+            <dl class="s-contract">
+              <dt>Grid</dt>
+              <dd>46px repeating background lines at <code>rgba(255,255,255,.16)</code> dark, <code>rgba(0,0,0,.14)</code> light. Identical across all surfaces — site, carousels, decks, print. Non-negotiable.</dd>
+              <dt>Panel border</dt>
+              <dd>Every slide ships the brand-block outline. 3px content borders for frames, 2px chrome borders for inner treatments — same doctrine as the web.</dd>
+              <dt>Type</dt>
+              <dd>Anton for display, IBM Plex Sans for argument, mono for metadata. Binary weight scale (400 / 700) — same as the site. <code>font-synthesis: none</code> site-wide so Anton can't be faux-bolded.</dd>
+              <dt>Red doctrine</dt>
+              <dd><code>#c00</code> identical across both modes for borders, fills, and display text ≥ 18px. <code>--sig-text</code> flips to <code>#ff4d4d</code> (7.54:1 on #060606) for small red text on dark. Same rule as the web.</dd>
+              <dt>Scripture</dt>
+              <dd>Exact KJV only — never paraphrased. Enforced by <code>npm run lint</code> against <code>kjv-verses.json</code>.</dd>
+              <dt>Pagination</dt>
+              <dd>Dots pagination for carousels ≤5 slides. Count rail (<code>01 · 05</code>) for carousels &gt;5.</dd>
+            </dl>
+          </article>
+
+          <!-- PLATFORM DIMENSIONS -->
+          <article class="s-section" id="social-platforms">
+            <header class="s-section-head">
+              <span class="s-section-num">5.2</span>
+              <h3>Platform dimensions</h3>
+            </header>
+            <p>Every social template ships in four canonical formats. One campaign file, four dimensional variants, plus opt-in safe-zone modifiers for per-platform UI chrome. All inherit Refined Brutalism — grid, panel border, mono metadata, display headlines. Upload the matching format per destination.</p>
+
+            <div class="s-platform-grid">
+              <div class="s-platform-card">
+                <h4>Portrait · 1080 × 1440</h4>
+                <dl>
+                  <div><dt>Aspect</dt><dd>3 : 4</dd></div>
+                  <div><dt>Instagram feed</dt><dd>native</dd></div>
+                  <div><dt>IG profile grid</dt><dd>survives 3:4 crop</dd></div>
+                  <div><dt>Pinterest</dt><dd>accepted</dd></div>
+                </dl>
+              </div>
+
+              <div class="s-platform-card">
+                <h4>Story · 1080 × 1920</h4>
+                <dl>
+                  <div><dt>Aspect</dt><dd>9 : 16</dd></div>
+                  <div><dt>Instagram Stories</dt><dd>default 250 / 250</dd></div>
+                  <div><dt>Facebook Stories</dt><dd><code>.fb-stories</code> 270 / 380</dd></div>
+                  <div><dt>Instagram Reels</dt><dd><code>.reels</code> 210 / 440 / 90</dd></div>
+                  <div><dt>TikTok</dt><dd><code>.tiktok</code> 140 / 324 / 164</dd></div>
+                </dl>
+              </div>
+
+              <div class="s-platform-card">
+                <h4>Square · 1080 × 1080</h4>
+                <dl>
+                  <div><dt>Aspect</dt><dd>1 : 1</dd></div>
+                  <div><dt>Threads</dt><dd>native</dd></div>
+                  <div><dt>X / Twitter</dt><dd>native</dd></div>
+                  <div><dt>Facebook feed</dt><dd>native</dd></div>
+                  <div><dt>LinkedIn feed</dt><dd>native</dd></div>
+                  <div><dt>IG grid crop</dt><dd><code>.ig-grid-safe</code> 135 / 135</dd></div>
+                </dl>
+              </div>
+
+              <div class="s-platform-card">
+                <h4>Landscape · 1200 × 630</h4>
+                <dl>
+                  <div><dt>Aspect</dt><dd>1.91 : 1</dd></div>
+                  <div><dt>OG meta image</dt><dd>native</dd></div>
+                  <div><dt>X link card</dt><dd>native</dd></div>
+                  <div><dt>LinkedIn preview</dt><dd>native</dd></div>
+                  <div><dt>Facebook link</dt><dd>native</dd></div>
+                  <div><dt>Mobile crop</dt><dd><code>.og-safe</code> horiz +120</dd></div>
+                  <div><dt>Blog hero</dt><dd>native</dd></div>
+                </dl>
+              </div>
+            </div>
+
+            <p class="s-note"><strong>Out of scope.</strong> Facebook Reels (needs ~670px bottom, not currently a variant), YouTube video thumbnails (1280×720 landscape-adjacent), LinkedIn 1584×396 profile banner, full-bleed TikTok video-thumbnail frames. Add as new dimensional classes or modifiers when a distribution channel commits — never in advance.</p>
+          </article>
+        </section>
+
+        <!-- Exit -->
+        <section class="s-exit" aria-label="Next">
+          <p class="s-exit-body">The system is a contract, not a showcase. The actual surfaces it produces live at <a class="s-link" href="/brand/evidence/">brand/evidence</a>.</p>
+          <a class="s-link s-exit-back" href="/brand/">← Back to the manifesto</a>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="footer-strip" aria-label="Footer">
+      <div class="footer-links">
+        <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="https://x.com/ImJustDex" target="_blank" rel="noopener noreferrer">X</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="/feed.xml" aria-label="RSS feed">Feed</a>
+      </div>
+      <span>Built by Dex &middot; Est. 2026</span>
+    </footer>
+  </div>
+</body>
+</html>
