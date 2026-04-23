@@ -1,13 +1,16 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import ArticleLayout from '~/layouts/ArticleLayout.astro';
+import { isPubliclyLive } from '~/utils/visibility';
 
 export async function getStaticPaths() {
   const entries = await getCollection('words');
-  return entries.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
+  return entries
+    .filter((entry) => isPubliclyLive(entry))
+    .map((entry) => ({
+      params: { slug: entry.slug },
+      props: { entry },
+    }));
 }
 
 interface Props {

@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
+import { isPubliclyLive } from '~/utils/visibility';
 
 const SITE = 'https://imjustdex.com';
 const TITLE = 'DX — Dexter Jakes';
@@ -24,10 +25,9 @@ function toIsoZ(dateStr: string): string {
 }
 
 export const GET: APIRoute = async () => {
-  const today = new Date();
+  const now = new Date();
   const entries = (await getCollection('words'))
-    .filter((e) => e.data.status === 'published')
-    .filter((e) => new Date(e.data.publishedDate) <= today)
+    .filter((e) => isPubliclyLive(e, now))
     .sort(
       (a, b) =>
         new Date(b.data.publishedDate).getTime() -
