@@ -174,11 +174,11 @@ const jsonLd = {
               </a>
             )}
             {d.next && d.next.ghost && (
-              <div class="article-nav-link article-nav-next article-nav-ghost">
+              <a class="article-nav-link article-nav-next article-nav-ghost" href={`/words/${d.next.slug}/`}>
                 <span class="article-nav-label">Next Essay &rarr;</span>
                 <span class="article-nav-title">{d.next.title}</span>
                 {d.next.date && <span class="article-nav-date">{d.next.date}</span>}
-              </div>
+              </a>
             )}
             {d.next && !d.next.ghost && (
               <a class="article-nav-link article-nav-next" rel="next" href={`/words/${d.next.slug}/`}>

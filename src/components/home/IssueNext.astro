@@ -14,7 +14,7 @@ const dateLabel = new Date(dateOnly + 'T00:00:00Z').toLocaleDateString('en-US', 
 });
 const meta = `${d.lanes[0]} · ${dateLabel} · ${d.readTime}`;
 ---
-<a class="issue-next" href="#subscribe-manifesto" aria-label={`Scroll to subscribe and be notified when ${d.title} is published`}>
+<a class="issue-next" href={`/words/${next.slug}/`} aria-label={`Preview ${d.title} and subscribe to be notified when it publishes`}>
   <span class="next-tag">Next</span>
   <span class="next-title">{d.title}</span>
   <span class="next-meta">{meta}</span>
