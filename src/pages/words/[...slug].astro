@@ -1,12 +1,17 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import ArticleLayout from '~/layouts/ArticleLayout.astro';
-import { isPubliclyLive } from '~/utils/visibility';
+import ComingSoonLayout from '~/layouts/ComingSoonLayout.astro';
+import { isPubliclyLive, isUpcoming } from '~/utils/visibility';
 
 export async function getStaticPaths() {
   const entries = await getCollection('words');
+  // Build static paths for both publicly-live and upcoming essays. Upcoming
+  // essays render a "coming soon" placeholder so dispatch teasers and social
+  // shares have a real URL to land on. Anything else (drafts, archived) is
+  // excluded from the build.
   return entries
-    .filter((entry) => isPubliclyLive(entry))
+    .filter((entry) => isPubliclyLive(entry) || isUpcoming(entry))
     .map((entry) => ({
       params: { slug: entry.slug },
       props: { entry },
@@ -18,8 +23,13 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const live = isPubliclyLive(entry);
+const { Content } = live ? await entry.render() : { Content: null };
 ---
-<ArticleLayout entry={entry}>
-  <Content />
-</ArticleLayout>
+{live ? (
+  <ArticleLayout entry={entry}>
+    <Content />
+  </ArticleLayout>
+) : (
+  <ComingSoonLayout entry={entry} />
+)}
