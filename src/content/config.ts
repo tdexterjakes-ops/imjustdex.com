@@ -1,6 +1,4 @@
 import { defineCollection, z } from 'astro:content';
-import { existsSync } from 'node:fs';
-import path from 'node:path';
 
 const LANES = ['Faith', 'Identity', 'Art'] as const;
 const PLATE_VARIANTS = ['lead', 'wide', 'secondary', 'banner'] as const;
@@ -51,14 +49,6 @@ const words = defineCollection({
           })
           .optional(),
         extraStyles: z.string().optional(),
-      })
-      .superRefine((data, ctx) => {
-        // Build-time guard: every published article must have its OG image on disk.
-        // Prevents the silent og-default.png fallback that produced the phase 27 drift.
-        if (data.status === 'published') {
-          // We can't know slug here (superRefine runs before Astro injects it).
-          // Layout will double-check; this refinement is a soft reminder.
-        }
       }),
 });
 
