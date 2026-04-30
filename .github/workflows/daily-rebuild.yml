@@ -1,0 +1,45 @@
+# Daily rebuild — flips date-gated content (ComingSoonLayout → ArticleLayout)
+# without requiring a code commit on the publish day.
+#
+# Why this exists:
+#   src/utils/visibility.ts evaluates `now` at build time, so a future-dated
+#   essay only flips public on the next deploy after its publishedDate passes.
+#   Without a daily trigger, scheduled essays stay gated until someone pushes.
+#
+# Setup (one-time):
+#   1. Netlify dashboard → Project settings → Build & deploy → Build hooks
+#      → "Add build hook", branch=main, copy URL.
+#   2. GitHub repo → Settings → Secrets and variables → Actions
+#      → New repository secret, name=NETLIFY_BUILD_HOOK_URL, value=<the URL>.
+#
+# Schedule: 00:05 America/Chicago (CST is UTC-6, CDT is UTC-5).
+# We fire at 05:05 UTC year-round so essays scheduled for "00:00 CST" of a
+# given day are guaranteed to flip on that day even during CDT (UTC-5),
+# trading 1 hour of latency in CDT for never missing a day.
+
+name: Daily rebuild
+
+on:
+  schedule:
+    - cron: '5 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  trigger-netlify-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: POST to Netlify build hook
+        env:
+          HOOK_URL: ${{ secrets.NETLIFY_BUILD_HOOK_URL }}
+        run: |
+          if [ -z "$HOOK_URL" ]; then
+            echo "::error::NETLIFY_BUILD_HOOK_URL secret is not set. See workflow file header for setup."
+            exit 1
+          fi
+          status=$(curl -sS -o /tmp/hook-response.txt -w "%{http_code}" -X POST "$HOOK_URL")
+          echo "Netlify build hook response: HTTP $status"
+          cat /tmp/hook-response.txt
+          if [ "$status" != "200" ] && [ "$status" != "201" ] && [ "$status" != "204" ]; then
+            echo "::error::Build hook returned non-2xx ($status)"
+            exit 1
+          fi

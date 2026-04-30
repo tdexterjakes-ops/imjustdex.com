@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import HomeLayout from '~/layouts/HomeLayout.astro';
 import LatestBar from '~/components/home/LatestBar.astro';
 import IdentityHero from '~/components/home/IdentityHero.astro';
@@ -77,6 +77,59 @@ const issueNo = `Entry No. ${entryNo}`;
 // Positional plate variant fallback: alternate wide → secondary → banner.
 const PLATE_ROTATION: PlateVariant[] = ['wide', 'secondary', 'banner'];
 const positionalVariant = (i: number): PlateVariant => PLATE_ROTATION[i % PLATE_ROTATION.length];
+
+// Row-packer: returns a per-plate layout sequence that fills every row of
+// the 12-col grid exactly. The base rotation wide(5) + secondary(3) +
+// banner(4) sums to 12, so any multiple-of-3 segment tiles cleanly.
+// Partial trailing segments are resized:
+//   • 1 leftover → single 'row' plate spanning all 12 cols
+//   • 2 leftover → two 'half' plates splitting 6 + 6
+//
+// Editor-authored full-row plates (frontmatter `plate.row: true`) are
+// honored: they always span 12 cols on their own row, and the surrounding
+// plates are packed into their own clean segments around them — so a
+// row break in the middle of the cascade can't strand a partial row
+// before or after it.
+//
+// This wins over per-article frontmatter `plate.variant` for archive
+// surfaces, which is intentional: a former-lead essay (e.g. gloria with
+// variant=lead) cannot drag .plate-lead's full-row + lead-only inner
+// grammar into a normal archive row.
+type ForcedLayout = 'wide' | 'secondary' | 'banner' | 'row' | 'half';
+
+function packSegment(count: number): ForcedLayout[] {
+  const out: ForcedLayout[] = [];
+  const fullRows = Math.floor(count / 3);
+  for (let i = 0; i < fullRows * 3; i++) {
+    out.push(PLATE_ROTATION[i % 3] as ForcedLayout);
+  }
+  const remainder = count - fullRows * 3;
+  if (remainder === 1) out.push('row');
+  else if (remainder === 2) out.push('half', 'half');
+  return out;
+}
+
+function packCascade(plates: CollectionEntry<'words'>[]): ForcedLayout[] {
+  const out: ForcedLayout[] = new Array(plates.length);
+  let segment: number[] = [];
+  const flush = () => {
+    const layouts = packSegment(segment.length);
+    segment.forEach((srcIdx, segIdx) => {
+      out[srcIdx] = layouts[segIdx];
+    });
+    segment = [];
+  };
+  plates.forEach((p, i) => {
+    if (p.data.plate.row) {
+      flush();
+      out[i] = 'row';
+    } else {
+      segment.push(i);
+    }
+  });
+  flush();
+  return out;
+}
 ---
 <HomeLayout>
   <LatestBar issueNo={issueNo} weekLabel={weekLabel} latest={lead} />
@@ -93,21 +146,31 @@ const positionalVariant = (i: number): PlateVariant => PLATE_ROTATION[i % PLATE_
       {thisMonth.length > 0 && (
         <>
           <RowHead num="02" label="This Month" />
-          {thisMonth.map((entry, i) => (
-            <Plate entry={entry} positionVariant={positionalVariant(i)} />
-          ))}
+          {(() => {
+            const layouts = packCascade(thisMonth);
+            return thisMonth.map((entry, i) => (
+              <Plate entry={entry} forcedLayout={layouts[i]} />
+            ));
+          })()}
         </>
       )}
 
       {earlierVisible.length > 0 && (
         <>
           <RowHead num={thisMonth.length > 0 ? '03' : '02'} label="Earlier" />
-          {earlierVisible.map((entry, i) => (
-            <Plate entry={entry} positionVariant={positionalVariant(i)} />
-          ))}
-          {earlierMore.map((entry, i) => (
-            <Plate entry={entry} positionVariant={positionalVariant(EARLIER_VISIBLE + i)} hidden />
-          ))}
+          {(() => {
+            // Pack visible + hidden together so the layout stays balanced
+            // when "View More" expands the section in-place.
+            const layouts = packCascade(earlier);
+            return [
+              ...earlierVisible.map((entry, i) => (
+                <Plate entry={entry} forcedLayout={layouts[i]} />
+              )),
+              ...earlierMore.map((entry, i) => (
+                <Plate entry={entry} forcedLayout={layouts[EARLIER_VISIBLE + i]} hidden />
+              )),
+            ];
+          })()}
           {earlierMore.length > 0 && (
             <div class="earlier-more-wrap">
               <button class="earlier-more-btn" type="button" data-earlier-toggle aria-expanded="false">

@@ -173,6 +173,16 @@ html.dark-mode .plate-title.inverse {
   min-height: 230px;
 }
 
+/* Half-row plate — splits a partial last row evenly so two
+   leftover plates fill the 12-col grid as 6 + 6. Used by the
+   archive cascade's row-packer (src/pages/index.astro) when
+   count % 3 === 2. Carries banner-equivalent height so the
+   row reads as a deliberate pair, not a width hack. */
+.plate-half {
+  grid-column: span 6;
+  min-height: 230px;
+}
+
 /* ── Image plates ──────────────────────────────────────────── */
 
 .plate-image .plate-body {
@@ -477,6 +487,11 @@ html.dark-mode .plate-ghost .plate-title {
   .plate-row {
     grid-column: 1 / -1;
   }
+
+  /* 8-col grid: half = 4 (still splits the row evenly). */
+  .plate-half {
+    grid-column: span 4;
+  }
 }
 
 @media (max-width: 760px) {
@@ -491,6 +506,7 @@ html.dark-mode .plate-ghost .plate-title {
   .plate-full,
   .plate-banner,
   .plate-row,
+  .plate-half,
   .plate-ghost {
     grid-column: span 1;
     min-height: 210px; /* intrinsic mobile tile geometry, scope-excluded */
