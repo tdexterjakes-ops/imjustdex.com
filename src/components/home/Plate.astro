@@ -2,34 +2,52 @@
 import type { CollectionEntry } from 'astro:content';
 import type { PlateVariant, PlateImage } from '~/content/config';
 
+// Layout sizes the archive cascade can hand a plate. These are LAYOUT-only
+// (grid-column spans), distinct from the schema PlateVariant which carries
+// typographic intent. 'row' = full 12 cols, 'half' = 6 cols.
+type ForcedLayout = 'wide' | 'secondary' | 'banner' | 'row' | 'half';
+
 interface Props {
   entry: CollectionEntry<'words'>;
   // Position-derived defaults if frontmatter doesn't specify.
   positionVariant?: PlateVariant;
+  // Cascade-computed layout that fills its row regardless of frontmatter.
+  // Wins over frontmatter so a plate moving from lead → archive can't drag
+  // .plate-lead (span 12 + lead-only inner grammar) into a normal row.
+  forcedLayout?: ForcedLayout;
   hidden?: boolean;
 }
-const { entry, positionVariant, hidden = false } = Astro.props;
+const { entry, positionVariant, forcedLayout, hidden = false } = Astro.props;
 const d = entry.data;
 
-// Variant resolution: frontmatter declared > position fallback > 'wide' default.
-const variant: PlateVariant = d.plate.variant ?? positionVariant ?? 'wide';
+// Variant resolution: forced layout > frontmatter > position fallback > 'wide'.
+// 'row' is encoded as wide-typography + plate-row modifier so the typography
+// stack stays unified (no separate row-only typography ramp).
+const layout: ForcedLayout | PlateVariant =
+  forcedLayout ?? d.plate.variant ?? positionVariant ?? 'wide';
 const image: PlateImage | undefined = d.plate.image;
-const row = d.plate.row;
+const explicitRow = d.plate.row || layout === 'row';
 
-// Build class string per production conventions:
-//   .plate .plate-{variant} [.plate-image .img-{image}] [.plate-row]
-const classes = ['plate', `plate-${variant}`];
+// Class mapping. 'row' decomposes to (wide + plate-row). Everything else is
+// .plate-{layout}, with 'lead' tolerated on the off-chance frontmatter still
+// asks for it AND no forcedLayout overrides — but archive callers always
+// pass forcedLayout, so this branch is dead in practice.
+const baseVariantClass = layout === 'row' ? 'plate-wide' : `plate-${layout}`;
+const classes = ['plate', baseVariantClass];
 if (image) {
   classes.push('plate-image', `img-${image}`);
 }
-if (row) {
+if (explicitRow) {
   classes.push('plate-row');
 }
 const cls = classes.join(' ');
 
 // Inverse modifier on title: production uses .inverse on plate-image variants for contrast.
+// 'med' typography on banner-class plates AND on row-spanning fills (so a 12-col
+// row plate doesn't shrink its title to feature/wide proportions when given more
+// horizontal space).
 const titleCls = ['plate-title'];
-if (variant === 'banner' || image) {
+if (layout === 'banner' || layout === 'row' || image) {
   titleCls.push('med');
 }
 if (image) {
