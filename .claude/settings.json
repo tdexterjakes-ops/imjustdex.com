@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:imjustdex.com)",
+      "WebFetch(domain:www.imjustdex.com)",
+      "WebFetch(domain:dxjakes.com)",
+      "WebFetch(domain:www.dxjakes.com)",
+      "WebFetch(domain:api.netlify.com)",
+      "WebFetch(domain:api.notion.com)",
+      "Bash(curl -sI*)",
+      "Bash(curl -sIL*)",
+      "Bash(curl -sIX HEAD*)",
+      "Bash(curl -s --max-time*)",
+      "Bash(curl -sf --max-time*)",
+      "Bash(curl -sX POST*)",
+      "Bash(git status*)",
+      "Bash(git log*)",
+      "Bash(git rev-parse*)",
+      "Bash(git diff*)",
+      "Bash(ls*)",
+      "Bash(cat*)",
+      "Bash(date*)",
+      "mcp__github__list_commits",
+      "mcp__github__get_commit",
+      "mcp__github__get_file_contents",
+      "mcp__notion__*",
+      "mcp__chrome__*"
+    ],
+    "deny": []
+  },
+  "env": {}
+}
