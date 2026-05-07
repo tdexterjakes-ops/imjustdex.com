@@ -1,18 +1,18 @@
 import type { CollectionEntry } from 'astro:content';
+import { isPubliclyLiveData, isUpcomingData } from './published.mjs';
 
 type WordsEntry = CollectionEntry<'words'>;
 
+// Typed wrappers around the pure predicate in published.mjs. Behavior
+// unchanged — the predicate logic is shared with astro.config.mjs so the
+// sitemap filter can never silently drift from these consumers.
+//
+// Public API preserved exactly: isPubliclyLive(entry, now?), isUpcoming(entry, now?).
+
 export function isPubliclyLive(entry: WordsEntry, now: Date = new Date()): boolean {
-  return (
-    entry.data.status === 'published' &&
-    new Date(entry.data.publishedDate).getTime() <= now.getTime()
-  );
+  return isPubliclyLiveData(entry.data, now);
 }
 
 export function isUpcoming(entry: WordsEntry, now: Date = new Date()): boolean {
-  const ts = new Date(entry.data.publishedDate).getTime();
-  return (
-    (entry.data.status === 'published' || entry.data.status === 'upcoming') &&
-    ts > now.getTime()
-  );
+  return isUpcomingData(entry.data, now);
 }

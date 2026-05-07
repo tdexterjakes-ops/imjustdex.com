@@ -72,7 +72,7 @@ export const GET: APIRoute = async () => {
     <uri>${SITE}/about/</uri>
   </author>
   <icon>${SITE}/img/favicon-32.png</icon>
-  <logo>${SITE}/img/og-default.png</logo>
+  <logo>${SITE}/img/og-default.png?v=phase26</logo>
 
 ${entryXml}
 </feed>
