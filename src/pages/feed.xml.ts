@@ -7,6 +7,11 @@ const TITLE = 'DX — Dexter Jakes';
 const SUBTITLE = 'Faith, weight, and the words that carry both.';
 const RIGHTS = `© ${new Date().getUTCFullYear()} Dexter Jakes. All rights reserved.`;
 
+// Atom <category> scheme for the structural lane categorization (Faith /
+// Identity / Art). Distinct from any future tag scheme so feed consumers
+// can filter on the lane axis specifically. Phase 30.1 (2026-05-07).
+const LANE_SCHEME = `${SITE}/lanes/`;
+
 function escapeXml(s: string): string {
   return s
     .replace(/&/g, '&amp;')
@@ -42,6 +47,13 @@ export const GET: APIRoute = async () => {
       const url = `${SITE}/words/${e.slug}/`;
       const published = toIsoZ(d.publishedDate);
       const updated = toIsoZ(d.updatedDate ?? d.publishedDate);
+      // <category> per lane, with a distinct scheme for the lane axis.
+      // Zod guarantees lanes.min(1), so categoryXml is never empty. Lane
+      // values are enum-bounded ASCII (Faith / Identity / Art) — escapeXml
+      // is defensive in case the vocabulary is ever expanded.
+      const categoryXml = d.lanes
+        .map((lane) => `    <category term="${escapeXml(lane)}" scheme="${LANE_SCHEME}"/>`)
+        .join('\n');
       return `  <entry>
     <title>${escapeXml(d.title)}</title>
     <link href="${url}" rel="alternate" type="text/html"/>
@@ -53,6 +65,7 @@ export const GET: APIRoute = async () => {
       <name>Dexter Jakes</name>
       <uri>${SITE}/about/</uri>
     </author>
+${categoryXml}
   </entry>`;
     })
     .join('\n');
