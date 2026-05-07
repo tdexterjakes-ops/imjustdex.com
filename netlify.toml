@@ -150,16 +150,26 @@
 # address bar. This rule forces a 301 at the edge for any
 # dxjakes.com host, preserving the path via :splat.
 #
+# Uses absolute-URL `from` (the documented Netlify pattern for
+# domain-alias redirects). The earlier `conditions = { Host = … }`
+# variant didn't reliably fire from the edge cache — the absolute
+# `from` is matched before cache lookup and 301s every request.
+#
 # Runs before /api/subscribe on purpose — the signup endpoint
 # should never be hit from the legacy host; all traffic
 # collapses to imjustdex.com first.
 # ──────────────────────────────────────────────
 [[redirects]]
-  from = "/*"
+  from = "https://dxjakes.com/*"
   to = "https://imjustdex.com/:splat"
   status = 301
   force = true
-  conditions = { Host = ["dxjakes.com", "www.dxjakes.com"] }
+
+[[redirects]]
+  from = "https://www.dxjakes.com/*"
+  to = "https://imjustdex.com/:splat"
+  status = 301
+  force = true
 
 # ──────────────────────────────────────────────
 # Subscribe endpoint — Netlify Function
