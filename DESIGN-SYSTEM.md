@@ -1390,7 +1390,7 @@ Every page ships Schema.org JSON-LD in the `<head>`, embedded as `<script type="
 
 **Phase 30 hygiene (2026-05-07).** `<logo>` URL now versioned (`og-default.png?v=phase26`) so feed-reader caches invalidate alongside article OG images and `/phase0/`. Brings the feed asset in line with the rest of the cache-bust regime.
 
-> **Open question (2026-05-06):** the original Phase 2 prose described `<category>` tags on each entry mirroring the article's `data-tags`. The post-cutover `feed.xml.ts` does not emit `<category>`. Either restore (mapping `lanes` and/or `tags` from frontmatter) or remove this clause permanently. Tracked as a follow-up.
+**Phase 30.1 (2026-05-07) — `<category>` restored, lanes only.** The original Phase 2 prose described `<category>` tags mirroring the article's `data-tags` attribute (a pre-cutover composite of lane + tag). Post-cutover the two axes split into `lanes: ["Faith"|"Identity"|"Art"]` (structural, enum-bounded, drives the homepage cascade) and `tags: string[]` (decorative, free-form, rendered in the article eyebrow). `feed.xml.ts` now emits one `<category term="…" scheme="https://imjustdex.com/lanes/"/>` per lane in `lanes[]`, using a distinct scheme so feed consumers can filter on the lane axis specifically. Tags are intentionally excluded from the feed — they're decorative metadata for human readers, not a categorization axis. The `lanes/` scheme leaves `tags/` reserved if that decision ever reverses. Lane values are ASCII-only enum strings; `escapeXml` is applied defensively in case the vocabulary is ever expanded.
 
 ### Per-Article Dates
 
