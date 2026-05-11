@@ -131,33 +131,7 @@ const siteJsonLd = {
   <!-- Lane filter — click Faith/Identity to filter archive -->
   <script src="/js/lane-filter.js?v=phase25" is:inline defer></script>
 
-  <!-- Earlier → View More: reveals hidden essays on click -->
-  <script is:inline>
-    (function () {
-      const btn = document.querySelector('[data-earlier-toggle]');
-      if (!btn) return;
-      const hidden = document.querySelectorAll('.earlier-more');
-      const count = document.querySelector('[data-earlier-count]');
-      const label = btn.querySelector('.btn-label');
-      const more = hidden.length;
-      const plural = more === 1 ? 'Essay' : 'Essays';
-      if (count) count.textContent = '— ' + more + ' more';
-      if (label) label.textContent = 'View Earlier ' + plural;
-
-      btn.addEventListener('click', () => {
-        const expanded = btn.getAttribute('aria-expanded') === 'true';
-        const next = !expanded;
-        hidden.forEach((el) => {
-          if (next) el.removeAttribute('hidden');
-          else el.setAttribute('hidden', '');
-        });
-        btn.setAttribute('aria-expanded', String(next));
-        const more = hidden.length;
-        const plural = more === 1 ? 'Essay' : 'Essays';
-        btn.querySelector('.btn-label').textContent = next ? 'Show Less' : 'View Earlier ' + plural;
-        if (count) count.textContent = next ? '— showing all' : '— ' + more + ' more';
-      });
-    })();
-  </script>
+  <!-- Earlier → View More: reveals hidden essays on click. External so production CSP (script-src 'self') doesn't block it. -->
+  <script src="/js/earlier-toggle.js?v=phase30" is:inline defer></script>
 </body>
 </html>
