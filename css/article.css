@@ -974,14 +974,14 @@ html.dark-mode .article-nav-ghost .article-nav-title {
 }
 
 .coming-soon-intro {
-  font-family: var(--sans);
+  font-family: var(--body);
   font-size: 1.05em;
   line-height: 1.7;
   margin: 0 0 1.4em 0;
 }
 
 .coming-soon-sub {
-  font-family: var(--sans);
+  font-family: var(--body);
   font-size: 1em;
   line-height: 1.7;
   margin: 0 0 2em 0;
