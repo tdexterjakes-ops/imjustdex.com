@@ -964,3 +964,26 @@ html.dark-mode .article-nav-ghost .article-nav-title {
     max-width: 200px; /* intrinsic label width, scope-excluded */
   }
 }
+
+/* ── Coming Soon layout ─────────────────────────────────────── */
+
+.tag--coming-soon {
+  background: #c00;
+  color: #f5f5f1;
+  border-color: #c00;
+}
+
+.coming-soon-intro {
+  font-family: var(--sans);
+  font-size: 1.05em;
+  line-height: 1.7;
+  margin: 0 0 1.4em 0;
+}
+
+.coming-soon-sub {
+  font-family: var(--sans);
+  font-size: 1em;
+  line-height: 1.7;
+  margin: 0 0 2em 0;
+  opacity: 0.8;
+}
