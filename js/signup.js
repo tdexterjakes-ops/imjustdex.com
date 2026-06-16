@@ -34,6 +34,7 @@
 
     // Build URL-encoded body (Mailchimp expects form data)
     var params = 'EMAIL=' + encodeURIComponent(email.value);
+    params += '&source=article';
 
     // Honeypot (empty = human)
     var hp = form.querySelector('.email-signup-hp input');

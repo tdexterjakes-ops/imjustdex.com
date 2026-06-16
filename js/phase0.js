@@ -89,6 +89,7 @@
 
     /* URL-encoded body — Mailchimp expects form data. */
     var params = 'EMAIL=' + encodeURIComponent(input.value);
+    params += '&source=phase0-landing';
 
     /* Honeypot (empty = human). */
     if (honeypot && honeypot.name) {
