@@ -32,6 +32,7 @@
     }
 
     var body = new URLSearchParams(new FormData(form)).toString();
+    body += '&source=homepage';
 
     fetch(form.action, {
       method: 'POST',

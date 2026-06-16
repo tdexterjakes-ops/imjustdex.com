@@ -84,11 +84,14 @@ exports.handler = async (event) => {
   const url = `https://${server}.api.mailchimp.com/3.0/lists/${audienceId}/members`;
   const auth = 'Basic ' + Buffer.from(`anystring:${apiKey}`).toString('base64');
 
+  const source = (body.source || '').trim();
+  const isPhase0 = source === 'phase0-landing';
+
   const payload = {
     email_address: email,
     status: 'subscribed',
-    tags: ['phase-0'],
-    merge_fields: { SOURCE: 'phase0-landing' },
+    tags: [isPhase0 ? 'phase-0' : 'main-site'],
+    merge_fields: { SOURCE: isPhase0 ? 'phase0-landing' : (source || 'main-site') },
   };
 
   let res, data;
