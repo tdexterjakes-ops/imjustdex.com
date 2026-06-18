@@ -32,12 +32,8 @@
     btn.disabled = true;
     btn.textContent = '...';
 
-    // Build URL-encoded body (Mailchimp expects form data)
-    var params = 'EMAIL=' + encodeURIComponent(email.value);
-
-    // Honeypot (empty = human)
-    var hp = form.querySelector('.email-signup-hp input');
-    if (hp) params += '&' + encodeURIComponent(hp.name) + '=';
+    // Build URL-encoded body — FormData captures all inputs including hidden source field
+    var params = new URLSearchParams(new FormData(form)).toString();
 
     // POST through Netlify proxy — same-origin, no CORS issues
     fetch(form.action, {
