@@ -100,8 +100,10 @@ type ForcedLayout = 'wide' | 'secondary' | 'banner' | 'row' | 'half';
 function packSegment(count: number): ForcedLayout[] {
   const out: ForcedLayout[] = [];
   const fullRows = Math.floor(count / 3);
-  for (let i = 0; i < fullRows * 3; i++) {
-    out.push(PLATE_ROTATION[i % 3] as ForcedLayout);
+  for (let row = 0; row < fullRows; row++) {
+    for (let col = 0; col < 3; col++) {
+      out.push(PLATE_ROTATION[(row + col) % 3] as ForcedLayout);
+    }
   }
   const remainder = count - fullRows * 3;
   if (remainder === 1) out.push('row');

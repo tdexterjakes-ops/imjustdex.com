@@ -87,13 +87,8 @@
     submit.disabled = true;
     submit.textContent = 'Sending\u2026';
 
-    /* URL-encoded body — Mailchimp expects form data. */
-    var params = 'EMAIL=' + encodeURIComponent(input.value);
-
-    /* Honeypot (empty = human). */
-    if (honeypot && honeypot.name) {
-      params += '&' + encodeURIComponent(honeypot.name) + '=' + encodeURIComponent(honeypot.value || '');
-    }
+    /* URL-encoded body — FormData captures all inputs including hidden source field. */
+    var params = new URLSearchParams(new FormData(form)).toString();
 
     fetch(form.action, {
       method: 'POST',

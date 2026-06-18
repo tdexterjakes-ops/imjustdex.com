@@ -267,6 +267,16 @@
   to = "/words/not-the-same-as-alive/"
   status = 301
 
+[[redirects]]
+  from = "/words/some"
+  to = "/words/some/"
+  status = 301
+
+[[redirects]]
+  from = "/words/outsourced-faith"
+  to = "/words/outsourced-faith/"
+  status = 301
+
 
 # ──────────────────────────────────────────────
 # Deprecated archive root — /words and /words/

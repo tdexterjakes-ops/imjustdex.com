@@ -84,11 +84,11 @@ exports.handler = async (event) => {
   const url = `https://${server}.api.mailchimp.com/3.0/lists/${audienceId}/members`;
   const auth = 'Basic ' + Buffer.from(`anystring:${apiKey}`).toString('base64');
 
+  const source = (body.source || 'site').trim();
   const payload = {
     email_address: email,
     status: 'subscribed',
-    tags: ['phase-0'],
-    merge_fields: { SOURCE: 'phase0-landing' },
+    merge_fields: { SOURCE: source === 'phase0' ? 'phase0-landing' : source },
   };
 
   let res, data;
@@ -106,14 +106,30 @@ exports.handler = async (event) => {
     return json(502, { ok: false, error: 'upstream_unreachable' });
   }
 
-  if (res.ok) {
-    return json(200, { ok: true, message: 'subscribed' });
+  const memberExists = res.status === 400 && data && data.title === 'Member Exists';
+
+  if (!res.ok && !memberExists) {
+    console.error('Mailchimp error', res.status, data);
+    return json(502, { ok: false, error: 'upstream_error', status: res.status });
   }
 
-  if (res.status === 400 && data && data.title === 'Member Exists') {
-    return json(200, { ok: true, message: 'already_subscribed' });
+  // Apply tag via the dedicated tags endpoint — the members POST body does not
+  // persist tags on its own in Mailchimp API v3.
+  const tag = source === 'phase0' ? 'phase-0' : source;
+  try {
+    const crypto = require('crypto');
+    const md5 = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
+    await fetch(
+      `https://${server}.api.mailchimp.com/3.0/lists/${audienceId}/members/${md5}/tags`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: auth },
+        body: JSON.stringify({ tags: [{ name: tag, status: 'active' }] }),
+      }
+    );
+  } catch (_) {
+    // Tag application is best-effort — subscriber is still added.
   }
 
-  console.error('Mailchimp error', res.status, data);
-  return json(502, { ok: false, error: 'upstream_error', status: res.status });
+  return json(200, { ok: true, message: memberExists ? 'already_subscribed' : 'subscribed' });
 };
