@@ -7,6 +7,11 @@ import type { PlateVariant, PlateImage } from '~/content/config';
 // typographic intent. 'row' = full 12 cols, 'half' = 6 cols.
 type ForcedLayout = 'wide' | 'secondary' | 'banner' | 'row' | 'half';
 
+// Cover textures the archive cascade can hand a plate. Superset of the
+// schema PlateImage (adds 'lines') — the cascade can assign textures the
+// frontmatter enum doesn't expose, since alternation is computed, not authored.
+type ImageCover = PlateImage | 'lines';
+
 interface Props {
   entry: CollectionEntry<'words'>;
   // Position-derived defaults if frontmatter doesn't specify.
@@ -15,9 +20,15 @@ interface Props {
   // Wins over frontmatter so a plate moving from lead → archive can't drag
   // .plate-lead (span 12 + lead-only inner grammar) into a normal row.
   forcedLayout?: ForcedLayout;
+  // Cascade-computed cover that enforces the Texture Alternation Rule
+  // (DESIGN-SYSTEM §6) across the whole archive reading order. When the
+  // caller controls covers it ALWAYS passes this: a texture name to force a
+  // cover, or `null` to force plain (overriding frontmatter). `undefined`
+  // means "not controlled" → fall back to frontmatter.
+  forcedImage?: ImageCover | null;
   hidden?: boolean;
 }
-const { entry, positionVariant, forcedLayout, hidden = false } = Astro.props;
+const { entry, positionVariant, forcedLayout, forcedImage, hidden = false } = Astro.props;
 const d = entry.data;
 
 // Variant resolution: forced layout > frontmatter > position fallback > 'wide'.
@@ -25,7 +36,10 @@ const d = entry.data;
 // stack stays unified (no separate row-only typography ramp).
 const layout: ForcedLayout | PlateVariant =
   forcedLayout ?? d.plate.variant ?? positionVariant ?? 'wide';
-const image: PlateImage | undefined = d.plate.image;
+// Cover resolution: caller-controlled cascade wins. `undefined` = not
+// controlled (use frontmatter); `null` = controlled-plain; texture = forced.
+const image: ImageCover | undefined =
+  forcedImage === undefined ? d.plate.image : (forcedImage ?? undefined);
 const explicitRow = d.plate.row || layout === 'row';
 
 // Class mapping. 'row' decomposes to (wide + plate-row). Everything else is

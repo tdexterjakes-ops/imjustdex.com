@@ -9,7 +9,7 @@ import LeadPlate from '~/components/home/LeadPlate.astro';
 import Plate from '~/components/home/Plate.astro';
 import IssueNext from '~/components/home/IssueNext.astro';
 import SubscribeManifesto from '~/components/home/SubscribeManifesto.astro';
-import type { Lane, PlateVariant } from '~/content/config';
+import type { Lane, PlateVariant, PlateImage } from '~/content/config';
 import { isPubliclyLive, isUpcoming } from '~/utils/visibility';
 
 // Build-time date drives published vs. upcoming partition.
@@ -130,6 +130,46 @@ function packCascade(plates: CollectionEntry<'words'>[]): ForcedLayout[] {
   flush();
   return out;
 }
+
+// ── Texture Alternation Rule (DESIGN-SYSTEM §6) ──────────────────────────
+// Covers were authored per-essay in frontmatter, but only the two oldest
+// essays ever set one — so the visible archive read as a wall of plain
+// plates, violating the documented rule that "textured and plain plates
+// must alternate so every card contrasts its neighbor."
+//
+// We now compute covers over the WHOLE archive reading order (This Month
+// then Earlier, so alternation holds across the section boundary), walking
+// once and flipping treatment each step. Frontmatter `plate.image` is an
+// editorial override — honored where set; auto-slots cycle the texture set.
+//
+// Seed prevTextured = true so the archive OPENS on a plain plate: the lead
+// hero above it carries the `.lead-image` surface, so a plain first card
+// is the correct contrast. (This also lands the two frontmatter overrides —
+// the-nets/price-of-sunday, both at odd positions — on textured slots with
+// no adjacency collision.)
+type ArchiveCover = PlateImage | 'lines';
+const TEXTURE_CYCLE: ArchiveCover[] = ['concrete', 'lines', 'noise'];
+const coverMap = new Map<CollectionEntry<'words'>, ArchiveCover | null>();
+{
+  let prevTextured = true;
+  let texIdx = 0;
+  for (const entry of [...thisMonth, ...earlier]) {
+    const forced = entry.data.plate.image; // 'noise' | 'concrete' | undefined
+    let cover: ArchiveCover | null;
+    if (forced) {
+      cover = forced;
+    } else if (!prevTextured) {
+      cover = TEXTURE_CYCLE[texIdx % TEXTURE_CYCLE.length];
+      texIdx++;
+    } else {
+      cover = null;
+    }
+    prevTextured = cover !== null;
+    coverMap.set(entry, cover);
+  }
+}
+const coverFor = (entry: CollectionEntry<'words'>): ArchiveCover | null =>
+  coverMap.get(entry) ?? null;
 ---
 <HomeLayout>
   <LatestBar issueNo={issueNo} weekLabel={weekLabel} latest={lead} />
@@ -149,7 +189,7 @@ function packCascade(plates: CollectionEntry<'words'>[]): ForcedLayout[] {
           {(() => {
             const layouts = packCascade(thisMonth);
             return thisMonth.map((entry, i) => (
-              <Plate entry={entry} forcedLayout={layouts[i]} />
+              <Plate entry={entry} forcedLayout={layouts[i]} forcedImage={coverFor(entry)} />
             ));
           })()}
         </>
@@ -164,10 +204,10 @@ function packCascade(plates: CollectionEntry<'words'>[]): ForcedLayout[] {
             const layouts = packCascade(earlier);
             return [
               ...earlierVisible.map((entry, i) => (
-                <Plate entry={entry} forcedLayout={layouts[i]} />
+                <Plate entry={entry} forcedLayout={layouts[i]} forcedImage={coverFor(entry)} />
               )),
               ...earlierMore.map((entry, i) => (
-                <Plate entry={entry} forcedLayout={layouts[EARLIER_VISIBLE + i]} hidden />
+                <Plate entry={entry} forcedLayout={layouts[EARLIER_VISIBLE + i]} forcedImage={coverFor(entry)} hidden />
               )),
             ];
           })()}

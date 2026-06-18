@@ -2,7 +2,7 @@ import { defineCollection, z } from 'astro:content';
 
 const LANES = ['Faith', 'Identity', 'Art'] as const;
 const PLATE_VARIANTS = ['lead', 'wide', 'secondary', 'banner'] as const;
-const PLATE_IMAGES = ['noise', 'concrete'] as const;
+const PLATE_IMAGES = ['noise', 'concrete', 'lines'] as const;
 const STATUSES = ['published', 'upcoming', 'drafted'] as const;
 
 const words = defineCollection({
