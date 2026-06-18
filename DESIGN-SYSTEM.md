@@ -623,7 +623,7 @@ Contents: `.identity-sub` ("ImJustDex" bordered label) → `.identity-name` ("De
 CSS-generated textures via `::before` pseudo-element. Three texture classes:
 
 **`.img-concrete`** — layered gradients simulating concrete/stone.
-**`.img-noise`** — dark noise with subtle color fringing.
+**`.img-noise`** — dark noise with a subtle monochrome edge split (light-left / dark-right). Reads as chromatic aberration translated to value, not hue — no pink/cyan, per the monochrome + single-red-accent discipline.
 **`.img-lines`** — diagonal line pattern on gray gradient.
 
 Shared image plate rules:

@@ -240,8 +240,12 @@ html.dark-mode .plate-title.inverse {
 }
 
 .img-noise::before {
+  /* Monochrome by discipline: the edge "split" that reads as chromatic
+     aberration is rendered as a VALUE split (light-left / dark-right), not a
+     hue split. Keeps the degraded-digital character without injecting the
+     pink/cyan that fought the monochrome + single-red-accent system. */
   background-image:
-    linear-gradient(90deg, rgba(255, 0, 90, .18), transparent 18%, transparent 82%, rgba(0, 225, 255, .14)),
+    linear-gradient(90deg, rgba(255, 255, 255, .12), transparent 18%, transparent 82%, rgba(0, 0, 0, .30)),
     repeating-linear-gradient(180deg, rgba(255, 255, 255, .1) 0 2px, rgba(0, 0, 0, 0) 2px 6px),
     linear-gradient(135deg, #222, #000 44%, #444 58%, #111 100%);
 }
