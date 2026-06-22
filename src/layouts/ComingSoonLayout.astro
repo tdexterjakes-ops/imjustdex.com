@@ -68,6 +68,9 @@ const publishDateLong = new Date(dateOnly + 'T00:00:00Z').toLocaleDateString('en
 
   <!-- Mode: synchronous in <head> for FOUC prevention -->
   <script src="/js/mode.js?v=phase11" is:inline></script>
+
+  <!-- Feed discovery -->
+  <link rel="alternate" type="application/atom+xml" title="Dexter Jakes — Essays" href="/feed.xml">
 </head>
 <body>
   <a href="#article" class="skip-link">Skip to article</a>
@@ -94,7 +97,7 @@ const publishDateLong = new Date(dateOnly + 'T00:00:00Z').toLocaleDateString('en
 
         <header class="article-header">
           <div class="article-eyebrow">
-            <span class="article-tag" style="background:#c00;color:#f5f5f1;border-color:#c00;">Coming Soon</span>
+            <span class="article-tag coming-tag">Coming Soon</span>
             {[...d.lanes, ...d.tags].map((t) => <span class="article-tag">{t}</span>)}
             <span class="article-read">{d.readTime}</span>
           </div>
@@ -103,18 +106,19 @@ const publishDateLong = new Date(dateOnly + 'T00:00:00Z').toLocaleDateString('en
         </header>
 
         <article class="article-body">
-          <p style="font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:1.05em;line-height:1.7;margin:0 0 1.4em 0;">
+          <p class="coming-lead">
             This essay publishes <strong>{publishDateLong}</strong>.
           </p>
 
-          <p style="font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:1em;line-height:1.7;margin:0 0 2em 0;opacity:0.8;">
+          <p class="coming-note">
             Subscribe below to get it delivered the moment it goes live — or check back at the listed date.
           </p>
         </article>
 
         <!-- Email signup -->
         <form class="email-signup" action="/api/subscribe?u=41b4a69d61d7e6d50724373f0&amp;id=216fb11473&amp;f_id=009345e0f0" method="post">
-          <span class="email-signup-label">Get notified when I publish</span>
+          <input type="hidden" name="source" value="coming-soon">
+          <span class="email-signup-label" role="status" aria-live="polite">Get notified when I publish</span>
           <div class="email-signup-fields">
             <label for="email" class="sr-only">Email address</label>
             <input type="email" name="EMAIL" id="email" class="email-signup-input" placeholder="Your email" required>
@@ -142,6 +146,32 @@ const publishDateLong = new Date(dateOnly + 'T00:00:00Z').toLocaleDateString('en
     </footer>
   </div>
 
-  <script src="/js/signup.js?v=phase14" is:inline defer></script>
+  <script src="/js/signup.js?v=phase16" is:inline defer></script>
 </body>
 </html>
+
+<style>
+  /* Coming-soon presentational styles. Extracted from inline style=""
+     attributes that the site-wide CSP (style-src 'self') blocked —
+     Astro hoists this block to an external, hashed stylesheet so it
+     clears the policy. The red "Coming Soon" tag uses the brand accent
+     token; the two intro paragraphs match article body copy. */
+  .coming-tag {
+    background: var(--accent);
+    color: #f5f5f1;
+    border-color: var(--accent);
+  }
+  .coming-lead {
+    font-family: var(--body, 'IBM Plex Sans', Helvetica, Arial, sans-serif);
+    font-size: 1.05em;
+    line-height: 1.7;
+    margin: 0 0 1.4em 0;
+  }
+  .coming-note {
+    font-family: var(--body, 'IBM Plex Sans', Helvetica, Arial, sans-serif);
+    font-size: 1em;
+    line-height: 1.7;
+    margin: 0 0 2em 0;
+    opacity: 0.8;
+  }
+</style>

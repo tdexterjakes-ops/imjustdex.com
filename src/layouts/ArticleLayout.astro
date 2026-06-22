@@ -1,5 +1,6 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { isPubliclyLive } from '~/utils/visibility';
 
 interface Props {
   entry: CollectionEntry<'words'>;
@@ -8,6 +9,18 @@ interface Props {
 const { entry } = Astro.props;
 const d = entry.data;
 const slug = entry.slug;
+
+// Effective "ghost" (coming-soon teaser) state for the Next link.
+// `next.ghost` is hand-authored in frontmatter and goes stale once the
+// referenced essay actually publishes — the daily rebuild flips the essay
+// itself to live but does NOT update other essays' nav flags, so a
+// published essay was rendering as a coming-soon teaser with a past date.
+// Derive it from the target's real live status so that can't happen.
+const allWords = await getCollection('words');
+const nextLive = d.next
+  ? allWords.some((e) => e.slug === d.next!.slug && isPubliclyLive(e))
+  : false;
+const nextGhost = !!(d.next && d.next.ghost && !nextLive);
 
 const articleUrl = `https://imjustdex.com/words/${slug}/`;
 const ogImageUrl = `https://imjustdex.com/img/og-${slug}.png?v=${d.ogImagePhase}`;
@@ -100,7 +113,10 @@ const jsonLd = {
   <script src="/js/mode.js?v=phase11" is:inline></script>
 
   {d.prev && <link rel="prev" href={`https://imjustdex.com/words/${d.prev.slug}/`}>}
-  {d.next && !d.next.ghost && <link rel="next" href={`https://imjustdex.com/words/${d.next.slug}/`}>}
+  {d.next && !nextGhost && <link rel="next" href={`https://imjustdex.com/words/${d.next.slug}/`}>}
+
+  <!-- Feed discovery -->
+  <link rel="alternate" type="application/atom+xml" title="Dexter Jakes — Essays" href="/feed.xml">
 
   <!-- Structured data: BlogPosting -->
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd, null, 2)} />
@@ -174,14 +190,14 @@ const jsonLd = {
                 <span class="article-nav-title">{d.prev.title}</span>
               </a>
             )}
-            {d.next && d.next.ghost && (
+            {d.next && nextGhost && (
               <a class="article-nav-link article-nav-next article-nav-ghost" href={`/words/${d.next.slug}/`}>
                 <span class="article-nav-label">Next Essay &rarr;</span>
                 <span class="article-nav-title">{d.next.title}</span>
                 {d.next.date && <span class="article-nav-date">{d.next.date}</span>}
               </a>
             )}
-            {d.next && !d.next.ghost && (
+            {d.next && !nextGhost && (
               <a class="article-nav-link article-nav-next" rel="next" href={`/words/${d.next.slug}/`}>
                 <span class="article-nav-label">Next Essay &rarr;</span>
                 <span class="article-nav-title">{d.next.title}</span>
@@ -210,7 +226,7 @@ const jsonLd = {
   <!-- Long-form behavior -->
   <script src="/js/progress.js?v=phase14" is:inline defer></script>
   <script src="/js/essay.js?v=phase15" is:inline defer></script>
-  <script src="/js/signup.js?v=phase15" is:inline defer></script>
+  <script src="/js/signup.js?v=phase16" is:inline defer></script>
 </body>
 </html>
 
