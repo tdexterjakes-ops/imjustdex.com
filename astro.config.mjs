@@ -58,6 +58,13 @@ export default defineConfig({
   trailingSlash: 'always',
   build: {
     format: 'directory',
+    // Emit component <style> blocks as external, content-hashed stylesheets
+    // instead of inlining them. The site's strict CSP (style-src 'self', no
+    // 'unsafe-inline') blocks inline <style> elements — which silently killed
+    // the article multi-tag " + " separator and ScriptureList styling in
+    // production. External /_astro/*.css is same-origin, so it clears the
+    // policy. Phase: health audit.
+    inlineStylesheets: 'never',
   },
   integrations: [
     mdx(),
