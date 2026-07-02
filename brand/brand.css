@@ -963,7 +963,7 @@
   padding: var(--space-lg);
 }
 
-.carousel-spec-card h4 {
+.carousel-spec-card h3 {
   font-family: var(--mono);
   font-size: var(--text-meta);
   font-weight: var(--weight-bold);
@@ -1030,7 +1030,7 @@
   padding: var(--space-md);
 }
 
-.platform-card h4 {
+.platform-card h3 {
   font-family: var(--mono);
   font-size: var(--text-meta);
   font-weight: var(--weight-bold);

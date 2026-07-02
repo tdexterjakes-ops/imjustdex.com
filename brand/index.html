@@ -816,19 +816,19 @@
           <p class="u-intro-body">Every social artifact is a stripped-down version of the article page &mdash; same grid, same panel border, same monospace eyebrow, same display type. Each template ships in four canonical formats (portrait, story, square, landscape) and two modes (dark, light). Modes may vary <em>between</em> posts in a campaign (e.g., announcement in light, carousel in dark) but never <em>within</em> a single carousel. If a slide could not be a printed broadsheet panel, it is wrong.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Four canvases</h4>
+          <h3>Four canvases</h3>
           <p><strong>Portrait</strong> 1080 &times; 1440 (3:4) &mdash; IG feed, Pinterest. Chosen to survive IG's 3:4 profile-grid crop natively.<br><br><strong>Story</strong> 1080 &times; 1920 (9:16) &mdash; IG/FB/TikTok Stories. Reserves 250/250 top/bottom for platform chrome by default.<br><br><strong>Square</strong> 1080 &times; 1080 (1:1) &mdash; Threads, X, Facebook feed, LinkedIn feed.<br><br><strong>Landscape</strong> 1200 &times; 630 (1.91:1) &mdash; X link card, OG meta image, LinkedIn preview, FB link preview, blog hero.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Grid</h4>
+          <h3>Grid</h3>
           <p>46px repeating background lines at rgba(255,255,255,.16) dark / rgba(0,0,0,.14) light. Identical across all surfaces &mdash; site, carousels, decks, print. Non-negotiable.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Frame</h4>
+          <h3>Frame</h3>
           <p>48px inset margin top, 36px sides &amp; bottom. 3px solid --ink border on panel. Grain texture overlay at 0.025 opacity.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Sequence</h4>
+          <h3>Sequence</h3>
           <p>Carousels open on <code>.c1</code> Cover and close on <code>.c5</code> Closing. Non-negotiable. Interior slides drawn from <code>.c2</code>&ndash;<code>.c10</code> based on what the essay actually does. Target 5 (tight), 8 (default campaign), 10 (max). Above 5 slides, pagination switches from dots to the <code>SLIDE XX / YY</code> mono count rail.</p>
         </div>
       </div>
@@ -836,11 +836,11 @@
       <!-- Masthead + foot chrome -->
       <div class="carousel-spec-grid u-mb-gap">
         <div class="carousel-spec-card u-span-full">
-          <h4>Chrome · masthead + foot</h4>
+          <h3>Chrome · masthead + foot</h3>
           <p><strong>Masthead</strong>: bordered brand-block container on the left (DX mark + display-type text, inverted panel on the right) plus entry number on the right in mono caps. Both <code>.wordmark</code> (reads "IMJUSTDEX" on general entry posts) and <code>.sectional</code> (reads the column name &mdash; "WORDS", "DISPATCH" &mdash; on column-scoped posts) use the same container shape. Every artboard carries the brand-block.<br><br><strong>Foot</strong>: 3-column grid. Left = publish date. Middle = section slug (for non-carousel) or <code>SLIDE XX / YY</code> (for carousel interior slides). Right = <code>IMJUSTDEX.COM</code> brand mark, or a contextual chrome phrase (<code>5 SLIDES</code>, slide theme, <code>&mdash; DEX</code> sign-off on the closing slide).</p>
         </div>
         <div class="carousel-spec-card u-span-full">
-          <h4>Chrome no-repeat rule</h4>
+          <h3>Chrome no-repeat rule</h3>
           <p>Any piece of information appears in <strong>exactly one slot per artboard</strong>. Entry № lives in the masthead, not also in the foot. Publish date lives in the foot left, not also in body rail-rows. Slide position lives in the pagination and foot-middle, not also in the masthead. Body eyebrows must not duplicate anything already in chrome. The URL <code>imjustdex.com</code> may appear twice (once as a functional CTA in the body, once as the brand mark in the foot) &mdash; that specific pairing is deliberate belt-and-suspenders; no other duplication is.</p>
         </div>
       </div>
@@ -882,7 +882,7 @@
       <!-- All ten carousel slide types -->
       <div class="carousel-spec-grid u-mt-gap">
         <div class="carousel-spec-card u-span-full">
-          <h4>Ten carousel slide types · c1&ndash;c10</h4>
+          <h3>Ten carousel slide types · c1&ndash;c10</h3>
           <p>Five of the seven demos above are carousel slides. The full carousel vocabulary is ten slide types, selected per essay:</p>
           <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 20px;margin-top:14px;font-family:var(--mono);font-size:13px;line-height:1.6;">
             <div><strong>c1</strong></div><div>Cover &mdash; sectional, headline, swipe rail. Non-negotiable opener.</div>
@@ -902,7 +902,7 @@
       <!-- Modifier classes + orthogonal primitives -->
       <div class="carousel-spec-grid u-mt-gap">
         <div class="carousel-spec-card u-span-full">
-          <h4>Modifier classes &amp; primitives</h4>
+          <h3>Modifier classes &amp; primitives</h3>
           <p>Two affordances extend existing templates without forking; two more compose orthogonally with any template.</p>
           <div style="display:grid;grid-template-columns:auto 1fr;gap:10px 20px;margin-top:14px;font-family:var(--mono);font-size:13px;line-height:1.55;">
             <div><strong>.field.memoir</strong></div><div>Warmer <code>.note</code> size + optional <code>.pullquote</code> slot with accent bar. For longer confessional memoir pieces that don't need a full template.</div>
@@ -916,7 +916,7 @@
       <!-- Serialized Issue wrapper -->
       <div class="carousel-spec-grid u-mt-gap">
         <div class="carousel-spec-card u-span-full">
-          <h4>Serialized Issue wrapper</h4>
+          <h3>Serialized Issue wrapper</h3>
           <p>Not an artboard template &mdash; a standalone HTML file pattern at project root, one per issue. <code>imjustdex-issue-vol-&lt;N&gt;-no-&lt;M&gt;.html</code> turns a cluster of essays into a discrete, citable volume: wordmark + issue index in the masthead, a hero pull-quote, and a numbered table of contents linking back to each essay. Fork the scaffold for each new issue. Makes the 14-essay calendar legible as sequential volumes to agents, editors, and archival readers.</p>
         </div>
       </div>
@@ -924,19 +924,19 @@
       <!-- Carousel typography rules -->
       <div class="carousel-spec-grid u-mt-gap">
         <div class="carousel-spec-card">
-          <h4>Display Type</h4>
+          <h3>Display Type</h3>
           <p>Anton (self-hosted WOFF2). Impact / Haettenschweiler remain in the stack as system-native fallbacks. Uppercase, line-height 0.85&ndash;0.92, letter-spacing &minus;0.03em. Scales per format: portrait 104px cover / story 144px / square 76px / landscape 52px.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Body Type</h4>
+          <h3>Body Type</h3>
           <p>IBM Plex Sans (self-hosted WOFF2, Regular / Bold / Italic). 24&ndash;25px, line-height 1.55&ndash;1.65. Color: rgba(243,240,232,0.82) dark, rgba(5,5,5,0.82) light. <code>font-synthesis: none</code> site-wide &mdash; no faux italics, no faux bold.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Monospace</h4>
+          <h3>Monospace</h3>
           <p>SF Mono / Fira Code / Cascadia Code / Courier New (system fallback stack, no loaded font). 11&ndash;14px, uppercase, letter-spacing 0.22em. Eyebrows, slide numbers, CTA pills, scripture citations.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Binary weights</h4>
+          <h3>Binary weights</h3>
           <p>Only 400 and 700. No 500, no 600. Anton ships at 400 only &mdash; weight 700 requests render at 400 (which is the only weight available). <code>font-synthesis: none</code> prevents faux-bolding.</p>
         </div>
       </div>
@@ -944,19 +944,19 @@
       <!-- Carousel color notes -->
       <div class="carousel-spec-grid u-mt-gap">
         <div class="carousel-spec-card">
-          <h4>Dark Palette</h4>
+          <h3>Dark Palette</h3>
           <p>--bg: #060606, --panel: #0d0d0d, --ink: #f3f0e8, --accent: #c00, --accent-on-dark: #ff4d4d. Default for carousel interior slides.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Light Palette</h4>
+          <h3>Light Palette</h3>
           <p>--bg: #f4f4f1, --panel: #f8f8f6, --ink: #050505, --accent: #c00. Common for announcement teasers and Now cards. Mix of light + dark is allowed across posts in a single campaign, never within one carousel.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Accent Red</h4>
+          <h3>Accent Red</h3>
           <p><code>#c00</code> identical in both modes for borders, fills, and display text &ge;18px. Small red text (&lt;18px) on dark mode flips to <code>#ff4d4d</code> (7.54:1 on #060606) via <code>--accent-on-dark</code>. Never backgrounds unless the whole surface is the accent.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Grain Overlay</h4>
+          <h3>Grain Overlay</h3>
           <p>SVG feTurbulence noise on slide-inner at 0.025 opacity, 128px tile. Adds print texture. Always present.</p>
         </div>
       </div>
@@ -964,7 +964,7 @@
       <!-- Safe-zone variants -->
       <div class="carousel-spec-grid u-mt-gap">
         <div class="carousel-spec-card u-span-full">
-          <h4>Platform safe-zone variants · opt-in modifiers</h4>
+          <h3>Platform safe-zone variants · opt-in modifiers</h3>
           <p>The default story format reserves 250/250 top/bottom &mdash; tuned for Instagram Stories. For other distribution targets, the system provides opt-in modifier classes applied at export time via <code>--variant=</code>. One campaign file supports every platform; no HTML duplication.</p>
           <div style="display:grid;grid-template-columns:auto 1fr auto;gap:6px 20px;margin-top:14px;font-family:var(--mono);font-size:13px;line-height:1.6;">
             <div><strong>.reels</strong></div><div>IG Reels &mdash; caption expands 3 lines, audio bar, engagement column</div><div>top 210 · bottom 440 · right 90</div>
@@ -992,7 +992,7 @@
         </div>
 
         <div class="platform-card">
-          <h4>Portrait &middot; 1080 &times; 1440</h4>
+          <h3>Portrait &middot; 1080 &times; 1440</h3>
           <div class="platform-row"><span class="platform-type">Aspect</span><span class="platform-size">3 : 4</span></div>
           <div class="platform-row"><span class="platform-type">Instagram feed</span><span class="platform-size">native</span></div>
           <div class="platform-row"><span class="platform-type">IG profile grid</span><span class="platform-size">survives 3:4 crop</span></div>
@@ -1000,7 +1000,7 @@
         </div>
 
         <div class="platform-card">
-          <h4>Story &middot; 1080 &times; 1920</h4>
+          <h3>Story &middot; 1080 &times; 1920</h3>
           <div class="platform-row"><span class="platform-type">Aspect</span><span class="platform-size">9 : 16</span></div>
           <div class="platform-row"><span class="platform-type">Instagram Stories</span><span class="platform-size">default 250 / 250</span></div>
           <div class="platform-row"><span class="platform-type">Facebook Stories</span><span class="platform-size">.fb-stories 270 / 380</span></div>
@@ -1009,7 +1009,7 @@
         </div>
 
         <div class="platform-card">
-          <h4>Square &middot; 1080 &times; 1080</h4>
+          <h3>Square &middot; 1080 &times; 1080</h3>
           <div class="platform-row"><span class="platform-type">Aspect</span><span class="platform-size">1 : 1</span></div>
           <div class="platform-row"><span class="platform-type">Threads</span><span class="platform-size">native</span></div>
           <div class="platform-row"><span class="platform-type">X / Twitter</span><span class="platform-size">native</span></div>
@@ -1019,7 +1019,7 @@
         </div>
 
         <div class="platform-card">
-          <h4>Landscape &middot; 1200 &times; 630</h4>
+          <h3>Landscape &middot; 1200 &times; 630</h3>
           <div class="platform-row"><span class="platform-type">Aspect</span><span class="platform-size">1.91 : 1</span></div>
           <div class="platform-row"><span class="platform-type">OG meta image</span><span class="platform-size">native</span></div>
           <div class="platform-row"><span class="platform-type">X link card</span><span class="platform-size">native</span></div>
@@ -1030,7 +1030,7 @@
         </div>
 
         <div class="platform-card u-span-full">
-          <h4>Out of scope (not currently shipped)</h4>
+          <h3>Out of scope (not currently shipped)</h3>
           <p>Facebook Reels (needs ~670px bottom, not currently a variant), YouTube video thumbnails (1280&times;720 landscape adjacent), LinkedIn 1584&times;396 profile banner, full-bleed TikTok video thumbnail frames. Add as new dimensional classes or modifiers when a distribution channel commits.</p>
         </div>
       </div>
@@ -1050,39 +1050,39 @@
           <p class="u-intro-body">The aesthetic is uncompromising. Accessibility is also uncompromising. These do not conflict. A system that cannot be read, navigated, or understood by all users is not disciplined &mdash; it is negligent.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Contrast</h4>
+          <h3>Contrast</h3>
           <p>All body text meets WCAG 2.1 AA minimum (4.5:1). --body-color at 0.82 opacity on --bg passes in both modes. --body-muted at 0.52 opacity is metadata-only and never used for essential content. --body-faint (0.18) and --body-tint (0.04) are decorative only &mdash; never carry meaning alone.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Minimum Type Sizes</h4>
+          <h3>Minimum Type Sizes</h3>
           <p>Body text: 16px minimum (1rem). Monospace metadata: 11px minimum (0.6875rem). No text on any surface smaller than 11px. Carousel body text: 24px minimum. Carousel monospace: 10px minimum at 1080px canvas width.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Focus States</h4>
+          <h3>Focus States</h3>
           <p>All interactive elements show a 2px solid var(--focus-ring) outline on :focus-visible with 2px offset. Never removed, never replaced with color-only indication. Tab order follows visual reading order. Skip-to-content link present on all pages.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Touch Targets</h4>
+          <h3>Touch Targets</h3>
           <p>Minimum 44&times;44px for all interactive elements. Mode toggle, navigation links, plate cards, share bar items, and tag links all meet this threshold. Padding counts toward target area.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Reduced Motion</h4>
+          <h3>Reduced Motion</h3>
           <p>All transitions and animations respect prefers-reduced-motion: reduce. When active: no hover transforms, no progress bar animation, no plate scale transitions. Static fallbacks only. The brand does not depend on motion for meaning.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Color Independence</h4>
+          <h3>Color Independence</h3>
           <p>Accent red never carries meaning alone. Every red element is also distinguished by position, border, weight, or label. Section heads have both red text and a red rule line. Scripture citations have both red color and italic styling. A monochrome printout of any page must remain fully legible.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Uppercase &amp; Tracking</h4>
+          <h3>Uppercase &amp; Tracking</h3>
           <p>Uppercase text-transform is restricted to monospace and display faces. Never applied to body reading copy. Letter-spacing on uppercase mono: 0.12em&ndash;0.25em maximum. Beyond 0.25em, words fragment and readability collapses. Display uppercase uses negative tracking (&minus;0.03em) &mdash; never positive. Uppercase blocks must not exceed 3 lines without a line break or visual pause.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Opacity Floors</h4>
+          <h3>Opacity Floors</h3>
           <p>Minimum opacity for any text that carries meaning: 0.52 (--body-muted). Below 0.52 is decorative only and must never be the sole carrier of information. Ghost states (0.18) are visual texture &mdash; their content must also be accessible via screen reader or nearby visible text. --body-tint (0.04) is background shading only, never text. Disabled state floor: 0.32 opacity on the full element.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Keyboard Navigation</h4>
+          <h3>Keyboard Navigation</h3>
           <p>Every interactive element is reachable via Tab. Focus order matches visual reading order: masthead &rarr; mode toggle &rarr; content &rarr; footer. Visible focus outline on every tab stop. No focus traps. Skip-to-content link present on every page. <strong>Component-scoped bindings:</strong> when a surface introduces expandable components (accordions, disclosure panels) or grouped interactive controls (tag groups, meta rails used as filters), that component must bind Escape to collapse and arrow keys to roving focus within the group. These bindings live with the components that need them &mdash; the page itself is not responsible.</p>
         </div>
       </div>
@@ -1102,47 +1102,47 @@
           <p class="u-intro-body">The system does not have a &ldquo;mobile version.&rdquo; It has one design that compresses. Components shed secondary elements at narrower widths but never change personality. The grid tightens. The borders remain.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Breakpoints</h4>
+          <h3>Breakpoints</h3>
           <p><strong>&le; 768px:</strong> Plates stack single-column. Rulers hidden. Outer padding reduces to 18px. Grid background remains.<br><strong>&le; 480px:</strong> Display type scales via clamp() floor values. Meta rail wraps. Share bar stacks vertically. Section indicator hides.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Plate Grid</h4>
+          <h3>Plate Grid</h3>
           <p>12-column at desktop. Single-column stack below 768px. Plates maintain 3px border and full texture treatment at all sizes. Plate titles use clamp() &mdash; never truncated, never hidden.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Article Frame</h4>
+          <h3>Article Frame</h3>
           <p>Max-width 680px at all breakpoints. Padding adjusts from 28px to 16px. Pull quotes, callouts, and scripture blocks remain full-width within the frame. No component is ever hidden on mobile.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Headlines</h4>
+          <h3>Headlines</h3>
           <p>All display type uses clamp() with a floor, preferred vw unit, and ceiling. Example: clamp(2.2rem, 6vw, 4.5rem). Headlines reflow naturally. Never truncated with ellipsis. Never reduced below the clamp floor.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Format Adaptation</h4>
+          <h3>Format Adaptation</h3>
           <p>Social templates are fixed-canvas per format (1080&times;1440 portrait, 1080&times;1920 story, 1080&times;1080 square, 1200&times;630 landscape). No responsive reflow within a format. Display type scales per format &mdash; story &sim;35&ndash;50% up from portrait, square 25&ndash;35% down, landscape 50&ndash;65% down. Chrome (masthead, foot) auto-scales via dedicated <code>.artboard.&lt;format&gt;</code> selectors.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Landscape Behavior</h4>
+          <h3>Landscape Behavior</h3>
           <p>Landscape (1200&times;630) body auto-centers via <code>.artboard.landscape .body { justify-content: center }</code>. Multi-column blocks (Music Drop, Now Card) reflow to side-by-side grids for the horizontal real estate. Templates with explicit <code>margin-top: auto</code> anchors (carousel pagination) still push chrome to the frame edges because <code>margin: auto</code> beats <code>justify-content</code> in flex.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Line Length</h4>
+          <h3>Line Length</h3>
           <p>Body reading copy: 55&ndash;75 characters per line (optimal: 65). Enforced by max-width: 680px on the article frame. On mobile, line length compresses naturally but never below 40 characters at 16px body size. Monospace metadata has no line-length constraint &mdash; it is short by design.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Mobile Rhythm</h4>
+          <h3>Mobile Rhythm</h3>
           <p>Vertical spacing compresses but maintains proportional relationships. Section margins reduce from 48px to 32px. Component internal padding reduces from 24px to 16px. Grid gap stays at 12px. Border weights never change. The rhythm slows slightly on mobile &mdash; more breathing room between components, not less. Monospace labels below 11px on mobile: remove letter-spacing reduction, maintain 0.12em minimum.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Image Plates</h4>
+          <h3>Image Plates</h3>
           <p>Texture background plates (concrete, noise, lines) crop center on all breakpoints. Never stretch. Never reveal edges. Title overlay stays bottom-left. Meta tag stays bottom-right. If the plate aspect ratio changes (e.g., square post vs. carousel), re-center the texture and re-anchor text to the bottom third.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Metadata Collapse</h4>
+          <h3>Metadata Collapse</h3>
           <p>Below 480px: share bar items stack vertically. Section indicator hides (content is short enough to not need it). Tag pills wrap to second line if needed &mdash; never hidden. Read time always visible. &ldquo;Coming Soon&rdquo; badge always visible. If a component must be removed for space, remove decorative elements first (rulers, section indicator), never structural ones (tags, meta, borders).</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Horizontal Overflow</h4>
+          <h3>Horizontal Overflow</h3>
           <p><code>overflow-x: clip</code> lives on <code>html</code> (not just <code>body</code>) &mdash; iOS Safari requires it on the root to prevent horizontal scroll from off-page descendants. The <code>.page-shell</code> uses <code>overflow-x: clip</code> as defense-in-depth. <code>clip</code> is used instead of <code>hidden</code> so the sticky masthead keeps working.</p>
         </div>
       </div>
@@ -1162,39 +1162,39 @@
           <p class="u-intro-body">Motion is mechanical, not expressive. Every transition is short, linear or ease-out, and serves a single purpose: confirm that an interaction registered. The brand does not bounce, spring, wobble, or delight. It responds.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Transition Defaults</h4>
+          <h3>Transition Defaults</h3>
           <p>Motion is tokenized as a three-rung duration scale composed with a single easing curve. <code>--motion-fast</code> (120ms) for hover chrome, progress bar fills. <code>--motion-med</code> (180ms) for the body mode flip and small-chrome opacity. <code>--motion-slow</code> (300ms) for ambient reveals like the section indicator. <code>--ease-default</code> (cubic-bezier(.2, .8, .2, 1)) is the one curve; linear stays linear where the motion tracks a continuous value. <strong>If a duration isn&rsquo;t in this scale, it doesn&rsquo;t belong in the product.</strong> Never ease-in-out. Never overshoot curves. Never transitions longer than <code>--motion-slow</code>.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Hover States</h4>
+          <h3>Hover States</h3>
           <p><strong>Plates:</strong> border-color shifts to var(--accent), subtle scale(1.005) transform. <strong>Links:</strong> underline appears via border-bottom, color unchanged. <strong>Tags/Meta:</strong> background shifts to var(--body-tint). <strong>Buttons:</strong> background and foreground invert.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Active / Pressed</h4>
+          <h3>Active / Pressed</h3>
           <p>Scale to 0.98 on interactive elements. Immediate &mdash; no transition on press, only on release. Color does not change on active. The press is the only feedback.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Focus / Selected</h4>
+          <h3>Focus / Selected</h3>
           <p>:focus-visible shows 2px solid var(--accent) outline, 2px offset. Selected/current states (active tag, current section) use var(--ink) background with var(--bg) text &mdash; full inversion. Never a partial highlight.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Disabled / Empty</h4>
+          <h3>Disabled / Empty</h3>
           <p>Disabled elements: 0.32 opacity, cursor: not-allowed, no hover effect. Empty states (no articles, no results): centered monospace text, uppercase, var(--body-muted) color. Never illustrated. Never friendly. Example: &ldquo;Nothing here yet.&rdquo;</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Loading / Progress</h4>
+          <h3>Loading / Progress</h3>
           <p>Reading progress bar: <code>var(--ink)</code> fill, 3px height, linear left-to-right. Red was pulled from the progress bar because a red strip at the viewport top was competing with the masthead and diluting the accent&rsquo;s semantic weight. Red is reserved for section heads, callouts, underlines, and focus rings &mdash; never for ambient chrome. Page loads: no skeleton screens, no spinners. Content appears when ready. If a delay exceeds 2s, a single monospace status line appears: &ldquo;Loading.&rdquo; &mdash; no animation, no ellipsis cycle.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Expanded / Collapsed</h4>
+          <h3>Expanded / Collapsed</h3>
           <p>Expandable content uses native <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code> (see Study Note). Toggle state is exposed via <code>[open]</code> attribute selectors &mdash; no ARIA polyfill required; the element is natively accessible. Transition: <code>--motion-med</code> on the <code>::after</code> indicator rotation. No height animation (content reflow is instant) &mdash; no bounce, no spring.</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Error / Alert</h4>
+          <h3>Error / Alert</h3>
           <p>Error states use var(--accent) red &mdash; the system already reserves red for emphasis, so errors inherit the same signal. Error text: monospace, uppercase, var(--accent) color. Error borders: 2px solid var(--accent) on the affected field. No icons. No exclamation marks. No friendly language. Example: &ldquo;Required.&rdquo; or &ldquo;Invalid format.&rdquo;</p>
         </div>
         <div class="carousel-spec-card">
-          <h4>Visited</h4>
+          <h3>Visited</h3>
           <p>Visited article links on homepage plates: no color change. The system does not differentiate visited from unvisited. The read/unread distinction is not part of the editorial posture. If tracking is needed, it happens in metadata (&ldquo;Read&rdquo; tag), not in link styling.</p>
         </div>
       </div>
