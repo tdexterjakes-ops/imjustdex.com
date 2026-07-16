@@ -288,6 +288,16 @@
   to = "/words/outsourced-faith/"
   status = 301
 
+[[redirects]]
+  from = "/words/show-me-your-glory"
+  to = "/words/show-me-your-glory/"
+  status = 301
+
+[[redirects]]
+  from = "/words/send-someone-else"
+  to = "/words/send-someone-else/"
+  status = 301
+
 
 # ──────────────────────────────────────────────
 # Deprecated archive root — /words and /words/
