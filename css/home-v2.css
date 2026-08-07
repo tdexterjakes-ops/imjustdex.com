@@ -945,6 +945,13 @@ html.dark-mode .mode-icon.is-sunmoon {
   padding: var(--space-md) 0 0;
 }
 
+/* lane-filter.js sets `hidden` on this wrap while a lane filter is active
+   (a lane view spans the whole archive, so the chronological "View Earlier"
+   toggle doesn't apply). The `display: flex` above outranks the UA's
+   `[hidden] { display: none }`, so the attribute alone never took effect —
+   same guard the archive plates already carry in home-augment.css. */
+.earlier-more-wrap[hidden] { display: none; }
+
 .earlier-more-btn {
   appearance: none;
   display: inline-flex;
