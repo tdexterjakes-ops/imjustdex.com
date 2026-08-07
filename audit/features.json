@@ -831,15 +831,15 @@
     {
       "id": "F63",
       "area": "Routing / Redirects",
-      "feature": "Legacy domain → canonical",
-      "user_story": "As a visitor on the old dxjakes.com, I want to be 301'd to imjustdex.com keeping my path, so old links still work and the brand is unified.",
-      "expected": "https://dxjakes.com/* and https://www.dxjakes.com/* → https://imjustdex.com/:splat, 301, force.",
+      "feature": "Legacy domain → canonical (RETIRED — dxjakes.com is a separate property)",
+      "user_story": "[RETIRED 2026-08-07] Originally: as someone landing on the pre-migration domain, I want a 301 to imjustdex.com. Dexter confirmed he uses dxjakes.com for a different property, so this is no longer a goal.",
+      "expected": "N/A — dxjakes.com is OUT OF SCOPE for this site's health. Do not probe it, do not flag whatever it returns. NOTE: netlify.toml still carries absolute-URL 301 rules (`https://dxjakes.com/*` and the www variant → imjustdex.com/:splat, force=true). They do not fire today because that host answers 401 before redirect rules evaluate — but they are stale intent and a latent hazard: if that protection layer is ever removed while dxjakes.com is still an alias of this Netlify site, its traffic would start redirecting here. Flagged for Dexter's decision; not removed unattended (routing change).",
       "source": "netlify.toml:162-172",
       "p1": "Cataloged",
-      "p2": "ISSUE — dxjakes.com now returns HTTP 401 (was 200). A Netlify site-protection layer answers before redirect rules evaluate, so netlify.toml's absolute-URL 301s to imjustdex.com provably never fire; legacy inbound links hit an auth wall",
-      "sev": "Medium",
-      "p3": "BLOCKED — NEEDS DEXTER. Remedy is Netlify domain / site-protection settings on the legacy site, outside the repo (QA-OS fix-phase guardrail: third-party dashboard)",
-      "p4": "PENDING"
+      "p2": "N/A — retired by owner decision 2026-08-07",
+      "sev": "",
+      "p3": "N/A",
+      "p4": "N/A"
     },
     {
       "id": "F64",

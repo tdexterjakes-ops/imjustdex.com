@@ -39,8 +39,8 @@ If SCRUB comes back clean, FIX/RETEST are skipped and the run is report-only.
 
 The feature ledger already exists — never recreate it, extend it.
 
-- **Data (source of truth):** `audit/features.json` — 78 rows (F01–F78) as of
-  2026-06-22, full loop closed (all PASS at P4). Schema per row:
+- **Data (source of truth):** `audit/features.json` — 81 rows (F01–F81) as of
+  2026-08-07. Schema per row:
   `id, area, feature, user_story, expected, source, p1, p2, sev, p3, p4`.
 - **Rendered spreadsheet:** `audit/imjustdex-feature-audit.xlsx` — regenerate after
   ANY features.json edit with `python3 audit/render.py` (needs `openpyxl`; verify
@@ -54,7 +54,7 @@ The feature ledger already exists — never recreate it, extend it.
 
 1. Compare the ledger against reality: `git log --oneline` since the ledger's last
    update, plus the live homepage cascade. New essays, components, routes, functions,
-   redirects, or behaviours that have no row → add rows (IDs continue F79+), each with
+   redirects, or behaviours that have no row → add rows (IDs continue F82+), each with
    a user story and code-derived expected behaviour, `p1: "Cataloged"`, `p2: "PENDING"`.
    Feature surfaces live in: `src/pages/`, `src/pages/words/[...slug].astro`,
    `src/components/` (+ `home/`), `src/layouts/`, `src/content/words/*.mdx`,
@@ -74,7 +74,7 @@ Daily SCRUB tests, at minimum:
 - every row added or reset this run,
 - a rotating sample of ~10 PASS rows (cycle by ID so the full ledger re-verifies
   roughly weekly),
-- **Mondays: full-ledger regression** (all 78+ rows).
+- **Mondays: full-ledger regression** (all 81+ rows).
 
 Execute each story per its `expected` column; record PASS/FAIL/ISSUE + severity in
 the ledger. A regression on a previously-fixed row (p4 was PASS, now fails) is
@@ -92,7 +92,8 @@ the ledger. A regression on a previously-fixed row (p4 was PASS, now fails) is
   mode via cookie (dxmode)
 - **Key tokens:** --bg, --ink, --accent (#c00), --accent-text (#c00 light / #ff4d4d
   dark), --border, --rule, --focus-ring
-- **Fonts:** Impact (display), IBM Plex Sans (body), Georgia (article text),
+- **Fonts:** Anton (display, self-hosted; Impact is only the CSS fallback),
+  IBM Plex Sans (body), Georgia (article text),
   SF Mono (metadata)
 - **Routes:**
   - `/` — homepage/archive with auto-computed cascade (lead plate, This Month,
@@ -143,9 +144,10 @@ one finding, one record, reported once.
   - `/words/<slug>` → 301 → `/words/<slug>/` → 200 (test on one article)
   - `/sitemap.xml` (legacy) → expect 404 post-cutover; if 301 to sitemap-index.xml,
     fine; if 200 serving stale hand-sitemap, flag **HIGH**
-- **dxjakes.com probe** (recurring open thread): `HEAD https://dxjakes.com/`.
-  Expected when fix ships: `301` with `Location: https://imjustdex.com/`. Until
-  then, flag **LOW RECURRING** (don't inflate severity).
+- **dxjakes.com — OUT OF SCOPE. Do not probe, do not flag.** Retired as a check on
+  2026-08-07: Dexter uses that domain for a separate property. It is not a legacy
+  alias of this site and is not expected to redirect here. Whatever it returns
+  (401, 200, anything) is correct and none of this site's business.
 - SSL cert validity — low value check (Netlify auto-renews); keep but don't alarm
   on anything short of expiry within 7 days.
 
@@ -162,7 +164,10 @@ one finding, one record, reported once.
 - Verify `--accent` usage on section-head h2, reading-progress bars, pull-quote borders.
 - Dark/light mode: toggle `dxmode` cookie (or click masthead button) — no invisible
   text, no broken contrast.
-- Font loading: Impact, IBM Plex Sans, Georgia, SF Mono all present. Flag FOUT/FOIT.
+- Font loading: verify the SELF-HOSTED faces actually load — Anton-Regular.woff2 and
+  IBMPlexSans-{Regular,Bold}.woff2 (check document.fonts status, not the CSS stack).
+  Georgia and SF Mono are system fonts — presence in the stack is enough.
+  Flag FOUT/FOIT.
 - **Homepage specifically:** verify BOTH `home-augment.css?v=phase25` AND
   `home-v2.css?v=phase29` load (layered stack by design — missing either = regression).
 
@@ -183,15 +188,17 @@ one finding, one record, reported once.
 ### 5. BROKEN LINKS & ASSETS
 
 - Extract all links per page. Internal → verify 200. External → at least HEAD.
-- Flag links pointing to staging, localhost, or dxjakes.com (should be imjustdex.com).
+- Flag links pointing to staging or localhost. (dxjakes.com is a separate property —
+  not a broken link, not in scope.)
 - **Asset existence (was silently missing):**
   - `/img/favicon-32.png` → 200 on every page's referenced path
   - `/img/apple-touch-icon.png` → 200
   - For each article: `/img/og-<slug>.png?v=phaseNN` → 200. Missing OG breaks every
     social share — flag **HIGH**.
   - `/img/logo-dark.svg` → 200
-- Verify `/DESIGN-SYSTEM.md` returns **404** (robots.txt disallows it, but the file
-  should not be exposed at all — if it returns 200, something is leaking docs).
+- Verify `/DESIGN-SYSTEM.md` returns **404**. (robots.txt does NOT disallow it —
+  it is `Allow: /` plus a Sitemap directive — so the 404 is the only thing keeping
+  the doc unexposed. If it returns 200, something is leaking docs.)
   Flag **HIGH** if 200.
 
 ### 6. PERFORMANCE SIGNALS
@@ -200,7 +207,7 @@ one finding, one record, reported once.
   — extract domContentLoadedEventEnd, loadEventEnd.
 - Below-the-fold images should have `loading="lazy"`.
 - **Known expected render-blockers (do NOT flag):**
-  - Homepage: `tokens.css?v=phase23`, `shell.css?v=phase23`, `plates.css?v=phase13`,
+  - Homepage: `tokens.css?v=phase23`, `shell.css?v=phase23`, `plates.css?v=phase15`,
     `home-augment.css?v=phase25`, `home-v2.css?v=phase29` (5 CSS files)
   - Articles: `tokens.css?v=phase23`, `shell.css?v=phase23`, `article.css?v=phase24`
     (3 CSS files)
@@ -301,7 +308,7 @@ the same value into the ledger row's `sev`.
 - **MEDIUM** — Design token violation, missing lazy loading, cache-control drift,
   suboptimal performance, minor a11y gap.
 - **LOW** — Polish items, minor SEO improvements, non-blocking warnings,
-  recurring-and-tracked open items (e.g., dxjakes.com 200).
+  recurring-and-tracked open items.
 
 ---
 
@@ -406,7 +413,6 @@ to flag NEW vs. RECURRING.
   - Cascade ordering day-to-day (auto-computed from publishedDate; not drift)
   - JSON-LD dates in ISO-8601 with `-05:00` offset (phase28 normalization)
   - 5 render-blocking CSS on homepage / 3 on articles (baseline)
-  - `dxjakes.com` returning 200 (tracked as recurring LOW until 301 ships)
   - Build emits external hashed CSS (`inlineStylesheets: 'never'`) — deliberate,
     CSP-driven; inline `<style>` blocks reappearing in built HTML IS a flag
     (**HIGH**, CSP will block them)
