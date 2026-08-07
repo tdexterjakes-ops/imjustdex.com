@@ -152,6 +152,25 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 # ──────────────────────────────────────────────
+# Cache: /brand/ assets — long cache, immutable
+# The style-guide page is a static passthrough, so its assets live under
+# /brand/ instead of /css/ + /img/ and matched none of the rules above —
+# they fell through to the HTML no-cache posture and revalidated on every
+# visit (brand.css 29KB + ~758KB of social-example PNGs). brand.css already
+# carries its own ?v= bust, so it is versioned by the site's convention.
+# Scoped to the asset paths only: /brand/index.html must stay no-cache.
+# ──────────────────────────────────────────────
+[[headers]]
+  for = "/brand/brand.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/brand/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ──────────────────────────────────────────────
 # Legacy-domain canonical — dxjakes.com → imjustdex.com
 # The domain was migrated 2026-04-12 (commit e3789c3) but
 # dxjakes.com is still served by Netlify as a domain alias,
