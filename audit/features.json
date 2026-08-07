@@ -15,7 +15,11 @@
       "ISSUE",
       "N/A",
       "PENDING"
-    ]
+    ],
+    "last_run": "2026-08-07",
+    "last_run_branch": "qa/fixes-20260807",
+    "last_full_regression": "2026-08-07",
+    "rows": 81
   },
   "features": [
     {
@@ -26,7 +30,7 @@
       "expected": "Masthead .brand-block links to '/'. Logo img + brand-word render; aria-label identifies it as home. Present on home, about, article, coming-soon, 404, phase0.",
       "source": "HomeLayout/ArticleLayout/ComingSoonLayout.astro, about.astro, 404.astro, phase0/index.html",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — masthead .brand-block → '/' present on home/about/404/phase0/brand/article; aria-label 'Dexter Jakes home'",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -39,7 +43,7 @@
       "expected": "brand-word reads 'Words' on home/article/coming-soon, 'About' on about (actually 'Words'), '404' on 404, 'Phase 0' on phase0. (Note: about.astro uses 'Words'.)",
       "source": "layouts + about.astro:88, 404.astro:58, phase0/index.html:91",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — brand-word: Words (home/article/about/brand), 404, Phase 0 — matches documented intent",
       "sev": "",
       "p3": "NOTE: about brand-word='Words' by design — fine",
       "p4": "PASS"
@@ -52,7 +56,7 @@
       "expected": "Click #modeToggle flips html.dark-mode; writes dxmode cookie (max-age 1yr, SameSite=Lax). On load: cookie wins, else prefers-color-scheme, else light. No FOUC (head-phase sets class pre-paint). Button label + aria-pressed update. Logo swaps logo-dark/logo-white via data-base. theme-color + color-scheme synced. Follows OS change only when no explicit cookie.",
       "source": "js/mode.js",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — toggle cycles dark→light→dark; dxmode cookie written both ways; label + aria-pressed + bg/ink all update",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -65,10 +69,10 @@
       "expected": "First focusable element is a .skip-link anchoring to the page's main region (#archive / #article / #about / #main / #phase0). Visible on focus.",
       "source": "all layouts + pages",
       "p1": "Cataloged",
-      "p2": "PASS",
-      "sev": "",
-      "p3": "",
-      "p4": "PASS"
+      "p2": "ISSUE — activating the skip link moved the fragment but not focus: <main> had no tabindex=-1, so document.activeElement stayed on <body> (all 7 surfaces)",
+      "sev": "Low",
+      "p3": "FIX (qa/fixes-20260807 2c7d88d): added tabindex=\"-1\" to the 7 <main> landmarks (index/article/coming-soon/about/404/phase0/brand)",
+      "p4": "PASS (verified against build) — focus now lands on MAIN#archive (home) and MAIN#article (essay)"
     },
     {
       "id": "F05",
@@ -78,7 +82,7 @@
       "expected": ".ruler-top / .ruler-left present and aria-hidden; purely decorative, no focus/AT exposure.",
       "source": "all layouts",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — 2 decorative rulers render",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -91,7 +95,7 @@
       "expected": "Footer renders Instagram + X (target=_blank rel=noopener noreferrer), Feed (/feed.xml). Home footer also has About. 'Built by Dex · Est. 2026'.",
       "source": "all layouts + pages",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — footer strip + links present on all page types",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -104,10 +108,10 @@
       "expected": "<link rel=alternate type=application/atom+xml href=/feed.xml> present in <head> on home, about, phase0. (Articles/coming-soon/404 do NOT include it — verify intent.)",
       "source": "HomeLayout:87, about.astro:71, phase0:43",
       "p1": "Cataloged",
-      "p2": "ISSUE",
-      "sev": "Low",
+      "p2": "PASS — <link rel=alternate atom> present on home, about, phase0, article",
+      "sev": "",
       "p3": "FIX: Added <link rel=alternate atom> feed autodiscovery to ArticleLayout + ComingSoonLayout heads",
-      "p4": "PASS — feed link present on article + coming-soon"
+      "p4": "PASS"
     },
     {
       "id": "F08",
@@ -117,7 +121,7 @@
       "expected": "favicon-32.png + apple-touch-icon.png linked on every page; files exist in /img.",
       "source": "all heads; img/",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — /img/favicon-32.png + /img/apple-touch-icon.png 200 on every referenced path",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -130,7 +134,7 @@
       "expected": "Anton + IBM Plex Sans (Regular/Bold/Italic) self-hosted in /fonts, preloaded with crossorigin; no Google Fonts. font-src 'self'.",
       "source": "all heads; fonts/; netlify.toml CSP",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — Anton + IBM Plex Sans self-hosted, preloaded, document.fonts status 'loaded'; CSP font-src intact",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -143,7 +147,7 @@
       "expected": "viewport meta width=device-width, viewport-fit=cover on all pages; CSS responsive breakpoints (plates, article, phase0) collapse multi-col grids on narrow widths.",
       "source": "all heads; css/*",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — no horizontal overflow at 390px on home/article/about/phase0/brand/404",
       "sev": "",
       "p3": "NOTE: mobile 375 verified visually",
       "p4": "PASS"
@@ -156,7 +160,7 @@
       "expected": "Unique <title> + meta description per page. Canonical absolute URL with trailing slash for home/about/articles; 404 canonical is /404 (noindex).",
       "source": "all heads",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — title/description/canonical on all 21 routes; every canonical on imjustdex.com",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -169,7 +173,7 @@
       "expected": "og:title/description/image(1200x630)/url/type/site_name + twitter:card summary_large_image on home/about/articles/coming-soon/phase0. og image files exist per slug.",
       "source": "all heads; img/og-*.png",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — og+twitter complete on all 21; all 19 OG images 200 (16 essays + home/about/phase0/brand)",
       "sev": "",
       "p3": "NOTE: all og-<slug>.png exist",
       "p4": "PASS"
@@ -182,7 +186,7 @@
       "expected": "Home emits @graph with WebSite (#website) + Person (#person) incl sameAs Instagram/X, jobTitle, worksFor TPH. Valid JSON-LD.",
       "source": "HomeLayout.astro:6-36",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — WebSite + Person @graph complete (name/url/sameAs/jobTitle/worksFor)",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -195,7 +199,7 @@
       "expected": "about.astro emits ProfilePage→mainEntity Person (#person) with name, url, jobTitle, sameAs, description. Valid JSON-LD.",
       "source": "about.astro:5-24",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — ProfilePage mainEntity Person complete (name/url/jobTitle/worksFor/sameAs/description)",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -208,7 +212,7 @@
       "expected": "ArticleLayout emits BlogPosting with headline, description, datePublished/dateModified (ISO), author/publisher Person, image (og), wordCount. Valid JSON-LD.",
       "source": "ArticleLayout.astro:27-52",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — BlogPosting complete on all 16 (headline, description, datePublished, dateModified, author Person, publisher Organization+logo, mainEntityOfPage, image, url, inLanguage, wordCount); image == og:image exactly, no og-default drift",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -221,7 +225,7 @@
       "expected": "phase0 emits @graph WebPage (#webpage) isPartOf #website + author #person. Valid JSON-LD.",
       "source": "phase0/index.html:46-77",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — phase0 WebPage JSON-LD present and parses",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -234,7 +238,7 @@
       "expected": "robots.txt: User-agent * / Allow: / ; Sitemap: https://imjustdex.com/sitemap-index.xml.",
       "source": "robots.txt",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — robots.txt Allow / + Sitemap → sitemap-index.xml",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -247,7 +251,7 @@
       "expected": "@astrojs/sitemap builds sitemap-index.xml + sitemap-0.xml. /words/* included only if publicly-live (status published AND date<=now). 404 excluded. brand/ + phase0/ injected as customPages. Home priority 1.0, about 0.7, phase0 0.9, brand 0.5, articles 0.8.",
       "source": "astro.config.mjs",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — sitemap-0.xml 20 locs = exactly the published set + about/brand/phase0; no missing, no orphans",
       "sev": "",
       "p3": "NOTE: 18 URLs, 404 excluded, coming-soon excluded",
       "p4": "PASS"
@@ -260,10 +264,10 @@
       "expected": "ComingSoonLayout + 404 set <meta name=robots content=noindex>. 404 also nofollow.",
       "source": "ComingSoonLayout.astro:32, 404.astro:14",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "404 half PASS (noindex,nofollow live). Coming-soon half PENDING — no upcoming entry exists to render one",
       "sev": "",
       "p3": "",
-      "p4": "PASS"
+      "p4": "PENDING"
     },
     {
       "id": "F20",
@@ -273,7 +277,7 @@
       "expected": "LatestBar shows 'Entry No. NN' (NN = count of published essays, zero-padded), 'Week of <leadDate>', and a 'Latest' link to newest essay with lane·date·readTime. Links to /words/<slug>/.",
       "source": "index.astro:66-75, LatestBar.astro",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — Entry No. 16 / Week of July 5, 2026, LatestBar → newest essay",
       "sev": "",
       "p3": "NOTE: Entry No.14, Wk Jun14",
       "p4": "PASS"
@@ -286,7 +290,7 @@
       "expected": "IdentityHero renders name 'Dexter Jakes', sub 'ImJustDex', tagline, bio, 'Read the About' → /about/, 'Subscribe' → #subscribe-manifesto.",
       "source": "IdentityHero.astro",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — IdentityHero renders; hero copy contrast 5.17:1 (AA large)",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -299,7 +303,7 @@
       "expected": "LaneIndex shows each lane with zero-padded count + 'essay/essays'. Lanes with 0 render as non-interactive .lane-cell-queued ('In the queue', aria-disabled). Multi-lane essays count in each lane.",
       "source": "index.astro:60-64, LaneIndex.astro",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — Faith 13 / Identity 09 / Art 03, verified against frontmatter lanes; 16 articles",
       "sev": "",
       "p3": "NOTE: queued state not live-exercised (all lanes have essays); code verified",
       "p4": "PASS"
@@ -312,10 +316,10 @@
       "expected": "lane-filter.js: clicking Faith/Identity sets aria-pressed=true, hides non-matching <article> via hidden, sets data-filter on .plates (CSS suppresses row-heads), announces count via live region. Clicking active clears. Queued (Art) is non-interactive. No-JS = all visible.",
       "source": "js/lane-filter.js",
       "p1": "Cataloged",
-      "p2": "ISSUE",
-      "sev": "Medium",
-      "p3": "FIX: lane-filter.js: clear() now restores each article's base hidden state (respects earlier-toggle); hides View-Earlier wrap while filtered",
-      "p4": "PASS — fresh 8 → filter 11 (wrap hidden) → clear 8, button stays collapsed; earlier toggle still works after cycle"
+      "p2": "ISSUE — lane-filter.js sets earlierWrap.hidden=true while filtered, but .earlier-more-wrap{display:flex} outranks the UA [hidden] rule, so the 'View Earlier Essays' button stayed on screen during a filter; clicking it revealed the 8 overflow plates regardless of lane, leaking non-matching essays into a filtered view (/words/gumbo/, Identity-only, under Faith)",
+      "sev": "High",
+      "p3": "FIX (qa/fixes-20260807 ab07b15): added .earlier-more-wrap[hidden]{display:none} to css/home-v2.css — same guard the plates already carry in home-augment.css:398 — and bumped home-v2.css ?v=phase29→phase31 (assets are immutable/1y)",
+      "p4": "PASS (verified against build) — filtered: wrap computed display none, offsetHeight 0, 0 client rects (unreachable by mouse or keyboard); Faith 13/13 and Identity 9/9 all-matching; clear restores the wrap"
     },
     {
       "id": "F24",
@@ -325,7 +329,7 @@
       "expected": "LeadPlate renders newest published essay as .plate-lead with Latest badge, lane, date, readTime, title, deck, Read→ CTA; links to /words/<slug>/.",
       "source": "index.astro:185-186, LeadPlate.astro",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — lead plate = send-someone-else (newest published)",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -338,7 +342,7 @@
       "expected": "Essays in same UTC year+month as lead (excluding lead) render under RowHead '02 This Month'. Hidden entirely if none.",
       "source": "index.astro:36-40,188-198",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — 'This Month' = show-me-your-glory (same month as lead)",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -351,7 +355,7 @@
       "expected": "Essays older than lead's month render under RowHead 'Earlier' (num 03 if This Month exists else 02). First 6 visible, rest hidden (.earlier-more[hidden]).",
       "source": "index.astro:42-49,200-226",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — 'Earlier' = 14, 6 visible + 8 overflow",
       "sev": "",
       "p3": "NOTE: 8 visible / 6 hidden correct",
       "p4": "PASS"
@@ -364,10 +368,10 @@
       "expected": "earlier-toggle.js: button shows '— N more', label 'View Earlier Essays/Essay' (correct plural). Click reveals .earlier-more (removes hidden), sets aria-expanded, label→'Show Less', count→'showing all'. Re-click hides. No-JS: button inert, overflow stays hidden.",
       "source": "js/earlier-toggle.js, index.astro:216-224",
       "p1": "Cataloged",
-      "p2": "PASS",
-      "sev": "",
-      "p3": "NOTE: plural + expand/collapse correct in isolation",
-      "p4": "PASS"
+      "p2": "ISSUE — lane-filter.js sets earlierWrap.hidden=true while filtered, but .earlier-more-wrap{display:flex} outranks the UA [hidden] rule, so the 'View Earlier Essays' button stayed on screen during a filter; clicking it revealed the 8 overflow plates regardless of lane, leaking non-matching essays into a filtered view (/words/gumbo/, Identity-only, under Faith)",
+      "sev": "High",
+      "p3": "FIX (qa/fixes-20260807 ab07b15): added .earlier-more-wrap[hidden]{display:none} to css/home-v2.css — same guard the plates already carry in home-augment.css:398 — and bumped home-v2.css ?v=phase29→phase31 (assets are immutable/1y)",
+      "p4": "PASS (verified against build) — expand 8→16, collapse 16→8, aria-expanded + label track; collapse state still respected after a filter cycle"
     },
     {
       "id": "F28",
@@ -377,7 +381,7 @@
       "expected": "packCascade/packSegment assign wide(5)+secondary(3)+banner(4) rotations; trailing 1→row(12), 2→half+half(6+6). Editor plate.row:true forces a full 12-col row and re-segments around it.",
       "source": "index.astro:78-134, Plate.astro",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — 16 plates tile the 12-col grid (lead + wide/secondary/banner rotation, 3 row-plates)",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -390,7 +394,7 @@
       "expected": "coverMap walks This Month+Earlier reading order, alternating plain/textured; frontmatter plate.image is an override; auto-slots cycle concrete/lines/noise. Opens on a plain plate (lead carries texture above).",
       "source": "index.astro:136-174",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — 7 of 15 archive plates carry .plate-image, interleaved with plain (Texture Alternation Rule)",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -403,7 +407,7 @@
       "expected": "If an upcoming essay exists, IssueNext renders earliest upcoming with 'Next' tag, title, meta, 'Notify me →', linking to its coming-soon URL. Hidden when no upcoming essays.",
       "source": "index.astro:51-57,230, IssueNext.astro",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — correctly absent: zero upcoming essays in the collection",
       "sev": "",
       "p3": "NOTE: correctly absent (no upcoming)",
       "p4": "PASS"
@@ -416,7 +420,7 @@
       "expected": "SubscribeManifesto renders kicker, title, promise, 3 value-prop list items, email form (#subscribe-manifesto anchor target), 'No spam, ever'. Honeypot field hidden.",
       "source": "SubscribeManifesto.astro",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — manifesto form action=/api/subscribe, source=home, honeypot present",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -440,12 +444,12 @@
       "feature": "Article header / eyebrow",
       "user_story": "As a reader, I want each essay headed by its lanes/tags, date, read time, title and deck, so I know what I'm about to read.",
       "expected": "ArticleLayout header lists lanes then tags as .article-tag chips joined by ' + ' separator (CSS ::before), formatted date <time>, read time, h1 title, deck.",
-      "source": "ArticleLayout.astro:133-141,217-226",
+      "source": "ArticleLayout.astro:137-145,221-230",
       "p1": "Cataloged",
-      "p2": "ISSUE",
-      "sev": "Medium",
+      "p2": "PASS — eyebrow lanes/tags + ' + ' separator, date, read time, h1, deck",
+      "sev": "",
       "p3": "FIX: Multi-tag ' + ' separator lived in an Astro <style> block that the build inlined; strict style-src 'self' CSP blocked it in production. Fixed via build.inlineStylesheets:'never' (external hashed CSS).",
-      "p4": "PASS — ::before content ' + ' now applied (rgb verified) via /_astro CSS, CSP-clean"
+      "p4": "PASS"
     },
     {
       "id": "F34",
@@ -453,9 +457,9 @@
       "feature": "Article body (MDX render)",
       "user_story": "As a reader, I want the essay body to render with all its editorial components, so the long-form reads as designed.",
       "expected": "MDX Content renders inside .article-body for live essays. All 14 essays render without error.",
-      "source": "[...slug].astro, ArticleLayout.astro:143-145",
+      "source": "[...slug].astro, ArticleLayout.astro:147-149",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — all 16 MDX bodies render through [...slug].astro",
       "sev": "",
       "p3": "NOTE: all 14 build + render",
       "p4": "PASS"
@@ -468,7 +472,7 @@
       "expected": "progress.js sizes .reading-progress width 0-100% on scroll (rAF-throttled), updates aria-valuenow. Initializes progressbar ARIA. No-ops if elements missing.",
       "source": "js/progress.js",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — bar width 0→249→698→1153px and aria-valuenow 0→30→69→100 across the scroll range",
       "sev": "",
       "p3": "NOTE: code+elements verified; live scroll not exercisable (headless rAF/scroll throttled)",
       "p4": "PASS"
@@ -481,7 +485,7 @@
       "expected": "progress.js tracks .section-head h2 landmarks; shows .section-indicator with current section name when 2%<pct<98% and a head is above 40% viewport; hides otherwise. All essays use SectionHead.",
       "source": "js/progress.js, SectionHead.astro",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — pill text tracks sections ('What the Fear Was Actually About' → 'A New Thing' → 'The Thirtieth'), opacity animates in",
       "sev": "",
       "p3": "NOTE: 5 section-heads present; code verified; live scroll not exercisable",
       "p4": "PASS"
@@ -492,9 +496,9 @@
       "feature": "Share bar — X intent",
       "user_story": "As a reader, I want to share the essay to X with title prefilled, so sharing is one click.",
       "expected": "Share link href = x.com/intent/tweet?url=<encoded article url>&text=<title — DX>, target=_blank rel=noopener noreferrer.",
-      "source": "ArticleLayout.astro:147-153",
+      "source": "ArticleLayout.astro:151-157",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — X intent carries encoded url + title",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -505,9 +509,9 @@
       "feature": "Copy link button",
       "user_story": "As a reader, I want a 'Copy link' button that copies the URL and confirms, so I can paste it anywhere.",
       "expected": "essay.js: click copies data-copy-link via navigator.clipboard (fallback execCommand). Button label→'Copied' 2s; SR live region announces. Present on articles + about.",
-      "source": "js/essay.js, ArticleLayout.astro:150,152, about.astro:135",
+      "source": "js/essay.js, ArticleLayout.astro:154,156, about.astro:135",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — copy button + [data-copy-status] live region on article and about",
       "sev": "",
       "p3": "NOTE: handler+SR announce OK; clipboard blocked only in headless",
       "p4": "PASS"
@@ -518,9 +522,9 @@
       "feature": "Follow Me link (share bar)",
       "user_story": "As a reader, I want a Follow Me link to Instagram in the share bar, so I can follow after reading.",
       "expected": "share bar 'Follow Me' → instagram.com/ImJustDex, target=_blank rel=noopener noreferrer. Present on articles + about.",
-      "source": "ArticleLayout.astro:151, about.astro:136",
+      "source": "ArticleLayout.astro:155, about.astro:136",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — Follow Me → instagram.com/ImJustDex",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -533,10 +537,10 @@
       "expected": "signup.js intercepts .email-signup submit, validates email, POSTs to /api/subscribe (source=article), then collapses to 'You're in. Check your inbox.' Honeypot hidden. Should reflect server failure, not blanket success.",
       "source": "js/signup.js, ArticleLayout.astro:155-167, ComingSoonLayout.astro:115-126",
       "p1": "Cataloged",
-      "p2": "FAIL",
-      "sev": "High",
+      "p2": "PASS — form posts /api/subscribe with source=article, honeypot off-canvas, aria-live label; server states verified directly against the function",
+      "sev": "",
       "p3": "FIX: signup.js now parses JSON, checks res.ok && data.ok; distinct success / already-subscribed / error states; re-enables submit on error",
-      "p4": "PASS — server 500 now shows 'Something broke…', button re-enabled, no false success"
+      "p4": "PASS"
     },
     {
       "id": "F41",
@@ -546,10 +550,10 @@
       "expected": "article-nav renders prev (rel=prev) and next. If next.ghost: rendered as .article-nav-ghost teaser with optional date, NO rel=next. If next not ghost: rel=next link. Ghost flags must be accurate (essay still upcoming).",
       "source": "ArticleLayout.astro:169-191, frontmatter prev/next",
       "p1": "Cataloged",
-      "p2": "ISSUE",
-      "sev": "Medium",
+      "p2": "Authored prev/next render correctly on all 16. Ghost/teaser path PENDING — requires a future-dated entry; none exists",
+      "sev": "",
       "p3": "FIX: ArticleLayout derives effective nextGhost from the target essay's real live status (getCollection + isPubliclyLive); stale frontmatter ghost flags ignored once target is live",
-      "p4": "PASS — pulpit/should-have-killed-it/not-the-same-as-alive render normal next + rel=next; ghost STILL shows when target genuinely upcoming (verified by future-dating)"
+      "p4": "PENDING"
     },
     {
       "id": "F42",
@@ -559,10 +563,10 @@
       "expected": "Head includes <link rel=prev> if prev; <link rel=next> only if next AND not ghost.",
       "source": "ArticleLayout.astro:102-103",
       "p1": "Cataloged",
-      "p2": "ISSUE",
-      "sev": "Medium",
+      "p2": "PASS — rel=prev emitted where prev authored; rel=next where next authored and live",
+      "sev": "",
       "p3": "FIX: rel=next head link now driven by derived nextGhost (present when next is live)",
-      "p4": "PASS — rel=next emitted for all 3 formerly-stale essays; suppressed only when target upcoming"
+      "p4": "PASS"
     },
     {
       "id": "F43",
@@ -572,7 +576,7 @@
       "expected": "'← Back' link to '/' at the bottom of articles, coming-soon, and about.",
       "source": "ArticleLayout.astro:193, ComingSoonLayout.astro:128, about.astro:139",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — '← Back' → '/' on article, coming-soon, about",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -585,10 +589,10 @@
       "expected": "PullQuote, Scripture(+cite), ScriptureList, Callout, StatBlock, DropCap, Closing, SectionHead, ResearchCTA render their documented markup and are styled by article.css. Each renders without layout break in light + dark.",
       "source": "src/components/*.astro",
       "p1": "Cataloged",
-      "p2": "ISSUE",
-      "sev": "Medium",
+      "p2": "PASS — PullQuote, Scripture, Callout, DropCap, Closing, SectionHead, ResearchCTA, StudyNote all render and are styled via external hashed CSS (CSP-clean)",
+      "sev": "",
       "p3": "FIX: ScriptureList scoped <style> was inlined by the build and CSP-blocked in production (refs/borders unstyled). Fixed via build.inlineStylesheets:'never'.",
-      "p4": "PASS — .scripture-ref accent #cc0000 + uppercase + flex items now applied via external CSS"
+      "p4": "PASS"
     },
     {
       "id": "F45",
@@ -598,7 +602,7 @@
       "expected": "StudyNote uses native <details>/<summary>; clicking toggles open/closed; label + ref + body render; keyboard accessible by default.",
       "source": "StudyNote.astro",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — <details> summary toggles open→closed→open on both sampled essays",
       "sev": "",
       "p3": "NOTE: details toggle open/close OK",
       "p4": "PASS"
@@ -611,10 +615,10 @@
       "expected": "Upcoming essays (status published/upcoming + future date) build a ComingSoonLayout: 'Coming Soon' tag, long publish date, subscribe form, noindex, preserves OG. Flips to full article once date passes (build-time).",
       "source": "[...slug].astro, ComingSoonLayout.astro, published.mjs",
       "p1": "Cataloged",
-      "p2": "ISSUE",
-      "sev": "Medium",
+      "p2": "PENDING — all 16 entries are status published with past dates, so isUpcomingData() is false everywhere and no coming-soon page renders",
+      "sev": "",
       "p3": "FIX: Replaced 3 CSP-blocked inline style= attrs with .coming-tag/.coming-lead/.coming-note classes; styles now in external (Astro-hashed) CSS",
-      "p4": "PASS (live) — coming-tag bg #cc0000 applied, 0 inline styles, no console CSP errors"
+      "p4": "PENDING"
     },
     {
       "id": "F47",
@@ -624,7 +628,7 @@
       "expected": "about.astro renders header (tag, h1, deck 'Est. 1994.'), body paragraphs incl intro, PullQuote, Closing; canonical /about/; ProfilePage JSON-LD.",
       "source": "about.astro",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — about content + ProfilePage render",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -637,10 +641,10 @@
       "expected": "share-bar with X intent (about url+text), Copy link button (data-copy-link about url), Follow Me → Instagram. essay.js wires copy.",
       "source": "about.astro:131-137,156",
       "p1": "Cataloged",
-      "p2": "ISSUE",
-      "sev": "Low",
+      "p2": "PASS — share bar X + copy + Follow Me with live region",
+      "sev": "",
       "p3": "FIX: Added <span data-copy-status role=status aria-live> to About share bar (parity with articles)",
-      "p4": "PASS — copy now announces to the live region"
+      "p4": "PASS"
     },
     {
       "id": "F49",
@@ -650,7 +654,7 @@
       "expected": "404.astro renders branded plate, headline, copy, 'Back to Home' → /. Served by Netlify with HTTP 404 on unmatched routes. noindex,nofollow.",
       "source": "404.astro, netlify.toml:344-347",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — bespoke notfound-plate, 200 on /404, noindex+nofollow, /* fallback 404s unmatched routes",
       "sev": "",
       "p3": "NOTE: HTTP 404 + branded plate + back-home + noindex,nofollow",
       "p4": "PASS"
@@ -663,7 +667,7 @@
       "expected": "feed.xml.ts emits Atom: feed title/subtitle/links/id/updated/rights/author/icon/logo + one <entry> per publicly-live essay (title, link, id, published, updated, summary, author, <category> per lane with lane scheme). XML-escaped. Served application/xml.",
       "source": "src/pages/feed.xml.ts, netlify.toml:88-93",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — Atom 16 entries = 16 published; namespace + entries valid",
       "sev": "",
       "p3": "NOTE: 14 entries, 22 lane categories, valid Atom, escaped",
       "p4": "PASS"
@@ -676,7 +680,7 @@
       "expected": "feed.xml references /feed.xsl via xml-stylesheet PI; browser applies XSL to render a human-readable feed; CSP relaxed (style-src unsafe-inline) for /feed.xml + /feed.xsl.",
       "source": "feed.xsl, feed.xml.ts:74, netlify.toml:95-99",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — feed.xsl 200 and <?xml-stylesheet?> PI present",
       "sev": "",
       "p3": "NOTE: xsl referenced + 200 + relaxed CSP",
       "p4": "PASS"
@@ -689,7 +693,7 @@
       "expected": "phase0/index.html renders 9 sections (Hero…Author); CTAs 'Get The Prompt' → #get, 'Read The System' → #definition; phases list; author block. Loads tokens+shell+phase0 CSS.",
       "source": "phase0/index.html",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — 5 anchor links, all resolve to real targets",
       "sev": "",
       "p3": "NOTE: 10 sections, anchors",
       "p4": "PASS"
@@ -702,10 +706,10 @@
       "expected": "phase0.js owns .phase0-capture (data-no-signup-js). On submit: validate (aria-invalid + error msg on fail), POST /api/subscribe (source=phase0), success→success state; failure→error copy + 'Retry'. Clears error on valid keystroke. noscript fallback shown without JS.",
       "source": "js/phase0.js, phase0/index.html:373-403",
       "p1": "Cataloged",
-      "p2": "PASS",
-      "sev": "",
-      "p3": "NOTE: invalid->error+aria-invalid; 500->error+Retry (no false success)",
-      "p4": "PASS"
+      "p2": "ISSUE — phase0/index.html:374 still carried the legacy Mailchimp query string (?u=…&id=…&f_id=…) on the form action; the one surface 4377cfd missed",
+      "sev": "Low",
+      "p3": "FIX (qa/fixes-20260807 69d63f3): action reduced to /api/subscribe, matching the other three surfaces",
+      "p4": "PASS (verified against build) — state machine idle, source=phase0, honeypot intact, 0 console errors"
     },
     {
       "id": "F54",
@@ -715,7 +719,7 @@
       "expected": "phase0.js sets #yr textContent to current year on load.",
       "source": "js/phase0.js:28-31",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — footer year 2026 = current year",
       "sev": "",
       "p3": "NOTE: year 2026",
       "p4": "PASS"
@@ -728,10 +732,10 @@
       "expected": "/brand/ renders specimen (swatches, type, demos) with scoped CSP allowing style-src unsafe-inline; scripts extracted to brand.js. Linked in sitemap.",
       "source": "brand/index.html, netlify.toml:73-76",
       "p1": "Cataloged",
-      "p2": "PASS",
-      "sev": "",
-      "p3": "NOTE: 200, 115KB, relaxed CSP",
-      "p4": "PASS"
+      "p2": "ISSUE — /brand/ pinned /css/plates.css?v=phase13 while every other surface serves ?v=phase15; under max-age=31536000 immutable that is a second year-long cache entry, defeating the bust on the dogfood page",
+      "sev": "Medium",
+      "p3": "FIX (qa/fixes-20260807 5967c9a): brand/index.html bumped to ?v=phase15",
+      "p4": "PASS (verified against build) — /brand/ serves plates.css?v=phase15, 0 console errors, no broken images"
     },
     {
       "id": "F56",
@@ -739,9 +743,9 @@
       "feature": "POST-only enforcement",
       "user_story": "As the system, I want the subscribe endpoint to reject non-POST methods, so it isn't misused via GET.",
       "expected": "GET/other → 405 {ok:false,error:method_not_allowed}.",
-      "source": "netlify/functions/subscribe.js:52-54",
+      "source": "netlify/functions/subscribe.cjs:52-54",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — GET /api/subscribe → 405 method_not_allowed",
       "sev": "",
       "p3": "NOTE: 405",
       "p4": "PASS"
@@ -752,9 +756,9 @@
       "feature": "Rate limiting",
       "user_story": "As the system, I want to throttle repeated submissions per IP, so the form can't be abused.",
       "expected": "More than 5 POSTs/60s/IP → 429 {error:rate_limited}. In-memory sliding window keyed by client IP.",
-      "source": "netlify/functions/subscribe.js:9-22,61-63",
+      "source": "netlify/functions/subscribe.cjs:9-22,61-63",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — rate-limit bucket present (5/60s per IP)",
       "sev": "",
       "p3": "NOTE: 429 after 5/min/IP",
       "p4": "PASS"
@@ -765,9 +769,9 @@
       "feature": "Honeypot bot trap",
       "user_story": "As the system, I want to silently drop bot submissions that fill the hidden field, so spam doesn't reach Mailchimp.",
       "expected": "If body.website is non-empty → return 200 {ok:true,message:subscribed} without calling Mailchimp.",
-      "source": "netlify/functions/subscribe.js:67-69",
+      "source": "netlify/functions/subscribe.cjs:67-69",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — filled honeypot → 200 silent success, no Mailchimp write; field off-canvas (left:-5000px, tabindex -1, aria-hidden)",
       "sev": "",
       "p3": "NOTE: honeypot->200 no Mailchimp",
       "p4": "PASS"
@@ -778,9 +782,9 @@
       "feature": "Email validation",
       "user_story": "As the system, I want to reject malformed emails before calling Mailchimp, so we don't waste calls or store junk.",
       "expected": "Invalid EMAIL/email → 400 {error:invalid_email}. Accepts standard addresses.",
-      "source": "netlify/functions/subscribe.js:36-38,71-74",
+      "source": "netlify/functions/subscribe.cjs:36-38,71-74",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — invalid address → 400 invalid_email; plus-addressed valid address accepted (clients encode + as %2B via URLSearchParams(FormData))",
       "sev": "",
       "p3": "NOTE: 400 invalid_email",
       "p4": "PASS"
@@ -791,9 +795,9 @@
       "feature": "Mailchimp add + member-exists",
       "user_story": "As a subscriber, I want my email added to the list, and a graceful 'already subscribed' if I'm on it, so I always get clear feedback.",
       "expected": "POST to Mailchimp members; success→200 {message:subscribed}; 400 'Member Exists'→200 {message:already_subscribed}; other upstream errors→502. Needs env vars (else 500 server_not_configured).",
-      "source": "netlify/functions/subscribe.js:76-134",
+      "source": "netlify/functions/subscribe.cjs:76-134",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — healthscrub+20260807@imjustdex.com → 200 subscribed in 1.53s",
       "sev": "",
       "p3": "NOTE: add+member-exists code verified; 500 path tested (no local creds)",
       "p4": "PASS"
@@ -804,12 +808,12 @@
       "feature": "Source tagging + merge field",
       "user_story": "As the site owner, I want to know where each subscriber came from (home/article/phase0), so I can attribute signups.",
       "expected": "merge_fields.SOURCE set (phase0→'phase0-landing'); a Mailchimp tag applied via tags endpoint (phase0→'phase-0', else source). Best-effort tag (subscriber added regardless).",
-      "source": "netlify/functions/subscribe.js:87-132",
+      "source": "netlify/functions/subscribe.cjs:87-132",
       "p1": "Cataloged",
-      "p2": "ISSUE",
-      "sev": "Low",
+      "p2": "PASS — source field present on all 4 surfaces (home/article/coming-soon/phase0)",
+      "sev": "",
       "p3": "FIX: Added hidden source='coming-soon' field + aria-live to the coming-soon signup label",
-      "p4": "PASS — source field present, attributed correctly"
+      "p4": "PASS"
     },
     {
       "id": "F62",
@@ -817,12 +821,12 @@
       "feature": "Error handling (config/upstream)",
       "user_story": "As a subscriber, I want graceful errors when the backend is misconfigured or Mailchimp is down, so I'm not left guessing.",
       "expected": "Missing env→500 server_not_configured; fetch throw→502 upstream_unreachable; non-ok upstream→502 upstream_error. JSON, Cache-Control no-store.",
-      "source": "netlify/functions/subscribe.js:80-113",
+      "source": "netlify/functions/subscribe.cjs:80-113",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — documented error envelope returned, no stack leakage",
       "sev": "",
       "p3": "FIX: Renamed function subscribe.js → subscribe.cjs (unambiguous CommonJS under package type:module); silences esbuild ESM warning",
-      "p4": "PASS — endpoint works post-rename (405 / 400 invalid_email / 200 honeypot)"
+      "p4": "PASS"
     },
     {
       "id": "F63",
@@ -832,10 +836,10 @@
       "expected": "https://dxjakes.com/* and https://www.dxjakes.com/* → https://imjustdex.com/:splat, 301, force.",
       "source": "netlify.toml:162-172",
       "p1": "Cataloged",
-      "p2": "PASS",
-      "sev": "",
-      "p3": "NOTE: config correct (absolute-URL host redirect); not locally testable",
-      "p4": "PASS"
+      "p2": "ISSUE — dxjakes.com now returns HTTP 401 (was 200). A Netlify site-protection layer answers before redirect rules evaluate, so netlify.toml's absolute-URL 301s to imjustdex.com provably never fire; legacy inbound links hit an auth wall",
+      "sev": "Medium",
+      "p3": "BLOCKED — NEEDS DEXTER. Remedy is Netlify domain / site-protection settings on the legacy site, outside the repo (QA-OS fix-phase guardrail: third-party dashboard)",
+      "p4": "PENDING"
     },
     {
       "id": "F64",
@@ -843,9 +847,9 @@
       "feature": "Trailing-slash canonical",
       "user_story": "As a visitor, I want non-slash URLs to 301 to the slash canonical, so there's one canonical URL per page.",
       "expected": "/about, /phase0, and each /words/<slug> (no slash) → slashed form, 301, NOT forced (avoids loop). Astro trailingSlash:always.",
-      "source": "netlify.toml:200-278, astro.config.mjs",
+      "source": "netlify.toml:197-299, astro.config.mjs",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — /about, /phase0 and all 16 /words/<slug> → single 301 to trailing-slash canonical",
       "sev": "",
       "p3": "NOTE: config correct; netlify dev serves 200 via pretty-URL, prod 301s",
       "p4": "PASS"
@@ -858,7 +862,7 @@
       "expected": "/words and /words/ → / , 301, force.",
       "source": "netlify.toml:285-295",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — /words and /words/ → 301 home",
       "sev": "",
       "p3": "NOTE: /words & /words/ -> / 301",
       "p4": "PASS"
@@ -871,7 +875,7 @@
       "expected": "/opsmeeting(/*), /leadership-prep(/*), /asana-workflow(/*) → / , 301, force.",
       "source": "netlify.toml:302-336",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — /opsmeeting, /leadership-prep, /asana-workflow (+ /*) all → 301 home",
       "sev": "",
       "p3": "NOTE: ops/leadership/asana -> / 301",
       "p4": "PASS"
@@ -882,9 +886,9 @@
       "feature": "/api/subscribe rewrite",
       "user_story": "As the frontend, I want /api/subscribe to proxy same-origin to the Netlify function, so it clears the strict CSP connect-src 'self'.",
       "expected": "/api/subscribe → /.netlify/functions/subscribe, status 200 (rewrite, not redirect).",
-      "source": "netlify.toml:180-183",
+      "source": "netlify.toml:191-194",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — /api/subscribe rewrite reaches the function (405 on GET, 400/200 on POST)",
       "sev": "",
       "p3": "NOTE: /api/subscribe -> function (200 rewrite)",
       "p4": "PASS"
@@ -897,7 +901,7 @@
       "expected": "/* → /404.html status 404 (no force) only when no real file matches.",
       "source": "netlify.toml:344-347",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — unmatched route → 404 with the branded body",
       "sev": "",
       "p3": "NOTE: unknown -> 404.html, HTTP 404",
       "p4": "PASS"
@@ -910,10 +914,10 @@
       "expected": "Global CSP self-only (script/style/font/connect 'self'; img self+data+https; frame-ancestors none; object-src none; upgrade-insecure-requests). /brand/* + /feed.xml + /feed.xsl relax style-src to allow unsafe-inline. No inline scripts anywhere.",
       "source": "netlify.toml:45-99",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — CSP present and strict on every page; per-route /brand/ + /feed.xml overrides intact; 0 inline <style> in built Astro HTML",
       "sev": "",
       "p3": "FIX: No CSP change needed — kept strict style-src 'self'; build now emits external CSS (inlineStylesheets:'never') instead of CSP-violating inline <style>. Added /_astro/* immutable cache header.",
-      "p4": "PASS — strict CSP intact; per-route overrides intact; component styles now external + applied"
+      "p4": "PASS"
     },
     {
       "id": "F70",
@@ -923,7 +927,7 @@
       "expected": "X-Frame-Options DENY, X-Content-Type-Options nosniff, Referrer-Policy strict-origin-when-cross-origin, Permissions-Policy locked, HSTS 1yr preload, COOP/CORP same-origin on /*.",
       "source": "netlify.toml:26-56",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — X-Frame DENY, nosniff, HSTS max-age=31536000 includeSubDomains preload, Referrer-Policy, Permissions-Policy, COOP, CORP on all 21 routes",
       "sev": "",
       "p3": "NOTE: XFO/nosniff/referrer/permissions/HSTS/COOP/CORP all present",
       "p4": "PASS"
@@ -936,10 +940,10 @@
       "expected": "/css /js /fonts /img → max-age 31536000 immutable; HTML (*.html) → max-age 0 must-revalidate; /feed.xml → max-age 0 must-revalidate; fonts also ACAO *.",
       "source": "netlify.toml:104-141",
       "p1": "Cataloged",
-      "p2": "PASS",
-      "sev": "",
-      "p3": "NOTE: config correct; netlify dev forces max-age=0 locally, prod honors immutable",
-      "p4": "PASS"
+      "p2": "ISSUE — /brand/brand.css (versioned ?v=brand5) and /brand/img/* (~758KB) matched no Cache-Control rule in netlify.toml and fell through to public,max-age=0,must-revalidate",
+      "sev": "Medium",
+      "p3": "FIX (qa/fixes-20260807 5967c9a): added scoped [[headers]] for /brand/brand.css and /brand/img/* with the immutable policy; /brand/index.html deliberately left no-cache",
+      "p4": "PASS (verified against build) — netlify.toml parses, 12 header blocks, HTML rules unchanged"
     },
     {
       "id": "F72",
@@ -949,7 +953,7 @@
       "expected": "isPubliclyLiveData: status==published AND date<=now. isUpcomingData: status in {published,upcoming} AND date>now. Single source shared by homepage, feed, sitemap, routes.",
       "source": "src/utils/published.mjs, visibility.ts",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — predicate gates homepage/feed/sitemap/routes consistently; 16 published, 0 upcoming",
       "sev": "",
       "p3": "NOTE: coming-soon build test confirmed flip + sitemap/feed exclusion",
       "p4": "PASS"
@@ -962,7 +966,7 @@
       "expected": "GitHub Action cron 05:05 UTC + workflow_dispatch POSTs Netlify build hook (NETLIFY_BUILD_HOOK_URL secret); fails loudly if secret missing or non-2xx.",
       "source": ".github/workflows/daily-rebuild.yml",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — daily-rebuild.yml fired 06:13Z today; Netlify commit_ref == GitHub main HEAD (8f5ba93)",
       "sev": "",
       "p3": "NOTE: workflow YAML valid; cron not runnable locally",
       "p4": "PASS"
@@ -975,7 +979,7 @@
       "expected": "scripts/og-plate.mjs reads essay frontmatter, auto-numbers volume, renders via headless Chrome to img/og-<slug>.png. (Dev tool; not user-facing at runtime.)",
       "source": "scripts/og-plate.mjs",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — scripts/og-plate.mjs present; all 19 OG plates render and 200",
       "sev": "",
       "p3": "NOTE: node --check OK; render needs headless Chrome (dev tool, not runtime)",
       "p4": "PASS"
@@ -988,7 +992,7 @@
       "expected": "CSS honors @media (prefers-reduced-motion: reduce) for animated elements (tokens.css, home-augment.css).",
       "source": "css/tokens.css, css/home-augment.css",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — @media (prefers-reduced-motion: reduce) block in tokens.css (loads on every page)",
       "sev": "",
       "p3": "NOTE: reduce: zeroes transition/animation durations + scroll-behavior auto",
       "p4": "PASS"
@@ -1001,7 +1005,7 @@
       "expected": "Every CSS file defines :focus-visible styles; focus indicators visible in light + dark on links, buttons, form fields, toggles, plates.",
       "source": "css/*.css (focus-visible present in all)",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — :focus-visible rules present in all 8 stylesheets; first Tab lands on .skip-link",
       "sev": "",
       "p3": "NOTE: focus-visible defined across all css files",
       "p4": "PASS"
@@ -1014,7 +1018,7 @@
       "expected": "Body, muted, faint, accent text meet >=4.5:1 (>=3:1 large) against their backgrounds in light AND dark mode.",
       "source": "css/tokens.css palette",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — 15 sampled selectors all meet WCAG AA (min 5.17:1 large, 5.94:1 small) in dark mode",
       "sev": "",
       "p3": "NOTE: computed AA: light body 12:1/muted 4.63:1/red 5.34:1; dark body 11.85:1/muted 5.13:1/red 6.2:1; large red 3.44:1>=3",
       "p4": "PASS"
@@ -1027,10 +1031,49 @@
       "expected": "Each page has header>nav[aria-label], main[id], footer[aria-label]; single h1; descending heading order; aria-labels on key sections.",
       "source": "all layouts + pages",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS — single h1 and zero skipped heading levels on all 21 pages; header/main/footer/nav present; zero <img> without alt",
       "sev": "",
       "p3": "NOTE: header/nav/main/footer + single h1 per page",
       "p4": "PASS"
+    },
+    {
+      "id": "F79",
+      "area": "Build / Automation",
+      "feature": "One-time scheduled publish workflow (hour-precise essay release)",
+      "user_story": "As the author, I want an essay to go live at a specific HOUR rather than daily-rebuild's ~00:05 CT window, and stay fully hidden until then, so a dated release lands exactly when I intend.",
+      "expected": "cron '5 17 5 7 *' + workflow_dispatch. Guarded twice: exits 0 unless year==2026, and exits 0 unless the file still matches ^status: \"drafted\"$. Only on a live match does it flip status to published, commit as github-actions[bot] and push main (triggering the Netlify build). After firing, every future invocation must be a no-op — any post-fire github-actions[bot] commit on main is a CRITICAL unattended write to the deployed branch.",
+      "source": ".github/workflows/publish-send-someone-else.yml, src/content/words/send-someone-else.mdx",
+      "p1": "Cataloged",
+      "p2": "PASS — fired as designed on 2026-07-05 (ecf2c34, github-actions[bot], 18:03:14Z); both guards now permanently closed (year!=2026, status no longer 'drafted'); no post-fire bot commit exists on main",
+      "sev": "",
+      "p3": "FIX (qa/fixes-20260807 11d1430, OPTIONAL): file removed — spent, and its own header says 'safe to delete any time after 2026-07-05'. Removes a standing contents:write + push-to-main capability on a yearly cron. daily-rebuild.yml untouched.",
+      "p4": "PASS (verified against build) — workflow absent; nothing references it; daily-rebuild.yml intact"
+    },
+    {
+      "id": "F80",
+      "area": "Routing / Redirects",
+      "feature": "Per-article trailing-slash redirect parity",
+      "user_story": "As a reader landing on a non-slash article URL from a pasted link or old share, I get one 301 to the canonical slash URL instead of a 404 — for every published essay including the newest.",
+      "expected": "netlify.toml carries exactly one [[redirects]] /words/<slug> → /words/<slug>/ 301 (no force — force loops) for every status:\"published\" entry in src/content/words/. Parity test: redirect slug set == published slug set. A published slug with no rule = HIGH (non-slash 404s). The list is hand-maintained and has drifted once already (show-me-your-glory and send-someone-else went live 2026-07-03/07-05 with no rule until 8f5ba93 backfilled them ~a month later).",
+      "source": "netlify.toml:197-299, src/content/words/*.mdx, src/utils/published.mjs",
+      "p1": "Cataloged",
+      "p2": "PASS — parity 16/16 verified live; every /words/<slug> returns a single 301 to its trailing-slash canonical; no orphan rules",
+      "sev": "",
+      "p3": "",
+      "p4": "PASS"
+    },
+    {
+      "id": "F81",
+      "area": "Article",
+      "feature": "Forward-nav stitch completeness across the essay chain",
+      "user_story": "As a reader walking the essays forward, I want every essay except the newest to offer a Next link, so the chain never dead-ends before the latest piece.",
+      "expected": "prev/next are hand-authored frontmatter (config.ts marks both .optional(); ArticleLayout never synthesizes a missing next). Invariant: every entry except the chronologically newest published essay carries a next{slug,title}. Violation = forward dead-end + no rel=next.",
+      "source": "src/content/words/*.mdx (prev/next frontmatter), src/content/config.ts, src/layouts/ArticleLayout.astro",
+      "p1": "Cataloged",
+      "p2": "ISSUE — show-me-your-glory (2026-07-03) carries no next, so the forward chain stops there and never reaches send-someone-else (2026-07-05); no rel=next emitted. 15 of 16 links are chronological and reciprocal. Cause: 70baf7b stitched outsourced-faith forward while send-someone-else was in flight on a parallel branch merged the same day, so nothing stitched glory forward. NOT a defect and explicitly excluded: send-someone-else.prev → 'some' is deliberate (authored 2026-07-02 before glory existed, and the pulpit→some→send-someone-else calling thread is named in the essay body).",
+      "sev": "Low",
+      "p3": "BLOCKED — NEEDS DEXTER. Editorial: writing a next{} block asserts a reading order (his voice, not a behavior repair), and three mutually exclusive resolutions exist — (1) stitch glory→send-someone-else and accept the first non-reciprocal pair, (2) repoint send-someone-else.prev to glory and break the calling thread, or (3) leave it, with glory ending the chronological trunk.",
+      "p4": "PENDING"
     }
   ]
 }
