@@ -1071,9 +1071,9 @@
       "source": "src/content/words/*.mdx (prev/next frontmatter), src/content/config.ts, src/layouts/ArticleLayout.astro",
       "p1": "Cataloged",
       "p2": "ISSUE — show-me-your-glory (2026-07-03) carries no next, so the forward chain stops there and never reaches send-someone-else (2026-07-05); no rel=next emitted. 15 of 16 links are chronological and reciprocal. Cause: 70baf7b stitched outsourced-faith forward while send-someone-else was in flight on a parallel branch merged the same day, so nothing stitched glory forward. NOT a defect and explicitly excluded: send-someone-else.prev → 'some' is deliberate (authored 2026-07-02 before glory existed, and the pulpit→some→send-someone-else calling thread is named in the essay body).",
-      "sev": "Low",
-      "p3": "BLOCKED — NEEDS DEXTER. Editorial: writing a next{} block asserts a reading order (his voice, not a behavior repair), and three mutually exclusive resolutions exist — (1) stitch glory→send-someone-else and accept the first non-reciprocal pair, (2) repoint send-someone-else.prev to glory and break the calling thread, or (3) leave it, with glory ending the chronological trunk.",
-      "p4": "PENDING"
+      "sev": "",
+      "p3": "FIX (2026-08-07, Dexter's call — resolution 1 of 3): added next{slug:'send-someone-else', title:'Send Someone Else', ghost:false} to show-me-your-glory.mdx. Editorial decision made by Dexter, not by the loop. NOTE this intentionally creates the corpus's first NON-RECIPROCAL pair: glory now points forward to send-someone-else, but send-someone-else.prev still points back to 'some' — the deliberate pulpit → some → send-someone-else calling thread. That asymmetry is by design; do not 'fix' it in a future run.",
+      "p4": "PASS (verified against build, then live) — show-me-your-glory emits <link rel=next> to send-someone-else and renders a normal 'Next Essay → Send Someone Else' nav (no ghost class, since ArticleLayout derives ghost from the target's real live status). Forward chain now walks all 16 published essays end to end: reckonings → … → show-me-your-glory → send-someone-else. Zero non-newest essays lack a next."
     }
   ]
 }
