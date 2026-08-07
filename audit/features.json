@@ -833,13 +833,13 @@
       "area": "Routing / Redirects",
       "feature": "Legacy domain → canonical (RETIRED — dxjakes.com is a separate property)",
       "user_story": "[RETIRED 2026-08-07] Originally: as someone landing on the pre-migration domain, I want a 301 to imjustdex.com. Dexter confirmed he uses dxjakes.com for a different property, so this is no longer a goal.",
-      "expected": "N/A — dxjakes.com is OUT OF SCOPE for this site's health. Do not probe it, do not flag whatever it returns. NOTE: netlify.toml still carries absolute-URL 301 rules (`https://dxjakes.com/*` and the www variant → imjustdex.com/:splat, force=true). They do not fire today because that host answers 401 before redirect rules evaluate — but they are stale intent and a latent hazard: if that protection layer is ever removed while dxjakes.com is still an alias of this Netlify site, its traffic would start redirecting here. Flagged for Dexter's decision; not removed unattended (routing change).",
+      "expected": "N/A — dxjakes.com is OUT OF SCOPE for this site's health. Do not probe it, do not flag whatever it returns. The two absolute-URL 301s that used to live in netlify.toml (`https://dxjakes.com/*` and the www variant → imjustdex.com/:splat, force=true) were REMOVED 2026-08-07 at Dexter's instruction. They were dormant only because that host answers 401 before redirect rules evaluate; had that protection ever been lifted while the domain was still an alias of this Netlify site, all its traffic would have collapsed onto imjustdex.com. A tombstone comment sits at netlify.toml:173 so no future edit silently re-arms them. Regression check: `grep -c 'dxjakes' netlify.toml` must match only the comment — zero [[redirects]] blocks.",
       "source": "netlify.toml:162-172",
       "p1": "Cataloged",
       "p2": "N/A — retired by owner decision 2026-08-07",
       "sev": "",
-      "p3": "N/A",
-      "p4": "N/A"
+      "p3": "FIX (1e0a0d4): removed both dxjakes.com [[redirects]] blocks from netlify.toml (30 → 28 rules); replaced with a tombstone comment explaining why they must not come back.",
+      "p4": "PASS — netlify.toml parses, 28 redirects, 0 dxjakes rules, /api/subscribe rewrite intact and now first in the chain."
     },
     {
       "id": "F64",

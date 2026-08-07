@@ -171,35 +171,18 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 # ──────────────────────────────────────────────
-# Legacy-domain canonical — dxjakes.com → imjustdex.com
-# The domain was migrated 2026-04-12 (commit e3789c3) but
-# dxjakes.com is still served by Netlify as a domain alias,
-# returning 200s on both hosts with identical HTML. Canonical
-# <link> already points to imjustdex.com (so SEO is covered),
-# but humans landing on the old URL see the old domain in the
-# address bar. This rule forces a 301 at the edge for any
-# dxjakes.com host, preserving the path via :splat.
-#
-# Uses absolute-URL `from` (the documented Netlify pattern for
-# domain-alias redirects). The earlier `conditions = { Host = … }`
-# variant didn't reliably fire from the edge cache — the absolute
-# `from` is matched before cache lookup and 301s every request.
-#
-# Runs before /api/subscribe on purpose — the signup endpoint
-# should never be hit from the legacy host; all traffic
-# collapses to imjustdex.com first.
+# Legacy-domain canonical — REMOVED 2026-08-07.
+# Two absolute-URL 301s (dxjakes.com/* and www.dxjakes.com/* →
+# imjustdex.com/:splat, force = true) lived here from the
+# 2026-04-12 migration. Dexter now uses dxjakes.com for a
+# separate property, so redirecting it here is no longer the
+# goal — and leaving armed force-301s aimed at a domain he
+# actively uses was a latent hazard: they were dormant only
+# because that host answers 401 before redirect rules evaluate.
+# Lift that protection and every request would have collapsed
+# onto imjustdex.com. Deleted rather than commented out so no
+# future edit can silently re-arm them. See ledger row F63.
 # ──────────────────────────────────────────────
-[[redirects]]
-  from = "https://dxjakes.com/*"
-  to = "https://imjustdex.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "https://www.dxjakes.com/*"
-  to = "https://imjustdex.com/:splat"
-  status = 301
-  force = true
 
 # ──────────────────────────────────────────────
 # Subscribe endpoint — Netlify Function
