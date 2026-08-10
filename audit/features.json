@@ -16,10 +16,10 @@
       "N/A",
       "PENDING"
     ],
-    "last_run": "2026-08-07",
-    "last_run_branch": "qa/fixes-20260807",
-    "last_full_regression": "2026-08-07",
-    "rows": 81
+    "last_run": "2026-08-10",
+    "last_run_branch": "qa/fixes-20260810",
+    "last_full_regression": "2026-08-10",
+    "rows": 82
   },
   "features": [
     {
@@ -69,8 +69,8 @@
       "expected": "First focusable element is a .skip-link anchoring to the page's main region (#archive / #article / #about / #main / #phase0). Visible on focus.",
       "source": "all layouts + pages",
       "p1": "Cataloged",
-      "p2": "ISSUE — activating the skip link moved the fragment but not focus: <main> had no tabindex=-1, so document.activeElement stayed on <body> (all 7 surfaces)",
-      "sev": "Low",
+      "p2": "PASS — live-verified 2026-08-10: skip link is first focusable; activating it lands document.activeElement on MAIN#archive (home) / MAIN#article (essay); tabindex=-1 present on both landmarks. The 2c7d88d fix holds in production.",
+      "sev": "",
       "p3": "FIX (qa/fixes-20260807 2c7d88d): added tabindex=\"-1\" to the 7 <main> landmarks (index/article/coming-soon/about/404/phase0/brand)",
       "p4": "PASS (verified against build) — focus now lands on MAIN#archive (home) and MAIN#article (essay)"
     },
@@ -316,8 +316,8 @@
       "expected": "lane-filter.js: clicking Faith/Identity sets aria-pressed=true, hides non-matching <article> via hidden, sets data-filter on .plates (CSS suppresses row-heads), announces count via live region. Clicking active clears. Queued (Art) is non-interactive. No-JS = all visible.",
       "source": "js/lane-filter.js",
       "p1": "Cataloged",
-      "p2": "ISSUE — lane-filter.js sets earlierWrap.hidden=true while filtered, but .earlier-more-wrap{display:flex} outranks the UA [hidden] rule, so the 'View Earlier Essays' button stayed on screen during a filter; clicking it revealed the 8 overflow plates regardless of lane, leaking non-matching essays into a filtered view (/words/gumbo/, Identity-only, under Faith)",
-      "sev": "High",
+      "p2": "PASS — live-verified 2026-08-10: Faith 13/13, Identity 9/9, Art 3/3 with zero non-matching plates in any filtered view; while filtered the .earlier-more-wrap computes display:none, 0 client rects, offsetHeight 0 (unreachable by mouse or keyboard). The ab07b15 fix holds in production.",
+      "sev": "",
       "p3": "FIX (qa/fixes-20260807 ab07b15): added .earlier-more-wrap[hidden]{display:none} to css/home-v2.css — same guard the plates already carry in home-augment.css:398 — and bumped home-v2.css ?v=phase29→phase31 (assets are immutable/1y)",
       "p4": "PASS (verified against build) — filtered: wrap computed display none, offsetHeight 0, 0 client rects (unreachable by mouse or keyboard); Faith 13/13 and Identity 9/9 all-matching; clear restores the wrap"
     },
@@ -368,8 +368,8 @@
       "expected": "earlier-toggle.js: button shows '— N more', label 'View Earlier Essays/Essay' (correct plural). Click reveals .earlier-more (removes hidden), sets aria-expanded, label→'Show Less', count→'showing all'. Re-click hides. No-JS: button inert, overflow stays hidden.",
       "source": "js/earlier-toggle.js, index.astro:216-224",
       "p1": "Cataloged",
-      "p2": "ISSUE — lane-filter.js sets earlierWrap.hidden=true while filtered, but .earlier-more-wrap{display:flex} outranks the UA [hidden] rule, so the 'View Earlier Essays' button stayed on screen during a filter; clicking it revealed the 8 overflow plates regardless of lane, leaking non-matching essays into a filtered view (/words/gumbo/, Identity-only, under Faith)",
-      "sev": "High",
+      "p2": "PASS — live-verified 2026-08-10: expand 8→16, collapse 16→8, aria-expanded false↔true and the button label track; collapse state survives a full filter cycle (clear restores the wrap to display:flex).",
+      "sev": "",
       "p3": "FIX (qa/fixes-20260807 ab07b15): added .earlier-more-wrap[hidden]{display:none} to css/home-v2.css — same guard the plates already carry in home-augment.css:398 — and bumped home-v2.css ?v=phase29→phase31 (assets are immutable/1y)",
       "p4": "PASS (verified against build) — expand 8→16, collapse 16→8, aria-expanded + label track; collapse state still respected after a filter cycle"
     },
@@ -474,7 +474,7 @@
       "p1": "Cataloged",
       "p2": "PASS — bar width 0→249→698→1153px and aria-valuenow 0→30→69→100 across the scroll range",
       "sev": "",
-      "p3": "NOTE: code+elements verified; live scroll not exercisable (headless rAF/scroll throttled)",
+      "p3": "NOTE: code+elements verified; live scroll not exercisable (headless rAF/scroll throttled) | 2026-08-10: re-verification again harness-blocked — browser pane viewport 0x0, window.scrollTo a no-op, so scroll-driven width could not be re-exercised. Static wiring confirmed live: progress.js sets role=progressbar, aria-label, aria-valuemin/max/now on load. Prior PASS retained; not downgraded on a tooling limit.",
       "p4": "PASS"
     },
     {
@@ -706,8 +706,8 @@
       "expected": "phase0.js owns .phase0-capture (data-no-signup-js). On submit: validate (aria-invalid + error msg on fail), POST /api/subscribe (source=phase0), success→success state; failure→error copy + 'Retry'. Clears error on valid keystroke. noscript fallback shown without JS.",
       "source": "js/phase0.js, phase0/index.html:373-403",
       "p1": "Cataloged",
-      "p2": "ISSUE — phase0/index.html:374 still carried the legacy Mailchimp query string (?u=…&id=…&f_id=…) on the form action; the one surface 4377cfd missed",
-      "sev": "Low",
+      "p2": "PASS — live-verified 2026-08-10: /phase0/ form action is /api/subscribe with no legacy Mailchimp query string; matches the other three subscribe surfaces.",
+      "sev": "",
       "p3": "FIX (qa/fixes-20260807 69d63f3): action reduced to /api/subscribe, matching the other three surfaces",
       "p4": "PASS (verified against build) — state machine idle, source=phase0, honeypot intact, 0 console errors"
     },
@@ -732,8 +732,8 @@
       "expected": "/brand/ renders specimen (swatches, type, demos) with scoped CSP allowing style-src unsafe-inline; scripts extracted to brand.js. Linked in sitemap.",
       "source": "brand/index.html, netlify.toml:73-76",
       "p1": "Cataloged",
-      "p2": "ISSUE — /brand/ pinned /css/plates.css?v=phase13 while every other surface serves ?v=phase15; under max-age=31536000 immutable that is a second year-long cache entry, defeating the bust on the dogfood page",
-      "sev": "Medium",
+      "p2": "PASS — live-verified 2026-08-10: /brand/ serves plates.css?v=phase15, matching every other surface; no second year-long cache entry.",
+      "sev": "",
       "p3": "FIX (qa/fixes-20260807 5967c9a): brand/index.html bumped to ?v=phase15",
       "p4": "PASS (verified against build) — /brand/ serves plates.css?v=phase15, 0 console errors, no broken images"
     },
@@ -940,8 +940,8 @@
       "expected": "/css /js /fonts /img → max-age 31536000 immutable; HTML (*.html) → max-age 0 must-revalidate; /feed.xml → max-age 0 must-revalidate; fonts also ACAO *.",
       "source": "netlify.toml:104-141",
       "p1": "Cataloged",
-      "p2": "ISSUE — /brand/brand.css (versioned ?v=brand5) and /brand/img/* (~758KB) matched no Cache-Control rule in netlify.toml and fell through to public,max-age=0,must-revalidate",
-      "sev": "Medium",
+      "p2": "PASS — live-verified 2026-08-10: /brand/brand.css?v=brand5 and /img/* both return public,max-age=31536000,immutable; HTML remains public,max-age=0,must-revalidate.",
+      "sev": "",
       "p3": "FIX (qa/fixes-20260807 5967c9a): added scoped [[headers]] for /brand/brand.css and /brand/img/* with the immutable policy; /brand/index.html deliberately left no-cache",
       "p4": "PASS (verified against build) — netlify.toml parses, 12 header blocks, HTML rules unchanged"
     },
@@ -1005,10 +1005,10 @@
       "expected": "Every CSS file defines :focus-visible styles; focus indicators visible in light + dark on links, buttons, form fields, toggles, plates.",
       "source": "css/*.css (focus-visible present in all)",
       "p1": "Cataloged",
-      "p2": "PASS — :focus-visible rules present in all 8 stylesheets; first Tab lands on .skip-link",
-      "sev": "",
-      "p3": "NOTE: focus-visible defined across all css files",
-      "p4": "PASS"
+      "p2": "ISSUE — .subscribe-manifesto .sm-submit (homepage + /brand/ subscribe submit) has base and :hover styling but NO :focus-visible rule, so the site's primary conversion control shows no focus indicator for keyboard users (WCAG 2.4.7 AA). Every sibling control is covered — .sm-input directly above it has the rule, and .sm-submit is even named in home-augment.css's prefers-reduced-motion block — so this is an omission, not a decision. Missed by prior runs because F76 was tested at sheet level (':focus-visible present in all 8 stylesheets') rather than per control; enumerating all 34 interactive elements on the homepage against the 27 focus selectors in the live CSS surfaced it.",
+      "sev": "High",
+      "p3": "FIX (qa/fixes-20260810): added .subscribe-manifesto .sm-submit:focus-visible {outline: var(--focus-ring-width) solid var(--focus-ring); outline-offset:-2px} to css/home-augment.css, matching the .sm-input rule immediately above (inset ring, since the button sits on --ink). Bumped home-augment.css ?v=phase25→phase32 in src/layouts/HomeLayout.astro and brand/index.html — the asset is served immutable/1y, so both references had to move together.",
+      "p4": "PASS (verified against build) — npm run build clean, 19 pages; dist/css/home-augment.css carries the rule; dist/index.html and dist/brand/index.html both reference ?v=phase32 with zero stale phase25 refs; dev server fetch of /css/home-augment.css?v=phase32 returns the rule text. Runtime paint of the ring could NOT be exercised — the browser pane reported a 0x0 viewport, so :focus-visible modality and Tab traversal were unavailable. Live-verify on the next scrub after merge."
     },
     {
       "id": "F77",
@@ -1070,10 +1070,23 @@
       "expected": "prev/next are hand-authored frontmatter (config.ts marks both .optional(); ArticleLayout never synthesizes a missing next). Invariant: every entry except the chronologically newest published essay carries a next{slug,title}. Violation = forward dead-end + no rel=next.",
       "source": "src/content/words/*.mdx (prev/next frontmatter), src/content/config.ts, src/layouts/ArticleLayout.astro",
       "p1": "Cataloged",
-      "p2": "ISSUE — show-me-your-glory (2026-07-03) carries no next, so the forward chain stops there and never reaches send-someone-else (2026-07-05); no rel=next emitted. 15 of 16 links are chronological and reciprocal. Cause: 70baf7b stitched outsourced-faith forward while send-someone-else was in flight on a parallel branch merged the same day, so nothing stitched glory forward. NOT a defect and explicitly excluded: send-someone-else.prev → 'some' is deliberate (authored 2026-07-02 before glory existed, and the pulpit→some→send-someone-else calling thread is named in the essay body).",
+      "p2": "PASS — live-verified 2026-08-10: show-me-your-glory emits rel=next to send-someone-else and renders a normal (non-ghost) forward nav; forward chain walks all 16 published essays end to end.",
       "sev": "",
       "p3": "FIX (2026-08-07, Dexter's call — resolution 1 of 3): added next{slug:'send-someone-else', title:'Send Someone Else', ghost:false} to show-me-your-glory.mdx. Editorial decision made by Dexter, not by the loop. NOTE this intentionally creates the corpus's first NON-RECIPROCAL pair: glory now points forward to send-someone-else, but send-someone-else.prev still points back to 'some' — the deliberate pulpit → some → send-someone-else calling thread. That asymmetry is by design; do not 'fix' it in a future run.",
       "p4": "PASS (verified against build, then live) — show-me-your-glory emits <link rel=next> to send-someone-else and renders a normal 'Next Essay → Send Someone Else' nav (no ghost class, since ArticleLayout derives ghost from the target's real live status). Forward chain now walks all 16 published essays end to end: reckonings → … → show-me-your-glory → send-someone-else. Zero non-newest essays lack a next."
+    },
+    {
+      "id": "F82",
+      "area": "Brand",
+      "feature": "Design-system doc ↔ implementation parity (accent permitted-use list)",
+      "user_story": "As the site's maintainer (or an automated QA run), I want DESIGN-SYSTEM.md's permitted accent-use list to match what the CSS actually ships, so neither a contributor nor a future scrub 'corrects' a deliberate design decision back out.",
+      "expected": "Every entry in DESIGN-SYSTEM.md §'Permitted' accent uses resolves to a live rule using var(--accent) / var(--accent-text); anything the CSS deliberately renders in another token is absent from that list or annotated with its rationale.",
+      "source": "DESIGN-SYSTEM.md:112-123, css/article.css:876-886",
+      "p1": "Cataloged",
+      "p2": "ISSUE — DESIGN-SYSTEM.md:115 lists \"Reading progress bar (`var(--accent)`)\" as a permitted accent use, but css/article.css:882 ships `.reading-progress { background: var(--ink) }`. Commit 68b0c1d (2026-04-10) recolored it on purpose and left the reason in the CSS: \"Reading progress uses --ink rather than --accent so the red accent stays reserved for section heads, callouts, and underlines. A red bar at the top of the viewport was competing with the masthead.\" That commit rewrote 136 lines of DESIGN-SYSTEM.md but missed this bullet, which dates to c75ded9 earlier the same day. The CSS is correct; the doc line is stale. Live-confirmed today: bar computes rgb(5,5,5) = --ink.",
+      "sev": "Low",
+      "p3": "BLOCKED — NEEDS DEXTER. Not auto-fixed for two reasons: (1) DESIGN-SYSTEM.md carries Dexter's uncommitted working-tree edit (the \"Two-plane rule\" addition), and the fix-phase rule is to leave his in-flight changes alone; (2) although the code comment makes the intent unambiguous, reconciling a brand doc against its implementation is a design-intent call, not a behaviour repair. Recommended resolution (Dexter's pick): strike line 115 from the permitted list, or re-add it annotated \"— superseded 2026-04-10, see css/article.css:876\".",
+      "p4": "PENDING — blocked on the decision above."
     }
   ]
 }

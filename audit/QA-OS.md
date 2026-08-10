@@ -93,8 +93,10 @@ the ledger. A regression on a previously-fixed row (p4 was PASS, now fails) is
 - **Key tokens:** --bg, --ink, --accent (#c00), --accent-text (#c00 light / #ff4d4d
   dark), --border, --rule, --focus-ring
 - **Fonts:** Anton (display, self-hosted; Impact is only the CSS fallback),
-  IBM Plex Sans (body), Georgia (article text),
-  SF Mono (metadata)
+  IBM Plex Sans (body AND article text), SF Mono (metadata).
+  Georgia is **deprecated** — `--serif` survives in tokens.css as a fallback-only
+  token referenced by no component (DESIGN-SYSTEM.md:144-146). Article body running
+  on Plex Sans is correct; do not flag it as drift.
 - **Routes:**
   - `/` — homepage/archive with auto-computed cascade (lead plate, This Month,
     Earlier, View More, Issue-next ghost CTA)
