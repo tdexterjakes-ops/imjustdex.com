@@ -19,7 +19,8 @@
     "last_run": "2026-08-10",
     "last_run_branch": "qa/fixes-20260810",
     "last_full_regression": "2026-08-10",
-    "rows": 82
+    "rows": 82,
+    "last_run_note": "two runs on 2026-08-10 — 05:06 scheduled (full regression, F76 fix) and 12:25 manual re-run (full regression, no new findings)"
   },
   "features": [
     {
@@ -56,7 +57,7 @@
       "expected": "Click #modeToggle flips html.dark-mode; writes dxmode cookie (max-age 1yr, SameSite=Lax). On load: cookie wins, else prefers-color-scheme, else light. No FOUC (head-phase sets class pre-paint). Button label + aria-pressed update. Logo swaps logo-dark/logo-white via data-base. theme-color + color-scheme synced. Follows OS change only when no explicit cookie.",
       "source": "js/mode.js",
       "p1": "Cataloged",
-      "p2": "PASS — toggle cycles dark→light→dark; dxmode cookie written both ways; label + aria-pressed + bg/ink all update",
+      "p2": "PASS — toggle cycles dark→light→dark; dxmode cookie written both ways; label + aria-pressed + bg/ink all update. Reconfirmed 2026-08-10 PM across 3 consecutive clicks.",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -472,7 +473,7 @@
       "expected": "progress.js sizes .reading-progress width 0-100% on scroll (rAF-throttled), updates aria-valuenow. Initializes progressbar ARIA. No-ops if elements missing.",
       "source": "js/progress.js",
       "p1": "Cataloged",
-      "p2": "PASS — bar width 0→249→698→1153px and aria-valuenow 0→30→69→100 across the scroll range",
+      "p2": "PASS — bar width 0→249→698→1153px and aria-valuenow 0→30→69→100 across the scroll range. 2026-08-10 PM re-check: structural half re-verified (progress.js math recomputed by hand at 50% scroll = 51.5%; .article-body + .reading-progress present; role/aria-label/aria-valuemin/max initialized on load). Runtime paint not re-exercisable this run — the browser pane reports document.visibilityState 'hidden', so requestAnimationFrame never fires and the CSS width transition stays frozen at 0. Harness limitation, not a site regression.",
       "sev": "",
       "p3": "NOTE: code+elements verified; live scroll not exercisable (headless rAF/scroll throttled) | 2026-08-10: re-verification again harness-blocked — browser pane viewport 0x0, window.scrollTo a no-op, so scroll-driven width could not be re-exercised. Static wiring confirmed live: progress.js sets role=progressbar, aria-label, aria-valuemin/max/now on load. Prior PASS retained; not downgraded on a tooling limit.",
       "p4": "PASS"
@@ -485,7 +486,7 @@
       "expected": "progress.js tracks .section-head h2 landmarks; shows .section-indicator with current section name when 2%<pct<98% and a head is above 40% viewport; hides otherwise. All essays use SectionHead.",
       "source": "js/progress.js, SectionHead.astro",
       "p1": "Cataloged",
-      "p2": "PASS — pill text tracks sections ('What the Fear Was Actually About' → 'A New Thing' → 'The Thirtieth'), opacity animates in",
+      "p2": "PASS — pill text tracks sections ('What the Fear Was Actually About' → 'A New Thing' → 'The Thirtieth'), opacity animates in. 2026-08-10 PM re-check: section collection re-verified live (5 .section-head h2 landmarks found on /words/send-someone-else/; the 40%-viewport rule resolves to the correct current section). Opacity fade not observable this run — same hidden-tab rAF/transition suspension as F35.",
       "sev": "",
       "p3": "NOTE: 5 section-heads present; code verified; live scroll not exercisable",
       "p4": "PASS"
@@ -550,7 +551,7 @@
       "expected": "article-nav renders prev (rel=prev) and next. If next.ghost: rendered as .article-nav-ghost teaser with optional date, NO rel=next. If next not ghost: rel=next link. Ghost flags must be accurate (essay still upcoming).",
       "source": "ArticleLayout.astro:169-191, frontmatter prev/next",
       "p1": "Cataloged",
-      "p2": "Authored prev/next render correctly on all 16. Ghost/teaser path PENDING — requires a future-dated entry; none exists",
+      "p2": "Authored prev/next render correctly on all 16. Ghost/teaser path PENDING — requires a future-dated entry; none exists. 2026-08-10 PM: the derive-from-live-status fix (p3) live-verified — 4 essays still carry stale ghost:true frontmatter (next-verse.prev→job, not-the-same-as-alive.next→music-that-raised-me, pulpit.next→the-stone, should-have-killed-it.next→job) and all 4 render as real .article-nav-link anchors with rel=prev/next plus matching <link rel> head tags. No ghost teaser leaks.",
       "sev": "",
       "p3": "FIX: ArticleLayout derives effective nextGhost from the target essay's real live status (getCollection + isPubliclyLive); stale frontmatter ghost flags ignored once target is live",
       "p4": "PENDING"
@@ -1008,7 +1009,7 @@
       "p2": "ISSUE — .subscribe-manifesto .sm-submit (homepage + /brand/ subscribe submit) has base and :hover styling but NO :focus-visible rule, so the site's primary conversion control shows no focus indicator for keyboard users (WCAG 2.4.7 AA). Every sibling control is covered — .sm-input directly above it has the rule, and .sm-submit is even named in home-augment.css's prefers-reduced-motion block — so this is an omission, not a decision. Missed by prior runs because F76 was tested at sheet level (':focus-visible present in all 8 stylesheets') rather than per control; enumerating all 34 interactive elements on the homepage against the 27 focus selectors in the live CSS surfaced it.",
       "sev": "High",
       "p3": "FIX (qa/fixes-20260810): added .subscribe-manifesto .sm-submit:focus-visible {outline: var(--focus-ring-width) solid var(--focus-ring); outline-offset:-2px} to css/home-augment.css, matching the .sm-input rule immediately above (inset ring, since the button sits on --ink). Bumped home-augment.css ?v=phase25→phase32 in src/layouts/HomeLayout.astro and brand/index.html — the asset is served immutable/1y, so both references had to move together.",
-      "p4": "PASS (verified against build) — npm run build clean, 19 pages; dist/css/home-augment.css carries the rule; dist/index.html and dist/brand/index.html both reference ?v=phase32 with zero stale phase25 refs; dev server fetch of /css/home-augment.css?v=phase32 returns the rule text. Runtime paint of the ring could NOT be exercised — the browser pane reported a 0x0 viewport, so :focus-visible modality and Tab traversal were unavailable. Live-verify on the next scrub after merge."
+      "p4": "PASS (runtime-verified on build, 2026-08-10 12:5x) — keyboard Tab from .sm-input lands on .sm-submit; el.matches(':focus-visible') === true and the computed outline is 'solid 2px rgb(204, 0, 0)' at outline-offset -2px, served from home-augment.css?v=phase32 on the local dev build. Ring contrast against the button's --ink face passes SC 1.4.11 in both modes (5.17:1 dark, 3.44:1 light). This supersedes the morning run's build-only verification, which could not exercise focus modality (0x0 viewport). Live-verify on the next scrub after merge — live CSS still ships phase25 without the rule."
     },
     {
       "id": "F77",

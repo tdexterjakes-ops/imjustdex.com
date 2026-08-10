@@ -171,7 +171,8 @@ one finding, one record, reported once.
   Georgia and SF Mono are system fonts — presence in the stack is enough.
   Flag FOUT/FOIT.
 - **Homepage specifically:** verify BOTH `home-augment.css?v=phase25` AND
-  `home-v2.css?v=phase29` load (layered stack by design — missing either = regression).
+  `home-v2.css?v=phase31` load (layered stack by design — missing either = regression).
+  Cache-bust suffixes move as those files change — match on the filename, not the phase number.
 
 ### 4. ACCESSIBILITY (QUICK SCAN)
 
@@ -210,9 +211,11 @@ one finding, one record, reported once.
 - Below-the-fold images should have `loading="lazy"`.
 - **Known expected render-blockers (do NOT flag):**
   - Homepage: `tokens.css?v=phase23`, `shell.css?v=phase23`, `plates.css?v=phase15`,
-    `home-augment.css?v=phase25`, `home-v2.css?v=phase29` (5 CSS files)
-  - Articles: `tokens.css?v=phase23`, `shell.css?v=phase23`, `article.css?v=phase24`
-    (3 CSS files)
+    `home-augment.css?v=phase25`, `home-v2.css?v=phase31` (5 CSS files)
+  - Articles: `tokens.css?v=phase23`, `shell.css?v=phase23`, `article.css?v=phase24`,
+    plus one Astro-hashed component sheet `/_astro/_slug_.<hash>.css` (4 CSS files —
+    the hashed sheet is the `inlineStylesheets: 'never'` output, not a new blocker;
+    the hash changes only when a component's scoped styles change)
   - `mode.js?v=phase11` inline-synchronous in head (intentional FOUC prevention)
   - Flag only NEW render-blockers outside this baseline.
 - Flag specific bloat: unoptimized images >500KB, uncompressed fonts, excessive
