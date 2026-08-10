@@ -909,6 +909,12 @@ a.plate-lead:focus-visible {
   background: var(--accent);
   color: var(--on-accent);
 }
+/* The submit sits on --ink, so the ring goes inset (matching .sm-input above)
+ * rather than outset, where it would be lost against the form's own border. */
+.subscribe-manifesto .sm-submit:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: -2px;
+}
 
 .subscribe-manifesto .sm-fine {
   margin-top: var(--space-hairline);
