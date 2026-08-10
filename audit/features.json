@@ -20,7 +20,8 @@
     "last_run_branch": "qa/fixes-20260810",
     "last_full_regression": "2026-08-10",
     "rows": 82,
-    "last_run_note": "two runs on 2026-08-10 — 05:06 scheduled (full regression, F76 fix) and 12:25 manual re-run (full regression, no new findings)"
+    "last_run_note": "three passes on 2026-08-10 — 05:06 scheduled (full regression, F76 fix authored), 12:25 manual re-run (full regression, F76 runtime-verified), 13:20 merge+deploy (main advanced d539b0f→d364718, F76 closed live). Only F82 remains open (Low, NEEDS DEXTER).",
+    "live_commit": "d364718"
   },
   "features": [
     {
@@ -1006,10 +1007,10 @@
       "expected": "Every CSS file defines :focus-visible styles; focus indicators visible in light + dark on links, buttons, form fields, toggles, plates.",
       "source": "css/*.css (focus-visible present in all)",
       "p1": "Cataloged",
-      "p2": "ISSUE — .subscribe-manifesto .sm-submit (homepage + /brand/ subscribe submit) has base and :hover styling but NO :focus-visible rule, so the site's primary conversion control shows no focus indicator for keyboard users (WCAG 2.4.7 AA). Every sibling control is covered — .sm-input directly above it has the rule, and .sm-submit is even named in home-augment.css's prefers-reduced-motion block — so this is an omission, not a decision. Missed by prior runs because F76 was tested at sheet level (':focus-visible present in all 8 stylesheets') rather than per control; enumerating all 34 interactive elements on the homepage against the 27 focus selectors in the live CSS surfaced it.",
-      "sev": "High",
+      "p2": "PASS (closed live 2026-08-10) — was ISSUE/High: .subscribe-manifesto .sm-submit (homepage + /brand/ subscribe submit) had base and :hover styling but NO :focus-visible rule, so the site's primary conversion control showed no focus indicator for keyboard users (WCAG 2.4.7 AA). Every sibling control was covered — .sm-input directly above it had the rule, and .sm-submit was even named in home-augment.css's prefers-reduced-motion block — so it was an omission, not a decision. Missed by prior runs because F76 was tested at sheet level (':focus-visible present in all 8 stylesheets') rather than per control. Fixed and deployed same day; see p3/p4.",
+      "sev": "High (resolved)",
       "p3": "FIX (qa/fixes-20260810): added .subscribe-manifesto .sm-submit:focus-visible {outline: var(--focus-ring-width) solid var(--focus-ring); outline-offset:-2px} to css/home-augment.css, matching the .sm-input rule immediately above (inset ring, since the button sits on --ink). Bumped home-augment.css ?v=phase25→phase32 in src/layouts/HomeLayout.astro and brand/index.html — the asset is served immutable/1y, so both references had to move together.",
-      "p4": "PASS (runtime-verified on build, 2026-08-10 12:5x) — keyboard Tab from .sm-input lands on .sm-submit; el.matches(':focus-visible') === true and the computed outline is 'solid 2px rgb(204, 0, 0)' at outline-offset -2px, served from home-augment.css?v=phase32 on the local dev build. Ring contrast against the button's --ink face passes SC 1.4.11 in both modes (5.17:1 dark, 3.44:1 light). This supersedes the morning run's build-only verification, which could not exercise focus modality (0x0 viewport). Live-verify on the next scrub after merge — live CSS still ships phase25 without the rule."
+      "p4": "PASS (live-verified 2026-08-10 13:31 CDT, deploy d364718) — merged to main and shipped at Dexter's explicit instruction. Live https://imjustdex.com/ and /brand/ both reference home-augment.css?v=phase32; the live sheet serves the rule; on the live homepage .sm-submit matches ':focus-visible' and computes outline 'solid 2px rgb(204, 0, 0)' at outline-offset -2px over the button's --ink face (rgb(5,5,5)). Ring contrast passes SC 1.4.11 in both modes (5.17:1 dark, 3.44:1 light). Verification ladder this day: build-verified 05:06 → runtime-verified on dev build 13:05 → live-verified on production 13:31."
     },
     {
       "id": "F77",
