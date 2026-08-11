@@ -20,7 +20,7 @@
     "last_run_branch": "qa/fixes-20260810",
     "last_full_regression": "2026-08-10",
     "rows": 82,
-    "last_run_note": "four passes on 2026-08-10 — 05:06 scheduled (full regression, F76 fix authored), 12:25 manual re-run (full regression, F76 runtime-verified), 13:20 merge+deploy (main d539b0f->d364718, F76 closed live), 13:40 F82 resolved on Dexter's call. Zero open findings.",
+    "last_run_note": "five passes on 2026-08-10 — 05:06 scheduled (full regression, F76 fix authored), 12:25 manual re-run (full regression, F76 runtime-verified), 13:20 merge+deploy (main d539b0f->d364718, F76 closed live), 13:40 F82 resolved on Dexter's call, 14:40 stale ghost-flag cleanup [F41/F81]. Zero open findings.",
     "live_commit": "d364718"
   },
   "features": [
@@ -552,7 +552,7 @@
       "expected": "article-nav renders prev (rel=prev) and next. If next.ghost: rendered as .article-nav-ghost teaser with optional date, NO rel=next. If next not ghost: rel=next link. Ghost flags must be accurate (essay still upcoming).",
       "source": "ArticleLayout.astro:169-191, frontmatter prev/next",
       "p1": "Cataloged",
-      "p2": "Authored prev/next render correctly on all 16. Ghost/teaser path PENDING — requires a future-dated entry; none exists. 2026-08-10 PM: the derive-from-live-status fix (p3) live-verified — 4 essays still carry stale ghost:true frontmatter (next-verse.prev→job, not-the-same-as-alive.next→music-that-raised-me, pulpit.next→the-stone, should-have-killed-it.next→job) and all 4 render as real .article-nav-link anchors with rel=prev/next plus matching <link rel> head tags. No ghost teaser leaks.",
+      "p2": "Authored prev/next render correctly on all 16. Ghost/teaser path PENDING — requires a future-dated entry; none exists. 2026-08-10 PM: the derive-from-live-status fix (p3) live-verified, then the underlying data cleaned — the 4 stale ghost:true flags are gone (see F81). Zero `ghost: true` remain in the collection; all 16 essays render real .article-nav-link anchors, 15 rel=next head links (newest correctly has none), zero article-nav-ghost teasers.",
       "sev": "",
       "p3": "FIX: ArticleLayout derives effective nextGhost from the target essay's real live status (getCollection + isPubliclyLive); stale frontmatter ghost flags ignored once target is live",
       "p4": "PENDING"
@@ -1074,8 +1074,8 @@
       "p1": "Cataloged",
       "p2": "PASS — live-verified 2026-08-10: show-me-your-glory emits rel=next to send-someone-else and renders a normal (non-ghost) forward nav; forward chain walks all 16 published essays end to end.",
       "sev": "",
-      "p3": "FIX (2026-08-07, Dexter's call — resolution 1 of 3): added next{slug:'send-someone-else', title:'Send Someone Else', ghost:false} to show-me-your-glory.mdx. Editorial decision made by Dexter, not by the loop. NOTE this intentionally creates the corpus's first NON-RECIPROCAL pair: glory now points forward to send-someone-else, but send-someone-else.prev still points back to 'some' — the deliberate pulpit → some → send-someone-else calling thread. That asymmetry is by design; do not 'fix' it in a future run.",
-      "p4": "PASS (verified against build, then live) — show-me-your-glory emits <link rel=next> to send-someone-else and renders a normal 'Next Essay → Send Someone Else' nav (no ghost class, since ArticleLayout derives ghost from the target's real live status). Forward chain now walks all 16 published essays end to end: reckonings → … → show-me-your-glory → send-someone-else. Zero non-newest essays lack a next."
+      "p3": "FIX (2026-08-10, Dexter's call): flipped the 4 stale `ghost: true` frontmatter flags to false — next-verse.prev→job, not-the-same-as-alive.next→music-that-raised-me, pulpit.next→the-stone, should-have-killed-it.next→job. All 4 targets had gone live, leaving the flags asserting a coming-soon state that was no longer true. Flipped rather than deleted, to match the `ghost: false` convention the other 13 prev/next blocks already carry. Frontmatter only — one line per file, zero prose touched.",
+      "p4": "PASS (verified against build, then live) — rendered nav is byte-identical before and after the flip, confirming the flags were already inert under ArticleLayout's derive-from-live-status logic: same .article-nav-prev/.article-nav-next anchors, same <link rel=next> targets on all 4 essays. Collection-wide: zero `ghost: true` remain, zero .article-nav-ghost teasers render across all 16, 15 rel=next head links. The data now says what the render already did."
     },
     {
       "id": "F82",
