@@ -20,7 +20,7 @@
     "last_run_branch": "qa/fixes-20260810",
     "last_full_regression": "2026-08-10",
     "rows": 82,
-    "last_run_note": "three passes on 2026-08-10 — 05:06 scheduled (full regression, F76 fix authored), 12:25 manual re-run (full regression, F76 runtime-verified), 13:20 merge+deploy (main advanced d539b0f→d364718, F76 closed live). Only F82 remains open (Low, NEEDS DEXTER).",
+    "last_run_note": "four passes on 2026-08-10 — 05:06 scheduled (full regression, F76 fix authored), 12:25 manual re-run (full regression, F76 runtime-verified), 13:20 merge+deploy (main d539b0f->d364718, F76 closed live), 13:40 F82 resolved on Dexter's call. Zero open findings.",
     "live_commit": "d364718"
   },
   "features": [
@@ -1085,10 +1085,10 @@
       "expected": "Every entry in DESIGN-SYSTEM.md §'Permitted' accent uses resolves to a live rule using var(--accent) / var(--accent-text); anything the CSS deliberately renders in another token is absent from that list or annotated with its rationale.",
       "source": "DESIGN-SYSTEM.md:112-123, css/article.css:876-886",
       "p1": "Cataloged",
-      "p2": "ISSUE — DESIGN-SYSTEM.md:115 lists \"Reading progress bar (`var(--accent)`)\" as a permitted accent use, but css/article.css:882 ships `.reading-progress { background: var(--ink) }`. Commit 68b0c1d (2026-04-10) recolored it on purpose and left the reason in the CSS: \"Reading progress uses --ink rather than --accent so the red accent stays reserved for section heads, callouts, and underlines. A red bar at the top of the viewport was competing with the masthead.\" That commit rewrote 136 lines of DESIGN-SYSTEM.md but missed this bullet, which dates to c75ded9 earlier the same day. The CSS is correct; the doc line is stale. Live-confirmed today: bar computes rgb(5,5,5) = --ink.",
-      "sev": "Low",
-      "p3": "BLOCKED — NEEDS DEXTER. Not auto-fixed for two reasons: (1) DESIGN-SYSTEM.md carries Dexter's uncommitted working-tree edit (the \"Two-plane rule\" addition), and the fix-phase rule is to leave his in-flight changes alone; (2) although the code comment makes the intent unambiguous, reconciling a brand doc against its implementation is a design-intent call, not a behaviour repair. Recommended resolution (Dexter's pick): strike line 115 from the permitted list, or re-add it annotated \"— superseded 2026-04-10, see css/article.css:876\".",
-      "p4": "PENDING — blocked on the decision above."
+      "p2": "PASS (resolved 2026-08-10) — was ISSUE/Low: DESIGN-SYSTEM.md:115 listed \"Reading progress bar (`var(--accent)`)\" as a permitted accent use, but css/article.css:876 ships `.reading-progress { background: var(--ink) }`. Commit 68b0c1d (2026-04-10) recolored it on purpose and left the reason in the CSS: red was competing with the masthead and diluting the accent's semantic weight. That commit rewrote 136 lines of DESIGN-SYSTEM.md but missed this one bullet, which dated to c75ded9 earlier the same day. The CSS was correct; the doc line was stale.",
+      "sev": "Low (resolved)",
+      "p3": "FIX (2026-08-10, Dexter's explicit call): struck DESIGN-SYSTEM.md:115 from the permitted-accent list. Chosen over annotating it as superseded. No CSS touched — the implementation was already right. The doc's own §'Reading Progress Bar (Articles Only)' block (DESIGN-SYSTEM.md:934) already carried the correct spec (`background: var(--ink)`) plus the Phase 3b rationale, so striking the bullet makes the document self-consistent rather than removing information. Committed as a single-hunk stage so Dexter's in-flight \"Two-plane rule\" edit, which lives in the same file, stayed out of the QA commit and remains in his working tree.",
+      "p4": "PASS — permitted-accent list re-read after the edit: 10 entries remain, every one of them verified against live CSS this run (section-head h2 + rule, callout left-border, .callout-emph, scripture cite, stat bar, identity plate tagline, article link hover underline, plate hover border, focus rings). Zero doc-vs-implementation mismatches remain in the section. grep confirms no other line in DESIGN-SYSTEM.md claims the progress bar uses --accent. Not a deploy-visible change — /DESIGN-SYSTEM.md returns 404 by design."
     }
   ]
 }

@@ -112,7 +112,6 @@ Red marks editorial emphasis. Never decoration.
 **Permitted:**
 - Section head `h2` text color (`var(--accent-text)`)
 - Section head horizontal rule line (`var(--accent)`)
-- Reading progress bar (`var(--accent)`)
 - Callout left-border (3px `var(--accent)` rule)
 - Callout emphasis spans (`.callout-emph`, `var(--accent-text)`)
 - Scripture block cite text (`var(--accent-text)` — auto-retunes to `#ff4d4d` in dark mode)
