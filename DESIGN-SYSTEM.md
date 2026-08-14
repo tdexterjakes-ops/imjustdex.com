@@ -129,6 +129,12 @@ Red marks editorial emphasis. Never decoration.
 - Body text
 - Tags or metadata
 
+**Sanctioned exception to "Backgrounds" and "Tags or metadata" — the `.latest-tag` chip.** The homepage standfirst bar carries one `background: var(--accent)` tag: the `LATEST` chip in `LatestBar.astro`. It is a deliberate editorial signature, not drift — the single red mark that points at the newest essay — and it is the only sanctioned violation of either bullet. Any *further* red-filled tag or metadata background is still prohibited; this is an exception, not an opening.
+
+Because it puts small text on the accent fill, it carries a mode-specific rule the rest of the accent doctrine does not need. `color: var(--bg)` resolves to cream on `#c00` in light mode (5.17:1, clears AA) but to `#060606` on `#c00` in dark (3.44:1, fails the 4.5:1 floor for 11.5px text). `css/home-v2.css` therefore pins the chip's dark-mode text to `var(--ink)`, so it renders identically in both modes at 5.17:1. The same override covers the two controls that invert onto the accent fill on hover — `.latest-cta` and `.identity-hero .hero-link.primary`.
+
+**The boundary this draws.** Phase 4.1 (above) sanctions the `#c00`/`#060606` pair at the 3:1 **non-text** floor. That sanction does not extend to text set *on* the accent fill, which is governed by SC 1.4.3 at 4.5:1. Any new rule pairing `background: var(--accent)` with a text colour must be measured against 4.5:1 in **both** modes before it ships.
+
 ---
 
 ## 3. Typography

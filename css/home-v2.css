@@ -142,6 +142,18 @@ html.dark-mode .issue-head .latest-tag {
   color: var(--bg);
   border-color: var(--accent);
 }
+/* The two controls that actually invert onto the --accent fill on hover. Same
+   trap as .latest-tag above: cream on #c00 in light (5.17:1), but #060606 on
+   #c00 in dark (3.44:1) — under the 4.5:1 AA floor for this 14px label. Pin
+   dark mode to the light ground.
+   The rest of the hover gesture needs nothing: .issue-latest:hover takes the
+   bar to --ink, not --accent, so .latest-title (17.79:1) and .latest-meta
+   (5.23:1 at opacity .6) already clear against cream. Measured under real
+   pointer hover, not inferred from the declarations. */
+html.dark-mode .issue-latest:hover .latest-cta,
+html.dark-mode .identity-hero .hero-link.primary:hover {
+  color: var(--ink);
+}
 .issue-latest:focus-visible {
   outline: var(--focus-ring-width) solid var(--focus-ring);
   outline-offset: -2px;
