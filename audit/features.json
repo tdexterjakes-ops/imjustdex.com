@@ -16,12 +16,12 @@
       "N/A",
       "PENDING"
     ],
-    "last_run": "2026-08-10",
-    "last_run_branch": "qa/fixes-20260810",
-    "last_full_regression": "2026-08-10",
-    "rows": 82,
-    "last_run_note": "five passes on 2026-08-10 — 05:06 scheduled (full regression, F76 fix authored), 12:25 manual re-run (full regression, F76 runtime-verified), 13:20 merge+deploy (main d539b0f->d364718, F76 closed live), 13:40 F82 resolved on Dexter's call, 14:40 stale ghost-flag cleanup [F41/F81]. Zero open findings.",
-    "live_commit": "d364718"
+    "last_run": "2026-08-13",
+    "last_run_branch": "qa/fixes-20260813",
+    "last_full_regression": "2026-08-13",
+    "rows": 84,
+    "last_run_note": "2026-08-13 scheduled scrub (05:06 CDT) — full regression, 82->84 rows. One HIGH found and fixed: F77, the dark-mode 'Latest' chip at 3.44:1 (branch qa/fixes-20260813, commit 549e09c, build+runtime verified, awaiting Dexter's merge). Two new rows opened BLOCKED for his call: F83 (four dark-mode hover rules on the same accent fill, HIGH) and F84 (the chip vs the doc's Prohibited accent list, LOW). Deploy fresh: live b0d9762 == origin/main. Zero console errors across all 6 page types; 16/16 articles clean on structured data, OG parity, redirects and frontmatter fidelity.",
+    "live_commit": "b0d9762"
   },
   "features": [
     {
@@ -58,7 +58,7 @@
       "expected": "Click #modeToggle flips html.dark-mode; writes dxmode cookie (max-age 1yr, SameSite=Lax). On load: cookie wins, else prefers-color-scheme, else light. No FOUC (head-phase sets class pre-paint). Button label + aria-pressed update. Logo swaps logo-dark/logo-white via data-base. theme-color + color-scheme synced. Follows OS change only when no explicit cookie.",
       "source": "js/mode.js",
       "p1": "Cataloged",
-      "p2": "PASS — toggle cycles dark→light→dark; dxmode cookie written both ways; label + aria-pressed + bg/ink all update. Reconfirmed 2026-08-10 PM across 3 consecutive clicks.",
+      "p2": "PASS — toggle cycles dark→light→dark; dxmode cookie written both ways; label + aria-pressed + bg/ink all update. Reconfirmed 2026-08-10 PM across 3 consecutive clicks. | 2026-08-13 re-verified live: toggle cycled dark->light->dark on the live homepage; dxmode cookie written both ways; --bg/--ink/--accent-text all re-resolved (#060606/#f3f0e8/#ff4d4d dark, #f4f4f1/#050505/#c00 light).",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -71,7 +71,7 @@
       "expected": "First focusable element is a .skip-link anchoring to the page's main region (#archive / #article / #about / #main / #phase0). Visible on focus.",
       "source": "all layouts + pages",
       "p1": "Cataloged",
-      "p2": "PASS — live-verified 2026-08-10: skip link is first focusable; activating it lands document.activeElement on MAIN#archive (home) / MAIN#article (essay); tabindex=-1 present on both landmarks. The 2c7d88d fix holds in production.",
+      "p2": "PASS — live-verified 2026-08-10: skip link is first focusable; activating it lands document.activeElement on MAIN#archive (home) / MAIN#article (essay); tabindex=-1 present on both landmarks. The 2c7d88d fix holds in production. | 2026-08-13 re-verified live: tab-target verified on live: .skip-link reveals from left:-999px to a 83x69 box at (12,12), cream-on-ink 17.79:1; activating it moved document.activeElement to MAIN#archive (tabindex=-1). Article pages target #article.",
       "sev": "",
       "p3": "FIX (qa/fixes-20260807 2c7d88d): added tabindex=\"-1\" to the 7 <main> landmarks (index/article/coming-soon/about/404/phase0/brand)",
       "p4": "PASS (verified against build) — focus now lands on MAIN#archive (home) and MAIN#article (essay)"
@@ -123,7 +123,7 @@
       "expected": "favicon-32.png + apple-touch-icon.png linked on every page; files exist in /img.",
       "source": "all heads; img/",
       "p1": "Cataloged",
-      "p2": "PASS — /img/favicon-32.png + /img/apple-touch-icon.png 200 on every referenced path",
+      "p2": "PASS — /img/favicon-32.png + /img/apple-touch-icon.png 200 on every referenced path | 2026-08-13 re-verified live: /img/favicon-32.png and /img/apple-touch-icon.png both 200, immutable-cached.",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -136,7 +136,7 @@
       "expected": "Anton + IBM Plex Sans (Regular/Bold/Italic) self-hosted in /fonts, preloaded with crossorigin; no Google Fonts. font-src 'self'.",
       "source": "all heads; fonts/; netlify.toml CSP",
       "p1": "Cataloged",
-      "p2": "PASS — Anton + IBM Plex Sans self-hosted, preloaded, document.fonts status 'loaded'; CSP font-src intact",
+      "p2": "PASS — Anton + IBM Plex Sans self-hosted, preloaded, document.fonts status 'loaded'; CSP font-src intact | 2026-08-13 re-verified live: document.fonts.status 'loaded'; Anton 400, IBM Plex Sans 400 + 700 all report 'loaded' on home and article. No FOUT observed.",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -162,7 +162,7 @@
       "expected": "Unique <title> + meta description per page. Canonical absolute URL with trailing slash for home/about/articles; 404 canonical is /404 (noindex).",
       "source": "all heads",
       "p1": "Cataloged",
-      "p2": "PASS — title/description/canonical on all 21 routes; every canonical on imjustdex.com",
+      "p2": "PASS — title/description/canonical on all 21 routes; every canonical on imjustdex.com | 2026-08-13 re-verified live: title/description/canonical present and pointing at imjustdex.com on all 16 articles + home/about/brand/phase0.",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -175,7 +175,7 @@
       "expected": "og:title/description/image(1200x630)/url/type/site_name + twitter:card summary_large_image on home/about/articles/coming-soon/phase0. og image files exist per slug.",
       "source": "all heads; img/og-*.png",
       "p1": "Cataloged",
-      "p2": "PASS — og+twitter complete on all 21; all 19 OG images 200 (16 essays + home/about/phase0/brand)",
+      "p2": "PASS — og+twitter complete on all 21; all 19 OG images 200 (16 essays + home/about/phase0/brand) | 2026-08-13 re-verified live: og:title/og:description/og:image/twitter:card present on all 16 articles; og:image matches the JSON-LD image URL exactly (same cache-bust) on every one.",
       "sev": "",
       "p3": "NOTE: all og-<slug>.png exist",
       "p4": "PASS"
@@ -188,7 +188,7 @@
       "expected": "Home emits @graph with WebSite (#website) + Person (#person) incl sameAs Instagram/X, jobTitle, worksFor TPH. Valid JSON-LD.",
       "source": "HomeLayout.astro:6-36",
       "p1": "Cataloged",
-      "p2": "PASS — WebSite + Person @graph complete (name/url/sameAs/jobTitle/worksFor)",
+      "p2": "PASS — WebSite + Person @graph complete (name/url/sameAs/jobTitle/worksFor) | 2026-08-13 re-verified live: homepage @graph carries WebSite + Person; Person has all of name/url/sameAs/jobTitle/worksFor.",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -201,7 +201,7 @@
       "expected": "about.astro emits ProfilePage→mainEntity Person (#person) with name, url, jobTitle, sameAs, description. Valid JSON-LD.",
       "source": "about.astro:5-24",
       "p1": "Cataloged",
-      "p2": "PASS — ProfilePage mainEntity Person complete (name/url/jobTitle/worksFor/sameAs/description)",
+      "p2": "PASS — ProfilePage mainEntity Person complete (name/url/jobTitle/worksFor/sameAs/description) | 2026-08-13 re-verified live: /about/ ProfilePage mainEntity is @type Person with name/url/jobTitle/worksFor/sameAs/description — zero missing fields.",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -214,7 +214,7 @@
       "expected": "ArticleLayout emits BlogPosting with headline, description, datePublished/dateModified (ISO), author/publisher Person, image (og), wordCount. Valid JSON-LD.",
       "source": "ArticleLayout.astro:27-52",
       "p1": "Cataloged",
-      "p2": "PASS — BlogPosting complete on all 16 (headline, description, datePublished, dateModified, author Person, publisher Organization+logo, mainEntityOfPage, image, url, inLanguage, wordCount); image == og:image exactly, no og-default drift",
+      "p2": "PASS — BlogPosting complete on all 16 (headline, description, datePublished, dateModified, author Person, publisher Organization+logo, mainEntityOfPage, image, url, inLanguage, wordCount); image == og:image exactly, no og-default drift | 2026-08-13 re-verified live: all 16 BlogPosting blocks carry every required field (headline, description, datePublished, dateModified, author.@type=Person + name, publisher, mainEntityOfPage, image, url, inLanguage, wordCount); zero og-default.png drift.",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -240,7 +240,7 @@
       "expected": "robots.txt: User-agent * / Allow: / ; Sitemap: https://imjustdex.com/sitemap-index.xml.",
       "source": "robots.txt",
       "p1": "Cataloged",
-      "p2": "PASS — robots.txt Allow / + Sitemap → sitemap-index.xml",
+      "p2": "PASS — robots.txt Allow / + Sitemap → sitemap-index.xml | 2026-08-13 re-verified live: /robots.txt 200, Sitemap directive -> https://imjustdex.com/sitemap-index.xml.",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -253,7 +253,7 @@
       "expected": "@astrojs/sitemap builds sitemap-index.xml + sitemap-0.xml. /words/* included only if publicly-live (status published AND date<=now). 404 excluded. brand/ + phase0/ injected as customPages. Home priority 1.0, about 0.7, phase0 0.9, brand 0.5, articles 0.8.",
       "source": "astro.config.mjs",
       "p1": "Cataloged",
-      "p2": "PASS — sitemap-0.xml 20 locs = exactly the published set + about/brand/phase0; no missing, no orphans",
+      "p2": "PASS — sitemap-0.xml 20 locs = exactly the published set + about/brand/phase0; no missing, no orphans | 2026-08-13 re-verified live: /sitemap-index.xml -> sitemap-0.xml; sitemap-0 lists 20 URLs covering all 16 articles + /, /about/, /brand/, /phase0/. Zero missing.",
       "sev": "",
       "p3": "NOTE: 18 URLs, 404 excluded, coming-soon excluded",
       "p4": "PASS"
@@ -279,7 +279,7 @@
       "expected": "LatestBar shows 'Entry No. NN' (NN = count of published essays, zero-padded), 'Week of <leadDate>', and a 'Latest' link to newest essay with lane·date·readTime. Links to /words/<slug>/.",
       "source": "index.astro:66-75, LatestBar.astro",
       "p1": "Cataloged",
-      "p2": "PASS — Entry No. 16 / Week of July 5, 2026, LatestBar → newest essay",
+      "p2": "PASS — Entry No. 16 / Week of July 5, 2026, LatestBar → newest essay | 2026-08-13 re-verified live: LatestBar reads 'Entry No. 16 / Week of July 5, 2026' and links to /words/send-someone-else/ (the newest). NOTE: its .latest-tag chip is the F77 finding this run.",
       "sev": "",
       "p3": "NOTE: Entry No.14, Wk Jun14",
       "p4": "PASS"
@@ -305,7 +305,7 @@
       "expected": "LaneIndex shows each lane with zero-padded count + 'essay/essays'. Lanes with 0 render as non-interactive .lane-cell-queued ('In the queue', aria-disabled). Multi-lane essays count in each lane.",
       "source": "index.astro:60-64, LaneIndex.astro",
       "p1": "Cataloged",
-      "p2": "PASS — Faith 13 / Identity 09 / Art 03, verified against frontmatter lanes; 16 articles",
+      "p2": "PASS — Faith 13 / Identity 09 / Art 03, verified against frontmatter lanes; 16 articles | 2026-08-13 re-verified live: lane-index counts Faith 13 / Identity 09 / Art 03 — non-negative, zero-padded, and consistent with 16 essays counted per lane (15 .plate-lane chips + 1 .lead-badge-lane).",
       "sev": "",
       "p3": "NOTE: queued state not live-exercised (all lanes have essays); code verified",
       "p4": "PASS"
@@ -474,7 +474,7 @@
       "expected": "progress.js sizes .reading-progress width 0-100% on scroll (rAF-throttled), updates aria-valuenow. Initializes progressbar ARIA. No-ops if elements missing.",
       "source": "js/progress.js",
       "p1": "Cataloged",
-      "p2": "PASS — bar width 0→249→698→1153px and aria-valuenow 0→30→69→100 across the scroll range. 2026-08-10 PM re-check: structural half re-verified (progress.js math recomputed by hand at 50% scroll = 51.5%; .article-body + .reading-progress present; role/aria-label/aria-valuemin/max initialized on load). Runtime paint not re-exercisable this run — the browser pane reports document.visibilityState 'hidden', so requestAnimationFrame never fires and the CSS width transition stays frozen at 0. Harness limitation, not a site regression.",
+      "p2": "PASS — bar width 0→249→698→1153px and aria-valuenow 0→30→69→100 across the scroll range. 2026-08-10 PM re-check: structural half re-verified (progress.js math recomputed by hand at 50% scroll = 51.5%; .article-body + .reading-progress present; role/aria-label/aria-valuemin/max initialized on load). Runtime paint not re-exercisable this run — the browser pane reports document.visibilityState 'hidden', so requestAnimationFrame never fires and the CSS width transition stays frozen at 0. Harness limitation, not a site regression. | 2026-08-13 re-verified live: reading-progress present on articles at 3px, background var(--ink) rgb(5,5,5) — correct per F82; the doc bullet claiming --accent was struck 2026-08-10.",
       "sev": "",
       "p3": "NOTE: code+elements verified; live scroll not exercisable (headless rAF/scroll throttled) | 2026-08-10: re-verification again harness-blocked — browser pane viewport 0x0, window.scrollTo a no-op, so scroll-driven width could not be re-exercised. Static wiring confirmed live: progress.js sets role=progressbar, aria-label, aria-valuemin/max/now on load. Prior PASS retained; not downgraded on a tooling limit.",
       "p4": "PASS"
@@ -669,7 +669,7 @@
       "expected": "feed.xml.ts emits Atom: feed title/subtitle/links/id/updated/rights/author/icon/logo + one <entry> per publicly-live essay (title, link, id, published, updated, summary, author, <category> per lane with lane scheme). XML-escaped. Served application/xml.",
       "source": "src/pages/feed.xml.ts, netlify.toml:88-93",
       "p1": "Cataloged",
-      "p2": "PASS — Atom 16 entries = 16 published; namespace + entries valid",
+      "p2": "PASS — Atom 16 entries = 16 published; namespace + entries valid | 2026-08-13 re-verified live: /feed.xml 200, Atom namespace, 16 <entry> elements — exactly matching the 16 articles on the homepage, zero set difference either direction.",
       "sev": "",
       "p3": "NOTE: 14 entries, 22 lane categories, valid Atom, escaped",
       "p4": "PASS"
@@ -682,7 +682,7 @@
       "expected": "feed.xml references /feed.xsl via xml-stylesheet PI; browser applies XSL to render a human-readable feed; CSP relaxed (style-src unsafe-inline) for /feed.xml + /feed.xsl.",
       "source": "feed.xsl, feed.xml.ts:74, netlify.toml:95-99",
       "p1": "Cataloged",
-      "p2": "PASS — feed.xsl 200 and <?xml-stylesheet?> PI present",
+      "p2": "PASS — feed.xsl 200 and <?xml-stylesheet?> PI present | 2026-08-13 re-verified live: /feed.xsl 200 and referenced via <?xml-stylesheet?> in the feed prolog.",
       "sev": "",
       "p3": "NOTE: xsl referenced + 200 + relaxed CSP",
       "p4": "PASS"
@@ -799,7 +799,7 @@
       "expected": "POST to Mailchimp members; success→200 {message:subscribed}; 400 'Member Exists'→200 {message:already_subscribed}; other upstream errors→502. Needs env vars (else 500 server_not_configured).",
       "source": "netlify/functions/subscribe.cjs:76-134",
       "p1": "Cataloged",
-      "p2": "PASS — healthscrub+20260807@imjustdex.com → 200 subscribed in 1.53s",
+      "p2": "PASS — healthscrub+20260807@imjustdex.com → 200 subscribed in 1.53s | 2026-08-13 re-verified live: live smoke test POST /api/subscribe returned HTTP 200 {\"ok\":true,\"message\":\"subscribed\"} in 2.16s using healthscrub+20260813@imjustdex.com.",
       "sev": "",
       "p3": "NOTE: add+member-exists code verified; 500 path tested (no local creds)",
       "p4": "PASS"
@@ -851,7 +851,7 @@
       "expected": "/about, /phase0, and each /words/<slug> (no slash) → slashed form, 301, NOT forced (avoids loop). Astro trailingSlash:always.",
       "source": "netlify.toml:197-299, astro.config.mjs",
       "p1": "Cataloged",
-      "p2": "PASS — /about, /phase0 and all 16 /words/<slug> → single 301 to trailing-slash canonical",
+      "p2": "PASS — /about, /phase0 and all 16 /words/<slug> → single 301 to trailing-slash canonical | 2026-08-13 re-verified live: /about -> 301 -> /about/ -> 200; /sitemap.xml correctly 404 post-cutover.",
       "sev": "",
       "p3": "NOTE: config correct; netlify dev serves 200 via pretty-URL, prod 301s",
       "p4": "PASS"
@@ -890,7 +890,7 @@
       "expected": "/api/subscribe → /.netlify/functions/subscribe, status 200 (rewrite, not redirect).",
       "source": "netlify.toml:191-194",
       "p1": "Cataloged",
-      "p2": "PASS — /api/subscribe rewrite reaches the function (405 on GET, 400/200 on POST)",
+      "p2": "PASS — /api/subscribe rewrite reaches the function (405 on GET, 400/200 on POST) | 2026-08-13 re-verified live: /api/subscribe rewrite reached the Netlify function and returned a Mailchimp success body.",
       "sev": "",
       "p3": "NOTE: /api/subscribe -> function (200 rewrite)",
       "p4": "PASS"
@@ -903,7 +903,7 @@
       "expected": "/* → /404.html status 404 (no force) only when no real file matches.",
       "source": "netlify.toml:344-347",
       "p1": "Cataloged",
-      "p2": "PASS — unmatched route → 404 with the branded body",
+      "p2": "PASS — unmatched route → 404 with the branded body | 2026-08-13 re-verified live: /404 returns 200 with the bespoke 'Nothing to Document Here' body and noindex; /DESIGN-SYSTEM.md and /audit/features.json both 404 (docs not leaking).",
       "sev": "",
       "p3": "NOTE: unknown -> 404.html, HTTP 404",
       "p4": "PASS"
@@ -916,7 +916,7 @@
       "expected": "Global CSP self-only (script/style/font/connect 'self'; img self+data+https; frame-ancestors none; object-src none; upgrade-insecure-requests). /brand/* + /feed.xml + /feed.xsl relax style-src to allow unsafe-inline. No inline scripts anywhere.",
       "source": "netlify.toml:45-99",
       "p1": "Cataloged",
-      "p2": "PASS — CSP present and strict on every page; per-route /brand/ + /feed.xml overrides intact; 0 inline <style> in built Astro HTML",
+      "p2": "PASS — CSP present and strict on every page; per-route /brand/ + /feed.xml overrides intact; 0 inline <style> in built Astro HTML | 2026-08-13 re-verified live: CSP header present and ENFORCING — a runtime <style> injection was blocked by style-src 'self' during F77 verification, which is direct proof the policy is live, not just declared. Per-route /brand/ and /feed.xml relaxations by design.",
       "sev": "",
       "p3": "FIX: No CSP change needed — kept strict style-src 'self'; build now emits external CSS (inlineStylesheets:'never') instead of CSP-violating inline <style>. Added /_astro/* immutable cache header.",
       "p4": "PASS"
@@ -929,7 +929,7 @@
       "expected": "X-Frame-Options DENY, X-Content-Type-Options nosniff, Referrer-Policy strict-origin-when-cross-origin, Permissions-Policy locked, HSTS 1yr preload, COOP/CORP same-origin on /*.",
       "source": "netlify.toml:26-56",
       "p1": "Cataloged",
-      "p2": "PASS — X-Frame DENY, nosniff, HSTS max-age=31536000 includeSubDomains preload, Referrer-Policy, Permissions-Policy, COOP, CORP on all 21 routes",
+      "p2": "PASS — X-Frame DENY, nosniff, HSTS max-age=31536000 includeSubDomains preload, Referrer-Policy, Permissions-Policy, COOP, CORP on all 21 routes | 2026-08-13 re-verified live: all 5 security headers present on all 6 page types (home, article, about, brand, phase0, 404, feed): X-Frame-Options DENY, X-Content-Type-Options nosniff, HSTS max-age=31536000 includeSubDomains preload, CSP, Referrer-Policy strict-origin-when-cross-origin. Permissions-Policy also present.",
       "sev": "",
       "p3": "NOTE: XFO/nosniff/referrer/permissions/HSTS/COOP/CORP all present",
       "p4": "PASS"
@@ -942,7 +942,7 @@
       "expected": "/css /js /fonts /img → max-age 31536000 immutable; HTML (*.html) → max-age 0 must-revalidate; /feed.xml → max-age 0 must-revalidate; fonts also ACAO *.",
       "source": "netlify.toml:104-141",
       "p1": "Cataloged",
-      "p2": "PASS — live-verified 2026-08-10: /brand/brand.css?v=brand5 and /img/* both return public,max-age=31536000,immutable; HTML remains public,max-age=0,must-revalidate.",
+      "p2": "PASS — live-verified 2026-08-10: /brand/brand.css?v=brand5 and /img/* both return public,max-age=31536000,immutable; HTML remains public,max-age=0,must-revalidate. | 2026-08-13 re-verified live: versioned assets (/css, /js, /img) all serve public,max-age=31536000,immutable; HTML serves public,max-age=0,must-revalidate. No drift.",
       "sev": "",
       "p3": "FIX (qa/fixes-20260807 5967c9a): added scoped [[headers]] for /brand/brand.css and /brand/img/* with the immutable policy; /brand/index.html deliberately left no-cache",
       "p4": "PASS (verified against build) — netlify.toml parses, 12 header blocks, HTML rules unchanged"
@@ -994,7 +994,7 @@
       "expected": "CSS honors @media (prefers-reduced-motion: reduce) for animated elements (tokens.css, home-augment.css).",
       "source": "css/tokens.css, css/home-augment.css",
       "p1": "Cataloged",
-      "p2": "PASS — @media (prefers-reduced-motion: reduce) block in tokens.css (loads on every page)",
+      "p2": "PASS — @media (prefers-reduced-motion: reduce) block in tokens.css (loads on every page) | 2026-08-13 re-verified live: verified in the DEPLOYED sheet, not just source: tokens.css?v=phase23 carries @media (prefers-reduced-motion: reduce) zeroing transition-duration and animation-duration on *, *::before, *::after with !important, plus scroll-behavior auto. Catches all 29 transitioned elements on the homepage.",
       "sev": "",
       "p3": "NOTE: reduce: zeroes transition/animation durations + scroll-behavior auto",
       "p4": "PASS"
@@ -1007,7 +1007,7 @@
       "expected": "Every CSS file defines :focus-visible styles; focus indicators visible in light + dark on links, buttons, form fields, toggles, plates.",
       "source": "css/*.css (focus-visible present in all)",
       "p1": "Cataloged",
-      "p2": "PASS (closed live 2026-08-10) — was ISSUE/High: .subscribe-manifesto .sm-submit (homepage + /brand/ subscribe submit) had base and :hover styling but NO :focus-visible rule, so the site's primary conversion control showed no focus indicator for keyboard users (WCAG 2.4.7 AA). Every sibling control was covered — .sm-input directly above it had the rule, and .sm-submit was even named in home-augment.css's prefers-reduced-motion block — so it was an omission, not a decision. Missed by prior runs because F76 was tested at sheet level (':focus-visible present in all 8 stylesheets') rather than per control. Fixed and deployed same day; see p3/p4.",
+      "p2": "PASS (closed live 2026-08-10) — was ISSUE/High: .subscribe-manifesto .sm-submit (homepage + /brand/ subscribe submit) had base and :hover styling but NO :focus-visible rule, so the site's primary conversion control showed no focus indicator for keyboard users (WCAG 2.4.7 AA). Every sibling control was covered — .sm-input directly above it had the rule, and .sm-submit was even named in home-augment.css's prefers-reduced-motion block — so it was an omission, not a decision. Missed by prior runs because F76 was tested at sheet level (':focus-visible present in all 8 stylesheets') rather than per control. Fixed and deployed same day; see p3/p4. | 2026-08-13 re-verified live: re-verified live by REAL keyboard input (not JS .focus(), which cannot trigger :focus-visible): pressing Tab moved focus to a footer link that matched ':focus-visible' and computed outline 'solid 2px rgb(204, 0, 0)' at offset 2px.",
       "sev": "High (resolved)",
       "p3": "FIX (qa/fixes-20260810): added .subscribe-manifesto .sm-submit:focus-visible {outline: var(--focus-ring-width) solid var(--focus-ring); outline-offset:-2px} to css/home-augment.css, matching the .sm-input rule immediately above (inset ring, since the button sits on --ink). Bumped home-augment.css ?v=phase25→phase32 in src/layouts/HomeLayout.astro and brand/index.html — the asset is served immutable/1y, so both references had to move together.",
       "p4": "PASS (live-verified 2026-08-10 13:31 CDT, deploy d364718) — merged to main and shipped at Dexter's explicit instruction. Live https://imjustdex.com/ and /brand/ both reference home-augment.css?v=phase32; the live sheet serves the rule; on the live homepage .sm-submit matches ':focus-visible' and computes outline 'solid 2px rgb(204, 0, 0)' at outline-offset -2px over the button's --ink face (rgb(5,5,5)). Ring contrast passes SC 1.4.11 in both modes (5.17:1 dark, 3.44:1 light). Verification ladder this day: build-verified 05:06 → runtime-verified on dev build 13:05 → live-verified on production 13:31."
@@ -1020,10 +1020,10 @@
       "expected": "Body, muted, faint, accent text meet >=4.5:1 (>=3:1 large) against their backgrounds in light AND dark mode.",
       "source": "css/tokens.css palette",
       "p1": "Cataloged",
-      "p2": "PASS — 15 sampled selectors all meet WCAG AA (min 5.17:1 large, 5.94:1 small) in dark mode",
-      "sev": "",
-      "p3": "NOTE: computed AA: light body 12:1/muted 4.63:1/red 5.34:1; dark body 11.85:1/muted 5.13:1/red 6.2:1; large red 3.44:1>=3",
-      "p4": "PASS"
+      "p2": "ISSUE/High (2026-08-13) — .latest-tag (the red 'Latest' chip in the homepage standfirst bar) pairs `background: var(--accent)` with `color: var(--bg)`. In light mode that is cream on #c00 = 5.17:1 and passes. In dark mode --bg flips to #060606 and the same chip computes 3.44:1 at 11.52px/700 — under the 4.5:1 AA floor for small text (WCAG 1.4.3). Measured three times on settled live loads. The #c00/#060606 pair is sanctioned by the Phase 4.1 accent doctrine (DESIGN-SYSTEM.md:102) only for NON-text contrast at the 3:1 floor; this is a text use of it. Missed by prior runs because F77 sampled palette-level token pairs (body/muted/faint/accent text), not the one control that puts small text ON the accent fill — the same sheet-level vs per-control gap that hid F76. All other sampled combinations still pass: 33 distinct fg/bg/size combos in dark, 33 in light, this was the only failure.",
+      "sev": "HIGH",
+      "p3": "FIX (qa/fixes-20260813, commit 549e09c): added `html.dark-mode .issue-latest .latest-tag, html.dark-mode .issue-head .latest-tag { color: var(--ink) }` to css/home-v2.css directly under the base rule. var(--ink) is #f3f0e8 in dark, so the chip renders identically in both modes at 5.17:1. The selector is (0,3,1) and beats the .issue-head hook in home-augment.css (0,2,0) on specificity rather than source order, so only home-v2.css needed the rule and only its cache-bust had to move (?v=phase31 -> phase33 in src/layouts/HomeLayout.astro; the asset is served immutable/1y). brand/index.html needed no edit — it loads home-augment.css but renders no LatestBar.",
+      "p4": "PASS (build-verified + runtime-verified 2026-08-13, NOT yet live) — `npm run build` clean, 19 pages; dist/index.html references home-v2.css?v=phase33 and dist/css/home-v2.css carries the rule. Cascade verified at runtime on the live DOM: inserting the shipped rule into the real home-v2 sheet via CSSOM insertRule (CSP-safe; a plain <style> injection was blocked by style-src 'self', incidentally reconfirming F69) moved the chip from rgb(6,6,6) to rgb(243,240,232) on rgb(204,0,0) — 3.44:1 -> 5.17:1, passes AA. Goes fully live-verified on the next SCRUB after Dexter merges. Note for merge review: this is a VISIBLE dark-mode change — the chip's word 'Latest' goes from near-black to cream. Light mode is untouched."
     },
     {
       "id": "F78",
@@ -1033,7 +1033,7 @@
       "expected": "Each page has header>nav[aria-label], main[id], footer[aria-label]; single h1; descending heading order; aria-labels on key sections.",
       "source": "all layouts + pages",
       "p1": "Cataloged",
-      "p2": "PASS — single h1 and zero skipped heading levels on all 21 pages; header/main/footer/nav present; zero <img> without alt",
+      "p2": "PASS — single h1 and zero skipped heading levels on all 21 pages; header/main/footer/nav present; zero <img> without alt | 2026-08-13 re-verified live: home and article both single-h1, zero skipped heading levels (home H1 then 17x H2; article H1,H2,H2,H2,H2,H2), header/main/footer/nav all present. Zero images missing alt.",
       "sev": "",
       "p3": "NOTE: header/nav/main/footer + single h1 per page",
       "p4": "PASS"
@@ -1059,7 +1059,7 @@
       "expected": "netlify.toml carries exactly one [[redirects]] /words/<slug> → /words/<slug>/ 301 (no force — force loops) for every status:\"published\" entry in src/content/words/. Parity test: redirect slug set == published slug set. A published slug with no rule = HIGH (non-slash 404s). The list is hand-maintained and has drifted once already (show-me-your-glory and send-someone-else went live 2026-07-03/07-05 with no rule until 8f5ba93 backfilled them ~a month later).",
       "source": "netlify.toml:197-299, src/content/words/*.mdx, src/utils/published.mjs",
       "p1": "Cataloged",
-      "p2": "PASS — parity 16/16 verified live; every /words/<slug> returns a single 301 to its trailing-slash canonical; no orphan rules",
+      "p2": "PASS — parity 16/16 verified live; every /words/<slug> returns a single 301 to its trailing-slash canonical; no orphan rules | 2026-08-13 re-verified live: all 16 /words/<slug> (no trailing slash) return 301; all 16 /words/<slug>/ return 200 in 0.31-0.45s.",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -1089,6 +1089,32 @@
       "sev": "Low (resolved)",
       "p3": "FIX (2026-08-10, Dexter's explicit call): struck DESIGN-SYSTEM.md:115 from the permitted-accent list. Chosen over annotating it as superseded. No CSS touched — the implementation was already right. The doc's own §'Reading Progress Bar (Articles Only)' block (DESIGN-SYSTEM.md:934) already carried the correct spec (`background: var(--ink)`) plus the Phase 3b rationale, so striking the bullet makes the document self-consistent rather than removing information. Committed as a single-hunk stage so Dexter's in-flight \"Two-plane rule\" edit, which lives in the same file, stayed out of the QA commit and remains in his working tree.",
       "p4": "PASS — permitted-accent list re-read after the edit: 10 entries remain, every one of them verified against live CSS this run (section-head h2 + rule, callout left-border, .callout-emph, scripture cite, stat bar, identity plate tagline, article link hover underline, plate hover border, focus rings). Zero doc-vs-implementation mismatches remain in the section. grep confirms no other line in DESIGN-SYSTEM.md claims the progress bar uses --accent. Not a deploy-visible change — /DESIGN-SYSTEM.md returns 404 by design."
+    },
+    {
+      "id": "F83",
+      "area": "Accessibility",
+      "feature": "Dark-mode text on --accent fills (hover treatments)",
+      "user_story": "As a dark-mode reader hovering the homepage standfirst bar or the identity-hero primary button, I want the text that inverts onto the red fill to stay readable, so the hover state does not become less legible than the resting state.",
+      "expected": "Every rule that pairs `background: var(--accent)` with small text meets WCAG 1.4.3 in BOTH modes — >=4.5:1 under 18.66px/bold, >=3:1 at or above it.",
+      "source": "css/home-v2.css:129-135,917-918; css/home-augment.css:146,298",
+      "p1": "Cataloged 2026-08-13",
+      "p2": "ISSUE/High (2026-08-13) — four hover rules invert small text onto the --accent fill using `color: var(--bg)`, which is #060606 in dark mode = 3.44:1. All four are under their floor: .issue-latest:hover .latest-title (19.2px/400 — NOT large, since AA large needs >=24px or >=18.66px AND bold) 3.44:1; .issue-latest:hover .latest-cta (14.08px/700) 3.44:1; .identity-hero .hero-link.primary:hover (14.08px/700) 3.44:1; and worst, .issue-latest:hover .latest-meta (11.52px/400, hover drops opacity to .6) = 2.54:1. Same root cause as F77 but NOT fixed with it — see p3.",
+      "sev": "HIGH",
+      "p3": "BLOCKED — NEEDS DEXTER (fix-phase guardrail: design intent). Unlike F77's resting-state chip, this is a deliberate hover treatment in which the whole standfirst bar inverts to red as one gesture. A colour swap to var(--ink) clears three of the four (5.17:1), but .latest-meta also needs its hover opacity raised off .6 — ink at 60% over #c00 is still only 2.42:1 — and that opacity is a hierarchy decision about how much the meta line should recede, not a defect. Proposed patch held for Dexter's call: `html.dark-mode .issue-latest:hover .latest-title, ...latest-cta, html.dark-mode .identity-hero .hero-link.primary:hover { color: var(--ink) }` plus a decision on the meta's hover opacity.",
+      "p4": "PENDING — blocked on the design call above."
+    },
+    {
+      "id": "F84",
+      "area": "Brand",
+      "feature": "Design-system doc <-> implementation parity (accent PROHIBITED-use list)",
+      "user_story": "As the owner of the design system, I want the Prohibited accent-use list in DESIGN-SYSTEM.md to match what the CSS actually ships, so the document stays trustworthy as the brand's source of truth.",
+      "expected": "No live rule uses var(--accent) in a way DESIGN-SYSTEM.md:124-130 forbids, or the forbidden entry is annotated with its sanctioned exception.",
+      "source": "DESIGN-SYSTEM.md:124-130; css/home-v2.css:79-90; css/home-augment.css:93-103",
+      "p1": "Cataloged 2026-08-13",
+      "p2": "ISSUE/Low (2026-08-13) — DESIGN-SYSTEM.md:124-130 lists 'Backgrounds' and 'Tags or metadata' as PROHIBITED accent uses, but .latest-tag is exactly that: a metadata tag with `background: var(--accent)`, shipped and prominent in the homepage standfirst bar. Companion to F82, which audited only the Permitted half of the same section and so could not have caught this.",
+      "sev": "LOW",
+      "p3": "BLOCKED — NEEDS DEXTER (fix-phase guardrail: design intent). Two coherent resolutions and the choice is his, exactly as it was for F82: (a) annotate the Prohibited list with the sanctioned exception — the red chip is a deliberate editorial signature and the doc is what is stale; or (b) treat the chip as drift and restyle it. Recommend (a) — the chip reads as authored, and F82's precedent was to correct the doc when the implementation was the considered decision. No CSS touched pending his call. Not deploy-visible either way: /DESIGN-SYSTEM.md returns 404 by design.",
+      "p4": "PENDING — blocked on the design call above."
     }
   ]
 }
