@@ -88,6 +88,15 @@
   line-height: 1;
   flex-shrink: 0;
 }
+/* --bg is the light ground in light mode (cream on #c00, 5.17:1) but flips to
+   #060606 in dark, where the same chip lands at 3.44:1 — under the 4.5:1 AA
+   floor this 11.5px label needs. Pin dark mode to the light ground so the badge
+   reads identically in both modes. Covers the .issue-head hook in
+   home-augment.css too; wins on specificity, not source order. */
+html.dark-mode .issue-latest .latest-tag,
+html.dark-mode .issue-head .latest-tag {
+  color: var(--ink);
+}
 .issue-latest .latest-title {
   font-family: var(--display);
   font-size: var(--text-h3);
