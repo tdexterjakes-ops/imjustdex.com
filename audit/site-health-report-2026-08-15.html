@@ -312,14 +312,17 @@ the bot path — that one was dropped by design and never reached Mailchimp, so 
 <h2>Feature ledger</h2>
 <div class="grid">
   <div class="cell"><div class="k">Total rows</div><div class="v">90</div></div>
-  <div class="cell"><div class="k">Pass</div><div class="v ok">86</div></div>
-  <div class="cell"><div class="k">Open issue</div><div class="v">1</div></div>
-  <div class="cell"><div class="k">Pending</div><div class="v">2</div></div>
+  <div class="cell"><div class="k">Pass</div><div class="v ok">80</div></div>
+  <div class="cell"><div class="k">Issue</div><div class="v">6</div></div>
+  <div class="cell"><div class="k">Partial / pending</div><div class="v">3</div></div>
   <div class="cell"><div class="k">N/A</div><div class="v">1</div></div>
 </div>
 <p class="note" style="margin-top:14px">
 <strong>Added this run:</strong> F85–F90 (84 → 90).<br>
-<strong>Closed this run:</strong> F85, F86, F87, F88, F89 — fixed and retested against the build.<br>
+<strong>On the 6 ISSUE rows:</strong> five of them (F85–F89) are fixed and retested, but their <code>p2</code> stays
+ISSUE with <code>p4: PASS (build-verified)</code> until the branch merges and the next scrub confirms them live.
+That is the same convention F77 sat under on 2026-08-13. The sixth is F90, blocked. So the honest read is
+<em>1 genuinely open finding, 5 awaiting your merge</em> — not 6 outstanding problems.<br>
 <strong>Open:</strong> F90 (BLOCKED, needs you). Still pending by design: F41 and F46 (ghost / coming-soon paths —
 no upcoming entry exists to render one), F19's coming-soon half, F63 (N/A, retired).<br>
 <strong>Housekeeping:</strong> F77/F83/F84 had <code>p4: PASS</code> from 2026-08-13 but their <code>p2</code> still
