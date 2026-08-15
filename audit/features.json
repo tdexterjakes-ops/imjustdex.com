@@ -16,12 +16,12 @@
       "N/A",
       "PENDING"
     ],
-    "last_run": "2026-08-13",
-    "last_run_branch": "qa/fixes-20260813",
+    "last_run": "2026-08-15",
+    "last_run_branch": "qa/fixes-20260815",
     "last_full_regression": "2026-08-13",
-    "rows": 84,
-    "last_run_note": "2026-08-13 scheduled scrub (05:06 CDT) — full regression, 82->84 rows. One HIGH found and fixed: F77, the dark-mode 'Latest' chip at 3.44:1 (commit 549e09c; merged and DEPLOYED same day on Dexter's instruction — live commit 791bfc5, F77 closed live at 5.17:1). Two new rows opened BLOCKED for his call: F83 (four dark-mode hover rules on the same accent fill, HIGH) and F84 (the chip vs the doc's Prohibited accent list, LOW). Deploy: main fast-forwarded b0d9762 -> 791bfc5 and pushed; Netlify ready in 12s. Zero console errors across all 6 page types; 16/16 articles clean on structured data, OG parity, redirects and frontmatter fidelity. | 2026-08-13 PM: Dexter authorised deploys. F77 shipped (791bfc5), then F83 and F84 unblocked on his call and shipped (5c7e5fb). F83's scope was corrected before shipping — real pointer hover showed 2 of the morning's 4 reported rules were false positives (the hover bar goes to --ink, not --accent), which also dissolved the .latest-meta opacity question the row was blocked on. All three rows now closed live. Zero open findings.",
-    "live_commit": "5c7e5fb"
+    "rows": 90,
+    "last_run_note": "2026-08-15 scheduled scrub (05:06 CDT) — 84->90 rows. Deploy fresh: Netlify commit_ref == GitHub main HEAD == b64a39b, built 05:34Z. Zero console errors and zero broken links across 20 routes; all 16 articles clean on structured data, OG parity, redirects and frontmatter fidelity; lane counts (13/9/3) match frontmatter exactly; subscribe function healthy incl. honeypot-drop and rate-limit paths. Five contrast defects found and FIXED on qa/fixes-20260815, all retested: F85 .latest-meta (the only both-modes failure this run), F86 .hero-corner, F87 the /brand/ dogfood gap that had been serving the pre-F77 chip for two days, F88 .next-meta (latent), F89 the /404 divider. Four share one root cause worth naming: an `opacity` multiplier stacked on a colour that was already correct — --body-muted is alpha-tuned to just clear AA, so re-muting it breaks it. F90 opened BLOCKED (/brand/ demo specimens — documentation intent, Dexter's call). Method note carried forward from F83: every candidate was re-measured against the PAINTED surface and screenshot-confirmed; that discarded 3 false positives (plate-title/plate-deck sit on image+scrim layers a computed-style walk cannot see) and 2 aria-hidden decorative separators. F07's `expected` was corrected as stale. NOT DEPLOYED — branch is ready to merge at Dexter's call.",
+    "live_commit": "b64a39b"
   },
   "features": [
     {
@@ -32,7 +32,7 @@
       "expected": "Masthead .brand-block links to '/'. Logo img + brand-word render; aria-label identifies it as home. Present on home, about, article, coming-soon, 404, phase0.",
       "source": "HomeLayout/ArticleLayout/ComingSoonLayout.astro, about.astro, 404.astro, phase0/index.html",
       "p1": "Cataloged",
-      "p2": "PASS — masthead .brand-block → '/' present on home/about/404/phase0/brand/article; aria-label 'Dexter Jakes home'",
+      "p2": "PASS — masthead .brand-block → '/' present on home/about/404/phase0/brand/article; aria-label 'Dexter Jakes home' | 2026-08-15 re-verified live: brand-block present and linking / on all 20 pages",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -45,7 +45,7 @@
       "expected": "brand-word reads 'Words' on home/article/coming-soon, 'About' on about (actually 'Words'), '404' on 404, 'Phase 0' on phase0. (Note: about.astro uses 'Words'.)",
       "source": "layouts + about.astro:88, 404.astro:58, phase0/index.html:91",
       "p1": "Cataloged",
-      "p2": "PASS — brand-word: Words (home/article/about/brand), 404, Phase 0 — matches documented intent",
+      "p2": "PASS — brand-word: Words (home/article/about/brand), 404, Phase 0 — matches documented intent | 2026-08-15 re-verified live: brand-word: home/about/article 'Words', 404 '404', phase0 'Phase 0' — matches the documented about-page quirk",
       "sev": "",
       "p3": "NOTE: about brand-word='Words' by design — fine",
       "p4": "PASS"
@@ -84,7 +84,7 @@
       "expected": ".ruler-top / .ruler-left present and aria-hidden; purely decorative, no focus/AT exposure.",
       "source": "all layouts",
       "p1": "Cataloged",
-      "p2": "PASS — 2 decorative rulers render",
+      "p2": "PASS — 2 decorative rulers render | 2026-08-15 re-verified live: zero .ruler-* without aria-hidden across all pages",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -97,7 +97,7 @@
       "expected": "Footer renders Instagram + X (target=_blank rel=noopener noreferrer), Feed (/feed.xml). Home footer also has About. 'Built by Dex · Est. 2026'.",
       "source": "all layouts + pages",
       "p1": "Cataloged",
-      "p2": "PASS — footer strip + links present on all page types",
+      "p2": "PASS — footer strip + links present on all page types | 2026-08-15 re-verified live: footer: Instagram + X both target=_blank rel=\"noopener noreferrer\", /feed.xml, /about/, \"Built by Dex\"; zero _blank links missing rel site-wide",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -107,10 +107,10 @@
       "area": "Global / Shell",
       "feature": "Feed discovery link",
       "user_story": "As a feed-reader user, I want autodiscovery of the Atom feed, so my reader finds it automatically.",
-      "expected": "<link rel=alternate type=application/atom+xml href=/feed.xml> present in <head> on home, about, phase0. (Articles/coming-soon/404 do NOT include it — verify intent.)",
+      "expected": "<link rel=alternate type=application/atom+xml href=/feed.xml> present in <head> on home, about, phase0 AND articles (ArticleLayout.astro:123 — added at commit a4f4f25). 404 does NOT include it (noindex page).",
       "source": "HomeLayout:87, about.astro:71, phase0:43",
       "p1": "Cataloged",
-      "p2": "PASS — <link rel=alternate atom> present on home, about, phase0, article",
+      "p2": "PASS (2026-08-15 scrub) — home/about/phase0/articles all carry the feed discovery link; /404 correctly omits it. NOTE: the prior `expected` said articles do NOT include it. That text was stale — ArticleLayout has emitted the link since a4f4f25; the site was never wrong, the row was. Expectation corrected, not the code.",
       "sev": "",
       "p3": "FIX: Added <link rel=alternate atom> feed autodiscovery to ArticleLayout + ComingSoonLayout heads",
       "p4": "PASS"
@@ -123,7 +123,7 @@
       "expected": "favicon-32.png + apple-touch-icon.png linked on every page; files exist in /img.",
       "source": "all heads; img/",
       "p1": "Cataloged",
-      "p2": "PASS — /img/favicon-32.png + /img/apple-touch-icon.png 200 on every referenced path | 2026-08-13 re-verified live: /img/favicon-32.png and /img/apple-touch-icon.png both 200, immutable-cached.",
+      "p2": "PASS — /img/favicon-32.png + /img/apple-touch-icon.png 200 on every referenced path | 2026-08-15 re-verified live: favicon-32.png + apple-touch-icon.png linked on every page; both 200 (1327b / 5729b)",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -136,7 +136,7 @@
       "expected": "Anton + IBM Plex Sans (Regular/Bold/Italic) self-hosted in /fonts, preloaded with crossorigin; no Google Fonts. font-src 'self'.",
       "source": "all heads; fonts/; netlify.toml CSP",
       "p1": "Cataloged",
-      "p2": "PASS — Anton + IBM Plex Sans self-hosted, preloaded, document.fonts status 'loaded'; CSP font-src intact | 2026-08-13 re-verified live: document.fonts.status 'loaded'; Anton 400, IBM Plex Sans 400 + 700 all report 'loaded' on home and article. No FOUT observed.",
+      "p2": "PASS — Anton + IBM Plex Sans self-hosted, preloaded, document.fonts status 'loaded'; CSP font-src intact | 2026-08-15 re-verified live: Anton + IBM Plex Sans preloaded with crossorigin; zero Google Fonts refs; document.fonts reports all 3 faces loaded",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -149,7 +149,7 @@
       "expected": "viewport meta width=device-width, viewport-fit=cover on all pages; CSS responsive breakpoints (plates, article, phase0) collapse multi-col grids on narrow widths.",
       "source": "all heads; css/*",
       "p1": "Cataloged",
-      "p2": "PASS — no horizontal overflow at 390px on home/article/about/phase0/brand/404",
+      "p2": "PASS — no horizontal overflow at 390px on home/article/about/phase0/brand/404 | 2026-08-15 re-verified live: viewport width=device-width + viewport-fit=cover on all pages",
       "sev": "",
       "p3": "NOTE: mobile 375 verified visually",
       "p4": "PASS"
@@ -162,7 +162,7 @@
       "expected": "Unique <title> + meta description per page. Canonical absolute URL with trailing slash for home/about/articles; 404 canonical is /404 (noindex).",
       "source": "all heads",
       "p1": "Cataloged",
-      "p2": "PASS — title/description/canonical on all 21 routes; every canonical on imjustdex.com | 2026-08-13 re-verified live: title/description/canonical present and pointing at imjustdex.com on all 16 articles + home/about/brand/phase0.",
+      "p2": "PASS — title/description/canonical on all 21 routes; every canonical on imjustdex.com | 2026-08-15 re-verified live: zero duplicate <title> across 20 pages; /404 canonical is /404 as specified",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -175,7 +175,7 @@
       "expected": "og:title/description/image(1200x630)/url/type/site_name + twitter:card summary_large_image on home/about/articles/coming-soon/phase0. og image files exist per slug.",
       "source": "all heads; img/og-*.png",
       "p1": "Cataloged",
-      "p2": "PASS — og+twitter complete on all 21; all 19 OG images 200 (16 essays + home/about/phase0/brand) | 2026-08-13 re-verified live: og:title/og:description/og:image/twitter:card present on all 16 articles; og:image matches the JSON-LD image URL exactly (same cache-bust) on every one.",
+      "p2": "PASS — og+twitter complete on all 21; all 19 OG images 200 (16 essays + home/about/phase0/brand) | 2026-08-15 re-verified live: twitter:card summary_large_image on every page in scope (404 correctly excluded)",
       "sev": "",
       "p3": "NOTE: all og-<slug>.png exist",
       "p4": "PASS"
@@ -188,7 +188,7 @@
       "expected": "Home emits @graph with WebSite (#website) + Person (#person) incl sameAs Instagram/X, jobTitle, worksFor TPH. Valid JSON-LD.",
       "source": "HomeLayout.astro:6-36",
       "p1": "Cataloged",
-      "p2": "PASS — WebSite + Person @graph complete (name/url/sameAs/jobTitle/worksFor) | 2026-08-13 re-verified live: homepage @graph carries WebSite + Person; Person has all of name/url/sameAs/jobTitle/worksFor.",
+      "p2": "PASS — WebSite + Person @graph complete (name/url/sameAs/jobTitle/worksFor) | 2026-08-15 re-verified live: home @graph carries WebSite + Person; Person has name/url/sameAs/jobTitle/worksFor — no missing fields",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -201,7 +201,7 @@
       "expected": "about.astro emits ProfilePage→mainEntity Person (#person) with name, url, jobTitle, sameAs, description. Valid JSON-LD.",
       "source": "about.astro:5-24",
       "p1": "Cataloged",
-      "p2": "PASS — ProfilePage mainEntity Person complete (name/url/jobTitle/worksFor/sameAs/description) | 2026-08-13 re-verified live: /about/ ProfilePage mainEntity is @type Person with name/url/jobTitle/worksFor/sameAs/description — zero missing fields.",
+      "p2": "PASS — ProfilePage mainEntity Person complete (name/url/jobTitle/worksFor/sameAs/description) | 2026-08-15 re-verified live: about ProfilePage mainEntity Person complete — name/url/jobTitle/worksFor/sameAs/description all present",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -1020,8 +1020,8 @@
       "expected": "Body, muted, faint, accent text meet >=4.5:1 (>=3:1 large) against their backgrounds in light AND dark mode.",
       "source": "css/tokens.css palette",
       "p1": "Cataloged",
-      "p2": "ISSUE/High (2026-08-13) — .latest-tag (the red 'Latest' chip in the homepage standfirst bar) pairs `background: var(--accent)` with `color: var(--bg)`. In light mode that is cream on #c00 = 5.17:1 and passes. In dark mode --bg flips to #060606 and the same chip computes 3.44:1 at 11.52px/700 — under the 4.5:1 AA floor for small text (WCAG 1.4.3). Measured three times on settled live loads. The #c00/#060606 pair is sanctioned by the Phase 4.1 accent doctrine (DESIGN-SYSTEM.md:102) only for NON-text contrast at the 3:1 floor; this is a text use of it. Missed by prior runs because F77 sampled palette-level token pairs (body/muted/faint/accent text), not the one control that puts small text ON the accent fill — the same sheet-level vs per-control gap that hid F76. All other sampled combinations still pass: 33 distinct fg/bg/size combos in dark, 33 in light, this was the only failure.",
-      "sev": "HIGH (closed live)",
+      "p2": "PASS (closed live 2026-08-13) — was ISSUE/High (2026-08-13) — .latest-tag (the red 'Latest' chip in the homepage standfirst bar) pairs `background: var(--accent)` with `color: var(--bg)`. In light mode that is cream on #c00 = 5.17:1 and passes. In dark mode --bg flips to #060606 and the same chip computes 3.44:1 at 11.52px/700 — under the 4.5:1 AA floor for small text (WCAG 1.4.3). Measured three times on settled live loads. The #c00/#060606 pair is sanctioned by the Phase 4.1 accent doctrine (DESIGN-SYSTEM.md:102) only for NON-text contrast at the 3:1 floor; this is a text use of it. Missed by prior runs because F77 sampled palette-level token pairs (body/muted/faint/accent text), not the one control that puts small text ON the accent fill — the same sheet-level vs per-control gap that hid F76. All other sampled combinations still pass: 33 distinct fg/bg/size combos in dark, 33 in light, this was the only failure.",
+      "sev": "HIGH (closed live) (resolved)",
       "p3": "FIX (qa/fixes-20260813, commit 549e09c): added `html.dark-mode .issue-latest .latest-tag, html.dark-mode .issue-head .latest-tag { color: var(--ink) }` to css/home-v2.css directly under the base rule. var(--ink) is #f3f0e8 in dark, so the chip renders identically in both modes at 5.17:1. The selector is (0,3,1) and beats the .issue-head hook in home-augment.css (0,2,0) on specificity rather than source order, so only home-v2.css needed the rule and only its cache-bust had to move (?v=phase31 -> phase33 in src/layouts/HomeLayout.astro; the asset is served immutable/1y). brand/index.html needed no edit — it loads home-augment.css but renders no LatestBar.",
       "p4": "PASS (live-verified 2026-08-13, deploy 791bfc5) — merged to main and shipped at Dexter's explicit instruction. Live https://imjustdex.com/ references home-v2.css?v=phase33; the live sheet serves the rule; on the production homepage in dark mode .latest-tag computes rgb(243,240,232) on rgb(204,0,0) at 11.52px/700 = 5.17:1, clearing the 4.5:1 AA floor. Light mode confirmed untouched: rgb(244,244,241) on rgb(204,0,0) = 5.34:1, byte-identical to pre-fix. Post-deploy regression clean — 0 console errors, 16 plates, 3 lane cells, cascade intact. Verification ladder: build-verified 05:50 -> runtime-verified by CSSOM cascade injection 06:05 -> live-verified on production 22:40 CDT."
     },
@@ -1098,8 +1098,8 @@
       "expected": "Every rule that pairs `background: var(--accent)` with small text meets WCAG 1.4.3 in BOTH modes — >=4.5:1 under 18.66px/bold, >=3:1 at or above it.",
       "source": "css/home-v2.css:129-135,917-918; css/home-augment.css:146,298",
       "p1": "Cataloged 2026-08-13",
-      "p2": "ISSUE/High (2026-08-13) — CORRECTED SCOPE, and the correction matters. The morning scrub read the declarations and reported FOUR failing hover rules. Re-measured under REAL pointer hover before fixing, only TWO are real: `.issue-latest:hover .latest-cta` (14.08px/700) and `.identity-hero .hero-link.primary:hover` (14.08px/700), both `color: var(--bg)` on a `background: var(--accent)` fill = 3.44:1 in dark against a 4.5:1 floor. The other two were FALSE POSITIVES: `.issue-latest:hover` takes the BAR to var(--ink), not var(--accent), so .latest-title measures 17.79:1 and .latest-meta 5.23:1 (at opacity .6) against cream — both already clear. The morning read assumed the accent fill was the surface for every child of the hover state; it is only the surface for .latest-cta, which sets its own background. Lesson: resolve the PAINTED surface under real hover, never infer it from the parent's declarations.",
-      "sev": "HIGH (closed live)",
+      "p2": "PASS (closed live 2026-08-13) — was ISSUE/High (2026-08-13) — CORRECTED SCOPE, and the correction matters. The morning scrub read the declarations and reported FOUR failing hover rules. Re-measured under REAL pointer hover before fixing, only TWO are real: `.issue-latest:hover .latest-cta` (14.08px/700) and `.identity-hero .hero-link.primary:hover` (14.08px/700), both `color: var(--bg)` on a `background: var(--accent)` fill = 3.44:1 in dark against a 4.5:1 floor. The other two were FALSE POSITIVES: `.issue-latest:hover` takes the BAR to var(--ink), not var(--accent), so .latest-title measures 17.79:1 and .latest-meta 5.23:1 (at opacity .6) against cream — both already clear. The morning read assumed the accent fill was the surface for every child of the hover state; it is only the surface for .latest-cta, which sets its own background. Lesson: resolve the PAINTED surface under real hover, never infer it from the parent's declarations.",
+      "sev": "HIGH (closed live) (resolved)",
       "p3": "FIX (2026-08-13, Dexter's explicit call to ship): added `html.dark-mode .issue-latest:hover .latest-cta, html.dark-mode .identity-hero .hero-link.primary:hover { color: var(--ink) }` to css/home-v2.css beneath the hover block, mirroring the F77 override. Selectors are (0,4,1) and (0,5,1), beating the duplicate hooks in home-augment.css:146 and :298 on specificity rather than source order, so home-v2.css was the only sheet to touch. Cache-bust ?v=phase33 -> phase34 in src/layouts/HomeLayout.astro. NO opacity change was needed — the .latest-meta hover-opacity decision this row was originally BLOCKED on turned out to rest on a false positive and evaporated with it.",
       "p4": "PASS (live-verified 2026-08-13, deploy 5c7e5fb) — verified under REAL pointer hover on the production deploy, in dark mode, with home-v2.css?v=phase34 served. Standfirst bar hovered: .latest-cta now rgb(243,240,232) on rgb(204,0,0) = 5.17:1 (was 3.44:1) PASS; .latest-tag 5.17:1 PASS; .latest-title 17.79:1 PASS; .latest-meta 5.23:1 PASS — all four elements of the hover gesture clear their floor. Identity-hero primary hovered: 'Read the About ->' now rgb(243,240,232) on rgb(204,0,0) = 5.17:1 (was 3.44:1) PASS. Zero console errors post-deploy. No remaining rule on the site pairs small text with the --accent fill below AA in either mode."
     },
@@ -1111,10 +1111,88 @@
       "expected": "No live rule uses var(--accent) in a way DESIGN-SYSTEM.md:124-130 forbids, or the forbidden entry is annotated with its sanctioned exception.",
       "source": "DESIGN-SYSTEM.md:124-130; css/home-v2.css:79-90; css/home-augment.css:93-103",
       "p1": "Cataloged 2026-08-13",
-      "p2": "ISSUE/Low (2026-08-13) — DESIGN-SYSTEM.md:124-130 lists 'Backgrounds' and 'Tags or metadata' as PROHIBITED accent uses, but .latest-tag is exactly that: a metadata tag with `background: var(--accent)`, shipped and prominent in the homepage standfirst bar. Companion to F82, which audited only the Permitted half of the same section and so could not have caught this.",
-      "sev": "LOW (closed live)",
+      "p2": "PASS (closed live 2026-08-13) — was ISSUE/Low (2026-08-13) — DESIGN-SYSTEM.md:124-130 lists 'Backgrounds' and 'Tags or metadata' as PROHIBITED accent uses, but .latest-tag is exactly that: a metadata tag with `background: var(--accent)`, shipped and prominent in the homepage standfirst bar. Companion to F82, which audited only the Permitted half of the same section and so could not have caught this.",
+      "sev": "LOW (closed live) (resolved)",
       "p3": "FIX (2026-08-13, Dexter's explicit call to ship resolution (a)): annotated the Prohibited accent list in DESIGN-SYSTEM.md with the sanctioned exception rather than restyling the chip — the F82 precedent, applied to the other half of the same section. The annotation does three things: names .latest-tag as the ONE sanctioned violation of the 'Backgrounds' and 'Tags or metadata' bullets and states that further red-filled tags remain prohibited (an exception, not an opening); records the mode-specific rule the chip needs and why; and draws the boundary the whole finding-class came from — Phase 4.1 sanctions the #c00/#060606 pair at the 3:1 NON-TEXT floor, and that sanction does not extend to text set ON the accent fill, which SC 1.4.3 governs at 4.5:1. Any future `background: var(--accent)` + text rule must now be measured in both modes before shipping. No CSS touched. Staged as an isolated single hunk against HEAD via `git apply --cached` so Dexter's in-flight 'Two-plane rule' edit, which lives in the same file, stayed out of the commit and remains in his working tree — same handling as F82.",
       "p4": "PASS (2026-08-13, commit 5c7e5fb) — Prohibited-accent list re-read after the edit: the annotation names .latest-tag as the single sanctioned exception, holds the line against further red-filled tags, and states the text-vs-non-text boundary (SC 1.4.3 at 4.5:1 vs Phase 4.1's 3:1 non-text sanction). With F82 (Permitted half) and F84 (Prohibited half) both closed, the full accent section of DESIGN-SYSTEM.md now matches shipped CSS with zero mismatches. Confirmed not deploy-visible: /DESIGN-SYSTEM.md still returns 404. Dexter's 'Two-plane rule' edit verified still present and uncommitted in the working tree after the single-hunk stage."
+    },
+    {
+      "id": "F85",
+      "area": "Accessibility",
+      "feature": "Standfirst metadata contrast (--body-muted + opacity multiplier)",
+      "user_story": "As a reader on either mode, I can read the lane/date/read-time metadata in the homepage standfirst bar.",
+      "expected": "Text using var(--body-muted) meets WCAG 1.4.3 (>=4.5:1 at this 11.52px/400 size) in BOTH modes. The token is alpha-tuned to clear the floor on its own; no rule may stack a second opacity multiplier on top of it.",
+      "source": "css/home-v2.css:112-122; css/home-augment.css:119-129; src/components/home/LatestBar.astro:27",
+      "p1": "Cataloged",
+      "p2": "ISSUE/High (2026-08-15) — `.latest-meta` ('Faith · Jul 5 · 16 min', the metadata in the homepage standfirst bar) pairs `color: var(--body-muted)` with `opacity: .75`. --body-muted is ALREADY an alpha colour (rgba(243,240,232,.52) dark / rgba(5,5,5,.56) light), tuned to land just over AA on its own — 5.13:1 dark, 4.67:1 light. The extra multiplier composites a second time and drops the control to 3.36:1 dark / 2.93:1 light, under the 4.5:1 floor for 11.52px/400 text. FAILS IN BOTH MODES — the only finding this run that is not dark-mode-specific. Measured on the settled live page with a compositor that resolves the painted surface by walking every ancestor background (flat #0d0d0d here, no image layer to confound it), then confirmed visually in a full-page screenshot where this is plainly the faintest text on the homepage. Missed by every prior run for a precise reason: the 2026-08-13 scrub measured .latest-meta ONLY under pointer hover, where `.issue-latest:hover .latest-meta` re-declares `color: var(--bg); opacity: .6` against the cream hover bar and clears at 5.23:1. F83 recorded that number and closed the question. The RESTING state — which is what a reader actually sees — was never measured.",
+      "sev": "High",
+      "p3": "FIX (qa/fixes-20260815): deleted `opacity: .75` from both `.issue-latest .latest-meta` (css/home-v2.css) and `.issue-head .latest-meta` (css/home-augment.css), leaving var(--body-muted) to carry the muting alone. Both sheets edited because both paint this control (home-v2 wins on the homepage by source order; home-augment is the sheet /brand/ loads). Comment left in both explaining that the token IS the muted level. The hover rules were deliberately left untouched — they set their own opacity and already measured 5.23:1. Cache-bust bumped home-augment phase32->phase33, home-v2 phase34->phase35 (both sheets ship immutable/1yr).",
+      "p4": "PASS (build-verified 2026-08-15) — `npm run build` clean, 19 pages. dist/css/*.css confirmed to carry the rules with zero opacity declarations. Post-fix values measured on the live DOM with the exact shipped declarations applied: dark 3.36:1 -> 5.13:1, light 2.93:1 -> 4.67:1. Both clear the 4.5:1 floor. Goes live-verified on the next scrub after Dexter merges."
+    },
+    {
+      "id": "F86",
+      "area": "Accessibility",
+      "feature": "Identity-hero corner label contrast (dark mode)",
+      "user_story": "As a reader in dark mode, I can read the 'The Writer → 01' corner label on the identity hero.",
+      "expected": "`.identity-hero .hero-corner` meets WCAG 1.4.3 (>=4.5:1 at 11.52px/700) in both modes, on whichever ground the hero plate presents.",
+      "source": "css/home-augment.css:185-200; css/home-v2.css:864-878; src/components/home/IdentityHero.astro:7",
+      "p1": "Cataloged",
+      "p2": "ISSUE/High (2026-08-15) — `.hero-corner` sets `color: var(--bg); opacity: .5`. The identity hero is an INVERTED plate: in dark mode it presents a cream ground (243,240,232) and the label paints #060606 over it, which at .5 opacity computes 3.71:1 — under the 4.5:1 floor for 11.52px/700 (bold, but well below the 18.66px large-text threshold). Light mode inverts to cream-on-black and clears at 4.91:1, so this is dark-mode-only. Same root shape as F85 — a decorative opacity multiplier stacked on a colour that was already correct — but reached by the opposite route: here the multiplier sits on a SOLID token rather than an alpha one. Surface resolved by walking to the first opaque ancestor (.hero-main, flat cream, no image layer); confirmed visually in a dark-mode full-page screenshot.",
+      "sev": "High",
+      "p3": "FIX (qa/fixes-20260815): raised `opacity: .5` -> `.6` on `.identity-hero .hero-corner` in both css/home-augment.css and css/home-v2.css. The value is not arbitrary: the computed minimum to clear 4.5:1 on this pair is .56, solved by stepping opacity in 0.005 increments against the real painted ground; .6 takes it clear with margin while keeping the label recessive. Removing the multiplier entirely was rejected — that would be 17.79:1, a visual change to the hero's balance rather than a contrast repair.",
+      "p4": "PASS (build-verified 2026-08-15) — post-fix values measured on the live DOM with opacity .6 applied: dark 3.71:1 -> 5.23:1, light 4.91:1 -> 6.74:1. Both clear. dist confirmed to carry `opacity: .6` in both sheets."
+    },
+    {
+      "id": "F87",
+      "area": "Brand",
+      "feature": "/brand/ dogfood contract — shared-component fixes must land in the shared sheet",
+      "user_story": "As the design system's own documentation, /brand/ renders production classes and therefore shows exactly what the live site shows — including fixes.",
+      "expected": "Any fix to a component that /brand/ demos must live in a stylesheet /brand/ actually loads (tokens, shell, plates, home-augment, article — NOT home-v2.css, which is homepage-only).",
+      "source": "brand/index.html:39,115; css/home-augment.css; css/home-v2.css",
+      "p1": "Cataloged",
+      "p2": "ISSUE/High (2026-08-15) — /brand/ was still rendering `.latest-tag` at 3.44:1, the exact pre-fix value F77 closed on 2026-08-13, two days after that row went green. Cause: the F77 and F83 dark-mode overrides were written into css/home-v2.css. The homepage loads home-augment.css AND home-v2.css; /brand/ loads home-augment.css and never home-v2.css. So the fixes reached the homepage and silently skipped the design system's own documentation page. This is a broken contract, not a cosmetic gap: brand/index.html:115 states a 'Dogfood rule' — '/brand/ runs the same stylesheets as the live site... If a live component breaks, this page breaks too. That is intentional.' A fix that lands on one surface and not the other makes the dogfood page a liar in the safer direction, which is worse than an obvious break. The F77 comment even asserted it 'Covers the .issue-head hook in home-augment.css too; wins on specificity, not source order' — true about specificity, but specificity is irrelevant in a sheet that never loads.",
+      "sev": "High",
+      "p3": "FIX (qa/fixes-20260815): moved both override blocks — `html.dark-mode .issue-latest .latest-tag, html.dark-mode .issue-head .latest-tag` [F77] and `html.dark-mode .issue-latest:hover .latest-cta, html.dark-mode .identity-hero .hero-link.primary:hover` [F83] — out of css/home-v2.css and into css/home-augment.css, the sheet both surfaces load. Breadcrumb comments left at both former sites in home-v2.css so the next reader finds them. The relocation is cascade-safe and was verified as such rather than assumed: the overrides are (0,3,1), (0,4,1) and (0,5,1) against base rules of (0,2,0), (0,3,0) and (0,4,0), so they win on specificity and source order cannot take them back — which is why moving them EARLIER in the cascade is safe.",
+      "p4": "PASS (build-verified 2026-08-15) — grepped the built sheets: dist/css/home-augment.css carries both blocks at lines 127-134, dist/css/home-v2.css carries neither (only the breadcrumbs). Measured on the live /brand/ page in dark mode with the override applied: `.latest-tag` 3.44:1 -> 5.17:1, the identical figure the homepage has been serving since deploy 791bfc5. Dogfood parity restored."
+    },
+    {
+      "id": "F88",
+      "area": "Homepage",
+      "feature": "Issue-next strip metadata contrast (latent)",
+      "user_story": "As a reader, when an upcoming essay is scheduled I can read the Issue-next strip's lane/date/read-time metadata.",
+      "expected": "`.issue-next .next-meta` meets WCAG 1.4.3 (>=4.5:1 at 11.52px/400) in both modes whenever the Issue-next strip renders.",
+      "source": "css/home-v2.css:220-230; css/home-augment.css:691-701; src/components/home/IssueNext.astro:20",
+      "p1": "Cataloged",
+      "p2": "ISSUE/Medium (2026-08-15) — `.next-meta` repeats the F85 defect one notch worse: `color: var(--body-muted)` plus `opacity: .65`, computing 2.81:1 in dark against the 4.5:1 floor. Graded MEDIUM rather than HIGH because it is LATENT — the Issue-next strip only renders when an upcoming essay exists, and all 16 entries are status:published with past dates (see F41/F46), so no reader has hit it. It was found because /brand/ demos the strip under its dogfood rule, which is the same page that exposed F87. Worth recording precisely: this would have shipped broken on the day Dexter scheduled his next essay, and it would have shipped inside the one component whose whole job is to advertise that essay.",
+      "sev": "Medium",
+      "p3": "FIX (qa/fixes-20260815): deleted `opacity: .65` from `.issue-next .next-meta` in both css/home-v2.css and css/home-augment.css, same treatment and same reasoning as F85.",
+      "p4": "PASS (build-verified 2026-08-15) — measured on the live /brand/ demo of the strip in dark mode with the fix applied: 2.81:1 -> 5.13:1. Clears. (An earlier reading of 1.02:1 during this run was an artifact of forcing the dark-mode class onto an already-rendered light page, which left tokens half-resolved; discarded and re-measured after a clean reload with the dxmode cookie set. Recording it here so the number is not mistaken for a real regression if it resurfaces.)"
+    },
+    {
+      "id": "F89",
+      "area": "404",
+      "feature": "404 eyebrow divider contrast",
+      "user_story": "As a reader landing on a bad URL, I can read the eyebrow strip 'ERROR · 404 · PAGE NOT FOUND' in full.",
+      "expected": "`.notfound-eyebrow span.divider` meets WCAG 1.4.3, or is marked aria-hidden and treated as decoration.",
+      "source": "css/notfound.css:64-66; src/pages/404.astro",
+      "p1": "Cataloged",
+      "p2": "ISSUE/Medium (2026-08-15) — the `·` separators in the 404 eyebrow carry `opacity: .5`, computing 3.61:1. Unlike the homepage's `.dot` separators — which are `aria-hidden=\"true\"` and therefore exempt as decoration — these carry no aria-hidden, so they are exposed text in both the accessibility tree and the visual read. Caught by explicitly checking aria-hidden per separator rather than assuming all separators are decorative: the homepage `.dot` at 4.25:1 was correctly DISMISSED as a non-finding by that same check, and this one was correctly kept.",
+      "sev": "Medium",
+      "p3": "FIX (qa/fixes-20260815): raised `opacity: .5` -> `.7` in css/notfound.css. Value taken from the file's own convention — the adjacent `.notfound-eyebrow .eyebrow-right` rule already uses .7 — rather than inventing a number. Cache-bust bumped notfound.css phase10 -> phase11 in src/pages/404.astro.",
+      "p4": "PASS (build-verified 2026-08-15) — measured on the live /404 with opacity .7 applied: 3.61:1 -> 7.19:1."
+    },
+    {
+      "id": "F90",
+      "area": "Brand",
+      "feature": "/brand/ bespoke + demo-specimen contrast (documentation surface)",
+      "user_story": "As a reader of the design system doc, I can read its bespoke chrome and its component specimens.",
+      "expected": "Text on /brand/ meets WCAG 1.4.3, or the recessive treatment is a deliberate demonstration and is recorded as such.",
+      "source": "brand/brand.css; brand/index.html (demo-ghost-*, Download Pack h3)",
+      "p1": "Cataloged",
+      "p2": "ISSUE/Low (2026-08-15) — five /brand/-only text elements measure under AA in dark mode: `.demo-ghost-meta` ('Coming Soon') 2.05:1, `.demo-ghost-date` 2.45:1, `.demo-ghost-title` 2.93:1 (against its 3:1 large-text floor), `.demo-plate-meta` 3.17:1, and the bespoke 'Download Pack' h3 at 2.87:1. Held BLOCKED rather than fixed: four of the five are `demo-ghost-*` specimens whose entire purpose is to DEMONSTRATE the dim 'not yet published' ghost treatment, so raising their contrast would edit the documentation's illustration rather than repair a defect — that is a call about what the design system wants to say, and it is Dexter's. The fifth ('Download Pack') is bespoke brand.css chrome and is a genuine, if low-traffic, AA miss. Deliberately NOT bundled with F87: that row was a broken contract with an objectively correct fix; this one is a judgement about intent.",
+      "sev": "Low",
+      "p3": "BLOCKED — NEEDS DEXTER. Two questions: (a) should the ghost specimens keep their dim demonstration value, or does the doc need a readable annotation beside them explaining the treatment? (b) the \"Download Pack\" h3 in brand.css is not a specimen and can be lifted on his word.",
+      "p4": "PENDING"
     }
   ]
 }
