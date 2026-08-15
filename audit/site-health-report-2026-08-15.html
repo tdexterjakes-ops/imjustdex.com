@@ -1,0 +1,363 @@
+<title>Site Health | imjustdex.com | 2026-08-15</title>
+<style>
+  :root{
+    --bg:#f8f8f6; --ink:#0a0a0a; --muted:rgba(5,5,5,.62); --rule:rgba(5,5,5,.14);
+    --panel:#fff; --accent:#c00; --accent-text:#c00;
+    --crit:#c00; --high:#c0491f; --med:#8a6d1f; --low:#4a4a4a; --ok:#1f6b3a;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#060606; --ink:#f3f0e8; --muted:rgba(243,240,232,.62); --rule:rgba(243,240,232,.16);
+      --panel:#0d0d0d; --accent:#c00; --accent-text:#ff4d4d;
+      --crit:#ff5c5c; --high:#ff9060; --med:#e0bd52; --low:#a8a8a8; --ok:#5fd18a;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#060606; --ink:#f3f0e8; --muted:rgba(243,240,232,.62); --rule:rgba(243,240,232,.16);
+    --panel:#0d0d0d; --accent:#c00; --accent-text:#ff4d4d;
+    --crit:#ff5c5c; --high:#ff9060; --med:#e0bd52; --low:#a8a8a8; --ok:#5fd18a;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg); color:var(--ink); margin:0; padding:40px 24px 80px;
+    font:16px/1.6 "IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+  .wrap{max-width:900px; margin:0 auto}
+  .mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+  h1{font-size:clamp(28px,5vw,44px); line-height:1.05; letter-spacing:-.02em; margin:0 0 6px; text-transform:uppercase; font-weight:800}
+  .sub{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--muted); margin-bottom:28px}
+  h2{font-size:13px; letter-spacing:.16em; text-transform:uppercase; margin:44px 0 14px;
+    padding-bottom:8px; border-bottom:2px solid var(--ink); font-family:ui-monospace,Menlo,monospace}
+  .score{display:flex; align-items:baseline; gap:18px; flex-wrap:wrap;
+    border:2px solid var(--ink); padding:20px 24px; background:var(--panel)}
+  .score .n{font-size:62px; font-weight:800; line-height:1; letter-spacing:-.03em}
+  .score .of{font-size:15px; color:var(--muted)}
+  .status{margin-top:16px; padding:16px 20px; border-left:5px solid var(--accent); background:var(--panel);
+    border-top:1px solid var(--rule); border-right:1px solid var(--rule); border-bottom:1px solid var(--rule)}
+  .needs{display:inline-block; background:var(--accent); color:#fff; font-family:ui-monospace,Menlo,monospace;
+    font-size:11px; font-weight:700; letter-spacing:.12em; padding:4px 8px; margin-left:6px}
+  .f{border:1px solid var(--rule); border-left:5px solid var(--rule); background:var(--panel); padding:18px 20px; margin-bottom:14px}
+  .f.high{border-left-color:var(--high)} .f.med{border-left-color:var(--med)}
+  .f.low{border-left-color:var(--low)} .f.fixed{border-left-color:var(--ok)}
+  .f h3{margin:0 0 8px; font-size:16px; line-height:1.3}
+  .tags{font-family:ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:10px}
+  .sev{font-weight:700}
+  .sev.high{color:var(--high)} .sev.med{color:var(--med)} .sev.low{color:var(--low)} .sev.ok{color:var(--ok)}
+  .f p{margin:8px 0}
+  .f .what{color:var(--ink)}
+  .f .did{color:var(--muted)}
+  code{font-family:ui-monospace,Menlo,monospace; font-size:.88em; background:var(--rule); padding:1px 5px}
+  .tw{overflow-x:auto; -webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse; width:100%; font-size:13px; min-width:520px}
+  th,td{text-align:left; padding:7px 12px; border-bottom:1px solid var(--rule)}
+  th{font-family:ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+  td.num{font-family:ui-monospace,Menlo,monospace; text-align:right}
+  .ok{color:var(--ok); font-weight:600}
+  details{border:1px solid var(--rule); background:var(--panel); padding:12px 16px; margin-bottom:12px}
+  summary{cursor:pointer; font-family:ui-monospace,Menlo,monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px}
+  .cell{border:1px solid var(--rule); background:var(--panel); padding:14px 16px}
+  .cell .k{font-family:ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--muted); margin-bottom:4px}
+  .cell .v{font-size:22px; font-weight:700; line-height:1.1}
+  .note{color:var(--muted); font-size:14px}
+  .arrow{color:var(--ok); font-weight:700}
+</style>
+
+<div class="wrap">
+
+<h1>Site Health<br>imjustdex.com</h1>
+<div class="sub">2026-08-15 · 05:06 CDT · scheduled scrub → fix → retest · live commit b64a39b</div>
+
+<div class="score">
+  <div><span class="n">69</span><span class="of"> / 100</span></div>
+  <div class="note">100 − 3 HIGH (−8 ea) − 2 MEDIUM (−3 ea) − 1 LOW (−1). No CRITICALs.<br>
+  The score does not discount fixes — 5 of the 6 are already repaired and retested on the branch.</div>
+</div>
+
+<div class="status">
+  <strong>6 issues found (0 critical, 3 high, 2 medium, 1 low) — 5 fixed on <code>qa/fixes-20260815</code>, ready to merge.</strong>
+  <span class="needs">NEEDS DEXTER</span>
+  <p class="note" style="margin-bottom:0">One row (F90) is held BLOCKED on a judgement call, and one delivery note needs your attention — see Run Metadata.</p>
+</div>
+
+<h2>The headline</h2>
+<div class="f high">
+  <h3>Four of today's five fixes were one bug wearing different clothes</h3>
+  <p class="what"><code>--body-muted</code> is an <em>alpha</em> token — <code>rgba(243,240,232,.52)</code> dark,
+  <code>rgba(5,5,5,.56)</code> light — deliberately tuned to land just over the 4.5:1 AA floor on its own.
+  Four separate rules stacked a second <code>opacity</code> multiplier on top of it (or on top of an already-correct solid
+  token). Compositing twice breaks the tuning every time.</p>
+  <p class="did">Worth having as a standing rule: <strong>if a colour comes from a muted token, do not re-mute it.</strong>
+  A grep for <code>opacity</code> in the same block as <code>var(--body-muted)</code> would have caught all four in one pass.</p>
+</div>
+
+<h2>High</h2>
+
+<div class="f high">
+  <h3>F85 · Standfirst metadata unreadable in <em>both</em> modes</h3>
+  <div class="tags">Accessibility · <span class="sev high">HIGH</span> · imjustdex.com/ · <span class="sev ok">FIXED + RETESTED</span></div>
+  <p class="what"><code>.latest-meta</code> — the “Faith · Jul 5 · 16 min” line under the newest essay's headline —
+  ran <code>color: var(--body-muted)</code> <em>plus</em> <code>opacity: .75</code>, computing
+  <strong>3.36:1 dark and 2.93:1 light</strong> against a 4.5:1 floor. The only both-modes failure this run,
+  and it sits on the most-read strip of the homepage.</p>
+  <p class="did"><strong>Why every prior scrub missed it:</strong> the 2026-08-13 run measured
+  <code>.latest-meta</code> only <em>under pointer hover</em>, where a separate rule re-declares the colour and clears at
+  5.23:1. That number got recorded and the question was closed. The resting state — what a reader actually sees —
+  had never been measured.</p>
+  <p class="did"><strong>Fix:</strong> dropped the multiplier in both sheets. <span class="arrow">3.36 → 5.13</span> dark,
+  <span class="arrow">2.93 → 4.67</span> light.</p>
+</div>
+
+<div class="f high">
+  <h3>F86 · Identity-hero corner label under AA in dark mode</h3>
+  <div class="tags">Accessibility · <span class="sev high">HIGH</span> · imjustdex.com/ · <span class="sev ok">FIXED + RETESTED</span></div>
+  <p class="what"><code>.hero-corner</code> (“The Writer → 01”) sets <code>color: var(--bg); opacity: .5</code>.
+  The hero is an inverted plate, so in dark mode that paints #060606 on cream and computes
+  <strong>3.71:1</strong>. Light mode inverts and already cleared at 4.91:1.</p>
+  <p class="did"><strong>Fix:</strong> opacity <code>.5 → .6</code>. Not a guess — the computed minimum for AA on this
+  exact pair is <code>.56</code>, solved by stepping opacity against the real painted ground. Removing the multiplier
+  entirely would be 17.79:1, which changes the hero's balance rather than fixing contrast.
+  <span class="arrow">3.71 → 5.23</span> dark, <span class="arrow">4.91 → 6.74</span> light.</p>
+</div>
+
+<div class="f high">
+  <h3>F87 · /brand/ was still serving the pre-F77 chip, two days after F77 closed</h3>
+  <div class="tags">Brand · <span class="sev high">HIGH</span> · imjustdex.com/brand/ · <span class="sev ok">FIXED + RETESTED</span></div>
+  <p class="what">The F77 and F83 dark-mode overrides were written into <code>css/home-v2.css</code>. The homepage loads
+  home-augment.css <em>and</em> home-v2.css; <strong>/brand/ loads home-augment.css and never home-v2.css</strong>.
+  So both fixes reached the homepage and silently skipped the design system's own documentation page, which went on
+  rendering <code>.latest-tag</code> at the original <strong>3.44:1</strong>.</p>
+  <p class="what">This breaks a contract you wrote down. <code>brand/index.html:115</code> states the
+  <strong>Dogfood rule</strong> — “/brand/ runs the same stylesheets as the live site… If a live component breaks,
+  this page breaks too. That is intentional.” A fix that lands on one surface and not the other makes that page a liar
+  in the reassuring direction, which is worse than an obvious break. The F77 comment even claimed it “covers the
+  .issue-head hook in home-augment.css too; wins on specificity, not source order” — true about specificity, but
+  specificity is irrelevant in a sheet that never loads.</p>
+  <p class="did"><strong>Fix:</strong> moved both override blocks into home-augment.css, the sheet both surfaces load,
+  with breadcrumb comments left at the old sites. Cascade-safe and verified as such rather than assumed — the overrides
+  are (0,3,1)/(0,4,1)/(0,5,1) against base rules of (0,2,0)/(0,3,0)/(0,4,0), so they win on specificity and moving them
+  earlier cannot lose. <span class="arrow">3.44 → 5.17</span> on /brand/, matching the homepage exactly.</p>
+</div>
+
+<h2>Fixes applied — merge review</h2>
+<p class="note">Branch <code>qa/fixes-20260815</code>, cut from <code>main</code> at b64a39b. Three commits.
+Your uncommitted work (<code>DESIGN-SYSTEM.md</code>, <code>css/article.css</code>, the
+<code>before-i-had-the-words.mdx</code> draft) was left untouched and unstaged throughout.</p>
+
+<div class="tw">
+<table>
+  <tr><th>Commit</th><th>Rows</th><th>Files</th><th>Change</th><th>Retest</th></tr>
+  <tr>
+    <td class="mono">55a6d72</td>
+    <td class="mono">F85 F86<br>F87 F88</td>
+    <td class="mono">home-augment.css<br>home-v2.css<br>HomeLayout.astro<br>brand/index.html</td>
+    <td>Dropped the redundant opacity multipliers on <code>.latest-meta</code> and <code>.next-meta</code>;
+        raised <code>.hero-corner</code> to .6; moved the F77/F83 overrides into the shared sheet.
+        Cache-bust home-augment 32→33, home-v2 34→35.</td>
+    <td class="ok">PASS</td>
+  </tr>
+  <tr>
+    <td class="mono">8c1e6aa</td>
+    <td class="mono">F89</td>
+    <td class="mono">notfound.css<br>404.astro</td>
+    <td>404 eyebrow divider opacity .5 → .7. Cache-bust notfound 10→11.</td>
+    <td class="ok">PASS</td>
+  </tr>
+  <tr>
+    <td class="mono">f94f922</td>
+    <td class="mono">ledger</td>
+    <td class="mono">features.json<br>audit .xlsx</td>
+    <td>84 → 90 rows; F77/F83/F84 p2 normalised to PASS; F07 stale expectation corrected.</td>
+    <td>—</td>
+  </tr>
+</table>
+</div>
+
+<p class="note"><strong>What merging will visibly change:</strong> three small metadata labels get slightly stronger —
+the standfirst “Faith · Jul 5 · 16 min”, the hero's “The Writer → 01” corner, and the 404 eyebrow dots. All three stay
+recessive; none becomes full-strength ink. If any reads too loud to you, the values are single numbers in one place each
+and easy to dial back. Everything else is invisible: the /brand/ relocation changes no pixel on the homepage.</p>
+
+<p class="note"><strong>Build:</strong> <code>npm run build</code> clean, 19 pages, no warnings. The
+<code>before-i-had-the-words</code> draft correctly did <em>not</em> build a page
+(<code>status: "drafted"</code>).</p>
+
+<h2>Medium &amp; Low</h2>
+
+<details open>
+<summary>3 more findings</summary>
+
+<div class="f med" style="margin-top:14px">
+  <h3>F88 · Issue-next strip metadata — latent, would have shipped broken</h3>
+  <div class="tags">Homepage · <span class="sev med">MEDIUM</span> · <span class="sev ok">FIXED + RETESTED</span></div>
+  <p class="what"><code>.next-meta</code> repeats the F85 defect one notch worse — <code>opacity: .65</code>,
+  <strong>2.81:1</strong>. Graded MEDIUM only because it is latent: the Issue-next strip renders only when an
+  upcoming essay exists, and all 16 entries are published with past dates, so no reader has hit it.</p>
+  <p class="did">Worth naming precisely: this would have gone live the day you scheduled your next essay, inside the one
+  component whose whole job is to advertise that essay. Found because /brand/ demos the strip under the same dogfood
+  rule that exposed F87. <span class="arrow">2.81 → 5.13</span>.</p>
+</div>
+
+<div class="f med">
+  <h3>F89 · 404 eyebrow separators are exposed text, not decoration</h3>
+  <div class="tags">404 · <span class="sev med">MEDIUM</span> · <span class="sev ok">FIXED + RETESTED</span></div>
+  <p class="what">The <code>·</code> separators in “ERROR · 404 · PAGE NOT FOUND” carry <code>opacity: .5</code> =
+  <strong>3.61:1</strong>. Unlike the homepage's <code>.dot</code> separators, these have no
+  <code>aria-hidden</code>, so they are real text in both the accessibility tree and the visual read.</p>
+  <p class="did"><strong>Fix:</strong> .5 → .7, taken from the file's own convention (the adjacent
+  <code>.eyebrow-right</code> already uses .7) rather than an invented number. <span class="arrow">3.61 → 7.19</span>.</p>
+</div>
+
+<div class="f low">
+  <h3>F90 · /brand/ demo specimens — <span class="sev">BLOCKED, needs you</span></h3>
+  <div class="tags">Brand · <span class="sev low">LOW</span> · imjustdex.com/brand/ · NOT FIXED</div>
+  <p class="what">Five /brand/-only elements measure under AA in dark mode:
+  <code>.demo-ghost-meta</code> 2.05:1, <code>.demo-ghost-date</code> 2.45:1, <code>.demo-ghost-title</code> 2.93:1,
+  <code>.demo-plate-meta</code> 3.17:1, and the bespoke “Download Pack” h3 at 2.87:1.</p>
+  <p class="did"><strong>Why I did not fix it:</strong> four of the five are <code>demo-ghost-*</code> specimens whose
+  entire purpose is to <em>demonstrate</em> the dim “not yet published” ghost treatment. Raising their contrast edits
+  the documentation's illustration rather than repairing a defect — that is a call about what the design system is
+  trying to say, and it is yours. Two questions:</p>
+  <p class="did">(a) Should the ghost specimens keep their dim demonstrative value, or does the page need a readable
+  annotation beside them instead?<br>
+  (b) The “Download Pack” h3 is <em>not</em> a specimen — it is ordinary brand.css chrome and a genuine AA miss.
+  I can lift that one on your word.</p>
+</div>
+</details>
+
+<h2>What was checked and found clean</h2>
+<div class="grid">
+  <div class="cell"><div class="k">Routes 200</div><div class="v">26 / 26</div></div>
+  <div class="cell"><div class="k">Console errors</div><div class="v ok">0</div></div>
+  <div class="cell"><div class="k">Broken links</div><div class="v ok">0</div></div>
+  <div class="cell"><div class="k">Articles clean</div><div class="v">16 / 16</div></div>
+  <div class="cell"><div class="k">Slowest page</div><div class="v">0.47s</div></div>
+  <div class="cell"><div class="k">Ledger rows</div><div class="v">90</div></div>
+</div>
+
+<p class="note" style="margin-top:16px">All 16 articles pass structured-data shape validation (every required
+BlogPosting field present), OG ↔ JSON-LD image parity including cache-bust, and trailing-slash canonical redirects.
+Lane counts on the homepage (Faith 13 / Identity 9 / Art 3) match the collection frontmatter exactly. Feed entry count
+matches the homepage (16/16); sitemap carries all 20 routes with no extras or omissions. Every homepage plate's
+<code>&lt;time&gt;</code> and read-time matches its article page. Security headers present on all page types; CSP
+enforcing; versioned assets immutable, HTML must-revalidate. <code>/DESIGN-SYSTEM.md</code> and
+<code>/audit/features.json</code> both correctly 404. Reduced-motion block confirmed in the deployed
+<code>tokens.css</code>. Skip-link is the first tab stop and moves focus to <code>#article</code> on activation;
+focus-visible ring verified by real keyboard input.</p>
+
+<h2>Method note — 5 candidates rejected before they became findings</h2>
+<p class="note">Carrying forward the F83 lesson (resolve the <em>painted</em> surface; never infer it from
+declarations), every candidate was re-measured before being written down. That discarded five:</p>
+<div class="tw">
+<table>
+  <tr><th>Candidate</th><th>Naive read</th><th>Why it was not a finding</th></tr>
+  <tr><td class="mono">.plate-title.inverse</td><td class="num">1.06:1</td>
+      <td>Sits on an image plate with a gradient scrim a computed-style walk cannot see. Full-page screenshot shows it
+          rendering clearly in white on grey.</td></tr>
+  <tr><td class="mono">.plate-deck</td><td class="num">1.06:1</td><td>Same image-plate confound.</td></tr>
+  <tr><td class="mono">.dot (×15)</td><td class="num">4.25:1</td>
+      <td><code>aria-hidden="true"</code> — decorative separators, exempt. The same per-element check is what
+          correctly <em>kept</em> F89.</td></tr>
+  <tr><td class="mono">.skip-link</td><td class="num">1.00:1</td>
+      <td>Measured while off-canvas; it is only visible on focus, where it styles correctly.</td></tr>
+  <tr><td class="mono">.next-meta</td><td class="num">1.02:1</td>
+      <td>Artifact of forcing the dark-mode class onto an already-rendered light page, leaving tokens half-resolved.
+          Re-measured after a clean reload: the real figure is 2.81:1 (→ F88).</td></tr>
+</table>
+</div>
+<p class="note">An early light-mode sweep also produced 11 false positives from a compositor that began its surface walk
+at the element's <em>parent</em>, missing each element's own background — the F83 trap in mirror image. That whole pass
+was thrown out and re-run rather than triaged.</p>
+
+<h2>Pages scanned</h2>
+<div class="tw">
+<table>
+  <tr><th>URL</th><th>Status</th><th>Load</th><th>Notes</th></tr>
+  <tr><td class="mono">/</td><td class="ok">200</td><td class="num">0.22s</td><td>5 CSS baseline; 0 console errors; F85/F86 found here</td></tr>
+  <tr><td class="mono">/about/</td><td class="ok">200</td><td class="num">0.29s</td><td>ProfilePage JSON-LD complete; 0 contrast failures</td></tr>
+  <tr><td class="mono">/brand/</td><td class="ok">200</td><td class="num">0.34s</td><td>F87 + F90 found here</td></tr>
+  <tr><td class="mono">/phase0/</td><td class="ok">200</td><td class="num">0.33s</td><td>subscribe form action /api/subscribe; clean</td></tr>
+  <tr><td class="mono">/404</td><td class="ok">200</td><td class="num">0.19s</td><td>noindex,nofollow; bespoke body; F89 found here</td></tr>
+  <tr><td class="mono">/feed.xml</td><td class="ok">200</td><td class="num">0.44s</td><td>Atom, XSL-styled, 16 entries</td></tr>
+  <tr><td class="mono">/feed.xsl</td><td class="ok">200</td><td class="num">0.33s</td><td>—</td></tr>
+  <tr><td class="mono">/sitemap-index.xml</td><td class="ok">200</td><td class="num">0.33s</td><td>points to sitemap-0</td></tr>
+  <tr><td class="mono">/sitemap-0.xml</td><td class="ok">200</td><td class="num">0.31s</td><td>20 URLs, complete</td></tr>
+  <tr><td class="mono">/robots.txt</td><td class="ok">200</td><td class="num">0.36s</td><td>Allow: / + sitemap-index</td></tr>
+  <tr><td class="mono">/words/&lt;16 essays&gt;</td><td class="ok">200</td><td class="num">0.33–0.47s</td><td>all clean; article page scanned in DOM shows 0 contrast failures</td></tr>
+</table>
+</div>
+<p class="note">Redirects: <code>/about</code>, <code>/brand</code>, <code>/phase0</code> and all 16
+<code>/words/&lt;slug&gt;</code> return a single 301 to their trailing-slash canonical. <code>/words</code> and
+<code>/words/</code> → 301 home. <code>/sitemap.xml</code> → 404 (expected post-cutover).
+All 16 OG plates + favicon, apple-touch-icon and logo-dark.svg return 200.</p>
+
+<h2>Infrastructure</h2>
+<div class="tw">
+<table>
+  <tr><th>Check</th><th>Result</th></tr>
+  <tr><td>Subscribe function</td><td class="ok">200 <code>{"ok":true,"message":"subscribed"}</code> in 1.29s — healthy</td></tr>
+  <tr><td>Subscribe · honeypot</td><td class="ok">Correctly drops silently (fake 200, no Mailchimp call) — verified in source at <code>subscribe.cjs:66</code></td></tr>
+  <tr><td>Subscribe · validation</td><td class="ok">400 <code>invalid_email</code> on missing address; GET → 405; rate-limiter present</td></tr>
+  <tr><td>Deploy freshness</td><td class="ok">Netlify <code>commit_ref</code> == GitHub main HEAD == <code>b64a39b</code>; built 05:34Z, 12s</td></tr>
+  <tr><td>Security headers</td><td class="ok">X-Frame DENY, nosniff, HSTS 31536000+includeSubDomains+preload, CSP enforcing, Referrer-Policy, Permissions-Policy, COOP, CORP</td></tr>
+  <tr><td>Cache-Control</td><td class="ok">Versioned assets immutable/1yr; HTML max-age=0,must-revalidate — no drift</td></tr>
+  <tr><td>Docs exposure</td><td class="ok">/DESIGN-SYSTEM.md and /audit/features.json both 404</td></tr>
+</table>
+</div>
+<p class="note">Smoke-test address: <code>healthscrub+20260815@imjustdex.com</code> (plus-addressed, empty honeypot).
+A second address <code>healthscrub+bot20260815@imjustdex.com</code> was sent <em>with</em> the honeypot filled to prove
+the bot path — that one was dropped by design and never reached Mailchimp, so only the first will appear in your audience.</p>
+
+<h2>Feature ledger</h2>
+<div class="grid">
+  <div class="cell"><div class="k">Total rows</div><div class="v">90</div></div>
+  <div class="cell"><div class="k">Pass</div><div class="v ok">86</div></div>
+  <div class="cell"><div class="k">Open issue</div><div class="v">1</div></div>
+  <div class="cell"><div class="k">Pending</div><div class="v">2</div></div>
+  <div class="cell"><div class="k">N/A</div><div class="v">1</div></div>
+</div>
+<p class="note" style="margin-top:14px">
+<strong>Added this run:</strong> F85–F90 (84 → 90).<br>
+<strong>Closed this run:</strong> F85, F86, F87, F88, F89 — fixed and retested against the build.<br>
+<strong>Open:</strong> F90 (BLOCKED, needs you). Still pending by design: F41 and F46 (ghost / coming-soon paths —
+no upcoming entry exists to render one), F19's coming-soon half, F63 (N/A, retired).<br>
+<strong>Housekeeping:</strong> F77/F83/F84 had <code>p4: PASS</code> from 2026-08-13 but their <code>p2</code> still
+read ISSUE — normalised to “PASS (closed live)” to match the F76/F82 convention. F07's <code>expected</code> claimed
+articles omit the feed-discovery link; that has not been true since commit a4f4f25, so the row was corrected, not the
+site.<br>
+<strong>Rotation:</strong> F01, F02, F05, F06, F08–F14 re-verified live today. Full-ledger regression last run
+2026-08-13; next due Monday 2026-08-17.</p>
+
+<h2>Run metadata</h2>
+<div class="tw">
+<table>
+  <tr><td>Started</td><td class="mono">2026-08-15 05:06:51 CDT</td></tr>
+  <tr><td>Phases</td><td>SCRUB → FIX → RETEST → REPORT (full pipeline)</td></tr>
+  <tr><td>Pages scanned</td><td>26 routes (20 unique pages + 6 redirect/legacy probes), 5 scanned in a live DOM</td></tr>
+  <tr><td>Checks run</td><td>All 9 health dimensions</td></tr>
+  <tr><td>Stories tested</td><td>~40 ledger rows (all non-PASS + 11-row rotation + every row a dimension check touched)</td></tr>
+  <tr><td>Fixes applied</td><td>5, on <code>qa/fixes-20260815</code> — <strong>not deployed</strong></td></tr>
+  <tr><td>Blocked</td><td>1 (F90)</td></tr>
+</table>
+</div>
+
+<div class="status" style="margin-top:20px">
+  <strong>Two things I could not do, so you should know:</strong>
+  <p class="note"><strong>1. This report is not in Notion.</strong> The Notion connector is authorised, but no
+  “Site Health | imjustdex.com” page exists anywhere it can reach — prior reports must live in a workspace this
+  connector cannot see. The only writable destinations available were your Bible Research Library and your blog content
+  calendar, and neither is a correct home for a QA report, so I did not create a page rather than put one in the wrong
+  place. This HTML file is the spec's documented fallback. If you tell me the right parent page, the next run can
+  post there directly.</p>
+  <p class="note"><strong>2. The retest was build-verified, not served.</strong> Dev servers cannot be started from an
+  unattended run, so instead of serving <code>dist/</code> I verified in two independent ways: I grepped the built
+  stylesheets to confirm each rule ships in the right sheet with the right value, and I applied the exact shipped
+  declarations to the live DOM and re-measured every ratio. Both agree. The rows go fully live-verified on the next
+  scrub after you merge.</p>
+</div>
+
+<p class="note" style="margin-top:36px; padding-top:16px; border-top:2px solid var(--ink)">
+Nothing was merged or pushed to <code>main</code>. The site is running exactly what it was running this morning.</p>
+
+</div>
