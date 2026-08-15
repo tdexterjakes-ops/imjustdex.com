@@ -88,15 +88,10 @@
   line-height: 1;
   flex-shrink: 0;
 }
-/* --bg is the light ground in light mode (cream on #c00, 5.17:1) but flips to
-   #060606 in dark, where the same chip lands at 3.44:1 — under the 4.5:1 AA
-   floor this 11.5px label needs. Pin dark mode to the light ground so the badge
-   reads identically in both modes. Covers the .issue-head hook in
-   home-augment.css too; wins on specificity, not source order. */
-html.dark-mode .issue-latest .latest-tag,
-html.dark-mode .issue-head .latest-tag {
-  color: var(--ink);
-}
+/* The dark-mode accent-fill contrast overrides for .latest-tag [F77] used to
+   live here. They now live in home-augment.css — see the note there. This
+   sheet is homepage-only; home-augment.css is the sheet /brand/ also loads,
+   and /brand/ renders these same production classes. [F87] */
 .issue-latest .latest-title {
   font-family: var(--display);
   font-size: var(--text-h3);
@@ -116,7 +111,8 @@ html.dark-mode .issue-head .latest-tag {
   letter-spacing: var(--track-badge);
   text-transform: uppercase;
   color: var(--body-muted);
-  opacity: .75;
+  /* See the matching note in home-augment.css: --body-muted already carries
+     the muting. The extra multiplier put this under AA in both modes. [F85] */
   line-height: 1;
   flex-shrink: 0;
 }
@@ -142,18 +138,8 @@ html.dark-mode .issue-head .latest-tag {
   color: var(--bg);
   border-color: var(--accent);
 }
-/* The two controls that actually invert onto the --accent fill on hover. Same
-   trap as .latest-tag above: cream on #c00 in light (5.17:1), but #060606 on
-   #c00 in dark (3.44:1) — under the 4.5:1 AA floor for this 14px label. Pin
-   dark mode to the light ground.
-   The rest of the hover gesture needs nothing: .issue-latest:hover takes the
-   bar to --ink, not --accent, so .latest-title (17.79:1) and .latest-meta
-   (5.23:1 at opacity .6) already clear against cream. Measured under real
-   pointer hover, not inferred from the declarations. */
-html.dark-mode .issue-latest:hover .latest-cta,
-html.dark-mode .identity-hero .hero-link.primary:hover {
-  color: var(--ink);
-}
+/* The dark-mode hover overrides for .latest-cta and .hero-link.primary [F83]
+   also moved to home-augment.css, for the same /brand/ reason. [F87] */
 .issue-latest:focus-visible {
   outline: var(--focus-ring-width) solid var(--focus-ring);
   outline-offset: -2px;
@@ -224,7 +210,7 @@ html.dark-mode .identity-hero .hero-link.primary:hover {
   letter-spacing: var(--track-badge);
   text-transform: uppercase;
   color: var(--body-muted);
-  opacity: .65;
+  /* See the matching note in home-augment.css. [F88] */
   line-height: 1;
   flex-shrink: 0;
 }
@@ -870,7 +856,8 @@ html.dark-mode .mode-icon.is-sunmoon {
   letter-spacing: var(--track-badge);
   text-transform: uppercase;
   color: var(--bg);
-  opacity: .5;
+  /* See the matching note in home-augment.css. [F86] */
+  opacity: .6;
   padding: 5px 8px 4px;
   border-left: var(--border-weight-chrome) solid var(--bg);
   border-bottom: var(--border-weight-chrome) solid var(--bg);

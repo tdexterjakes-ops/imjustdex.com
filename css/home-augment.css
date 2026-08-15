@@ -104,6 +104,35 @@
   line-height: 1;
   flex-shrink: 0;
 }
+/* ── Dark-mode accent-fill contrast overrides [F77 / F83] ──────
+ * --bg is the light ground in light mode (cream on #c00, 5.17:1) but flips to
+ * #060606 in dark, where the same fill lands at 3.44:1 — under the 4.5:1 AA
+ * floor these labels need. Pin dark mode to the light ground so they read
+ * identically in both modes.
+ *
+ * These live HERE, not in home-v2.css, on purpose [F87]. home-v2.css is
+ * homepage-only; /brand/ loads home-augment.css and renders these same
+ * production classes under its dogfood rule. While the overrides sat in
+ * home-v2.css they silently skipped /brand/, which went on rendering the
+ * pre-fix 3.44:1 chip for two days after F77 was closed. A fix for a shared
+ * component belongs in the shared sheet.
+ *
+ * Both selector groups win on specificity, not source order, so the base
+ * rules in either sheet cannot take them back.
+ *
+ * Scope note carried over from F83: only the two controls below actually
+ * invert onto the accent fill on hover. .issue-latest:hover takes the BAR to
+ * --ink, not --accent, so .latest-title and .latest-meta already clear
+ * against cream. Measured under real pointer hover, not inferred. */
+html.dark-mode .issue-latest .latest-tag,
+html.dark-mode .issue-head .latest-tag {
+  color: var(--ink);
+}
+html.dark-mode .issue-latest:hover .latest-cta,
+html.dark-mode .identity-hero .hero-link.primary:hover {
+  color: var(--ink);
+}
+
 .issue-head .latest-title {
   font-family: var(--display);
   font-size: var(--text-h3);
@@ -123,7 +152,10 @@
   letter-spacing: var(--track-badge);
   text-transform: uppercase;
   color: var(--body-muted);
-  opacity: .75;
+  /* No opacity multiplier. --body-muted is already alpha-tuned (.52 dark /
+     .56 light) to land just over the 4.5:1 AA floor at this 11.52px size —
+     5.13:1 dark, 4.67:1 light. Stacking a second multiplier on top dropped it
+     to 3.36:1 / 2.93:1. The token IS the muted level; don't re-mute it. [F85] */
   line-height: 1;
   flex-shrink: 0;
 }
@@ -189,7 +221,12 @@ a.issue-standfirst:focus-visible {
   letter-spacing: var(--track-badge);
   text-transform: uppercase;
   color: var(--bg);
-  opacity: .5;
+  /* .5 measured 3.71:1 in dark (label is #060606 on the hero's cream plate;
+     light mode inverts to cream-on-black and clears at 5.05:1). The computed
+     minimum for 4.5:1 here is .56 — .6 takes it to ~4.9:1 with margin while
+     keeping the corner label recessive. Full opacity would be 17.79:1, which
+     is not the intent. [F86] */
+  opacity: .6;
   padding: 5px 8px 4px;
   border-left: var(--border-weight-chrome) solid var(--bg);
   border-bottom: var(--border-weight-chrome) solid var(--bg);
@@ -695,7 +732,9 @@ a.plate-lead:focus-visible {
   letter-spacing: var(--track-badge);
   text-transform: uppercase;
   color: var(--body-muted);
-  opacity: .65;
+  /* Same double-mute as .latest-meta, one notch worse (.65 → 2.81:1). Latent
+     today — the Issue-next strip only renders when an upcoming essay exists —
+     so it would have shipped broken the day one was scheduled. [F88] */
   line-height: 1;
   flex-shrink: 0;
 }
