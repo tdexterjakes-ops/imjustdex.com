@@ -62,7 +62,10 @@ body.notfound main {
 }
 
 .notfound-eyebrow span.divider {
-  opacity: .5;
+  /* Was .5 = 3.61:1, under AA. Unlike the homepage's .dot separators this one
+     carries no aria-hidden, so it is exposed text, not decoration. Raised to
+     match the .eyebrow-right sibling below rather than inventing a value. [F89] */
+  opacity: .7;
 }
 
 .notfound-eyebrow .eyebrow-right {
