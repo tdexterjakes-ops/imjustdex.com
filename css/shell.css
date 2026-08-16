@@ -11,7 +11,14 @@
 
 /* ── Skip link ─────────────────────────────────────────────── */
 
-.skip-link {
+/* :link/:visited raise this to (0,2,0) so a bespoke page's blanket
+   link rule can't out-specify it. /phase0/ ships `.phase0 a { color: inherit }`
+   at (0,1,1), which beat the bare `.skip-link` (0,1,0) and repainted the
+   chip's text cream-on-cream — 1.00:1, invisible. Hardened here rather than
+   in phase0.css so every current and future bespoke surface inherits the fix. */
+.skip-link,
+.skip-link:link,
+.skip-link:visited {
   position: absolute;
   left: -999px;
   top: 0;
