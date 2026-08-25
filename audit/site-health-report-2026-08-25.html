@@ -1,0 +1,289 @@
+<title>Site Health | imjustdex.com | 2026-08-25</title>
+<style>
+  :root{
+    --bg:#f8f8f6; --ink:#0a0a0a; --muted:rgba(5,5,5,.62); --rule:rgba(5,5,5,.14);
+    --panel:#fff; --accent:#c00; --accent-text:#c00;
+    --crit:#c00; --high:#c0491f; --med:#8a6d1f; --low:#4a4a4a; --ok:#1f6b3a;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#060606; --ink:#f3f0e8; --muted:rgba(243,240,232,.62); --rule:rgba(243,240,232,.16);
+      --panel:#0d0d0d; --accent:#c00; --accent-text:#ff4d4d;
+      --crit:#ff5c5c; --high:#ff9060; --med:#e0bd52; --low:#a8a8a8; --ok:#5fd18a;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#060606; --ink:#f3f0e8; --muted:rgba(243,240,232,.62); --rule:rgba(243,240,232,.16);
+    --panel:#0d0d0d; --accent:#c00; --accent-text:#ff4d4d;
+    --crit:#ff5c5c; --high:#ff9060; --med:#e0bd52; --low:#a8a8a8; --ok:#5fd18a;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg); color:var(--ink); margin:0; padding:40px 24px 80px;
+    font:16px/1.6 "IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+  .wrap{max-width:900px; margin:0 auto}
+  .mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+  h1{font-size:clamp(28px,5vw,44px); line-height:1.05; letter-spacing:-.02em; margin:0 0 6px; text-transform:uppercase; font-weight:800}
+  .sub{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--muted); margin-bottom:28px}
+  h2{font-size:13px; letter-spacing:.16em; text-transform:uppercase; margin:44px 0 14px;
+    padding-bottom:8px; border-bottom:2px solid var(--ink); font-family:ui-monospace,Menlo,monospace}
+  .score{display:flex; align-items:baseline; gap:18px; flex-wrap:wrap;
+    border:2px solid var(--ink); padding:20px 24px; background:var(--panel)}
+  .score .n{font-size:62px; font-weight:800; line-height:1; letter-spacing:-.03em}
+  .score .of{font-size:15px; color:var(--muted)}
+  .status{margin-top:16px; padding:16px 20px; border-left:5px solid var(--accent); background:var(--panel);
+    border-top:1px solid var(--rule); border-right:1px solid var(--rule); border-bottom:1px solid var(--rule)}
+  .needs{display:inline-block; background:var(--accent); color:#fff; font-family:ui-monospace,Menlo,monospace;
+    font-size:11px; font-weight:700; letter-spacing:.12em; padding:4px 8px; margin-left:6px}
+  .f{border:1px solid var(--rule); border-left:5px solid var(--rule); background:var(--panel); padding:18px 20px; margin-bottom:14px}
+  .f.high{border-left-color:var(--high)} .f.med{border-left-color:var(--med)}
+  .f.low{border-left-color:var(--low)} .f.fixed{border-left-color:var(--ok)}
+  .f h3{margin:0 0 8px; font-size:16px; line-height:1.3}
+  .tags{font-family:ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:10px}
+  .sev{font-weight:700}
+  .sev.high{color:var(--high)} .sev.med{color:var(--med)} .sev.low{color:var(--low)} .sev.ok{color:var(--ok)}
+  .f p{margin:8px 0}
+  .f .what{color:var(--ink)}
+  .f .did{color:var(--muted)}
+  code{font-family:ui-monospace,Menlo,monospace; font-size:.88em; background:var(--rule); padding:1px 5px}
+  .tw{overflow-x:auto; -webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse; width:100%; font-size:13px; min-width:520px}
+  th,td{text-align:left; padding:7px 12px; border-bottom:1px solid var(--rule)}
+  th{font-family:ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+  td.num{font-family:ui-monospace,Menlo,monospace; text-align:right}
+  .ok{color:var(--ok); font-weight:600}
+  details{border:1px solid var(--rule); background:var(--panel); padding:12px 16px; margin-bottom:12px}
+  summary{cursor:pointer; font-family:ui-monospace,Menlo,monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px}
+  .cell{border:1px solid var(--rule); background:var(--panel); padding:14px 16px}
+  .cell .k{font-family:ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--muted); margin-bottom:4px}
+  .cell .v{font-size:22px; font-weight:700; line-height:1.1}
+  .note{color:var(--muted); font-size:14px}
+  .arrow{color:var(--ok); font-weight:700}
+</style>
+<div class="wrap">
+
+<h1>Site Health — imjustdex.com</h1>
+<div class="sub">Tuesday, 2026-08-25 · 05:07 CDT · scrub + retest + report · deploy b64a39b</div>
+
+<div class="score">
+  <div><span class="n">61</span><span class="of"> / 100</span></div>
+  <div class="note">100 − (4 HIGH × 8) − (2 MEDIUM × 3) − (1 LOW × 1). No CRITICAL.<br>
+  Zero of the seven are new. Every deduction is a defect that was already found, already fixed, and already verified — and is still live.</div>
+</div>
+
+<div class="status">
+  <strong>7 issues open (0 critical, 4 high, 2 medium, 1 low) — 0 new this run.</strong><br>
+  6 of the 7 are fixed in the repo and re-verified twice today. They are still live because the fix commits were never pushed.
+  1 is BLOCKED on your call. <span class="needs">NEEDS DEXTER</span>
+</div>
+
+<h2>The headline</h2>
+
+<div class="f high">
+  <h3>Nine days of fixes are sitting on your laptop, unpushed.</h3>
+  <div class="tags">Scope: repo state · Not a site defect · Not double-counted in the score</div>
+  <p class="what">Local <code>main</code> is <strong>8 commits ahead of <code>origin/main</code></strong> and has been since 2026-08-16.
+  Those 8 commits carry every fix from the last two runs — <code>55a6d72</code> (F85/F86/F87/F88), <code>8c1e6aa</code> (F89),
+  <code>79df261</code> (F91) — plus their ledger and report commits.</p>
+  <p class="what">Netlify is serving <code>b64a39b</code>, which matches GitHub <code>main</code> exactly, so the deploy-freshness
+  check passes by the letter. Nothing failed. Nothing regressed. The work simply never left the machine.</p>
+  <p class="did"><strong>Consequence:</strong> all six fixed rows re-measured today at their original failing values — including
+  F91, where the first focusable element on <code>/phase0/</code> is still cream text on a cream chip at 1.00:1 and is literally
+  invisible to a sighted keyboard user.</p>
+  <p class="did"><strong>To ship:</strong> <code>git push origin main</code>, then merge <code>qa/fixes-20260825</code> for today's ledger.
+  Netlify rebuilds on push. Deploying stays your call — this loop never does it.</p>
+</div>
+
+<h2>New this run</h2>
+<div class="f fixed">
+  <h3>Nothing. Zero new defects across 20 routes and 38 ledger stories.</h3>
+  <div class="tags">Clean sweep on everything that is actually deployed</div>
+  <p class="what">All 20 routes 200 (plus the two correct 404s, <code>/sitemap.xml</code> and <code>/DESIGN-SYSTEM.md</code>).
+  Zero console errors. Zero broken links. Zero missing assets. Zero inline <code>&lt;style&gt;</code> blocks.
+  All 16 articles clean on BlogPosting shape, og:image↔JSON-LD parity, canonical, single-h1, heading order and alt text.
+  Feed 16/16. Sitemap 20/20. Security headers and both cache tiers complete. Subscribe function healthy on all three paths.</p>
+  <p class="did">No rows added — no essay, route, component, function, redirect or header has shipped since 2026-08-16,
+  because <code>origin/main</code> has not moved. Ledger holds at 91 rows.</p>
+</div>
+
+<h2>Retest — the six fixes, verified two independent ways</h2>
+<p class="note">Each fix was checked for presence in a fresh clean <code>npm run build</code> (19 pages, no errors), then
+<em>measured</em> on the live production DOM by inserting the exact shipped declaration into the already-loaded stylesheet via
+<code>CSSOM insertRule</code> and restoring with <code>deleteRule</code>. Every ratio reproduced its recorded post-fix figure.</p>
+
+<div class="tw">
+<table>
+  <tr><th>ID</th><th>Control</th><th>Surface</th><th class="num">Live now</th><th class="num">With fix</th><th>Sev</th><th>State</th></tr>
+  <tr><td>F85</td><td><code>.latest-meta</code></td><td>homepage + /brand/</td><td class="num">3.36</td><td class="num"><span class="arrow">5.13</span></td><td><span class="sev high">HIGH</span></td><td>fixed, unpushed</td></tr>
+  <tr><td>F86</td><td><code>.hero-corner</code></td><td>homepage + /brand/</td><td class="num">3.71</td><td class="num"><span class="arrow">5.23</span></td><td><span class="sev high">HIGH</span></td><td>fixed, unpushed</td></tr>
+  <tr><td>F87</td><td><code>.latest-tag</code></td><td>/brand/ dogfood</td><td class="num">3.44</td><td class="num"><span class="arrow">5.17</span></td><td><span class="sev high">HIGH</span></td><td>fixed, unpushed</td></tr>
+  <tr><td>F91</td><td><code>.skip-link</code></td><td>/phase0/</td><td class="num">1.00</td><td class="num"><span class="arrow">17.79</span></td><td><span class="sev high">HIGH</span></td><td>fixed, unpushed</td></tr>
+  <tr><td>F88</td><td><code>.next-meta</code></td><td>Issue-next strip (latent)</td><td class="num">2.81</td><td class="num"><span class="arrow">5.13</span></td><td><span class="sev med">MEDIUM</span></td><td>fixed, unpushed</td></tr>
+  <tr><td>F89</td><td><code>span.divider</code></td><td>/404 eyebrow</td><td class="num">3.61</td><td class="num"><span class="arrow">7.19</span></td><td><span class="sev med">MEDIUM</span></td><td>fixed, unpushed</td></tr>
+</table>
+</div>
+
+<p class="note">Build evidence: <code>dist/css/home-augment.css:148-161, 214-234, 127-130, 728-740</code> ·
+<code>dist/css/home-v2.css:107-118, 206-216, 849-865</code> (and correctly <em>no</em> <code>.latest-tag</code> override there — that is the F87 move) ·
+<code>dist/css/notfound.css:64-69</code> · <code>dist/css/shell.css:19-29</code>, all pages on <code>shell.css?v=phase36</code>.</p>
+
+<h2>Blocked — needs your call (10 days open)</h2>
+<div class="f low">
+  <h3>F90 · /brand/ bespoke + demo-specimen contrast</h3>
+  <div class="tags">LOW · /brand/ · re-confirmed unchanged 2026-08-25</div>
+  <p class="what">Five text elements under AA in dark mode: <code>.demo-ghost-meta</code> 2.05:1, <code>.demo-ghost-date</code> 2.45:1,
+  <code>.demo-ghost-title</code> 2.93:1 (vs its 3:1 large-text floor), <code>.demo-plate-meta</code> 3.17:1, and the bespoke
+  "Download Pack" h3 at 2.87:1.</p>
+  <p class="did"><strong>(a)</strong> Four are <code>demo-ghost-*</code> specimens whose whole job is to <em>demonstrate</em> a dim
+  treatment. Keep the demonstration value, or add a readable annotation beside them explaining it?
+  <strong>(b)</strong> The "Download Pack" h3 is not a specimen — it is page chrome in <code>brand/brand.css</code> and can be lifted
+  on your word. Say go and it is a one-line fix next run.</p>
+</div>
+
+<h2>Two verification gaps closed</h2>
+<div class="f fixed">
+  <h3>F04 — skip-link activation, verified end-to-end under real keyboard input</h3>
+  <p class="what">The 2026-08-16 run could only confirm the structural half. Today, on <code>/words/the-stone/</code>:
+  <code>.skip-link</code> is the first focusable in DOM order, reveals from <code>left:-999px</code> to a 126×46 chip at (12,12) at
+  <strong>17.79:1</strong>, and pressing Enter sets <code>location.hash</code> to <code>#article</code> and moves
+  <code>document.activeElement</code> to <code>MAIN#article</code> (<code>tabindex="-1"</code>). Fully closed.</p>
+</div>
+<div class="f fixed">
+  <h3>F83 — dark-mode hover contrast, re-verified under real pointer hover</h3>
+  <p class="what">Live homepage, dark mode, standfirst bar hovered: <code>.latest-cta</code> 5.17:1, <code>.latest-tag</code> 5.17:1,
+  <code>.latest-title</code> 17.79:1, <code>.latest-meta</code> (hover state) 5.23:1. No regression on a previously-fixed row.</p>
+</div>
+
+<h2>False positives caught before filing</h2>
+<p class="note">Each of these was produced confidently by an automated check this run and discarded after being chased down.
+All four are now recorded in <code>audit/QA-OS.md</code> under a new MEASUREMENT ANTIPATTERNS section so future runs stop rediscovering them.</p>
+<details>
+  <summary>Phantom #1 — "the mode toggle is broken on article pages"</summary>
+  <p>A programmatic <code>element.click()</code> flips <code>html.dark-mode</code>, the <code>--bg</code>/<code>--ink</code> tokens
+  and the <code>dxmode</code> cookie, but leaves <code>body</code>'s <em>used</em> background and color stale in
+  <code>getComputedStyle</code> — for over a second, past a forced reflow. It read as a hard mode-toggle regression.
+  Setting <code>body.style.transition='none'</code> unstuck it instantly, which identified the artifact; a real pointer click plus a
+  screenshot then showed the toggle repainting perfectly. <strong>Verdict: no defect.</strong></p>
+</details>
+<details>
+  <summary>Phantom #2 — "no focus rings anywhere on the site"</summary>
+  <p>Chrome does not apply <code>:focus-visible</code> to programmatic <code>element.focus()</code>, so all 34 interactive elements
+  reported <code>outline: none</code>. Real <code>Tab</code> presses show the designed ring: <code>solid 2px rgb(204,0,0)</code>.
+  <strong>Verdict: no defect.</strong></p>
+</details>
+<details>
+  <summary>Phantom #3 — "white-on-cream text on every image plate"</summary>
+  <p>Image plates paint their surface with <code>::before</code> (an opaque <code>img-concrete</code>/<code>img-noise</code>/<code>img-lines</code>
+  gradient) plus an <code>::after</code> black gradient. Walking <code>background-color</code> up the tree sees straight through both to the
+  page ground and reports ~1.06:1 for every title, deck and lane chip. The CSS is explicit that these plates are light-on-dark by
+  construction, <code>.plate-lane</code> carries its own <code>rgba(0,0,0,.72)</code> chip, and <code>.meta-rail</code> carries an opaque cream rail.
+  <strong>Verdict: no defect.</strong></p>
+</details>
+<details>
+  <summary>Dismissed again — the homepage <code>.dot</code> separator at 4.25–4.30:1</summary>
+  <p>Real measurement, but not a defect: the <code>·</code> between date and read-time is <code>aria-hidden="true"</code> pure decoration,
+  and both of its siblings pass on their own. This was already reasoned through in the F89 fix comment
+  (<code>css/notfound.css:64-69</code>), which fixed the /404 divider precisely <em>because</em> that one is not aria-hidden.
+  Now on the known-intentional list so it stops resurfacing.</p>
+</details>
+
+<h2>Feature Ledger</h2>
+<div class="grid">
+  <div class="cell"><div class="k">Rows</div><div class="v">91</div></div>
+  <div class="cell"><div class="k">Pass</div><div class="v ok">80</div></div>
+  <div class="cell"><div class="k">Issue</div><div class="v">7</div></div>
+  <div class="cell"><div class="k">Partial</div><div class="v">2</div></div>
+  <div class="cell"><div class="k">Pending</div><div class="v">1</div></div>
+  <div class="cell"><div class="k">N/A</div><div class="v">1</div></div>
+</div>
+<p class="note" style="margin-top:14px">
+Rows added this run: <strong>0</strong> · Rows reset by code changes: <strong>0</strong> (origin/main has not moved) ·
+Rows regressed today: <strong>0</strong> · Rows directly exercised: <strong>38</strong>.<br>
+Last full-ledger regression: 2026-08-13. Today was a broad regression, not a full one — the shell, SEO, routing, security,
+subscribe, accessibility and content-integrity areas were re-walked end to end.<br>
+The 3 unreachable rows — F19 (404 half PASS, coming-soon half pending), F41 (authored nav PASS, ghost path pending) and F46 (pending) — remain structurally unreachable: all 16 built
+entries are <code>status: published</code> with past dates and zero <code>ghost: true</code> flags remain, so none of those code paths render.
+</p>
+
+<h2>Pages Scanned</h2>
+<div class="tw">
+<table>
+  <tr><th>Route</th><th class="num">Status</th><th class="num">Load</th><th>Notes</th></tr>
+  <tr><td>/</td><td class="num ok">200</td><td class="num">0.27s</td><td>5 CSS baseline · DOM 314 · fonts loaded</td></tr>
+  <tr><td>/about/</td><td class="num ok">200</td><td class="num">0.17s</td><td>ProfilePage JSON-LD complete</td></tr>
+  <tr><td>/brand/</td><td class="num ok">200</td><td class="num">0.48s</td><td>DOM 1330 · relaxed style-src by design</td></tr>
+  <tr><td>/phase0/</td><td class="num ok">200</td><td class="num">0.59s</td><td>F91 skip link still invisible</td></tr>
+  <tr><td>/404</td><td class="num ok">200</td><td class="num">0.37s</td><td>bespoke body · noindex,nofollow</td></tr>
+  <tr><td>/feed.xml</td><td class="num ok">200</td><td class="num">0.32s</td><td>16 entries · XSL PI present</td></tr>
+  <tr><td>/feed.xsl</td><td class="num ok">200</td><td class="num">0.32s</td><td></td></tr>
+  <tr><td>/sitemap-index.xml</td><td class="num ok">200</td><td class="num">0.31s</td><td>→ sitemap-0.xml</td></tr>
+  <tr><td>/sitemap-0.xml</td><td class="num ok">200</td><td class="num">0.32s</td><td>20 locs</td></tr>
+  <tr><td>/robots.txt</td><td class="num ok">200</td><td class="num">0.18s</td><td>Sitemap → sitemap-index.xml</td></tr>
+  <tr><td>/sitemap.xml</td><td class="num ok">404</td><td class="num">0.23s</td><td>expected post-cutover</td></tr>
+  <tr><td>/DESIGN-SYSTEM.md</td><td class="num ok">404</td><td class="num">0.15s</td><td>expected — doc not exposed</td></tr>
+  <tr><td>16 × /words/&lt;slug&gt;/</td><td class="num ok">200</td><td class="num">0.30–0.70s</td><td>all clean · all OG images 200</td></tr>
+</table>
+</div>
+<p class="note">Slowest page 0.70s, well under the 3s flag. Article DOM 301 nodes. No page ships a content image, so lazy-loading is not in play.
+External links checked: instagram.com/ImJustDex 200 · x.com/ImJustDex 200 · thereturningglory.com 200 · the Notion research link 200.</p>
+
+<h2>Infrastructure Status</h2>
+<div class="tw">
+<table>
+  <tr><th>Check</th><th>Result</th></tr>
+  <tr><td>Subscribe — real submission</td><td class="ok">200 {"ok":true,"message":"subscribed"} in 2.20s · healthscrub+20260825@imjustdex.com</td></tr>
+  <tr><td>Subscribe — honeypot filled</td><td class="ok">200, silent drop (indistinguishable from success, as designed)</td></tr>
+  <tr><td>Subscribe — malformed email</td><td class="ok">400 {"ok":false,"error":"invalid_email"}</td></tr>
+  <tr><td>Deploy freshness</td><td class="ok">Netlify commit_ref = GitHub main HEAD = b64a39b · published 2026-08-25 05:40Z</td></tr>
+  <tr><td>Repo divergence</td><td><span class="sev high">local main +8 vs origin/main — 9 days, unpushed</span></td></tr>
+  <tr><td>Security headers</td><td class="ok">XFO DENY · nosniff · HSTS 31536000 +includeSubDomains +preload · CSP · Referrer-Policy · Permissions-Policy</td></tr>
+  <tr><td>CSP enforcement</td><td class="ok">proven live — an injected inline &lt;style&gt; was blocked by style-src 'self'</td></tr>
+  <tr><td>Cache-Control</td><td class="ok">versioned assets immutable/31536000 · HTML max-age=0, must-revalidate</td></tr>
+  <tr><td>Redirects</td><td class="ok">/about, /brand, /phase0, /words/the-stone → single 301 → 200. No loops.</td></tr>
+  <tr><td>Report delivery</td><td><span class="sev med">Notion reachable but has no destination — see below</span></td></tr>
+</table>
+</div>
+
+<div class="f med">
+  <h3>Notion delivery failed for the third run running — and here is the one-step fix</h3>
+  <div class="tags">MEDIUM · report delivery · third consecutive occurrence</div>
+  <p class="what">The Notion integration <em>is</em> connected and responding this time. The problem is that it can only see seven
+  databases (Blog Content Calendar, Bible Research Library, Plate Oath, Build Vault, My links, Jakes Juniors, Private Notes) and two
+  loose recipe pages. There is no Site Health destination, and the API refuses workspace-level page creation from an internal
+  integration.</p>
+  <p class="did">I deliberately did <strong>not</strong> file a QA report inside your editorial content calendar or under a recipe page.
+  <strong>Fix:</strong> make one Notion page called "imjustdex.com — Site Health" and share it with the integration
+  (⋯ → Connections → your connector). Next run will find it by title and write there. Until then reports land here as HTML.</p>
+</div>
+
+<h2>Run Metadata</h2>
+<div class="tw">
+<table>
+  <tr><td>Run started</td><td>2026-08-25 05:07 CDT (Tuesday)</td></tr>
+  <tr><td>Phases executed</td><td>SCRUB → RETEST → REPORT. FIX skipped — every open ISSUE already has its fix committed; there was nothing left to repair.</td></tr>
+  <tr><td>Pages scanned</td><td>20 routes + 13 assets + 4 external links</td></tr>
+  <tr><td>Checks run</td><td>all 9 health dimensions</td></tr>
+  <tr><td>Stories tested</td><td>38 ledger rows directly exercised</td></tr>
+  <tr><td>Fixes applied</td><td>0 code fixes (none needed). 1 ledger commit + QA-OS antipattern section.</td></tr>
+  <tr><td>Branch</td><td><code>qa/fixes-20260825</code> — commit <code>5bae85a</code>, branched from local main (<code>e3fe698</code>)</td></tr>
+  <tr><td>Build</td><td><code>npm run build</code> clean — 19 pages, 16 articles, 1.55s</td></tr>
+  <tr><td>Working tree</td><td>Dexter's uncommitted changes left untouched: <code>DESIGN-SYSTEM.md</code> (+2), <code>css/article.css</code> (+4, mobile eyebrow wrap), and the untracked draft <code>src/content/words/before-i-had-the-words.mdx</code> (<code>status: "drafted"</code>, correctly excluded from the build).</td></tr>
+  <tr><td>Gap since last run</td><td>9 days — the scheduled task did not fire 2026-08-17 through 2026-08-24. Worth checking.</td></tr>
+  <tr><td>Skipped</td><td>Local dist server (dev servers cannot start in unattended runs) — retest used CSSOM injection against production instead, which is stronger evidence anyway. Browser-pane screenshots were unreliable while scrolled; DOM measurement was used instead.</td></tr>
+  <tr><td>Deploy</td><td>Not performed. Never automatic. Yours to call.</td></tr>
+</table>
+</div>
+
+<h2>What to do</h2>
+<div class="f high">
+  <p class="what"><strong>1.</strong> <code>git push origin main</code> — ships six verified accessibility fixes, including the invisible /phase0/ skip link.</p>
+  <p class="what"><strong>2.</strong> Merge <code>qa/fixes-20260825</code> — today's ledger and the QA-OS antipattern section.</p>
+  <p class="what"><strong>3.</strong> Answer F90's two questions so the last row can close.</p>
+  <p class="what"><strong>4.</strong> Share a Notion page with the integration so reports stop landing as local HTML.</p>
+  <p class="what"><strong>5.</strong> Check why the nightly task skipped 2026-08-17 → 2026-08-24.</p>
+</div>
+
+</div>
