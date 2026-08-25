@@ -423,3 +423,50 @@ to flag NEW vs. RECURRING.
     (**HIGH**, CSP will block them)
   - Per-route CSP style-src relaxations for `/brand/` and `/feed.xml` (by design)
   - Masthead brand-word reading "Words" (by design, ledger F-note)
+  - Homepage `.dot` separators in `.meta-rail` measuring 4.25–4.30:1. They carry
+    `aria-hidden="true"` and are pure decoration between the date and read-time
+    (both of which pass on their own), so WCAG 1.4.3 does not apply. This was
+    reasoned through and recorded in the F89 fix comment (css/notfound.css:64-69),
+    which fixed the /404 divider *because* that one is NOT aria-hidden. Re-derived
+    and re-dismissed on 2026-08-25 — stop re-raising it.
+
+---
+
+## MEASUREMENT ANTIPATTERNS (learned the hard way — read before flagging)
+
+Every one of these produced a confident false positive on a real run. A finding
+that matches one of these shapes is a measurement artifact until proven otherwise.
+
+- **Never verify the mode toggle with `element.click()`.** A programmatic click
+  flips `html.dark-mode`, the `--bg`/`--ink` tokens and the `dxmode` cookie, but
+  leaves `body`'s USED background/color stale in `getComputedStyle` until a repaint
+  is forced. On 2026-08-25 this read as an article-page mode-toggle regression for
+  several minutes. Use a real pointer click (the `computer` tool) and confirm with a
+  screenshot. Setting `body.style.transition='none'` also unsticks it, which is how
+  the artifact was identified.
+- **Never verify focus rings with `element.focus()`.** Chrome does not apply
+  `:focus-visible` to programmatic focus, so every interactive element reports
+  `outline: none`. Drive real `Tab` presses instead. Note that `Tab` only reaches the
+  page after the page itself has focus, and it resumes from wherever the last click
+  landed — to reach the skip link, click a neutral spot then walk back with
+  `shift+Tab`.
+- **Never judge contrast on `.plate-image` plates from computed styles.** Those
+  plates paint their surface with `::before` (an opaque `img-concrete`/`img-noise`/
+  `img-lines` gradient) plus an `::after` black gradient. Walking `background-color`
+  up the tree sees straight through both to the page ground and reports white-on-
+  cream at ~1.06:1 for every title, deck and lane chip on them. The design is
+  light-on-dark by construction and `.plate-lane` carries its own `rgba(0,0,0,.72)`
+  chip; `.meta-rail` carries an opaque cream rail. Skip these in automated sweeps.
+- **Composite the whole ancestor stack, not just the nearest background.** A probe
+  that stops at the first non-transparent ancestor mis-reports `.lead-badge-lane`,
+  `.row-num`, `.lane-count` and friends. Composite semi-transparent layers down to
+  the first fully-opaque one.
+- **Inline `<style>` injection is blocked by CSP on every route except /brand/.** To
+  apply a candidate fix to a live page for measurement, use
+  `styleSheet.insertRule(...)` on an already-loaded same-origin sheet and
+  `deleteRule` to restore. Always re-measure after restoring to prove the page is
+  back in its original state.
+- **Browser-pane screenshots are unreliable once the pane is hidden or scrolled.**
+  They can return a blank frame while the DOM is fully populated. Confirm against
+  `getBoundingClientRect` / computed styles before reporting a rendering failure;
+  re-navigate to get a usable capture.
