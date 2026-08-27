@@ -61,6 +61,20 @@ const upcomingSoonestFirst = upcoming
 // Issue next = first upcoming essay.
 const issueNext = upcomingSoonestFirst[0];
 
+// The ghost plates and the IssueNext strip are two presentations of the same
+// upcoming essay, so showing both puts the same title on the page twice.
+// Dexter's call: the plate wins, the strip stands down whenever a ghost
+// renders. [F94]
+//
+// Read the condition honestly — today it can never be true. Both surfaces
+// derive from `upcomingSoonestFirst`, so a non-empty list lights the ghosts and
+// darkens the strip, and an empty one darkens both. IssueNext is therefore
+// unreachable as things stand. It is gated rather than deleted so the decision
+// is one line to reverse and the component, its CSS and its ledger row (F30)
+// stay intact — but this is the same shape of orphaning that F93 was opened
+// for, and it is tracked as F94 rather than left to rot silently.
+const showIssueNext = Boolean(issueNext) && upcomingSoonestFirst.length === 0;
+
 // Section numbering. The row-head numbers used to be hardcoded 01/02 with a
 // conditional on Earlier, which cannot survive a section appearing above them.
 // Derive them from which sections actually render instead. [F93]
@@ -249,7 +263,7 @@ const coverFor = (entry: CollectionEntry<'words'>): ArchiveCover | null =>
     </section>
   </main>
 
-  {issueNext && <IssueNext next={issueNext} />}
+  {showIssueNext && <IssueNext next={issueNext} />}
 
   <SubscribeManifesto />
 </HomeLayout>
