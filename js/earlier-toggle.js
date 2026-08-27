@@ -36,5 +36,9 @@
     const pluralAfter = total === 1 ? 'Essay' : 'Essays';
     btn.querySelector('.btn-label').textContent = next ? 'Show Less' : 'View Earlier ' + pluralAfter;
     if (count) count.textContent = next ? '— showing all' : '— ' + total + ' more';
+    // The glyph is aria-hidden decoration, but it is the same affordance as the
+    // label: it has to point the way the button now acts, or it contradicts it.
+    const glyph = btn.querySelector('.btn-glyph');
+    if (glyph) glyph.textContent = next ? '↑' : '↓';
   });
 })();
