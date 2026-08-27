@@ -7,6 +7,7 @@ import LaneIndex from '~/components/home/LaneIndex.astro';
 import RowHead from '~/components/home/RowHead.astro';
 import LeadPlate from '~/components/home/LeadPlate.astro';
 import Plate from '~/components/home/Plate.astro';
+import GhostPlate from '~/components/home/GhostPlate.astro';
 import IssueNext from '~/components/home/IssueNext.astro';
 import SubscribeManifesto from '~/components/home/SubscribeManifesto.astro';
 import type { Lane, PlateVariant, PlateImage } from '~/content/config';
@@ -48,13 +49,27 @@ const EARLIER_VISIBLE = 6;
 const earlierVisible = earlier.slice(0, EARLIER_VISIBLE);
 const earlierMore = earlier.slice(EARLIER_VISIBLE);
 
-// Issue next = first upcoming essay (sorted asc by date).
-const issueNext = upcoming
+// Upcoming essays, soonest first. Drives BOTH the ghost teaser plates at the
+// head of the cascade and the IssueNext strip below it. [F93]
+const upcomingSoonestFirst = upcoming
   .slice()
   .sort(
     (a, b) =>
       new Date(a.data.publishedDate).getTime() - new Date(b.data.publishedDate).getTime()
-  )[0];
+  );
+
+// Issue next = first upcoming essay.
+const issueNext = upcomingSoonestFirst[0];
+
+// Section numbering. The row-head numbers used to be hardcoded 01/02 with a
+// conditional on Earlier, which cannot survive a section appearing above them.
+// Derive them from which sections actually render instead. [F93]
+const sectionOrder: string[] = [];
+if (upcomingSoonestFirst.length > 0) sectionOrder.push('next');
+sectionOrder.push('thisWeek');
+if (thisMonth.length > 0) sectionOrder.push('thisMonth');
+if (earlierVisible.length > 0) sectionOrder.push('earlier');
+const rowNum = (key: string) => String(sectionOrder.indexOf(key) + 1).padStart(2, '0');
 
 // Lane counts: published essays only, multi-lane articles count for each lane.
 const laneCounts: Record<Lane, number> = {
@@ -182,12 +197,19 @@ const coverFor = (entry: CollectionEntry<'words'>): ArchiveCover | null =>
 
   <main id="archive" tabindex="-1">
     <section class="plates" aria-label="Essay archive">
-      <RowHead num="01" label="This Week" variant="lead" />
+      {upcomingSoonestFirst.length > 0 && (
+        <>
+          <RowHead num={rowNum('next')} label="Next" />
+          {upcomingSoonestFirst.map((entry) => <GhostPlate entry={entry} />)}
+        </>
+      )}
+
+      <RowHead num={rowNum('thisWeek')} label="This Week" variant="lead" />
       <LeadPlate entry={lead} />
 
       {thisMonth.length > 0 && (
         <>
-          <RowHead num="02" label="This Month" />
+          <RowHead num={rowNum('thisMonth')} label="This Month" />
           {(() => {
             const layouts = packCascade(thisMonth);
             return thisMonth.map((entry, i) => (
@@ -199,7 +221,7 @@ const coverFor = (entry: CollectionEntry<'words'>): ArchiveCover | null =>
 
       {earlierVisible.length > 0 && (
         <>
-          <RowHead num={thisMonth.length > 0 ? '03' : '02'} label="Earlier" />
+          <RowHead num={rowNum('earlier')} label="Earlier" />
           {(() => {
             // Pack visible + hidden together so the layout stays balanced
             // when "View More" expands the section in-place.

@@ -1,0 +1,54 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+// Ghost teaser plate — the archive's held space for an essay that is written
+// and dated but not yet live (`isUpcoming`: status published|upcoming with a
+// future publishedDate).
+//
+// The CSS for this component has shipped in css/plates.css since before the
+// 2026-04-21 Astro cutover, but the cutover never rewired an emitter for it:
+// Plate.astro can only produce plate-{wide|secondary|banner|half|lead}, so
+// `.plate-ghost` rendered nowhere and the rules sat dead on every homepage
+// load while /brand/ went on documenting them as live. [F93]
+//
+// Two deliberate choices, both taken from DESIGN-SYSTEM.md §Ghost Teaser Plate:
+//
+//   1. STATIC — no <a>, no href, no hover, no focus ring. The doc is explicit:
+//      "identity plate, ghost teaser (static). No hover highlight, no pointer
+//      cursor, no focus outline." The linked call-to-action for the same essay
+//      is the IssueNext strip below the archive, which is what carries
+//      "Notify me →" to the coming-soon page.
+//
+//   2. NO `data-lane` — and this is load-bearing, not an omission. lane-filter.js
+//      reads each <article>'s inner [data-lane] to decide matches; with none, the
+//      ghost matches no lane and is hidden by any active filter, then restored on
+//      clear by baseHidden(). That is the behaviour we want (a lane view is a
+//      chronological archive view; a forthcoming teaser is not part of it) and it
+//      keeps the lane index counts — which are published-only, per F22 — honest
+//      against what is on screen. Adding data-lane here would show a Faith ghost
+//      under a Faith filter while the index still announced the published count.
+interface Props {
+  entry: CollectionEntry<'words'>;
+}
+const { entry } = Astro.props;
+const d = entry.data;
+
+const dateOnly = d.publishedDate.slice(0, 10);
+const dateLabel = new Date(dateOnly + 'T00:00:00Z').toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+const primaryLane = d.lanes[0];
+---
+<article>
+  <div class="plate plate-ghost">
+    <span class="plate-lane">{primaryLane}</span>
+    <div class="plate-body">
+      <h2 class="plate-title">{d.title}</h2>
+      <div class="teaser-rule" aria-hidden="true"></div>
+      <span class="teaser-date">Publishing <time datetime={dateOnly}>{dateLabel}</time></span>
+    </div>
+    <div class="meta-rail">Coming Soon</div>
+  </div>
+</article>
