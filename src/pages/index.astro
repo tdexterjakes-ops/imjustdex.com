@@ -8,7 +8,6 @@ import RowHead from '~/components/home/RowHead.astro';
 import LeadPlate from '~/components/home/LeadPlate.astro';
 import Plate from '~/components/home/Plate.astro';
 import GhostPlate from '~/components/home/GhostPlate.astro';
-import IssueNext from '~/components/home/IssueNext.astro';
 import SubscribeManifesto from '~/components/home/SubscribeManifesto.astro';
 import type { Lane, PlateVariant, PlateImage } from '~/content/config';
 import { isPubliclyLive, isUpcoming } from '~/utils/visibility';
@@ -49,31 +48,16 @@ const EARLIER_VISIBLE = 6;
 const earlierVisible = earlier.slice(0, EARLIER_VISIBLE);
 const earlierMore = earlier.slice(EARLIER_VISIBLE);
 
-// Upcoming essays, soonest first. Drives BOTH the ghost teaser plates at the
-// head of the cascade and the IssueNext strip below it. [F93]
+// Upcoming essays, soonest first. Drives the ghost teaser plates at the head
+// of the cascade. Until 2026-08-27 this also drove a next-in-queue strip below
+// the archive; that component was retired once the ghost plate took over the
+// job, because the two were the same announcement rendered twice. [F93/F94]
 const upcomingSoonestFirst = upcoming
   .slice()
   .sort(
     (a, b) =>
       new Date(a.data.publishedDate).getTime() - new Date(b.data.publishedDate).getTime()
   );
-
-// Issue next = first upcoming essay.
-const issueNext = upcomingSoonestFirst[0];
-
-// The ghost plates and the IssueNext strip are two presentations of the same
-// upcoming essay, so showing both puts the same title on the page twice.
-// Dexter's call: the plate wins, the strip stands down whenever a ghost
-// renders. [F94]
-//
-// Read the condition honestly — today it can never be true. Both surfaces
-// derive from `upcomingSoonestFirst`, so a non-empty list lights the ghosts and
-// darkens the strip, and an empty one darkens both. IssueNext is therefore
-// unreachable as things stand. It is gated rather than deleted so the decision
-// is one line to reverse and the component, its CSS and its ledger row (F30)
-// stay intact — but this is the same shape of orphaning that F93 was opened
-// for, and it is tracked as F94 rather than left to rot silently.
-const showIssueNext = Boolean(issueNext) && upcomingSoonestFirst.length === 0;
 
 // Section numbering. The row-head numbers used to be hardcoded 01/02 with a
 // conditional on Earlier, which cannot survive a section appearing above them.
@@ -262,8 +246,6 @@ const coverFor = (entry: CollectionEntry<'words'>): ArchiveCover | null =>
       )}
     </section>
   </main>
-
-  {showIssueNext && <IssueNext next={issueNext} />}
 
   <SubscribeManifesto />
 </HomeLayout>

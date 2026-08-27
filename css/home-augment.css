@@ -12,7 +12,7 @@
  *   05 .plate-deck          — 1-sentence plate standfirst
  *   06 .meta-rail .dot      — dot separator in meta rails
  *   07 .row-head            — numbered row divider with thin rule
- *   08 .issue-next          — "notify me" next-in-queue strip
+ *   08 (retired 2026-08-27 — was .issue-next) [F94]
  *   09 .subscribe-manifesto — red/ink split subscribe block (4-line title)
  *
  * DOCTRINE
@@ -421,7 +421,7 @@ a.issue-standfirst:focus-visible {
 .lane-index .lane-cell[aria-pressed="true"] .lane-name { color: var(--bg); }
 .lane-index .lane-cell[aria-pressed="true"] .lane-count { color: var(--bg); opacity: .6; }
 
-/* Queued (non-interactive) cell — dashed frame, same semantic as .issue-next:
+/* Queued (non-interactive) cell — dashed frame, same semantic the retired .issue-next strip carried [F94]:
    "in the queue, not yet live." No hover, no cursor pointer. */
 .lane-index .lane-cell-queued {
   border-style: dashed;
@@ -674,107 +674,12 @@ a.plate-lead:focus-visible {
 }
 
 /* ============================================================
- * 08 · Issue next — dashed top, chrome bottom, notify-me CTA
+ * 08 · Issue next — RETIRED 2026-08-27 [F94]
+ * Superseded by the ghost teaser plate (.plate-ghost, plates.css)
+ * once GhostPlate.astro began announcing upcoming essays in the
+ * cascade. Rules removed rather than commented out; git has them
+ * at 121a621.
  * ============================================================ */
-
-.issue-next {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  flex-wrap: wrap;
-  padding: 13px var(--space-lg) 12px;
-  margin-top: var(--space-xl);
-  /* Dashed 4-side frame + panel bg — the card is sealed off the ruler
-     grid, and the dashed perimeter reads as "in the queue, not yet live."
-     Hover promotes to solid ink (see :hover block below). */
-  border: 1px dashed var(--border);
-  background: var(--panel);
-  font-family: var(--mono);
-  font-size: var(--text-nav);
-  letter-spacing: var(--track-footer);
-  text-transform: uppercase;
-  color: var(--body-color);
-  line-height: 1.5;
-  text-decoration: none;
-  transition: background var(--motion-fast) var(--ease-default),
-              color var(--motion-fast) var(--ease-default),
-              border-color var(--motion-fast) var(--ease-default);
-}
-.issue-next .next-tag {
-  font-family: var(--mono);
-  font-size: var(--text-micro);
-  font-weight: var(--weight-bold);
-  letter-spacing: var(--track-badge);
-  text-transform: uppercase;
-  color: var(--body-color);
-  background: transparent;
-  border: 1px dashed var(--border);
-  padding: 4px 6px 3px;
-  line-height: 1;
-  flex-shrink: 0;
-}
-.issue-next .next-title {
-  font-family: var(--display);
-  font-size: var(--text-h3);
-  font-weight: var(--weight-regular);
-  letter-spacing: var(--track-title);
-  text-transform: uppercase;
-  color: var(--body-muted);
-  line-height: 1;
-  flex-shrink: 1;
-  min-width: 0;
-  text-wrap: balance;
-}
-.issue-next .next-meta {
-  font-family: var(--mono);
-  font-size: var(--text-micro);
-  font-weight: var(--weight-regular);
-  letter-spacing: var(--track-badge);
-  text-transform: uppercase;
-  color: var(--body-muted);
-  /* Same double-mute as .latest-meta, one notch worse (.65 → 2.81:1). Latent
-     today — the Issue-next strip only renders when an upcoming essay exists —
-     so it would have shipped broken the day one was scheduled. [F88] */
-  line-height: 1;
-  flex-shrink: 0;
-}
-.issue-next .next-cta {
-  margin-left: auto;
-  font-family: var(--mono);
-  font-size: var(--text-nav);
-  font-weight: var(--weight-bold);
-  letter-spacing: var(--track-chrome);
-  text-transform: uppercase;
-  color: var(--body-color);
-  line-height: 1;
-  padding: 5px 8px 4px;
-  border: 1px dashed var(--border);
-  transition: background var(--motion-fast) var(--ease-default),
-              color var(--motion-fast) var(--ease-default),
-              border-color var(--motion-fast) var(--ease-default),
-              border-style var(--motion-fast) var(--ease-default);
-}
-.issue-next:hover {
-  /* Activate: frame promotes from dashed waiting-state to solid ink. */
-  border-style: solid;
-  border-color: var(--ink);
-}
-.issue-next:hover .next-title { color: var(--ink); }
-.issue-next:hover .next-tag,
-.issue-next:hover .next-cta {
-  border-style: solid;
-  border-color: var(--ink);
-  color: var(--ink);
-}
-.issue-next:focus-visible {
-  outline: var(--focus-ring-width) solid var(--focus-ring);
-  outline-offset: -2px;
-}
-
-@media (max-width: 760px) {
-  .issue-next { padding: var(--space-md); gap: var(--space-sm); }
-  .issue-next .next-cta { margin-left: 0; }
-}
 
 /* ============================================================
  * 09 · Subscribe manifesto — red/ink split, 4-line stacked title
@@ -1014,8 +919,6 @@ a.plate-lead:focus-visible {
   .identity-hero .hero-link,
   .plate-lead,
   .plate-lead .rail-cta,
-  .issue-next,
-  .issue-next .next-cta,
   .subscribe-manifesto .sm-submit {
     transition: none;
   }

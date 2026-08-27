@@ -150,104 +150,13 @@
   .issue-latest .latest-cta { margin-left: 0; }
 }
 
-/* ── Next-in-queue strip ────────────────────────────────────
- * Mirrors .issue-latest's rhythm but reads as unfinished: dashed
- * top rule (signals "not yet"), dashed tag outline (vs. filled
- * accent on Latest), dim title color. The CTA is "Notify me →"
- * rather than "Read →" — this piece isn't published yet, but
- * the strip is still a live hook: click to subscribe for the drop.
- * Sits at the bottom of the archive so the page bookends with
- * Latest ↑ / Next ↓.
- */
-.issue-next {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  flex-wrap: wrap;
-  padding: 13px var(--space-lg) 12px;
-  margin-top: var(--space-xl);
-  border-top: 1px dashed var(--border);
-  border-bottom: var(--border-weight-chrome) solid var(--border);
-  font-family: var(--mono);
-  font-size: var(--text-nav);
-  letter-spacing: var(--track-footer);
-  text-transform: uppercase;
-  color: var(--body-color);
-  line-height: 1.5;
-  text-decoration: none;
-  transition: background var(--motion-fast) var(--ease-default),
-              color var(--motion-fast) var(--ease-default);
-}
-.issue-next .next-tag {
-  font-family: var(--mono);
-  font-size: var(--text-micro);
-  font-weight: var(--weight-bold);
-  letter-spacing: var(--track-badge);
-  text-transform: uppercase;
-  color: var(--body-color);
-  background: transparent;
-  border: 1px dashed var(--border);
-  padding: 4px 6px 3px;
-  line-height: 1;
-  flex-shrink: 0;
-}
-.issue-next .next-title {
-  font-family: var(--display);
-  font-size: var(--text-h3);
-  font-weight: var(--weight-regular);
-  letter-spacing: var(--track-title);
-  text-transform: uppercase;
-  color: var(--body-muted);
-  line-height: 1;
-  flex-shrink: 1;
-  min-width: 0;
-  text-wrap: balance;
-}
-.issue-next .next-meta {
-  font-family: var(--mono);
-  font-size: var(--text-micro);
-  font-weight: var(--weight-regular);
-  letter-spacing: var(--track-badge);
-  text-transform: uppercase;
-  color: var(--body-muted);
-  /* See the matching note in home-augment.css. [F88] */
-  line-height: 1;
-  flex-shrink: 0;
-}
-.issue-next .next-cta {
-  margin-left: auto;
-  font-family: var(--mono);
-  font-size: var(--text-nav);
-  font-weight: var(--weight-bold);
-  letter-spacing: var(--track-chrome);
-  text-transform: uppercase;
-  color: var(--body-color);
-  line-height: 1;
-  padding: 5px 8px 4px;
-  border: 1px dashed var(--border);
-  transition: background var(--motion-fast) var(--ease-default),
-              color var(--motion-fast) var(--ease-default),
-              border-color var(--motion-fast) var(--ease-default),
-              border-style var(--motion-fast) var(--ease-default);
-}
-/* Hover: strip stays on bg (unlike Latest which inverts to ink —
- * this one is secondary, shouldn't compete). CTA firms up: dashed
- * becomes solid, border deepens to ink. Title un-dims a touch. */
-.issue-next:hover .next-title { color: var(--ink); }
-.issue-next:hover .next-cta {
-  border-style: solid;
-  border-color: var(--ink);
-  color: var(--ink);
-}
-.issue-next:focus-visible {
-  outline: var(--focus-ring-width) solid var(--focus-ring);
-  outline-offset: -2px;
-}
-
-@media (max-width: 760px) {
-  .issue-next { padding: var(--space-md); gap: var(--space-sm); }
-  .issue-next .next-cta { margin-left: 0; }
-}
+/* ── Next-in-queue strip — RETIRED 2026-08-27 [F94] ────────
+ * `.issue-next` and its component were retired when the ghost teaser
+ * plate took over announcing an upcoming essay (see GhostPlate.astro
+ * and .plate-ghost in plates.css). The rules that lived here are gone
+ * rather than commented out — git has them at 121a621 if the strip is
+ * ever wanted back.
+ * -------------------------------------------------------- */
 
 /* ── Lane index ─────────────────────────────────────────────
  * Three-cell chrome row indicating the editorial lanes.

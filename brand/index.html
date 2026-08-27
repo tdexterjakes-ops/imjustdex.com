@@ -36,9 +36,9 @@
   <link rel="stylesheet" href="/css/tokens.css?v=phase23">
   <link rel="stylesheet" href="/css/shell.css?v=phase36">
   <link rel="stylesheet" href="/css/plates.css?v=phase16">
-  <link rel="stylesheet" href="/css/home-augment.css?v=phase33">
+  <link rel="stylesheet" href="/css/home-augment.css?v=phase34">
   <link rel="stylesheet" href="/css/article.css?v=phase24">
-  <link rel="stylesheet" href="/brand/brand.css?v=brand6">
+  <link rel="stylesheet" href="/brand/brand.css?v=brand7">
 
   <!-- Mode: synchronous in <head> so html.dark-mode is set before first paint -->
   <script src="/js/mode.js?v=phase11"></script>
@@ -1414,7 +1414,7 @@
     ═══════════════════════════════════ -->
     <div class="section">
       <div class="section-head">
-        <h2>19. Issue Next</h2>
+        <h2>19. Issue Next <span class="u-retired">(retired)</span></h2>
         <div class="section-head-line"></div>
       </div>
 
@@ -1423,15 +1423,7 @@
         <p><strong>Rules.</strong> One per homepage. Dated in absolute format (&ldquo;Apr 23&rdquo;) &mdash; never &ldquo;Next week&rdquo; or relative. Never includes a deck. If a drop date is uncertain, the strip is hidden &mdash; do not publish &ldquo;TBD.&rdquo;</p>
       </div>
 
-      <div class="demo-frame">
-        <div class="demo-label">Live component &middot; class="issue-next"</div>
-        <a class="issue-next" href="#subscribe-manifesto" aria-label="Scroll to subscribe (demo)">
-          <span class="next-tag">Next</span>
-          <span class="next-title">I Am Not My Father&rsquo;s Pulpit</span>
-          <span class="next-meta">Identity &middot; Apr 23 &middot; 12 min</span>
-          <span class="next-cta" aria-hidden="true">Notify me &rarr;</span>
-        </a>
-      </div>
+      <p><strong>Retired 2026-08-27.</strong> The strip is gone from the system. Announcing an upcoming essay is now the ghost teaser plate&rsquo;s job (Section 07, <code>.plate-ghost</code>) &mdash; the strip and the plate were the same announcement rendered twice, so the plate won: it holds the space where the essay will actually land, in the cascade, instead of repeating it below the archive. <code>IssueNext.astro</code> and roughly 200 lines of <code>.issue-next</code> CSS across <code>home-v2.css</code> and <code>home-augment.css</code> were removed rather than left dark. Git has all of it at <code>121a621</code>. The live specimen that stood here is deliberately not replaced by a screenshot: this system documents what ships.</p>
     </div>
 
     <!-- ═══════════════════════════════════
