@@ -284,7 +284,16 @@
   padding: var(--space-lg);
 }
 
-.logo-download h3 { color: var(--accent-text); }
+/* This panel's ground is var(--ink), so it inverts with the page while
+   --accent-text also inverts with the page — the two move together and the
+   accent lands on the wrong ground in BOTH directions: #ff4d4d on the dark-mode
+   cream panel = 2.87:1, #cc0000 on the light-mode near-black panel = 3.46:1,
+   against a 4.5:1 floor. Pin each mode to the accent that is correct against
+   the PANEL, which is the inverse of --accent-text: 6.23:1 light, 5.17:1 dark.
+   Not tokenised globally — this is the only --ink panel carrying accent text.
+   [F90] */
+.logo-download h3 { color: #ff4d4d; }
+html.dark-mode .logo-download h3 { color: #c00; }
 
 .logo-download a {
   display: inline-block;
@@ -659,8 +668,15 @@
   line-height: var(--lh-display);
   letter-spacing: var(--track-display);
   color: var(--ink);
-  opacity: .35;
+  /* Mirrors .plate-ghost .plate-title in plates.css, including its light/dark
+     split — the specimen previously carried a single .35 for both modes, which
+     was itself a drift from production. [F90] */
+  opacity: .46;
   margin: 0;
+}
+
+html.dark-mode .demo-ghost-title {
+  opacity: .40;
 }
 
 .demo-ghost-rule {
@@ -677,8 +693,8 @@
   font-weight: var(--weight-bold);
   letter-spacing: var(--track-teaser);
   text-transform: uppercase;
-  color: var(--ink);
-  opacity: .3;
+  /* Mirrors .plate-ghost .teaser-date. [F90] */
+  color: var(--body-muted);
 }
 
 .demo-ghost-meta {
@@ -689,8 +705,8 @@
   font-weight: var(--weight-bold);
   letter-spacing: var(--track-badge);
   text-transform: uppercase;
-  color: var(--ink);
-  opacity: .25;
+  /* Mirrors .plate-ghost .meta-rail. [F90] */
+  color: var(--body-muted);
   border-top: var(--border-weight-chrome) dashed var(--border);
   align-self: flex-start;
   padding-right: var(--space-sm);
@@ -817,8 +833,13 @@
 .demo-plate.span3 { grid-column: span 3; }
 
 .demo-plate.identity {
-  background: var(--ink);
-  color: var(--bg);
+  /* Was var(--ink)/var(--bg), which inverts with the page — so in dark mode the
+     specimen rendered a CREAM identity plate while production deliberately keeps
+     it at #0a0a0a ("prevents a lone white island", plates.css). Retokenised to
+     the real --identity-plate-* pair so the specimen shows what actually
+     ships. [F90] */
+  background: var(--identity-plate-bg);
+  color: var(--identity-plate-ink);
   min-height: 200px;
 }
 .demo-plate.identity:hover { border-color: var(--border); }

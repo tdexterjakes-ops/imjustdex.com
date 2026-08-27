@@ -320,7 +320,12 @@ html.dark-mode .plate-title.inverse {
 .identity-plate .meta-rail {
   background: transparent;
   color: var(--identity-plate-ink);
-  opacity: .45;
+  /* .45 = 4.14:1 light / 4.09:1 dark — both just under the 4.5:1 floor for small
+     text. --body-muted is NOT the fix here: this plate carries its own inverted
+     ground (--identity-plate-bg), and a page-ground-tuned token would be wrong
+     against it — the F86/F91 lesson. Raised to the nearest value clearing AA
+     with headroom on the plate's own ground: 5.77:1 light / 5.63:1 dark. [F90] */
+  opacity: .55;
   border-top: 1px solid var(--identity-plate-ink);
   border-right: none;
   font-size: var(--text-micro);
@@ -377,13 +382,19 @@ html.dark-mode .identity-plate .meta-rail {
   /* Ghost plate is upcoming content — visually subordinate to published
      plates. --text-h2 keeps it readable without driving row height. */
   font-size: var(--text-h2);
-  /* .42 in light mode clears WCAG AA large-text (3.1:1 on #f4f4f1).
-     Dark mode (.35) already passes (3.7:1 on #060606) — no change needed. */
-  opacity: .42;
+  /* The previous note here claimed .42 cleared AA large-text at 3.1:1 light and
+     .35 cleared it at 3.7:1 dark. Both figures were wrong — composited against
+     the page ground they measure 2.92:1 and 2.84:1, so this title failed the
+     3:1 large-text floor in BOTH modes for as long as the component has
+     existed. Raised to the smallest values that clear it with headroom:
+     .46 = 3.31:1 light, .40 = 3.40:1 dark. The recession is preserved — the
+     plate still reads as subordinate, and the dashed border and absent cover
+     carry most of that signal anyway. [F90] */
+  opacity: .46;
 }
 
 html.dark-mode .plate-ghost .plate-title {
-  opacity: .35;
+  opacity: .40;
 }
 
 .plate-ghost .teaser-rule {
@@ -400,14 +411,18 @@ html.dark-mode .plate-ghost .plate-title {
   font-weight: var(--weight-bold);
   letter-spacing: var(--track-teaser);
   text-transform: uppercase;
-  color: var(--ink);
-  opacity: .3;
+  /* Was --ink at opacity .3 = 2.06:1 light / 2.37:1 dark, well under the 4.5:1
+     floor for small text. Same defect shape as F85/F86/F88: a multiplier doing
+     muting work that an alpha-tuned token already does correctly. --body-muted
+     carries it alone at 4.62:1 light / 5.11:1 dark. [F90] */
+  color: var(--body-muted);
 }
 
 .plate-ghost .meta-rail {
   background: transparent;
-  color: var(--ink);
-  opacity: .25;
+  /* Was --ink at opacity .25 = 1.80:1 light / 1.97:1 dark — the worst ratio in
+     the plate system and barely visible. Same fix as .teaser-date above. [F90] */
+  color: var(--body-muted);
   border-top: var(--border-weight-chrome) dashed var(--border);
   border-right: none;
 }

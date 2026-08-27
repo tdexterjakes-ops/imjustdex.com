@@ -35,10 +35,10 @@
   <!-- Styles: the /brand page runs the production stack plus its own scaffolding -->
   <link rel="stylesheet" href="/css/tokens.css?v=phase23">
   <link rel="stylesheet" href="/css/shell.css?v=phase36">
-  <link rel="stylesheet" href="/css/plates.css?v=phase15">
+  <link rel="stylesheet" href="/css/plates.css?v=phase16">
   <link rel="stylesheet" href="/css/home-augment.css?v=phase33">
   <link rel="stylesheet" href="/css/article.css?v=phase24">
-  <link rel="stylesheet" href="/brand/brand.css?v=brand5">
+  <link rel="stylesheet" href="/brand/brand.css?v=brand6">
 
   <!-- Mode: synchronous in <head> so html.dark-mode is set before first paint -->
   <script src="/js/mode.js?v=phase11"></script>
@@ -492,9 +492,11 @@
       <div class="demo-plates">
         <div class="demo-plate span4 identity">
           <div class="demo-plate-body">
-            <p class="demo-plate-title" style="font-size:clamp(2.2rem, 5vw, 3.5rem);line-height:.82;color:var(--bg);">Dexter Jakes</p>
+            <p class="demo-plate-title" style="font-size:clamp(2.2rem, 5vw, 3.5rem);line-height:.82;color:var(--identity-plate-ink);">Dexter Jakes</p>
           </div>
-          <div class="demo-plate-meta" style="background:transparent;color:var(--bg);opacity:.45;border-top:1px solid var(--bg);border-right:none;">About</div>
+          <!-- Mirrors .identity-plate .meta-rail: --identity-plate-ink (not var(--bg),
+               which inverts) at the production opacity. [F90] -->
+          <div class="demo-plate-meta" style="background:transparent;color:var(--identity-plate-ink);opacity:.55;border-top:1px solid var(--identity-plate-ink);border-right:none;">About</div>
         </div>
         <div class="demo-plate span5 img-plate concrete">
           <div class="demo-plate-body">
