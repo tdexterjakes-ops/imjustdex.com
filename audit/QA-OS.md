@@ -269,9 +269,13 @@ If any fire, the build is broken or the schema has been violated.
 
 - **Netlify Function health (subscribe form):** POST a synthetic submission to
   `/api/subscribe` with `Content-Type: application/x-www-form-urlencoded`, body
-  `email=healthscrub+{YYYYMMDD}@imjustdex.com&source=healthscrub&website=`
-  (empty honeypot). Expected: 200 with Mailchimp-success body (or documented
-  graceful-error response). **CRITICAL** on non-2xx; **HIGH** on timeout >5s.
+  `email=healthscrub%2B{YYYYMMDD}%40imjustdex.com&source=healthscrub&website=`
+  (empty honeypot). **The `+` MUST be sent as `%2B`** — in an
+  x-www-form-urlencoded body a literal `+` decodes to a space, the function
+  correctly rejects `healthscrub 20260827@imjustdex.com`, and the check
+  self-reports a false `400 invalid_email`. Expected: 200 with Mailchimp-success
+  body (or documented graceful-error response). **CRITICAL** on non-2xx;
+  **HIGH** on timeout >5s.
 - **Security headers** on every page (from netlify.toml):
   - `X-Frame-Options: DENY`
   - `X-Content-Type-Options: nosniff`
@@ -470,3 +474,37 @@ that matches one of these shapes is a measurement artifact until proven otherwis
   They can return a blank frame while the DOM is fully populated. Confirm against
   `getBoundingClientRect` / computed styles before reporting a rendering failure;
   re-navigate to get a usable capture.
+
+- **A literal `+` in a form-urlencoded body is a space, not a plus.** The subscribe
+  smoke test's own payload was the bug: `email=healthscrub+20260827@imjustdex.com`
+  reaches the function as `healthscrub 20260827@imjustdex.com` and earns a correct
+  `400 invalid_email`, which reads as a dead subscribe endpoint. Send `%2B` (and
+  `%40`); with that the same address returns `200 {"ok":true,"message":"subscribed"}`.
+  Recorded 2026-08-27 after it fired; the §9 payload above is now pre-encoded.
+- **The browser pane does not activate links on a real `Return` keypress.** Tabbing to
+  the skip link and pressing Enter leaves `location.hash` empty and focus on the anchor,
+  which reads as a broken skip link (F04) — but an ordinary in-page link used as a
+  control fails identically, so it is the harness, not the site. Verify activation with
+  a real pointer click on the focused chip, or `el.click()` (link activation is genuine
+  under `.click()`; only `:focus-visible` and used-colour repaint are not). Always run
+  the ordinary-link control before filing an activation failure.
+- **Homepage `<article>` wrappers are `display: contents`.** They have zero width, zero
+  height and `offsetParent === null` by design, so any "how many plates are visible"
+  probe built on `offsetParent` or `getBoundingClientRect()` on the `<article>` reports
+  0 of 16 and looks like an empty archive. Count the inner `.plate` elements, or read
+  the `hidden` attribute on the `<article>`.
+- **Even a real pointer click on the mode toggle needs a settle delay.** The click is
+  correct (see the `element.click()` entry above) but the palette cross-fades: measured
+  immediately after the click, `body` reads `rgb(51,51,51)` on `rgb(198,195,189)` —
+  neither a dark-mode nor a light-mode token, and it looks like a broken palette. Wait
+  ~2s (or clear `transition`) before reading computed styles, and confirm with a
+  screenshot taken after the wait, not before.
+- **The pane can report `Viewport: 0x0` and refuse to scroll.** `read_page` returns
+  "(empty page)" until `resize_window` sets an explicit viewport, and even then, while
+  the pane is hidden, `window.scrollTo`, `scrollingElement.scrollTop`, `Page_Down` and
+  the pointer `scroll` action all leave `scrollY` at 0-2 (the pointer scroll times out
+  with "Browser pane is currently hidden"). Scroll-driven rows — the reading-progress
+  bar and the section-indicator pill — are then **not testable**: mark them a rotation
+  gap and keep the prior result, never PASS and never FAIL. Note also that the
+  `read_page` tree lists only what is inside the current viewport, so an element's
+  absence from that tree is not evidence it is absent from the DOM.
