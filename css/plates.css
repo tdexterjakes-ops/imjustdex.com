@@ -373,7 +373,7 @@ html.dark-mode .identity-plate .meta-rail {
   justify-content: center;
   align-items: flex-start;
   /* 28→32 top/bottom, 20→24 sides. Teaser plate, not load-bearing,
-     4px drift is imperceptible at 346px min-height. */
+     4px drift is imperceptible at this plate's 230px min-height. */
   padding: var(--space-xl) var(--space-lg);
 }
 
