@@ -845,17 +845,8 @@ html.dark-mode .demo-ghost-title {
 .demo-plate.span5 { grid-column: span 5; }
 .demo-plate.span3 { grid-column: span 3; }
 
-.demo-plate.identity {
-  /* Was var(--ink)/var(--bg), which inverts with the page — so in dark mode the
-     specimen rendered a CREAM identity plate while production deliberately keeps
-     it at #0a0a0a ("prevents a lone white island", plates.css). Retokenised to
-     the real --identity-plate-* pair so the specimen shows what actually
-     ships. [F90] */
-  background: var(--identity-plate-bg);
-  color: var(--identity-plate-ink);
-  min-height: 200px;
-}
-.demo-plate.identity:hover { border-color: var(--border); }
+/* .demo-plate.identity — RETIRED 2026-08-28 [F95] alongside the production
+   .identity-plate it mirrored. */
 
 .demo-plate.img-plate { overflow: hidden; }
 .demo-plate.img-plate .demo-plate-body { justify-content: flex-end; }

@@ -33,12 +33,12 @@
   <link rel="preload" as="font" type="font/woff2" href="/fonts/IBMPlexSans-Italic.woff2" crossorigin>
 
   <!-- Styles: the /brand page runs the production stack plus its own scaffolding -->
-  <link rel="stylesheet" href="/css/tokens.css?v=phase23">
+  <link rel="stylesheet" href="/css/tokens.css?v=phase24">
   <link rel="stylesheet" href="/css/shell.css?v=phase36">
-  <link rel="stylesheet" href="/css/plates.css?v=phase16">
+  <link rel="stylesheet" href="/css/plates.css?v=phase17">
   <link rel="stylesheet" href="/css/home-augment.css?v=phase34">
   <link rel="stylesheet" href="/css/article.css?v=phase24">
-  <link rel="stylesheet" href="/brand/brand.css?v=brand7">
+  <link rel="stylesheet" href="/brand/brand.css?v=brand8">
 
   <!-- Mode: synchronous in <head> so html.dark-mode is set before first paint -->
   <script src="/js/mode.js?v=phase11"></script>
@@ -375,7 +375,7 @@
             <strong>--track-brand</strong> &nbsp;&nbsp;&nbsp;&nbsp;.03em &nbsp;&middot;&nbsp; brand mark / wordmark only<br>
             <strong>--track-nav</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.04em &nbsp;&middot;&nbsp; mode toggle, eyebrow date<br>
             <strong>--track-footer</strong> &nbsp;&nbsp;&nbsp;.06em &nbsp;&middot;&nbsp; footer-strip items<br>
-            <strong>--track-badge</strong> &nbsp;&nbsp;&nbsp;&nbsp;.08em &nbsp;&middot;&nbsp; meta-rail, identity-sub, 404 actions<br>
+            <strong>--track-badge</strong> &nbsp;&nbsp;&nbsp;&nbsp;.08em &nbsp;&middot;&nbsp; meta-rail, 404 actions<br>
             <strong>--track-chrome</strong> &nbsp;&nbsp;&nbsp;.1em&nbsp;&nbsp; &middot;&nbsp; article meta, back button, share bar<br>
             <strong>--track-tag</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.12em &nbsp;&middot;&nbsp; tag chip, stat microlabel, nav label<br>
             <strong>--track-teaser</strong> &nbsp;&nbsp;&nbsp;.14em &nbsp;&middot;&nbsp; identity meta-rail, teaser date<br>
@@ -490,14 +490,9 @@
       </div>
 
       <div class="demo-plates">
-        <div class="demo-plate span4 identity">
-          <div class="demo-plate-body">
-            <p class="demo-plate-title" style="font-size:clamp(2.2rem, 5vw, 3.5rem);line-height:.82;color:var(--identity-plate-ink);">Dexter Jakes</p>
-          </div>
-          <!-- Mirrors .identity-plate .meta-rail: --identity-plate-ink (not var(--bg),
-               which inverts) at the production opacity. [F90] -->
-          <div class="demo-plate-meta" style="background:transparent;color:var(--identity-plate-ink);opacity:.55;border-top:1px solid var(--identity-plate-ink);border-right:none;">About</div>
-        </div>
+        <!-- Identity plate specimen removed 2026-08-28 [F95] — the production
+             component was retired; the identity HERO (Section 15) carries this
+             content now. -->
         <div class="demo-plate span5 img-plate concrete">
           <div class="demo-plate-body">
             <p class="demo-plate-title inverse">The Groan Beneath the Song</p>
@@ -509,6 +504,17 @@
             <p class="demo-plate-title inverse" style="font-size: var(--text-h3);">The Nets Were Already Full</p>
           </div>
           <div class="demo-plate-meta u-plate-meta-light">14 Min</div>
+        </div>
+        <!-- Plain span-4 cell. Added 2026-08-28 [F95] to refill the slot the retired
+             identity plate vacated — this row states "rows must sum to 12" two
+             paragraphs up, and 5 + 3 alone left it four columns short. Plain rather
+             than textured on purpose: the row had none, and the Texture Alternation
+             Rule wants a plain neighbour between textured ones. -->
+        <div class="demo-plate span4">
+          <div class="demo-plate-body">
+            <p class="demo-plate-title" style="font-size: var(--text-h3);">Reckonings</p>
+          </div>
+          <div class="demo-plate-meta">8 Min</div>
         </div>
       </div>
 

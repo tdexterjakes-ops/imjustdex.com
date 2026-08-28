@@ -272,9 +272,6 @@ All sizes reference Phase 5 semantic aliases. The resolved `clamp()` value is sh
 
 | Element | Token | Resolved | Notes |
 |---------|-------|----------|-------|
-| `.identity-name` | `var(--text-identity)` | `clamp(3.8rem, 10vw, 7.5rem)` | `line-height: .82` (Phase 5 exception), `max-width: 7ch` |
-| `.identity-tagline` | `var(--text-tagline)` | `clamp(1.35rem, 2.4vw, 2.4rem)` | `line-height: .9` (Phase 5 exception), `color: var(--accent)`, `opacity: .85`, `max-width: 14ch` |
-| `.identity-sub` | `var(--text-label)` | `.75rem` | Bordered label, inverted colors |
 
 **Article:**
 
@@ -349,9 +346,8 @@ Border weights are tokenized so a single edit rebalances the whole system. The d
 **Hairline exemption.** Decorative 1px hairlines are allowed — they are not frame borders, they are texture. The only permitted uses are:
 
 - `.ruler-top` / `.ruler-left` — fixed-position measurement rulers at `border-color: var(--rule)`
-- `.identity-plate .meta-rail` — inner separator between tagline and meta row at `border-color: var(--bg)`
 
-If you're adding a 1px border and the element isn't a decorative ruler or an inner meta separator, you're doing it wrong. Use the token.
+If you're adding a 1px border and the element isn't a decorative ruler, you're doing it wrong. Use the token. (A second exemption, `.identity-plate .meta-rail`, was removed 2026-08-28 with the plate itself — see *Identity Plate*.)
 
 ### Spacing Scale
 
@@ -365,7 +361,7 @@ Spacing is tokenized on a single semantic scale. No primitive/semantic split —
 --space-sm:       12px;  /* grid gap, standard chrome vertical, footer inner, plate-body bottom */
 --space-chrome:   14px;  /* chrome horizontal padding baseline — named tier, not a drift */
 --space-md:       16px;  /* callout inner, plate-body sides, article header sides (mobile) */
---space-lg:       24px;  /* identity-plate padding, article body sides, section-head margin-bottom */
+--space-lg:       24px;  /* article body sides, section-head margin-bottom */
 --space-xl:       32px;  /* ghost plate padding, article header top, pull-quote/callout margin */
 --space-2xl:      48px;  /* article-body vertical, section-head top margin, pull-quote margin-top */
 --space-3xl:      80px;  /* article-frame bottom breathing room, notfound-rule width */
@@ -397,7 +393,7 @@ All nine are optical corrections on uppercase chrome text where a 1px bottom-pad
 | 2 | `.mode-toggle` | `14px 16px 13px` | 1px pull on "MODE: DARK" / "MODE: LIGHT" |
 | 3 | `.footer-strip > *` | `12px 14px 11px` | 1px pull on uppercase footer labels |
 | 4 | `.meta-rail` | `7px 8px 6px` | Below-scale micro-chrome for plate meta row (7/8/6 all sit under `--space-xs`) |
-| 5 | `.identity-sub` | `5px 7px 4px` | Below-scale micro-badge for identity sub label |
+| 5 | ~~`.identity-sub`~~ | ~~`5px 7px 4px`~~ | **Retired 2026-08-28** with the identity plate. Number kept — the other exceptions are cross-referenced by number in prose. |
 | 6 | `.article-tag` | `4px 8px 3px` | 1px pull on uppercase section tag |
 | 7 | `.article-back` | `12px 14px 11px` | 1px pull on uppercase BACK button |
 | 8 | `.notfound-actions a` | `22px 24px 21px` | 22/21 held at scale boundary — snapping to 24 would introduce 3px drift |
@@ -418,7 +414,7 @@ Letter-spacing is tokenized as **12 semantic slots**, each tuned to a specific t
 --track-brand:       .03em;  /* brand-mark / brand-word only */
 --track-nav:         .04em;  /* mode toggle, article eyebrow date */
 --track-footer:      .06em;  /* footer-strip items */
---track-badge:       .08em;  /* meta-rail, identity-sub, 404 actions */
+--track-badge:       .08em;  /* meta-rail, 404 actions */
 --track-chrome:      .1em;   /* article meta, article-back, share bar */
 --track-tag:         .12em;  /* tag chip, stat microlabel, article-nav label */
 --track-teaser:      .14em;  /* identity meta-rail, teaser-date */
@@ -600,28 +596,18 @@ a.plate:focus-visible {
 
 | Class | Span | Min Height |
 |-------|------|------------|
-| `.identity-plate` | `span 4` | `346px` |
 | `.plate-feature` | `span 5` | `346px` |
 | `.plate-secondary` | `span 3` | `230px` |
 | `.plate-wide` | `span 5` | `230px` |
 | `.plate-banner` | `span 4` | `230px` |
 
-### Identity Plate
+### Identity Plate — retired 2026-08-28
 
-Inverted fill: `background: var(--ink)`, `color: var(--bg)`. In dark mode it **stays dark** (`#0a0a0a`) rather than flipping to white, because a lone white island in a field of dark plates fragments the grid. `cursor: default` (not clickable). Hover does NOT trigger red border — stays `var(--border)`.
+**Retired.** `.identity-plate`, `.identity-sub` and their dark-mode overrides were orphaned by the 2026-04-21 Astro cutover: `Plate.astro` has no code path that emits them, so they rendered nowhere while this document went on describing them as live. Roughly 100 lines of unreachable CSS shipped on every homepage load until they were removed, along with the `--identity-plate-bg` / `--identity-plate-ink` tokens and the `/brand/` specimen that mirrored them. Git has all of it at `de589e2`.
 
-**Accent history (Phase 3a → Phase 4.1):** Phase 3a introduced a scoped `--accent: #c00` override on this plate because the global `--accent` was flipping to `#ff4d4d` in dark mode — the identity tagline needed to stay the deeper editorial red. Phase 4.1 unified `--accent` to `#c00` in both modes (see §3 Color Palette → Phase 4.1 update) and removed the scoped override. The identity plate now inherits `#c00` naturally:
+**Superseded by the identity hero** (`.identity-hero`, `home-augment.css` + `IdentityHero.astro`), which carries the same content — the ImJustDex label, "Dexter Jakes", the tagline — as a full-width band beneath the masthead rather than a `span 4` plate inside the cascade. See the hero's own entry rather than this one.
 
-```css
-html.dark-mode .identity-plate {
-  background: #0a0a0a;
-  color: #f3f0e8;
-  border-color: #0a0a0a;
-  /* --accent no longer scoped — inherits #c00 from :root in both modes */
-}
-```
-
-Contents: `.identity-sub` ("ImJustDex" bordered label) → `.identity-name` ("Dexter Jakes") → `.identity-tagline` (red accent text) → `.meta-rail` ("About" link, transparent background, `.45` opacity).
+*Kept as a heading rather than deleted so the history stays legible: what the plate was, why it went, and what took its place.*
 
 ### Image Plates
 

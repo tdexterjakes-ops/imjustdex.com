@@ -257,103 +257,16 @@ html.dark-mode .plate-title.inverse {
     linear-gradient(180deg, #9b9b9b, #4d4d4d 72%, #141414);
 }
 
-/* ── Identity plate ────────────────────────────────────────── */
-
-.identity-plate {
-  grid-column: span 4;
-  min-height: 346px;
-  cursor: default;
-  background: var(--identity-plate-bg);
-  color: var(--identity-plate-ink);
-}
-
-.identity-plate:hover {
-  border-color: var(--border);
-}
-
-.identity-plate .plate-body {
-  /* 22→24 side snap is intentional — 2px wider breathing room
-     on the identity plate, well inside perception threshold at
-     346px min-height. */
-  padding: var(--space-lg) var(--space-lg) var(--space-md);
-  gap: 0;
-}
-
-.identity-name {
-  font-size: var(--text-identity);
-  max-width: 7ch;
-  margin-bottom: var(--space-hairline);
-  /* Phase 5 exception — .82 is a tighter ratio than --lh-display (.86),
-     tuned for the identity name's max 7ch width. */
-  line-height: .82;
-}
-
-.identity-tagline {
-  font-size: var(--text-tagline);
-  max-width: 14ch;
-  /* Phase 5 exception — .9 is a tuned ratio for the tagline's
-     14ch width constraint, between --lh-display and --lh-tight. */
-  line-height: .9;
-  letter-spacing: var(--track-title);
-  margin-top: var(--space-xs);
-  color: var(--accent);
-  opacity: .85;
-}
-
-.identity-sub {
-  display: inline-block;
-  margin-bottom: var(--space-xs);
-  /* Phase 6 exception — identity-sub is a micro-badge sitting below
-     the spacing scale floor. 5/7/4 preserves the tuned proportions:
-     5 top > 4 bottom = 1px optical pull up, 7 horizontal is equally
-     off-scale but tuned to the 3-letter label width. */
-  padding: 5px 7px 4px;
-  border: var(--border-weight-chrome) solid var(--identity-plate-ink);
-  background: var(--identity-plate-ink);
-  color: var(--identity-plate-bg);
-  text-transform: uppercase;
-  letter-spacing: var(--track-badge);
-  font-weight: var(--weight-bold);
-  font-size: var(--text-label);
-}
-
-.identity-plate .meta-rail {
-  background: transparent;
-  color: var(--identity-plate-ink);
-  /* .45 = 4.14:1 light / 4.09:1 dark — both just under the 4.5:1 floor for small
-     text. --body-muted is NOT the fix here: this plate carries its own inverted
-     ground (--identity-plate-bg), and a page-ground-tuned token would be wrong
-     against it — the F86/F91 lesson. Raised to the nearest value clearing AA
-     with headroom on the plate's own ground: 5.77:1 light / 5.63:1 dark. [F90] */
-  opacity: .55;
-  border-top: 1px solid var(--identity-plate-ink);
-  border-right: none;
-  font-size: var(--text-micro);
-  letter-spacing: var(--track-teaser);
-  font-weight: var(--weight-bold);
-}
-
-/* Identity plate stays dark in dark mode — matches the editorial
-   signature from light mode and prevents a lone white island in
-   a field of dark plates. (The scoped --accent override that used
-   to live here was removed in Phase 4.1 when --accent unified to
-   #c00 across both modes — no longer needed.) */
-html.dark-mode .identity-plate {
-  background: var(--identity-plate-bg);
-  color: var(--identity-plate-ink);
-  border-color: var(--identity-plate-bg);
-}
-
-html.dark-mode .identity-sub {
-  background: var(--identity-plate-ink);
-  color: var(--identity-plate-bg);
-  border-color: var(--identity-plate-ink);
-}
-
-html.dark-mode .identity-plate .meta-rail {
-  color: var(--identity-plate-ink);
-  border-top-color: var(--identity-plate-ink);
-}
+/* ── Identity plate — RETIRED 2026-08-28 [F95] ──────────────
+ * `.identity-plate`, `.identity-sub` and their dark-mode overrides were
+ * orphaned by the 2026-04-21 Astro cutover: Plate.astro has no code path
+ * that emits them, so they rendered nowhere while /brand/ went on
+ * documenting the plate as live. Superseded in practice by the identity
+ * HERO (.identity-hero, home-augment.css + IdentityHero.astro), which
+ * carries the same content — ImJustDex / Dexter Jakes / the tagline — as
+ * a full-width band instead of a grid plate. Rules removed rather than
+ * commented out; git has them at de589e2.
+ * -------------------------------------------------------- */
 
 /* ── Ghost plate (teaser) ──────────────────────────────────── */
 
@@ -481,10 +394,6 @@ html.dark-mode .plate-ghost .plate-title {
     grid-template-columns: repeat(8, 1fr);
   }
 
-  .identity-plate {
-    grid-column: span 4;
-  }
-
   .plate-feature,
   .plate-ghost {
     grid-column: span 4;
@@ -518,7 +427,6 @@ html.dark-mode .plate-ghost .plate-title {
     grid-template-columns: 1fr;
   }
 
-  .identity-plate,
   .plate-feature,
   .plate-secondary,
   .plate-wide,
