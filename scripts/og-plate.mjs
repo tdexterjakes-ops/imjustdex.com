@@ -86,7 +86,7 @@ body{background-color:#f4f4f1;background-image:linear-gradient(rgba(10,10,10,.05
 .vol{flex:1;display:flex;align-items:center;padding:0 26px;font-size:15px;font-weight:500;letter-spacing:.17em;text-transform:uppercase;color:#0a0a0a;white-space:nowrap;}
 .words{display:flex;align-items:center;border-left:2px solid #0a0a0a;padding:0 24px;font-size:14px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#0a0a0a;white-space:nowrap;}
 .titlebox{flex:1;margin:22px 0 20px;border:3px solid #0a0a0a;background:#f8f8f5;display:flex;align-items:center;padding:0 52px;overflow:hidden;}
-.title{font-family:'Anton',sans-serif;color:#0a0a0a;text-transform:uppercase;line-height:.86;letter-spacing:.005em;font-size:172px;}
+.title{font-family:'Anton',sans-serif;color:#0a0a0a;text-transform:uppercase;line-height:.92;letter-spacing:.005em;font-size:172px;}
 .nw{white-space:nowrap;}
 .redsq{display:inline-block;width:.19em;height:.19em;background:#c00;vertical-align:baseline;margin-left:.05em;}
 .foot{display:flex;align-items:flex-end;justify-content:space-between;height:38px;gap:24px;}
