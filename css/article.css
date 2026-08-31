@@ -918,6 +918,10 @@ html.dark-mode .article-nav-ghost .article-nav-title {
 /* ── Responsive ────────────────────────────────────────────── */
 
 @media (max-width: 760px) {
+  .article-eyebrow {
+    flex-wrap: wrap;
+  }
+
   .article-header {
     /* 20→24, 18→16. Content frame loosens slightly on mobile. */
     padding: var(--space-lg) var(--space-md) var(--space-md);
