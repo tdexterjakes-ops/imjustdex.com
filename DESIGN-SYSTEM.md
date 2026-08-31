@@ -1,36 +1,50 @@
 # DX Editorial Design Standard
 
-This document codifies the design system for imjustdex.com. It exists so the system does not drift. Every value listed here is pulled from production CSS as of April 2026.
+This document codifies the design system for imjustdex.com. It exists so the system does not drift. Every value listed here is pulled from production CSS as of 2026-08-31.
 
 ---
 
 ## 1. System Architecture
 
-The site is a static HTML publishing system. No build step. No framework. As of the April 2026 Phase 1 refactor, every page pulls from a shared layered CSS architecture and self-hosted fonts. Netlify auto-deploys on push to `main` on `tdexterjakes-ops/imjustdex.com`.
+The site is a static editorial publishing object. No client framework, no bundler, no runtime JavaScript beyond the hand-written scripts below — but it is no longer hand-authored HTML. The 2026-04-21 Astro cutover (commit `eecabbb`, §17) made `astro build` the compiler that emits the static pages from `src/`. As of the April 2026 Phase 1 refactor, every page pulls from a shared layered CSS architecture and self-hosted fonts. Netlify runs `npm run build` and publishes `dist/`, auto-deploying on push to `main` on `tdexterjakes-ops/imjustdex.com`.
 
 ### CSS Layering
 
-Styles live in five purpose-built sheets loaded in dependency order. No page embeds `<style>` blocks. No inline `style=""` attributes.
+Styles live in eight purpose-built sheets loaded in dependency order. No page embeds `<style>` blocks. No inline `style=""` attributes.
 
 | Sheet | Role |
 |-------|------|
 | `/css/tokens.css` | Design tokens, `@font-face` declarations, `:root` light mode, `html.dark-mode` overrides, base reset, 46px grid body, print and reduced-motion rules |
 | `/css/shell.css` | Page chrome — skip-link, page-shell, rulers, masthead, brand-block, mode-toggle, footer-strip, focus states |
-| `/css/plates.css` | Homepage-only — 12-col plate grid, plate variants, meta rail, image plates, identity plate, ghost teaser |
+| `/css/plates.css` | Homepage-only — 12-col plate grid, plate variants, meta rail, image plates, ghost teaser |
 | `/css/article.css` | Article/About only — article frame, header, body, drop cap, section heads, pull quotes, callouts, scripture, stat blocks, closing, share bar, reading progress, section indicator |
 | `/css/notfound.css` | 404-only — `.notfound-plate`, eyebrow, headline, actions |
+| `/css/home-v2.css` | Homepage v2 — identity hero treatment, standfirst bar, `.latest-tag` chip, lane filter, cascade rows |
+| `/css/home-augment.css` | Homepage augments layered over the plate grid — identity hero band, narrow-viewport display fitting |
+| `/css/phase0.css` | `/phase0/` campaign page only |
 
 Load order on every page: `tokens.css` → `shell.css` → (`plates.css` ‖ `article.css` ‖ `notfound.css`). Tokens and shell are universal. The third sheet is page-type specific.
 
+The homepage then layers two more on top of `plates.css`, in this order: `home-augment.css` → `home-v2.css` (`HomeLayout.astro`). v2 loads last and therefore wins any specificity tie. `phase0.css` is scoped to `/phase0/` and loads nowhere else.
+
 ### JavaScript
 
-Three small vanilla scripts in `/js/`, loaded via `<script src>`. No inline `onclick`, no third-party libraries, no bundler.
+Eight small vanilla scripts in `/js/`, loaded via `<script src>`. No inline `onclick`, no third-party libraries, no bundler.
 
 | Script | Role |
 |--------|------|
 | `/js/mode.js` | Mode toggle. Synchronously applied in `<head>` to prevent FOUC (sets `html.dark-mode` before first paint from cookie or `prefers-color-scheme`). `DOMContentLoaded` handler wires the toggle button, syncs the logo SVG, and listens for OS preference changes when the user has no explicit cookie. |
 | `/js/progress.js` | Article reading progress bar and section indicator. `requestAnimationFrame`-throttled scroll handler. No-ops on pages without `.reading-progress` or `.article-body`. Sets ARIA progressbar attributes. |
 | `/js/essay.js` | CSP-safe `data-copy-link` wiring for the share bar copy button. Replaces what used to be inline `onclick` handlers. |
+| `/js/signup.js` | Inline email signup — same-origin POST to the `/api/subscribe` Netlify function (clears `connect-src 'self'`), with collapse-on-success and error states. Skips any form carrying `data-no-signup-js`. |
+| `/js/subscribe.js` | Subscribe-manifesto form wiring — intercepts the submit, fetches `/api/subscribe`, and writes `loading \| success \| existing \| error` to `form.dataset.state` in place. |
+| `/js/lane-filter.js` | Homepage lane filtering off `data-lane`. Progressive enhancement — no-JS shows every essay; Art is queued and ignored. |
+| `/js/earlier-toggle.js` | Homepage "earlier" cascade disclosure — toggles `.earlier-more` plates and the `hidden` attribute from `[data-earlier-toggle]`. |
+| `/js/phase0.js` | `/phase0/` behavior only — richer signup handler (`aria-invalid` wiring, `data-state` machine) plus page-local interactions. |
+
+### Generators
+
+One build-adjacent script renders brand type outside the browser: `scripts/og-plate.mjs` generates the per-article OG plate (`public/img/og-<slug>.png`) by rendering an Anton title at display size and shooting it headless. It is a real system surface, not a utility — it sets the same display face under the same rules, and it is the surface where those rules were measured (see §3 Display Type Rules). Any change to the display type contract has to be checked against it.
 
 ### Self-Hosted Fonts
 
@@ -38,9 +52,9 @@ All fonts ship from `/fonts/` as WOFF2 with Latin subsetting. No Google Fonts. N
 
 ### Page Types
 
-**Homepage** (`/`) — Identity plate embedded in Row 1 of a 12-column plate grid. The archive IS the homepage. No filter rail — the archive is small enough that chronology is the only index that matters. No standalone hero. No scroll indicator.
+**Homepage** (`/`) — The identity hero band beneath the masthead, then a 12-column plate grid. The archive IS the homepage. No filter rail — the archive is small enough that chronology is the only index that matters. No standalone hero. No scroll indicator.
 
-**Words Index** (`/words/`) — Same plate grid without the identity plate. Functionally identical to homepage minus identity.
+**Words Index** (`/words/`) — Same plate grid without the identity hero. Functionally identical to homepage minus identity.
 
 **Article** (`/words/{slug}/`) — Long-form reading frame. Two editorial modes share the same template:
 - *Narrative* — reflective, intimate, elegiac. Fewer section heads (2–3). More atmospheric pauses. Stat blocks for emotional turning points.
@@ -116,7 +130,7 @@ Red marks editorial emphasis. Never decoration.
 - Callout emphasis spans (`.callout-emph`, `var(--accent-text)`)
 - Scripture block cite text (`var(--accent-text)` — auto-retunes to `#ff4d4d` in dark mode)
 - Stat block vertical bar (`var(--accent)`)
-- Identity plate tagline text (`var(--accent)`)
+- Identity hero tagline text (`var(--accent)`)
 - Link underline on hover (article body only, `var(--accent)`)
 - Plate border on hover (homepage/index, `var(--accent)`)
 - Focus-visible outline rings (`var(--focus-ring)`)
@@ -134,6 +148,10 @@ Red marks editorial emphasis. Never decoration.
 Because it puts small text on the accent fill, it carries a mode-specific rule the rest of the accent doctrine does not need. `color: var(--bg)` resolves to cream on `#c00` in light mode (5.17:1, clears AA) but to `#060606` on `#c00` in dark (3.44:1, fails the 4.5:1 floor for 11.5px text). `css/home-v2.css` therefore pins the chip's dark-mode text to `var(--ink)`, so it renders identically in both modes at 5.17:1. The same override covers the two controls that invert onto the accent fill on hover — `.latest-cta` and `.identity-hero .hero-link.primary`.
 
 **The boundary this draws.** Phase 4.1 (above) sanctions the `#c00`/`#060606` pair at the 3:1 **non-text** floor. That sanction does not extend to text set *on* the accent fill, which is governed by SC 1.4.3 at 4.5:1. Any new rule pairing `background: var(--accent)` with a text colour must be measured against 4.5:1 in **both** modes before it ships.
+
+**The doctrine crosses surfaces under different token names.** The campaign layer (`social-templates`) aliases this same pair per artboard: `--sig: var(--accent)` in both modes, and `--sig-text: var(--accent-on-dark)` on dark / `var(--accent)` on light. The 18px boundary is the same boundary — display-size red is `--sig` / `--accent`, sub-18px red text is `--sig-text` / `--accent-text`. A campaign board set entirely at display size therefore carries `#c00` and no `#ff4d4d` at all. Never write `var(--accent-text)` on a campaign board: that is this site's token name, it is not declared in the template library, and an undefined custom property falls back silently to the inherited colour rather than failing.
+
+**`--under-form` is a blend artifact, not a colour.** Where an accent word sits *wholly* under a cream knockout form driven by `mix-blend-mode: difference`, it is authored as the difference complement — `--on-accent` `#f5f5f1` minus `#c00`, i.e. `rgb(41,245,241)` — so that the blend *returns* the brand red. It reads as cyan anywhere off the form, which is why it is only ever assigned to a word measured to be wholly covered. It is a computation, not a new brand colour, and it never appears in the site palette. §15 Rule 2 ("no new colors") is not in play.
 
 ---
 
@@ -156,13 +174,18 @@ Article body previously ran on Georgia serif. As of Phase 1 it runs on Plex Sans
 |------|--------|-----|
 | `/fonts/Anton-Regular.woff2` | Anton Regular | All `--display` text |
 | `/fonts/IBMPlexSans-Regular.woff2` | Plex Sans 400 | Body, mono register |
+| `/fonts/IBMPlexSans-Italic.woff2` | Plex Sans 400 italic | Scripture body, closing block, article-nav ghost |
 | `/fonts/IBMPlexSans-Bold.woff2` | Plex Sans 700 | Bold body, bold mono register |
 
-All three preload in every page's `<head>` with `rel="preload" as="font" type="font/woff2" crossorigin`. No other weights or styles ship.
+The three upright faces preload in every page's `<head>` with `rel="preload" as="font" type="font/woff2" crossorigin`. Italic ships as a real fourth file rather than preloading, because `body` sets `font-synthesis: none` (`tokens.css`) — a faked oblique is impossible, so every italic the article components ask for must resolve to a shipped face or it renders upright. No other weights or styles ship.
 
 ### Display Type Rules
 
 All display type (`--display`) uses: `text-transform: uppercase`, `font-weight: 400` (Anton Regular is the display weight — the font is pre-condensed and pre-heavy, so 400 is already maximum impact), `line-height: .86`, `letter-spacing: -.03em`, `word-break: break-word`, `text-wrap: balance`.
+
+**`.86` is a single-line value — measure the ink before you stack lines.** Anton's painted ink is not its em box. Measured on the live face with canvas `TextMetrics`: `fontBoundingBoxAscent` `1.174em` and `actualBoundingBoxAscent` `.867em` inside a `1.500em` em box. Ink therefore begins `.30em` below the line box's top edge and its foot sits at `1.20em` — a `.90em` painted band inside a `.86em` line box. Consecutive all-caps lines overlap by roughly `.04em` (~1.7% of font size), at every size, forever.
+
+`scripts/og-plate.mjs` hit exactly this generating the first phase31 plate with a title long enough to wrap, and raised `.title` to `line-height: .92` (commit `9301d61`) — which clears the caps by `.045em` and keeps the leading tight. The rule: **`.86` holds for display type that sets one line; anything that can wrap needs `.92` or its own measured value.** Never trust `offsetHeight` to catch this — it reports the CSS line box (n × `.86em`), not the painted glyph, so a collision measures clean. And do not derive the band from cap height: the guessed `.427` / `1.157` pair was wrong on the top edge by `.12em`.
 
 ### Font-Weight Normalization (Phase 1)
 
@@ -240,7 +263,7 @@ A golden-ratio or 1.25 modular scale is prettier in a spec doc but would force e
 | `--text-h1` | `--size-16` | Article title |
 | `--text-display` | `--size-17` | 404 display headline |
 | `--text-plate-lg` | `--size-18` | Large plate variant |
-| `--text-identity` | `--size-19` | Identity plate name |
+| `--text-identity` | `--size-19` | Identity hero name (`.hero-name`) |
 
 **Line-height ladder — decoupled from size.**
 
@@ -248,7 +271,7 @@ Coupling line-height to font-size assumes a 1:1 mapping that doesn't hold. Body 
 
 | Token | Value | Role |
 |-------|-------|------|
-| `--lh-display` | `.86` | Headlines, plate titles, article h1 |
+| `--lh-display` | `.86` | Headlines, plate titles, article h1 — a **single-line** value; see Display Type Rules above for the wrapping case |
 | `--lh-tight` | `1.05` | h2, h3, pull quote, stat block |
 | `--lh-snug` | `1.4` | Body base, chrome, deck, research cta |
 | `--lh-normal` | `1.7` | Article body, scripture, closing |
@@ -267,11 +290,6 @@ All sizes reference Phase 5 semantic aliases. The resolved `clamp()` value is sh
 | `.plate-title` (default) | `var(--text-plate)` | `clamp(2rem, 4vw, 4rem)` | Standard plate |
 | `.plate-title.med` | `var(--text-plate-med)` | `clamp(2.35rem, 5vw, 5rem)` | Medium emphasis |
 | `.plate-title.lg` | `var(--text-plate-lg)` | `clamp(3.5rem, 7vw, 7.2rem)` | Large emphasis, `max-width: 8ch` on desktop |
-
-**Identity plate:**
-
-| Element | Token | Resolved | Notes |
-|---------|-------|----------|-------|
 
 **Article:**
 
@@ -381,7 +399,7 @@ Spacing is tokenized on a single semantic scale. No primitive/semantic split —
 - `-1px` decorative hairlines (see Border Language above)
 - Intrinsic element dimensions (SVG heights, logo min-widths, 44px tap-target min-heights)
 - Focus-ring geometry (`outline-offset` stays local per Focus Rings below)
-- Ruler mechanics (`22px` ruler width, `44px` tick interval — decorative system)
+- Ruler-chrome mechanics (`22px` strip depth, `44px` tick interval — decorative system, distinct from the 46px ruler)
 
 **Exception Policy — 9 locations hold raw pixel values.**
 
@@ -484,7 +502,13 @@ This catches every transition on the site, including those that use `var(--motio
 
 ### Grid Background
 
-46px repeating grid lines at `var(--rule)` opacity. Applied to `body` via `background-image` on all pages.
+46px repeating grid lines at `var(--rule)` opacity. Applied to `body` via `background-image` on all pages. `tokens.css` names it in place: `/* 46px ruler grid background — locked to the typographic grid */`.
+
+**The ruler governs the horizontal axis. The type's line grid governs the vertical.** 46px is the brand's one measure, shared with the campaign layer, but it is not square in authority. Measured across the campaign library, the gap between two lines' *ink* runs 3–33px at every size the display type sets — always narrower than one ruler unit — so a ruler-aligned horizontal edge can never land *between* two lines, only *through* one. Demanding a ruler-aligned `top` or `height` would force every horizontal edge through a line of type.
+
+The split is enforced machine-side in `tools/lint-brand.mjs` (R10 `plate-ruler`, `RULER = 46`): a form's `width` and `left` must sit on the ruler or on an inset-derived value; `top` and `height` are exempt and follow the line grid instead. Where a form's job is to contain type, the type wins the vertical.
+
+**Two-plane rule — text is never on the bare grid.** The grid belongs to the page backdrop and may show ONLY in structural negative space (margins, rulers, rails, gutters, inter-section bands). Any container holding running text MUST sit on an opaque plate from the ground set (`--bg` / `--panel`; use a `.plate` helper or a `--reading-surface` token that tracks `--bg` so it follows dark mode). Never let body copy be a direct child of the grid-bearing element — grid in the gutters, text on a plate. This is enforceable with a runtime lint that flags any text region computing `transparent` over the grid (shipped in the pulpit-notes delivery system).
 
 **Homepage implementation:**
 ```css
@@ -502,12 +526,14 @@ background-image:
 background-size: 46px 46px;
 ```
 
-### Rulers
+### Ruler Chrome (`.ruler-top` / `.ruler-left`)
 
-Fixed-position decorative rulers, `pointer-events: none`, `z-index: 1`, `opacity: .75`.
+Not to be confused with *the ruler* — the 46px grid unit of Grid Background above. These are the decorative measurement strips that frame the page: fixed-position, `pointer-events: none`, `z-index: 1`, `opacity: .75`.
 
 - `.ruler-top`: `height: 22px`, horizontal tick marks at 44px intervals, `border-bottom: 1px solid var(--rule)`
 - `.ruler-left`: `width: 22px`, vertical tick marks at 44px intervals, `border-right: 1px solid var(--rule)`
+
+The tick interval is a chrome rhythm and deliberately does not equal the ruler. Two measures, two jobs, one unfortunate word — when this document says "the ruler" without qualification it means 46px.
 
 Hidden on mobile (`< 760px`).
 
@@ -570,7 +596,7 @@ Stacks to single column on mobile (`grid-template-columns: 1fr`).
 A plate is the base archive card. It renders as either:
 
 - `<a class="plate" href="…">` — the 4 article cards (interactive). The anchor IS the card. One focusable element. No overlay links. No nested tab stops.
-- `<article class="plate">` — identity plate, ghost teaser (static). No hover highlight, no pointer cursor, no focus outline.
+- `<article class="plate">` — ghost teaser (static). No hover highlight, no pointer cursor, no focus outline.
 
 ```css
 .plate {
@@ -605,9 +631,17 @@ a.plate:focus-visible {
 
 **Retired.** `.identity-plate`, `.identity-sub` and their dark-mode overrides were orphaned by the 2026-04-21 Astro cutover: `Plate.astro` has no code path that emits them, so they rendered nowhere while this document went on describing them as live. Roughly 100 lines of unreachable CSS shipped on every homepage load until they were removed, along with the `--identity-plate-bg` / `--identity-plate-ink` tokens and the `/brand/` specimen that mirrored them. Git has all of it at `de589e2`.
 
-**Superseded by the identity hero** (`.identity-hero`, `home-augment.css` + `IdentityHero.astro`), which carries the same content — the ImJustDex label, "Dexter Jakes", the tagline — as a full-width band beneath the masthead rather than a `span 4` plate inside the cascade. See the hero's own entry rather than this one.
+**Superseded by the identity hero** (`.identity-hero`, `home-augment.css` + `IdentityHero.astro`), which carries the same content — the ImJustDex label, "Dexter Jakes", the tagline — as a full-width band beneath the masthead rather than a `span 4` plate inside the cascade. See Identity Hero, next.
 
 *Kept as a heading rather than deleted so the history stays legible: what the plate was, why it went, and what took its place.*
+
+### Identity Hero
+
+Full-width band beneath the masthead. `.identity-hero`, styled in `home-augment.css` (band, `.hero-name`, `.hero-tagline`) with `home-v2.css` on top, rendered by `src/components/home/IdentityHero.astro`.
+
+Two columns. `.hero-main` carries the corner mark (`The Writer → 01`), the `ImJustDex` label (`.hero-sub`), the name at `var(--text-identity)` / `line-height: .82` (`.hero-name`, set as the page `h1`), and the tagline at `var(--text-h2)` (`.hero-tagline`, `var(--accent)` — the sanctioned accent use in §2). `.hero-side` carries the eyebrow, the bio, and two links — `.hero-link.primary` to `/about/`, plus the subscribe jump.
+
+It sits **outside** the plate grid, so it takes no column span and needs no breakpoint rule of its own. It is a band, not a plate: nothing in §6's grid, size, or alternation vocabulary applies to it.
 
 ### Image Plates
 
@@ -659,7 +693,7 @@ Content format: reading time only (e.g., "8 min"). No dates. No "Read Time:" lab
 
 ### Plate Layout (Current)
 
-**Row 1:** Identity (span 4) → Reckonings (span 5, light, `.med`) → The Nets (span 3, dark `.img-concrete`, `.med`)
+**Row 1:** Reckonings (span 5, light, `.med`) → The Nets (span 3, dark `.img-concrete`, `.med`)
 
 **Row 2:** Nobody Handed Me This (span 5, dark `.img-noise`, `.lg`) → The Price of Sunday (span 5, light, `.lg`)
 
@@ -717,7 +751,7 @@ Editorial lane indicator — top-right corner of each plate. Three lanes: **Fait
 
 ### Responsive Grid
 
-**Tablet (`< 1120px`):** 8-column grid. Identity/feature/secondary/banner → `span 4`. Wide → `span 8`.
+**Tablet (`< 1120px`):** 8-column grid. Feature/secondary/banner → `span 4`. Wide → `span 8`.
 
 **Mobile (`< 760px`):** Single column. All plates `span 1`, `min-height: 210px`. `.plate-title.lg` gets `max-width: 100%`.
 
@@ -985,6 +1019,27 @@ Every article component has one correct markup shape. These are the production p
 
 Rules: `article-tag` is the editorial classification (e.g. "Faith + Strategy", "Food", "Faith"). `article-date` wraps a `<time>` with ISO `datetime`. `article-deck` is the single-sentence sub-headline — never more than one sentence.
 
+**`.article-eyebrow` MUST wrap below 760px.** The rail is a flex row whose child count is not
+fixed — it carries one chip per lane plus one per tag, then the date and the read-time. A
+two-lane / two-tag essay puts six children in it. At `flex-wrap: nowrap` that rail overflowed
+the article frame on every page that uses it (all 17 articles plus `/about/`): measured live at
+375px on a six-chip essay, 105px of overflow, with the read-time **100% invisible** and the date
+92% clipped.
+
+It is lost content, not offscreen content — `body` and `.page-shell` are `overflow-x: clip`, so
+there is no scrollbar and no gesture that reaches the clipped text (WCAG 2.2 SC 1.4.10 Reflow).
+The rule is four lines inside the existing 760px block:
+
+```css
+@media (max-width: 760px) {
+  .article-eyebrow { flex-wrap: wrap; }
+}
+```
+
+Source-only review cannot catch this class of defect: the CSS is valid, and the failure only
+exists once the flex row is laid out under 760px. Verify it by measuring
+`scrollWidth − clientWidth` on a rendered page at 375px, not by reading the sheet.
+
 #### Scripture Block
 
 ```html
@@ -1130,8 +1185,8 @@ Hides: rulers, mode toggle, share bar, reading progress, section indicator, rese
 
 | Breakpoint | Trigger | Key Changes |
 |------------|---------|-------------|
-| `< 1120px` | Tablet | Plate grid → 8 columns. Feature/secondary/identity → span 4. Wide → span 8. |
-| `< 760px` | Mobile | Single column plates. Masthead wraps. Footer stacks. Rulers hidden. `--outer-pad: 18px`. `--grid-gap` holds at `var(--space-sm)` (12px) across breakpoints. Article header/body padding reduces. Share bar wraps. Section indicator shrinks. Article nav stacks to single column. |
+| `< 1120px` | Tablet | Plate grid → 8 columns. Feature/secondary/banner → span 4. Wide → span 8. |
+| `< 760px` | Mobile | Single column plates. Masthead wraps. Footer stacks. Rulers hidden. `--outer-pad: 18px`. `--grid-gap` holds at `var(--space-sm)` (12px) across breakpoints. Article header/body padding reduces. Share bar wraps. Section indicator shrinks. Article nav stacks to single column. **`.article-eyebrow` wraps** (see Article Header below). |
 
 ---
 
@@ -1143,9 +1198,11 @@ All structural colors invert through CSS custom properties. The toggle adds/remo
 
 When no explicit `dxmode` cookie is set, the page respects the OS `prefers-color-scheme` at load and follows OS preference changes live via `matchMedia`. Once the user clicks the toggle, the cookie takes over and OS changes no longer override.
 
-### Identity Plate (Special Case)
+**Two layers, not one.** `tokens.css` carries a CSS-only dark block — `@media (prefers-color-scheme: dark) { :root:not(.mode-resolved) { … } }` — that covers the window where JS has not run or has failed outright. `mode.js` adds `.mode-resolved` to `<html>` once it has read the cookie and settled a mode, which retires the CSS fallback and hands authority to `html.dark-mode`. CSS covers the gap; JS covers explicit user preference; there is no flash in either scenario. **Any new dark-mode token must be declared in *both* blocks** or it will resolve differently in the pre-JS window.
 
-Stays dark in both modes. Light mode: `background: var(--ink)`. Dark mode: `background: #0a0a0a` (scoped override). The plate maintains its editorial signature regardless of ambient mode. No accent scoping is needed anymore — as of Phase 4.1, `--accent` is `#c00` in both modes globally, so the tagline reads at the intended weight on the dark field without any per-plate override.
+### Identity Hero (Special Case)
+
+The hero band inverts to a dark field in both modes (`.identity-hero`, `home-augment.css` + `home-v2.css`), holding its editorial signature regardless of ambient mode. No accent scoping is needed — as of Phase 4.1 `--accent` is `#c00` in both modes globally, so the tagline reads at the intended weight on the dark field without any per-element override.
 
 ### Image Plates (Special Case)
 
@@ -1213,7 +1270,22 @@ When adding behavior, the rule is: write it in `/js/*.js`, gate it on the DOM el
 | `/fonts/*` | `public, max-age=31536000, immutable` + `Access-Control-Allow-Origin: *` |
 | `/img/*` | `public, max-age=31536000, immutable` |
 
-HTML is always fresh. Static assets cache for a year and are busted by filename if a breaking change ships. Fonts get CORS on top of the immutable cache so cross-origin preloads never get blocked.
+HTML is always fresh. Static assets cache for a year and are busted by a **`?v=phaseNN` query
+string on the reference**, not by filename — the files keep stable names. Fonts get CORS on top
+of the immutable cache so cross-origin preloads never get blocked.
+
+**The bust is as much a part of the change as the CSS is.** `/css/*` is served
+`max-age=31536000, immutable`, so editing a sheet without moving its `?v=` means every returning
+reader keeps the year-cached copy and never receives the fix — while it looks correct in every
+local test. Two rules:
+
+1. **Bump every reference together.** A sheet is usually linked from more than one layout —
+   `article.css` appears in `ArticleLayout.astro`, `ComingSoonLayout.astro` and `about.astro`.
+   Miss one and that route serves a stale sheet against fresh markup.
+2. **Jump to the current phase, don't increment.** When `shell.css` changed in `79df261` it went
+   `phase23 → phase36` across all five of its references at once. `article.css` went
+   `phase24 → phase37` across its three references in `558aa07` (merged to main as `f8d7702`). Take the highest phase in use anywhere and go one past it;
+   `grep -rhoE 'phase[0-9]+' src/ | grep -oE '[0-9]+' | sort -n | tail -1` gives the high-water mark.
 
 ---
 
@@ -1275,42 +1347,30 @@ New tags may be added. Each must be a single word that names a weight, not a top
 
 ## 14. File Structure
 
+The hand-authored `index.html` / `about/index.html` / `words/<slug>/index.html` tree this section used to list was retired by the 2026-04-21 Astro cutover (commit `eecabbb`, §17). Pages are now compiled out of `src/` into `dist/`; there is no checked-in HTML route to edit.
+
 ```
 imjustdex.com/
-├── index.html                    ← Homepage (plate grid + identity)
-├── 404.html                      ← Custom 404 (served by Netlify fallback)
-├── about/
-│   └── index.html                ← About page
-├── words/
-│   ├── reckonings/index.html
-│   ├── the-nets/index.html
-│   ├── gumbo/index.html
-│   └── price-of-sunday/index.html
-├── css/
-│   ├── tokens.css                ← Tokens, @font-face, :root, html.dark-mode, reset, grid body, print, reduced-motion
-│   ├── shell.css                 ← Skip link, page-shell, rulers, masthead, brand-block, mode-toggle, footer-strip, focus
-│   ├── plates.css                ← Plate grid, plate variants, meta rail, image plates, identity, ghost
-│   ├── article.css               ← Article frame, header, body, drop cap, section heads, components, share bar, progress
-│   └── notfound.css              ← 404-only plate, eyebrow, headline, actions
-├── js/
-│   ├── mode.js                   ← Mode toggle (head-phase FOUC prevention + DOMContentLoaded wiring)
-│   ├── progress.js               ← Reading progress bar + section indicator (article pages)
-│   └── essay.js                  ← data-copy-link share button wiring (CSP-safe)
-├── fonts/
-│   ├── Anton-Regular.woff2
-│   ├── IBMPlexSans-Regular.woff2
-│   └── IBMPlexSans-Bold.woff2
-├── img/
-│   ├── logo-dark.svg
-│   ├── logo-white.svg
-│   ├── favicon-32.png
-│   ├── apple-touch-icon.png
-│   └── og-default.png
+├── astro.config.mjs              ← Astro config; sitemap filter reads words frontmatter at eval time
+├── src/
+│   ├── content/words/*.mdx       ← One file per essay. Frontmatter is the single source of truth.
+│   ├── content/config.ts         ← Zod schema — the contract. `npm run build` hard-fails on violation.
+│   ├── layouts/                  ← HomeLayout, ArticleLayout, ComingSoonLayout
+│   ├── components/               ← Article components + home/ (Plate, GhostPlate, IdentityHero, LatestBar, …)
+│   ├── pages/                    ← index, about, 404, words/, feed.xml.ts (Atom generator)
+│   └── utils/published.mjs       ← The publicly-live predicate, shared by config and pages
+├── public/                       ← css/, js/, fonts/, img/, brand/, phase0/ as served (mirrors the source dirs)
+├── css/                          ← Source sheets — tokens, shell, plates, article, notfound, home-v2, home-augment, phase0
+├── js/                           ← Source scripts — mode, progress, essay, signup, subscribe, lane-filter, earlier-toggle, phase0
+├── fonts/                        ← Anton-Regular, IBMPlexSans Regular / Italic / Bold (WOFF2)
+├── img/                          ← Logos, favicons, per-article OG plates
+├── scripts/og-plate.mjs          ← Per-article OG plate generator (see §1 Generators)
+├── brand/  phase0/  audit/       ← Brand specimen, campaign page, QA ledger
 ├── DESIGN-SYSTEM.md              ← This file
 └── netlify.toml                  ← Deploy config (strict CSP, trailing-slash redirects, cache headers)
 ```
 
-No page embeds inline CSS or inline JavaScript. Every page loads the same `tokens.css` + `shell.css` universal pair, then one page-type sheet (`plates.css`, `article.css`, or `notfound.css`). Shared elements are defined once and never replicated by hand — changing the masthead or footer means editing `shell.css` once.
+No page embeds inline CSS or inline JavaScript. Every page loads the same `tokens.css` + `shell.css` universal pair, then one page-type sheet (`plates.css`, `article.css`, or `notfound.css`) — plus, on the homepage, `home-augment.css` → `home-v2.css`. Shared elements are defined once in the layouts and never replicated by hand — changing the masthead or footer means editing `shell.css` and one layout, once.
 
 ### Removed Routes (April 2026)
 
