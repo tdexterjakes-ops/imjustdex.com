@@ -99,7 +99,9 @@ the ledger. A regression on a previously-fixed row (p4 was PASS, now fails) is
   on Plex Sans is correct; do not flag it as drift.
 - **Routes:**
   - `/` — homepage/archive with auto-computed cascade (lead plate, This Month,
-    Earlier, View More, Issue-next ghost CTA)
+    Earlier, View More, and — only while an essay is written but not yet live —
+    the ghost teaser plate). The `.issue-next` strip this line used to name was
+    retired 2026-08-27 (e3b4e91) [F94]; see F30, which is N/A by that decision.
   - `/words/<slug>/` — articles (MDX content collection)
   - `/about/` — ProfilePage
   - `/brand/` — design system doc (passthrough, bespoke CSS)
@@ -127,7 +129,10 @@ At minimum, these routes should exist and return 200:
 - https://imjustdex.com/sitemap-index.xml
 - https://imjustdex.com/sitemap-0.xml
 - https://imjustdex.com/robots.txt
-- Every `/words/<slug>/` link linked from the homepage cascade or Issue-next ghost
+- Every `/words/<slug>/` link linked from the homepage cascade. The ghost teaser
+  plate is static by design and links nowhere [F94], so an upcoming essay's
+  coming-soon URL has no inbound homepage link to crawl — reach it from the
+  content collection, not from the homepage.
 
 ---
 
@@ -262,8 +267,10 @@ If any fire, the build is broken or the schema has been violated.
   - Each homepage plate's `<time datetime="...">` matches that article's
     `<meta property="article:published_time">`.
   - Plate read-time matches the article page's `.article-read` value.
-  - Issue-next ghost CTA's `.next-title` matches the referenced upcoming article's
-    `<title>` (strip the " — DX" suffix).
+  - When a ghost teaser plate renders, its `.plate-title` matches the upcoming
+    article's `title` frontmatter and its `.teaser-date` `<time datetime>` matches
+    that entry's `publishedDate` (date part). The old `.next-title` check named the
+    retired `.issue-next` strip and is unsatisfiable — do not re-add it [F94].
 
 ### 9. NETLIFY INFRASTRUCTURE
 
