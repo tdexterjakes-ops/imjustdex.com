@@ -15,9 +15,15 @@ import type { CollectionEntry } from 'astro:content';
 //
 //   1. STATIC — no <a>, no href, no hover, no focus ring. The doc is explicit:
 //      "identity plate, ghost teaser (static). No hover highlight, no pointer
-//      cursor, no focus outline." The linked call-to-action for the same essay
-//      is the IssueNext strip below the archive, which is what carries
-//      "Notify me →" to the coming-soon page.
+//      cursor, no focus outline." This used to be paid for by the IssueNext
+//      strip below the archive, which carried the linked "Notify me →" to the
+//      coming-soon page — but that strip was retired 2026-08-27 (e3b4e91) [F94]
+//      because it duplicated this plate's title. So the coming-soon page now has
+//      ZERO inbound links from the homepage; it survives as a landing target for
+//      social shares and dispatch teasers, and site-wide subscribe is unaffected
+//      (SubscribeManifesto is still on the page). Restoring an essay-specific CTA
+//      means making this plate linkable, which contradicts the doc's "static"
+//      rule — recorded in F94 as Dexter's call, not the QA loop's.
 //
 //   2. NO `data-lane` — and this is load-bearing, not an omission. lane-filter.js
 //      reads each <article>'s inner [data-lane] to decide matches; with none, the
