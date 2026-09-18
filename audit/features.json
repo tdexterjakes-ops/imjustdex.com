@@ -16,14 +16,14 @@
       "N/A",
       "PENDING"
     ],
-    "last_run": "2026-09-11",
-    "last_run_branch": "qa/fixes-20260911",
+    "last_run": "2026-09-18",
+    "last_run_branch": "qa/fixes-20260918",
     "last_full_regression": "2026-08-13",
-    "rows": 103,
-    "last_run_note": "2026-09-11 scheduled autonomous run (scrub + fix + retest). 101 -> 103 rows. Main and the live deploy both sit on 507e988 (Netlify 6aa3cac, built 09:32Z), so no p1 resets from code churn. The site itself came back CLEAN: 32 routes at expected status, zero console errors on six surface types, zero real contrast failures in either mode, 17/17 OG images 200, feed and sitemap complete, 5/5 security headers, subscribe function 200 in 2.8s with rate-limit and honeypot behaving as written. Both new rows are Low documentation-accuracy defects with no behavioural surface, and they are the same defect twice: the IssueNext retirement (e3b4e91, F94) left a stale justification inside GhostPlate.astro and three dead checks inside this loop's own operating prompt — including a §8 fidelity check against a `.next-title` element that can no longer exist. F35/F36 are a rotation gap, not a result: the browser pane stayed hidden all run so nothing scroll-driven was exercisable.",
-    "live_commit": "70b489a",
-    "last_updated": "2026-09-06",
-    "row_count": 101,
+    "rows": 106,
+    "last_run_note": "2026-09-18 scheduled autonomous run (scrub + fix + retest). 103 -> 106 rows. Live and GitHub main both on 507e988 (Netlify 6aad063, hook deploy 09:37Z); local main sits 4 commits ahead (the 2026-09-11 fix merge, unpushed) and the fix branch was cut from it so F103's QA-OS edits are not lost. No code commits since 09-11, so no p1 resets. HTTP layer clean: 26 routes at expected status (max 0.39s), 5/5 security headers everywhere, 17/17 OG images 200, JSON-LD shapes complete, og:image = ld image on all 17, feed 17 / sitemap 21 complete, plate date+read-time fidelity 17/17, zero broken internal/external links, subscribe smoke 200 in 2.3s. Contrast sweep zero failures in both modes; skip link, focus ring, mode toggle, fonts pass. Three new rows: F105 (HIGH, BLOCKED) Netlify's injected RUM beacon is refused by the site's own CSP on every page — dashboard setting, Dexter's call; F104 (Low, fixed) a stale §3 accent check in QA-OS; F106 (Low, BLOCKED) the lead row's hardcoded 'This Week' label over an 18-day-old essay.",
+    "live_commit": "507e988",
+    "last_updated": "2026-09-18",
+    "row_count": 106,
     "last_broad_regression": "2026-09-06"
   },
   "features": [
@@ -272,7 +272,7 @@
       "p2": "404 half PASS (noindex,nofollow live). Coming-soon half PENDING — no upcoming entry exists to render one | 2026-08-25: 404 half re-verified live (meta robots noindex,nofollow present, bespoke body served at HTTP 200). Coming-soon half still PENDING — no upcoming entry exists to render one. | 2026-09-01 404 half re-verified live (meta robots 'noindex, nofollow', bespoke body at HTTP 200). Coming-soon half still PENDING — no upcoming entry exists to render one. | 2026-09-11: 404 half re-verified live (meta robots 'noindex, nofollow', bespoke body at HTTP 200). Coming-soon half still PENDING — 17 published entries, all past-dated, so isUpcomingData() is false everywhere and no ComingSoonLayout renders.",
       "sev": "",
       "p3": "",
-      "p4": "PENDING"
+      "p4": "PENDING | 2026-09-18: still structurally untestable — 0 upcoming entries in the committed collection."
     },
     {
       "id": "F20",
@@ -347,7 +347,7 @@
       "expected": "Essays in same UTC year+month as lead (excluding lead) render under RowHead '02 This Month'. Hidden entirely if none.",
       "source": "index.astro:36-40,188-198",
       "p1": "Cataloged",
-      "p2": "PASS — 'This Month' = show-me-your-glory (same month as lead) | 2026-08-27 re-verified live: row heads 'This Week' (01, lead) and 'This Month' (02) both render as authored.",
+      "p2": "PASS — 'This Month' = show-me-your-glory (same month as lead) | 2026-08-27 re-verified live: row heads 'This Week' (01, lead) and 'This Month' (02) both render as authored. | 2026-09-18 re-verified live: 'This Month' correctly hidden — no other essay shares the lead's month (Aug 2026); row heads read 01 This Week / 02 Earlier.",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -360,7 +360,7 @@
       "expected": "Essays older than lead's month render under RowHead 'Earlier' (num 03 if This Month exists else 02). First 6 visible, rest hidden (.earlier-more[hidden]).",
       "source": "index.astro:42-49,200-226",
       "p1": "Cataloged",
-      "p2": "PASS — 'Earlier' = 14, 6 visible + 8 overflow | 2026-08-27 re-verified live: 8 of 16 plates visible by default, 8 under the overflow.",
+      "p2": "PASS — 'Earlier' = 14, 6 visible + 8 overflow | 2026-08-27 re-verified live: 8 of 16 plates visible by default, 8 under the overflow. | 2026-09-18 re-verified live: 'Earlier' = 16, 6 visible + 10 under the overflow; 7 of 17 plates visible by default.",
       "sev": "",
       "p3": "NOTE: 8 visible / 6 hidden correct",
       "p4": "PASS"
@@ -386,7 +386,7 @@
       "expected": "packCascade/packSegment assign wide(5)+secondary(3)+banner(4) rotations; trailing 1→row(12), 2→half+half(6+6). Editor plate.row:true forces a full 12-col row and re-segments around it.",
       "source": "index.astro:78-134, Plate.astro",
       "p1": "Cataloged",
-      "p2": "PASS — 16 plates tile the 12-col grid (lead + wide/secondary/banner rotation, 3 row-plates)",
+      "p2": "PASS — 16 plates tile the 12-col grid (lead + wide/secondary/banner rotation, 3 row-plates) | 2026-09-18 re-verified live: 7 visible plates tile the 12-col grid as lead + wide/secondary/banner/secondary/banner/wide; 17 plates total with the 10-plate overflow under View More.",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -425,7 +425,7 @@
       "expected": "SubscribeManifesto renders kicker, title, promise, 3 value-prop list items, email form (#subscribe-manifesto anchor target), 'No spam, ever'. Honeypot field hidden.",
       "source": "SubscribeManifesto.astro",
       "p1": "Cataloged",
-      "p2": "PASS — manifesto form action=/api/subscribe, source=home, honeypot present | 2026-08-27 re-verified live: manifesto form + #sm-email + submit present on the homepage.",
+      "p2": "PASS — manifesto form action=/api/subscribe, source=home, honeypot present | 2026-08-27 re-verified live: manifesto form + #sm-email + submit present on the homepage. | 2026-09-18 re-verified live: manifesto form action=/api/subscribe, #sm-email present, 3 value-prop items, 'No spam' line, honeypot off-canvas (x=-9999, tabindex=-1, aria-hidden).",
       "sev": "",
       "p3": "",
       "p4": "PASS"
@@ -438,7 +438,7 @@
       "expected": "subscribe.js intercepts .sm-form submit, validates, POSTs to /api/subscribe, then: success→'You're in.' confirm; already_subscribed→'Already on the list.'; invalid_email/rate_limited/generic→inline .sm-error. Button shows 'Sending…' while loading.",
       "source": "js/subscribe.js",
       "p1": "Cataloged",
-      "p2": "PASS",
+      "p2": "PASS | 2026-09-18 re-verified live: real submit on the home manifesto form with a server-rejected address (healthscrub@invalid, passes type=email) showed 'Sending…', then state=error with 'That email didn't look right. Try it again.' in a role=alert .sm-error and the button re-enabled. Success path covered by the §9 API smoke (200 subscribed); the UI success state was not driven to avoid a second subscriber write.",
       "sev": "",
       "p3": "NOTE: shows error on 500, no false success",
       "p4": "PASS"
@@ -542,7 +542,7 @@
       "expected": "signup.js intercepts .email-signup submit, validates email, POSTs to /api/subscribe (source=article), then collapses to 'You're in. Check your inbox.' Honeypot hidden. Should reflect server failure, not blanket success.",
       "source": "js/signup.js, ArticleLayout.astro:155-167, ComingSoonLayout.astro:115-126",
       "p1": "Cataloged",
-      "p2": "PASS — form posts /api/subscribe with source=article, honeypot off-canvas, aria-live label; server states verified directly against the function",
+      "p2": "PASS — form posts /api/subscribe with source=article, honeypot off-canvas, aria-live label; server states verified directly against the function | 2026-09-18 re-verified live: server-rejected address on /words/gumbo/ surfaced 'That email didn’t look right. Try it again.' in the role=status aria-live label and kept the form — it reflects the server failure rather than a blanket success. source=article, honeypot off-canvas at x=-4972.",
       "sev": "",
       "p3": "FIX: signup.js now parses JSON, checks res.ok && data.ok; distinct success / already-subscribed / error states; re-enables submit on error",
       "p4": "PASS"
@@ -558,7 +558,7 @@
       "p2": "Authored prev/next render correctly on all 16. Ghost/teaser path PENDING — requires a future-dated entry; none exists. 2026-08-10 PM: the derive-from-live-status fix (p3) live-verified, then the underlying data cleaned — the 4 stale ghost:true flags are gone (see F81). Zero `ghost: true` remain in the collection; all 16 essays render real .article-nav-link anchors, 15 rel=next head links (newest correctly has none), zero article-nav-ghost teasers. | 2026-08-25 re-verified live: all 16 essays render real .article-nav-link anchors; zero `ghost: true` remain in the collection. Ghost/teaser path still PENDING — still requires a future-dated entry and none exists. | 2026-09-11: authored prev/next re-verified live — newest essay emits rel=prev only, /words/the-stone/ emits rel=prev + rel=next. Ghost/teaser path still PENDING; zero upcoming entries in the collection.",
       "sev": "",
       "p3": "FIX: ArticleLayout derives effective nextGhost from the target essay's real live status (getCollection + isPubliclyLive); stale frontmatter ghost flags ignored once target is live",
-      "p4": "PENDING"
+      "p4": "PENDING | 2026-09-18: still structurally untestable — 0 upcoming entries in the committed collection."
     },
     {
       "id": "F42",
@@ -623,7 +623,7 @@
       "p2": "PENDING — all 16 entries are status published with past dates, so isUpcomingData() is false everywhere and no coming-soon page renders | 2026-08-25: still PENDING for the same structural reason — all 16 built entries are status:published with past dates. NOTE: an untracked draft (src/content/words/before-i-had-the-words.mdx, status:\"drafted\", publishedDate 2026-08-07) sits in Dexter's working tree. It is correctly excluded from the build (19 pages, 16 articles) and does not exercise this path either, since its date is in the past, not the future. | 2026-09-01 still PENDING. The untracked draft in Dexter's working tree (src/content/words/before-i-had-the-words.mdx, status 'drafted', publishedDate 2026-08-07) is correctly excluded from the build (20 pages, 17 articles) but does NOT exercise this path — its date is in the past and its status is 'drafted', not an upcoming publish. Left untouched. | 2026-09-11: still PENDING for the same structural reason — 17 published entries, all past-dated. The untracked draft src/content/words/before-i-had-the-words.mdx is still status 'drafted' in Dexter's working tree, so it builds nothing and is correctly absent from sitemap and feed.",
       "sev": "",
       "p3": "FIX: Replaced 3 CSP-blocked inline style= attrs with .coming-tag/.coming-lead/.coming-note classes; styles now in external (Astro-hashed) CSS",
-      "p4": "PENDING"
+      "p4": "PENDING | 2026-09-18: still structurally untestable — 0 upcoming entries in the committed collection."
     },
     {
       "id": "F47",
@@ -828,7 +828,7 @@
       "expected": "Missing env→500 server_not_configured; fetch throw→502 upstream_unreachable; non-ok upstream→502 upstream_error. JSON, Cache-Control no-store.",
       "source": "netlify/functions/subscribe.cjs:80-113",
       "p1": "Cataloged",
-      "p2": "PASS — documented error envelope returned, no stack leakage",
+      "p2": "PASS — documented error envelope returned, no stack leakage | 2026-09-18 re-verified live: POST email=not-an-email returns 400 {\"ok\":false,\"error\":\"invalid_email\"} with Cache-Control: no-store, no stack leakage. Config/upstream branches not forceable from outside (would need env or Mailchimp changes); subscribe.cjs unchanged since last PASS.",
       "sev": "",
       "p3": "FIX: Renamed function subscribe.js → subscribe.cjs (unambiguous CommonJS under package type:module); silences esbuild ESM warning",
       "p4": "PASS"
@@ -958,7 +958,7 @@
       "expected": "isPubliclyLiveData: status==published AND date<=now. isUpcomingData: status in {published,upcoming} AND date>now. Single source shared by homepage, feed, sitemap, routes.",
       "source": "src/utils/published.mjs, visibility.ts",
       "p1": "Cataloged",
-      "p2": "PASS — predicate gates homepage/feed/sitemap/routes consistently; 16 published, 0 upcoming",
+      "p2": "PASS — predicate gates homepage/feed/sitemap/routes consistently; 16 published, 0 upcoming | 2026-09-18 re-verified live: 17 published, 0 upcoming — homepage 17 plates, feed 17 entries, sitemap 17 /words/ URLs, all consistent. (An untracked drafted entry sits in the working tree and is correctly nowhere live.)",
       "sev": "",
       "p3": "NOTE: coming-soon build test confirmed flip + sitemap/feed exclusion",
       "p4": "PASS"
@@ -974,7 +974,7 @@
       "p2": "ISSUE/Medium (2026-08-27) — the scheduled run did not fire today. GitHub Actions shows 'Daily rebuild' completing every day 2026-08-19 through 2026-08-26 at 05:35-05:47Z; there is no run for 2026-08-27, checked at 14:06Z — 9h past the 05:05 UTC cron. Workflow state is 'active' and the YAML is unchanged and valid, so this is GitHub dropping/delaying the schedule, not a repo defect. Netlify's newest ready deploy is 2026-08-26T05:43Z (commit_ref b64a39b == GitHub main HEAD). Live impact today: none — zero date-gated essays are pending (F30 correctly absent), so the rebuild would have produced byte-identical output. It matters the day an essay is scheduled. | CORRECTION 2026-08-28. Yesterday's conclusion was WRONG IN ITS CAUSE. I reported at 14:06Z that no run existed for 2026-08-27 and inferred GitHub had dropped the schedule. The run did happen — at 16:23:33Z, about 11.3 hours after the 05:05Z cron and about two hours after I looked. Today's fired at 17:21:17Z, about 12.3 hours late. So the real finding is not a dropped run but a DRIFTED one: the workflow moved from a steady 05:35-05:47Z window (2026-08-19 through 08-26) to 16:23-17:21Z on the two days since. Still open, still GitHub-side, and still worth knowing — a date-gated essay would go live roughly twelve hours after its intended 00:00 CST rather than roughly forty minutes after. The measurement was sound; the inference from a single missing data point was not, and 'checked once, concluded never' is the antipattern to carry forward. | 2026-09-01 drift CONFIRMED as a persistent pattern, not a one-off. Cron is '5 5 * * *' (05:05 UTC). Five consecutive hook-triggered deploys read from the Netlify API: 08-28 17:21Z, 08-29 11:35Z, 08-30 10:26Z, 08-31 11:31Z, 09-01 09:57Z. Today's fired 4h52m late; the window across five days is +4h52m to +12h16m. It fires EVERY day (never missed), so this is GitHub Actions scheduled-workflow queue latency, not a broken workflow. BLOCKED for auto-fix: the repo-side cron is already correct and editing it cannot shorten GitHub's queue; the only real remedy (move the trigger to a Netlify scheduled function) is a Netlify-dashboard change outside the repo. NEEDS DEXTER if publish-hour precision ever has to be guaranteed. | 2026-09-02: drift continues, day 6. Today's Netlify build hook fired at 09:29:24Z (deploy 6a97ec746315310007043fac, commit_ref 885930e) — +4h24m past the 05:05 UTC cron. Still fires every day, still late every day; the lateness is the whole defect. | 2026-09-05: day 9 of drift, and it is narrowing, not widening. The last ten scheduled runs all completed successfully: 08-27 16:23Z, 08-28 17:21Z, 08-29 11:35Z, 08-30 10:26Z, 08-31 11:31Z, 09-01 09:57Z, 09-02 09:29Z, 09-03 09:38Z, 09-04 09:31Z, 09-05 08:58Z — against the 05:35-05:47Z baseline the workflow held 08-19..08-26. Today's is +3h13m, the smallest gap since the drift started, and the trend across the window is monotonically back toward schedule. Each late run still produced a deploy: Netlify shows ready builds at 09-03 09:38Z, 09-04 09:31Z, 09-05 08:58Z, all on commit_ref 885930e (main HEAD), so the site is being rebuilt daily and is not stale. This is GitHub's documented scheduled-workflow queueing under load, not a repo defect — nothing in .github/workflows changed. DOWNGRADED Medium -> Low on the QA-OS's own definition of LOW ('recurring-and-tracked open items'): nine days of evidence show the workflow firing and succeeding every single day with zero functional impact, which is a tracked platform behaviour rather than a site fault. Still BLOCKED — the fix, if Dexter wants one, is outside the repo (a Netlify scheduled build or an external cron hitting the build hook, both of which need dashboard access). | 2026-09-06: day 10, and the narrowing holds. Today's scheduled run produced a ready Netlify deploy at 09:19:29Z — +4h14m past the 05:05 UTC cron, against +3h13m yesterday and +11h18m at the worst. Eleven consecutive days, zero missed runs, every one producing a build on commit_ref 885930e (== GitHub main HEAD), so the live site is current. Unchanged in substance: GitHub's scheduled-workflow queueing, not a repo defect. Stays Low/BLOCKED. | 2026-09-11: fired at 09:32:50Z — late again against the 05:05 UTC cron, but successful. Sixteen consecutive late-but-successful runs (2026-08-27..2026-09-11), the last nine clustered at 09:18-10:09Z. No missed days since 2026-08-27.",
       "sev": "Low (blocked — platform, outside repo)",
       "p3": "BLOCKED — outside the repo, and the YAML is still correct. Options for Dexter, unchanged in substance but re-aimed at lateness rather than absence: (a) accept it — nothing is scheduled, and a late rebuild costs nothing on a day with no date-gated content; (b) fire it by hand on publish day (`gh workflow run \"Daily rebuild\"`), which is the reliable move for a timed drop; (c) move the trigger to a Netlify scheduled function if publish-hour precision ever has to be guaranteed. Worth noting the workflow header already accepts an hour of latency by design; twelve is a different order.",
-      "p4": "PENDING — BLOCKED, tracked daily. Ten consecutive late-but-successful runs (2026-08-27..2026-09-05), drift narrowing from +11h36m at its worst to +3h13m today. No missed days. Not auto-fixable: the remedy is a scheduling change outside the repo. | 2026-09-06: eleven consecutive late-but-successful runs (2026-08-27..2026-09-06). Still not auto-fixable from the repo. | 2026-09-11: still BLOCKED and still not auto-fixable from the repo — the YAML is correct and the lateness is GitHub's scheduler. Deploy freshness is unaffected: the Netlify deploy that ran off it (6aa3cac) carries commit_ref 507e988, which is GitHub main HEAD."
+      "p4": "PENDING — BLOCKED, tracked daily. Ten consecutive late-but-successful runs (2026-08-27..2026-09-05), drift narrowing from +11h36m at its worst to +3h13m today. No missed days. Not auto-fixable: the remedy is a scheduling change outside the repo. | 2026-09-06: eleven consecutive late-but-successful runs (2026-08-27..2026-09-06). Still not auto-fixable from the repo. | 2026-09-11: still BLOCKED and still not auto-fixable from the repo — the YAML is correct and the lateness is GitHub's scheduler. Deploy freshness is unaffected: the Netlify deploy that ran off it (6aa3cac) carries commit_ref 507e988, which is GitHub main HEAD. | 2026-09-18: still BLOCKED, still not auto-fixable from the repo. Seven more late-but-successful scheduled runs 2026-09-12..09-18 against the 05:05Z cron, firing 09:12Z–10:31Z (+4h07m to +5h26m). No missed days. Deploy freshness unaffected: the 2026-09-18 09:37Z hook deploy (6aad063) carries commit_ref 507e988 = GitHub main HEAD."
     },
     {
       "id": "F74",
@@ -1075,7 +1075,7 @@
       "expected": "prev/next are hand-authored frontmatter (config.ts marks both .optional(); ArticleLayout never synthesizes a missing next). Invariant: every entry except the chronologically newest published essay carries a next{slug,title}. Violation = forward dead-end + no rel=next.",
       "source": "src/content/words/*.mdx (prev/next frontmatter), src/content/config.ts, src/layouts/ArticleLayout.astro",
       "p1": "Cataloged",
-      "p2": "PASS — live-verified 2026-08-10: show-me-your-glory emits rel=next to send-someone-else and renders a normal (non-ghost) forward nav; forward chain walks all 16 published essays end to end. | 2026-08-25 re-verified live: forward chain walks all 16 published essays end to end; the chronologically newest (send-someone-else) correctly carries no next.",
+      "p2": "PASS — live-verified 2026-08-10: show-me-your-glory emits rel=next to send-someone-else and renders a normal (non-ghost) forward nav; forward chain walks all 16 published essays end to end. | 2026-08-25 re-verified live: forward chain walks all 16 published essays end to end; the chronologically newest (send-someone-else) correctly carries no next. | 2026-09-18 re-verified live: forward chain walks all 17 published essays end to end, reckonings → the-weight-of-my-no; only the newest lacks rel=next and only the oldest lacks rel=prev.",
       "sev": "",
       "p3": "FIX (2026-08-10, Dexter's call): flipped the 4 stale `ghost: true` frontmatter flags to false — next-verse.prev→job, not-the-same-as-alive.next→music-that-raised-me, pulpit.next→the-stone, should-have-killed-it.next→job. All 4 targets had gone live, leaving the flags asserting a coming-soon state that was no longer true. Flipped rather than deleted, to match the `ghost: false` convention the other 13 prev/next blocks already carry. Frontmatter only — one line per file, zero prose touched.",
       "p4": "PASS (verified against build, then live) — rendered nav is byte-identical before and after the flip, confirming the flags were already inert under ArticleLayout's derive-from-live-status logic: same .article-nav-prev/.article-nav-next anchors, same <link rel=next> targets on all 4 essays. Collection-wide: zero `ghost: true` remain, zero .article-nav-ghost teasers render across all 16, 15 rel=next head links. The data now says what the render already did."
@@ -1101,7 +1101,7 @@
       "expected": "Every rule that pairs `background: var(--accent)` with small text meets WCAG 1.4.3 in BOTH modes — >=4.5:1 under 18.66px/bold, >=3:1 at or above it.",
       "source": "css/home-v2.css:129-135,917-918; css/home-augment.css:146,298",
       "p1": "Cataloged 2026-08-13",
-      "p2": "PASS (closed live 2026-08-13) — was ISSUE/High (2026-08-13) — CORRECTED SCOPE, and the correction matters. The morning scrub read the declarations and reported FOUR failing hover rules. Re-measured under REAL pointer hover before fixing, only TWO are real: `.issue-latest:hover .latest-cta` (14.08px/700) and `.identity-hero .hero-link.primary:hover` (14.08px/700), both `color: var(--bg)` on a `background: var(--accent)` fill = 3.44:1 in dark against a 4.5:1 floor. The other two were FALSE POSITIVES: `.issue-latest:hover` takes the BAR to var(--ink), not var(--accent), so .latest-title measures 17.79:1 and .latest-meta 5.23:1 (at opacity .6) against cream — both already clear. The morning read assumed the accent fill was the surface for every child of the hover state; it is only the surface for .latest-cta, which sets its own background. Lesson: resolve the PAINTED surface under real hover, never infer it from the parent's declarations. | 2026-08-25 re-verified live: re-verified under REAL pointer hover on the live homepage in dark mode: .latest-cta 5.17:1, .latest-tag 5.17:1, .latest-title 17.79:1, .latest-meta (hover state) 5.23:1. No regression. Caveat carried to F87: the override lives in home-v2.css on the live deploy, so /brand/ still does not get it.",
+      "p2": "PASS (closed live 2026-08-13) — was ISSUE/High (2026-08-13) — CORRECTED SCOPE, and the correction matters. The morning scrub read the declarations and reported FOUR failing hover rules. Re-measured under REAL pointer hover before fixing, only TWO are real: `.issue-latest:hover .latest-cta` (14.08px/700) and `.identity-hero .hero-link.primary:hover` (14.08px/700), both `color: var(--bg)` on a `background: var(--accent)` fill = 3.44:1 in dark against a 4.5:1 floor. The other two were FALSE POSITIVES: `.issue-latest:hover` takes the BAR to var(--ink), not var(--accent), so .latest-title measures 17.79:1 and .latest-meta 5.23:1 (at opacity .6) against cream — both already clear. The morning read assumed the accent fill was the surface for every child of the hover state; it is only the surface for .latest-cta, which sets its own background. Lesson: resolve the PAINTED surface under real hover, never infer it from the parent's declarations. | 2026-08-25 re-verified live: re-verified under REAL pointer hover on the live homepage in dark mode: .latest-cta 5.17:1, .latest-tag 5.17:1, .latest-title 17.79:1, .latest-meta (hover state) 5.23:1. No regression. Caveat carried to F87: the override lives in home-v2.css on the live deploy, so /brand/ still does not get it. | 2026-09-18 re-verified live: dark mode under REAL pointer hover: .latest-cta 'Read →' and .hero-link.primary 'Read the About →' both cream 243,240,232 on #c00 = 5.17:1 at 14.08px.",
       "sev": "HIGH (closed live) (resolved)",
       "p3": "FIX (2026-08-13, Dexter's explicit call to ship): added `html.dark-mode .issue-latest:hover .latest-cta, html.dark-mode .identity-hero .hero-link.primary:hover { color: var(--ink) }` to css/home-v2.css beneath the hover block, mirroring the F77 override. Selectors are (0,4,1) and (0,5,1), beating the duplicate hooks in home-augment.css:146 and :298 on specificity rather than source order, so home-v2.css was the only sheet to touch. Cache-bust ?v=phase33 -> phase34 in src/layouts/HomeLayout.astro. NO opacity change was needed — the .latest-meta hover-opacity decision this row was originally BLOCKED on turned out to rest on a false positive and evaporated with it.",
       "p4": "PASS (live-verified 2026-08-13, deploy 5c7e5fb) — verified under REAL pointer hover on the production deploy, in dark mode, with home-v2.css?v=phase34 served. Standfirst bar hovered: .latest-cta now rgb(243,240,232) on rgb(204,0,0) = 5.17:1 (was 3.44:1) PASS; .latest-tag 5.17:1 PASS; .latest-title 17.79:1 PASS; .latest-meta 5.23:1 PASS — all four elements of the hover gesture clear their floor. Identity-hero primary hovered: 'Read the About ->' now rgb(243,240,232) on rgb(204,0,0) = 5.17:1 (was 3.44:1) PASS. Zero console errors post-deploy. No remaining rule on the site pairs small text with the --accent fill below AA in either mode."
@@ -1365,6 +1365,45 @@
       "sev": "Low (fixed)",
       "p3": "FIX (qa/fixes-20260911 fbeb300): all three reconciled against the ghost teaser plate that replaced the strip. The route line now names the plate and cross-references F30/F94; the crawl line records that the plate is static and links nowhere, so an upcoming essay's coming-soon URL has no inbound homepage link to discover and must be reached from the content collection; the §8 check is restated as `.plate-title` matching the upcoming entry's `title` frontmatter and `.teaser-date`'s `<time datetime>` matching its `publishedDate`, with an explicit note not to re-add the `.next-title` check. No site source touched.",
       "p4": "PASS — 2026-09-11. Re-read after the edit: zero references to `.issue-next` as a live surface remain in audit/QA-OS.md; the two surviving mentions both name it as retired and carry the [F94] pointer. The restated §8 check was dry-run against the current homepage — with zero upcoming entries there is no `.plate-ghost`, so it correctly no-ops instead of failing, which is exactly the behaviour the old `.next-title` line could not produce."
+    },
+    {
+      "id": "F104",
+      "area": "Build / Automation",
+      "feature": "QA OS operating prompt — §3 accent check names two surfaces that are not accent by design",
+      "user_story": "As the loop reading audit/QA-OS.md, I want the design-system check to name only surfaces that actually carry --accent, so it cannot either be silently skipped or raise a false drift finding against a deliberate design decision.",
+      "expected": "§3 DESIGN SYSTEM COMPLIANCE names the accent's real homes (section-head h2, .callout left border per DESIGN-SYSTEM.md §4) and records the reading-progress bar (--ink) and pull-quote borders (--border) as by-design.",
+      "source": "audit/QA-OS.md:171; css/article.css:170-176,194-198,873-882; DESIGN-SYSTEM.md §4 Border Language",
+      "p1": "Cataloged",
+      "p2": "ISSUE/Low (2026-09-18) — §3 read 'Verify `--accent` usage on section-head h2, reading-progress bars, pull-quote borders.' Measured live on /words/the-weight-of-my-no/ in dark mode: `.reading-progress` background rgb(243,240,232) (--ink) and `.pull-quote` borders rgba(243,240,232,.82) (--border). Both are deliberate: the progress bar was recoloured from --accent to --ink in 68b0c1d (2026-04-10) with a comment at css/article.css:873 explaining the red bar competed with the masthead, and DESIGN-SYSTEM.md §4 lists pull-quote top/bottom borders as ordinary content borders while naming the .callout left border as the accent one. The check predates nothing — QA-OS was written 2026-08-07, four months after the recolour — so it has been either silently skipped or passed on assumption every run. Same class as F103: a dead check in the operating prompt. Graded Low: no site surface affected.",
+      "sev": "Low (fixed)",
+      "p3": "FIX (qa/fixes-20260918): §3 line restated to check --accent on section-head h2 and the .callout left border, with the progress bar and pull-quote borders recorded as by-design (68b0c1d, css/article.css:873) and a do-not-re-add note. Doc-only; no site source touched.",
+      "p4": "PASS — 2026-09-18. Re-read after the edit: the only remaining 'reading-progress' mentions in QA-OS.md are this by-design note and the scroll-harness antipattern. Restated check dry-run live: section-head h2 computes rgb(255,77,77) (--accent-text, dark) and .callout border-left uses var(--accent) (css/article.css:198). `npm run build` passes (20 pages); audit/ is not part of the build."
+    },
+    {
+      "id": "F105",
+      "area": "Global / Shell",
+      "feature": "Netlify-injected RUM beacon blocked by the site CSP on every page",
+      "user_story": "As a reader, I want pages to load without script errors; as the site owner, I want any analytics I have switched on to actually report, or to be switched off.",
+      "expected": "No console errors on page load or unload. Either Netlify Real User Monitoring is off for this site, or the CSP connect-src allows its collector. The two must not disagree.",
+      "source": "netlify.toml:51-52,76,93,99 (connect-src 'self'); Netlify-injected <script id=netlify-rum-container src=/.netlify/scripts/rum> (not in repo)",
+      "p1": "Cataloged",
+      "p2": "ISSUE/High (2026-09-18) — every page (/, /about/, /brand/, /phase0/, /404, all /words/) carries a Netlify-injected `<script async id=\"netlify-rum-container\" src=\"/.netlify/scripts/rum\">` with a CWV token for deploy 6aad063. The script beacons to https://ingesteer.services-prod.nsvcs.net/rum_collection, which the site's own CSP (`connect-src 'self'`, commented in netlify.toml as 'no analytics/beacons allowed') refuses. Result, reproduced on the homepage and on /words/the-weight-of-my-no/: two CSP violation errors plus an 'Uncaught (in promise) TypeError: Failed to fetch' from /.netlify/scripts/rum:1:11100. No reader-visible breakage — but it is a console error on every page view, and whatever Netlify observability panel this feeds is receiving nothing. The script was already present on 2026-09-11 (F102's p4 notes it in the live-vs-dist diff) while that run logged zero console errors, so either the beacon only fires on page hide / navigation (consistent with it arriving on navigate here) or the collector moved off-origin since; NEW to the ledger either way. Graded HIGH per the console-error rule.",
+      "sev": "HIGH (blocked — Netlify dashboard / CSP intent)",
+      "p3": "BLOCKED — NEEDS DEXTER. Not in the repo: the script is injected at the edge by a Netlify site setting. The two fixes both belong to Dexter: (a) if Netlify RUM / Observability was switched on by accident or is not wanted, turn it off in the Netlify dashboard for site ff389de6 — no code change, and the CSP's 'no beacons' intent stands; (b) if the data is wanted, add https://ingesteer.services-prod.nsvcs.net to connect-src in all four CSP blocks of netlify.toml — a deliberate relaxation of a stated security posture, so not the loop's call. (a) is the change that matches the CSP comment as written.",
+      "p4": "PENDING — BLOCKED (2026-09-18). Re-verify on the next SCRUB after Dexter picks (a) or (b)."
+    },
+    {
+      "id": "F106",
+      "area": "Homepage",
+      "feature": "Lead row head reads 'This Week' regardless of the lead essay's age",
+      "user_story": "As a reader landing on the homepage, I want the section labels to tell me the truth about recency, so 'This Week' means this week.",
+      "expected": "The lead row's label is accurate on the day it is read, or is worded so it cannot go stale between essays.",
+      "source": "src/pages/index.astro:205 (label=\"This Week\" hardcoded); DESIGN-SYSTEM.md:747",
+      "p1": "Cataloged",
+      "p2": "ISSUE/Low (2026-09-18) — index.astro:205 renders `<RowHead label=\"This Week\" variant=\"lead\" />` unconditionally for the newest published essay; nothing compares the lead's publishedDate to the build date. Live today (Fri 2026-09-18) the row reads '01 This Week' over The Weight of My No, published 2026-08-31 — 18 days old. It read the same over Send Someone Else through most of August, when that essay was up to 57 days old. The daily rebuild (F73) would make a date-derived label accurate every morning at no cost. Filed Low: nothing breaks and it is not an a11y or SEO defect, but it is a false recency claim in the most prominent label on the page.",
+      "sev": "Low (blocked — copy/design intent)",
+      "p3": "BLOCKED — NEEDS DEXTER. This is label copy inside a named design element (DESIGN-SYSTEM.md places the ghost row 'above `This Week`'), so wording is Dexter's call, not the loop's. Options: (a) keep as is, accepting it as an editorial name for the lead slot rather than a date claim; (b) a neutral label that cannot go stale ('Latest'); (c) derive it at build time — 'This Week' when the lead is <=7 days old, else 'Latest' — which the daily rebuild keeps fresh. (c) is a ~5-line change in index.astro once the wording is chosen.",
+      "p4": "PENDING — BLOCKED (2026-09-18)."
     }
   ]
 }
