@@ -744,7 +744,7 @@ html.dark-mode .plate-ghost .plate-title { opacity: .40; }
 
 Used to tease an upcoming article before its publish date. Contains title (muted), "Publishing [date]" microcopy, and "Coming Soon" meta rail. The dashed border and transparency signal *this space is held*.
 
-**Rendered by `GhostPlate.astro`** for every entry `isUpcoming()` returns true for — status `published` or `upcoming` with a future `publishedDate`. It heads the cascade as its own `01 · Next` row, above `This Week`, because the cascade reads strictly newest-first and an upcoming essay is newer than the lead. Nothing to swap on launch day: the daily rebuild flips the entry past its date and the same essay renders as a normal plate. It is deliberately **static** — no `<a>`, no hover, no focus ring (see *Interaction States*) — and carries no `data-lane`, so a lane filter hides it and the published-only lane counts stay honest against what is on screen.
+**Rendered by `GhostPlate.astro`** for every entry `isUpcoming()` returns true for — status `published` or `upcoming` with a future `publishedDate`. It heads the cascade as its own `01 · Next` row, above `Latest`, because the cascade reads strictly newest-first and an upcoming essay is newer than the lead. Nothing to swap on launch day: the daily rebuild flips the entry past its date and the same essay renders as a normal plate. It is deliberately **static** — no `<a>`, no hover, no focus ring (see *Interaction States*) — and carries no `data-lane`, so a lane filter hides it and the published-only lane counts stay honest against what is on screen.
 
 **Muting comes from `--body-muted`, not an opacity multiplier**, on the date and the meta rail — the same reasoning as the lane badge below. Stacking a multiplier on an already alpha-tuned token drove these to 1.80–2.37:1. The title keeps a multiplier because it is a display face on a held plate, but at `.46` / `.40` rather than `.35`, which failed the 3:1 large-text floor in both modes.
 
@@ -1267,7 +1267,7 @@ script-src 'self';
 style-src 'self';
 img-src 'self' data: https:;
 font-src 'self';
-connect-src 'self';
+connect-src 'self' https://ingesteer.services-prod.nsvcs.net;
 frame-ancestors 'none';
 base-uri 'self';
 form-action 'self';
@@ -1275,7 +1275,7 @@ object-src 'none';
 upgrade-insecure-requests
 ```
 
-Every script lives in `/js/*`. Every stylesheet lives in `/css/*`. Every font lives in `/fonts/*`. No inline `<style>` blocks. No inline `<script>` blocks. No inline `onclick` / `onload` / `onerror` attributes. No Google Fonts. No analytics beacons. No CDNs.
+Every script lives in `/js/*`. Every stylesheet lives in `/css/*`. Every font lives in `/fonts/*`. No inline `<style>` blocks. No inline `<script>` blocks. No inline `onclick` / `onload` / `onerror` attributes. No Google Fonts. No CDNs. One analytics beacon, by choice: Netlify Real User Monitoring, whose edge-injected `/.netlify/scripts/rum` posts to `ingesteer.services-prod.nsvcs.net` — the only third-party origin in `connect-src` (opted in 2026-09-18, F105). No other analytics beacons.
 
 When adding behavior, the rule is: write it in `/js/*.js`, gate it on the DOM elements it targets (no-op if absent), and load it with `<script src>`. When adding copy-to-clipboard or similar interactions, use `data-*` attributes read by the script — never inline handlers.
 
