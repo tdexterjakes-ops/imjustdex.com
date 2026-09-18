@@ -168,7 +168,11 @@ one finding, one record, reported once.
 
 - Spot-check via `javascript_tool` that key elements use CSS custom properties
   (not hardcoded hex).
-- Verify `--accent` usage on section-head h2, reading-progress bars, pull-quote borders.
+- Verify `--accent` usage on section-head h2 and the `.callout` left border (the
+  accent's documented homes, DESIGN-SYSTEM.md §4 Border Language). The reading-progress
+  bar is `--ink` by design since 68b0c1d (2026-04-10, comment at css/article.css:873)
+  and pull-quote top/bottom borders are `--border` — do not flag either as drift, and
+  do not re-add them to this check [F104].
 - Dark/light mode: toggle `dxmode` cookie (or click masthead button) — no invisible
   text, no broken contrast.
 - Font loading: verify the SELF-HOSTED faces actually load — Anton-Regular.woff2 and
