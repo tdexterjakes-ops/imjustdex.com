@@ -287,6 +287,12 @@ If any fire, the build is broken or the schema has been violated.
   self-reports a false `400 invalid_email`. Expected: 200 with Mailchimp-success
   body (or documented graceful-error response). **CRITICAL** on non-2xx;
   **HIGH** on timeout >5s.
+- **Rate limiter (F57), when the rotation covers it:** the window is a module-scope
+  `Map` in `subscribe.cjs` — **per Lambda instance, not per site.** Test it with a
+  **sequential** burst of 10 POSTs carrying `email=notanemail` (invalid, so nothing
+  reaches Mailchimp), from a quiet start. Expected: exactly 5 × `400 invalid_email`
+  then 5 × `429 rate_limited`. Do NOT test it with parallel requests and do NOT
+  chain it onto an earlier burst — see the fan-out antipattern below.
 - **Security headers** on every page (from netlify.toml):
   - `X-Frame-Options: DENY`
   - `X-Content-Type-Options: nosniff`
@@ -499,6 +505,17 @@ that matches one of these shapes is a measurement artifact until proven otherwis
   `styleSheet.insertRule(...)` on an already-loaded same-origin sheet and
   `deleteRule` to restore. Always re-measure after restoring to prove the page is
   back in its original state.
+- **A rate-limit burst that does not trip is almost always instance fan-out, not a
+  dead limiter.** `subscribe.cjs` keeps its sliding window in a module-scope `Map`, so
+  the 5/60s budget is held **per warm Lambda instance**. Measured 2026-09-22: 10
+  requests fired in PARALLEL returned 10 × `400` and zero `429` — each landed on its
+  own instance holding `count = 1` — while 10 fired SEQUENTIALLY from a quiet start
+  returned exactly 5 × `400` then 5 × `429`, precisely as specified. An earlier
+  8-request burst in the same run also read as "limiter dead" because it followed the
+  subscribe smoke test and hit a churning container (one request returned HTTP `000`,
+  the tell). Never file a rate-limit failure from a single burst: re-run it
+  sequentially, from a quiet start, before concluding anything. A parallel burst
+  measures Netlify's scaling, not the site's limiter.
 - **Browser-pane screenshots are unreliable once the pane is hidden or scrolled.**
   They can return a blank frame while the DOM is fully populated. Confirm against
   `getBoundingClientRect` / computed styles before reporting a rendering failure;
