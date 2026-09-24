@@ -120,16 +120,19 @@
  * Both selector groups win on specificity, not source order, so the base
  * rules in either sheet cannot take them back.
  *
- * Scope note carried over from F83: only the two controls below actually
- * invert onto the accent fill on hover. .issue-latest:hover takes the BAR to
- * --ink, not --accent, so .latest-title and .latest-meta already clear
- * against cream. Measured under real pointer hover, not inferred. */
+ * Scope note carried over from F83: three controls below invert onto the
+ * accent fill on hover. .issue-latest:hover takes the BAR to --ink, not
+ * --accent, so .latest-title and .latest-meta already clear against cream.
+ * Measured under real pointer hover, not inferred. F83 listed only two; the
+ * lead plate's "Read →" chip was the third, and it read #060606 on #c00 at
+ * 3.44:1 in dark mode until F108 added it here. */
 html.dark-mode .issue-latest .latest-tag,
 html.dark-mode .issue-head .latest-tag {
   color: var(--ink);
 }
 html.dark-mode .issue-latest:hover .latest-cta,
-html.dark-mode .identity-hero .hero-link.primary:hover {
+html.dark-mode .identity-hero .hero-link.primary:hover,
+html.dark-mode a.plate-lead:hover .rail-cta {
   color: var(--ink);
 }
 
