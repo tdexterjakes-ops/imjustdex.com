@@ -301,6 +301,11 @@
   to = "/words/send-someone-else/"
   status = 301
 
+[[redirects]]
+  from = "/words/the-weight-of-my-no"
+  to = "/words/the-weight-of-my-no/"
+  status = 301
+
 
 # ──────────────────────────────────────────────
 # Deprecated archive root — /words and /words/
