@@ -44,6 +44,14 @@
 
   var originalSubmitText = submit.textContent;
 
+  /* The error <p> ships holding the server-failure line, so every error
+     must pass its own copy — a bare setError() told a reader with a typo
+     that the server broke [F53]. Invalid-email and rate-limit wording is
+     the same copy subscribe.js and signup.js already show. */
+  var COPY_INVALID = 'That email didn’t look right. Try it again.';
+  var COPY_RATE    = 'Too many attempts. Give it a minute.';
+  var COPY_BROKE   = 'Something broke on our end. Try again, or email dex@imjustdex.com.';
+
   function setState(state) {
     form.setAttribute('data-state', state);
   }
@@ -79,7 +87,7 @@
 
     if (!input.value || !input.checkValidity()) {
       input.focus();
-      setError();
+      setError(COPY_INVALID);
       return;
     }
 
@@ -98,11 +106,28 @@
       .then(function (res) {
         /* Netlify proxy returns 200 on success (even across Mailchimp's
            own 2xx/3xx responses the proxy normalizes). */
-        if (!res || !res.ok) throw new Error('subscribe failed');
-        setSuccess();
+        if (res && res.ok) {
+          setSuccess();
+          return;
+        }
+        /* Read the function's error code so a rejected address or a
+           rate limit isn't reported as an outage. */
+        return (res ? res.json() : Promise.reject())
+          .catch(function () { return {}; })
+          .then(function (data) {
+            var code = data && data.error;
+            submit.disabled = false;
+            if (code === 'invalid_email') {
+              setError(COPY_INVALID);
+              submit.textContent = originalSubmitText;
+            } else {
+              setError(code === 'rate_limited' ? COPY_RATE : COPY_BROKE);
+              submit.textContent = 'Retry';
+            }
+          });
       })
       .catch(function () {
-        setError('Something broke on our end. Try again, or email dex@imjustdex.com.');
+        setError(COPY_BROKE);
         submit.disabled = false;
         submit.textContent = 'Retry';
       });
