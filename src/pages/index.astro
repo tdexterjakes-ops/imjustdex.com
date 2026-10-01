@@ -154,14 +154,16 @@ function packCascade(plates: CollectionEntry<'words'>[]): ForcedLayout[] {
 //
 // We now compute covers over the WHOLE archive reading order (This Month
 // then Earlier, so alternation holds across the section boundary), walking
-// once and flipping treatment each step. Frontmatter `plate.image` is an
-// editorial override — honored where set; auto-slots cycle the texture set.
+// once and flipping treatment each step. Frontmatter `plate.image` picks the
+// texture TYPE only: it is used in place of the cycle when the walk lands on a
+// textured slot, and ignored on a plain slot. It never decides placement —
+// every publish shifts the archive by one position, so an override that also
+// placed its plate collided with the auto slot before it on alternate
+// publishes (gloria + the-nets both noise, 2026-08-31 → 10-01) [F29].
 //
 // Seed prevTextured = true so the archive OPENS on a plain plate: the lead
 // hero above it carries the `.lead-image` surface, so a plain first card
-// is the correct contrast. (This also lands the two frontmatter overrides —
-// the-nets/price-of-sunday, both at odd positions — on textured slots with
-// no adjacency collision.)
+// is the correct contrast.
 type ArchiveCover = PlateImage | 'lines';
 const TEXTURE_CYCLE: ArchiveCover[] = ['concrete', 'lines', 'noise'];
 const coverMap = new Map<CollectionEntry<'words'>, ArchiveCover | null>();
@@ -171,10 +173,8 @@ const coverMap = new Map<CollectionEntry<'words'>, ArchiveCover | null>();
   for (const entry of [...thisMonth, ...earlier]) {
     const forced = entry.data.plate.image; // 'noise' | 'concrete' | undefined
     let cover: ArchiveCover | null;
-    if (forced) {
-      cover = forced;
-    } else if (!prevTextured) {
-      cover = TEXTURE_CYCLE[texIdx % TEXTURE_CYCLE.length];
+    if (!prevTextured) {
+      cover = forced ?? TEXTURE_CYCLE[texIdx % TEXTURE_CYCLE.length];
       texIdx++;
     } else {
       cover = null;
