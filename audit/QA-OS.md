@@ -554,3 +554,10 @@ that matches one of these shapes is a measurement artifact until proven otherwis
   gap and keep the prior result, never PASS and never FAIL. Note also that the
   `read_page` tree lists only what is inside the current viewport, so an element's
   absence from that tree is not evidence it is absent from the DOM.
+- **The pane denies clipboard-write, so "Copy link" always reports failure there.**
+  Measured 2026-10-04: a real pointer click on `/about/`'s Copy link printed
+  "Copy failed. Select the URL manually." — but `navigator.permissions.query({name:
+  'clipboard-write'})` reads `denied` in the pane and `writeText` rejects with
+  `NotAllowedError` even outside the click. That is the browser, not essay.js. Treat the
+  honest fail label + aria-live announcement as the PASS evidence for the fail path;
+  verify the success path only in a browser where the permission is granted.
