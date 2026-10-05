@@ -561,3 +561,15 @@ that matches one of these shapes is a measurement artifact until proven otherwis
   `NotAllowedError` even outside the click. That is the browser, not essay.js. Treat the
   honest fail label + aria-live announcement as the PASS evidence for the fail path;
   verify the success path only in a browser where the permission is granted.
+- **Hover transitions freeze at their start value while the pane is hidden.** Measured
+  2026-10-05: a real pointer hover on the dark-mode lead plate read `.rail-cta` as
+  cream-on-cream, 1.00:1 — F108 apparently regressed. The `background` transition simply
+  never advanced because the hidden pane composites no frames. Inserting
+  `.rail-cta{transition:none !important}` via `insertRule` gave the true pair (cream on
+  #c00, 5.17:1); `deleteRule` restored it. Neutralise transitions before reading any
+  hover colour.
+- **Never reset a form's `innerHTML` between stubbed submits.** The rebuilt form has no
+  JS listener, so the next `requestSubmit()` posts natively to `/api/subscribe` with
+  whatever address is in the field (2026-10-05; it hit the warm limiter and returned
+  429, so nothing reached Mailchimp). Reload the page between states, and add a
+  last-chance `submit` listener that calls `preventDefault()` if nothing else did.
