@@ -16,3 +16,7 @@ dist/
 
 # Local Netlify folder
 .netlify
+
+# Local harness + tool artifacts (machine-local, never shipped)
+.claude/settings.local.json
+deno.lock
