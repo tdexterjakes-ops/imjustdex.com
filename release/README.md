@@ -21,6 +21,10 @@ guard prevents future annual releases. `GRACE_RELEASE_BUILD_HOOK` is scoped to
 production **functions**. The function cannot be invoked through a public URL.
 No Mac, Codex session, GitHub Actions timer, or local process is required.
 
+The selected short link is `https://imjustdex.com/grace`, a permanent redirect to
+`/words/grace-in-the-dark/`. Before release it reaches the held destination’s 404;
+it does not expose a preview or bypass the time gate.
+
 The page becomes public after the Netlify build completes; this is a scheduled
 build trigger, not a promise of an exact-second switch. Native cloud logs and
 deploy history are the verification record. Future builds continue to materialize

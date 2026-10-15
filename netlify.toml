@@ -211,6 +211,12 @@
 # present, and the redirect only fires for the non-slash
 # variant. This is the canonical Netlify pattern.
 # ──────────────────────────────────────────────
+# Short address for Grace in the Dark; destination remains held until release.
+[[redirects]]
+  from = "/grace"
+  to = "/words/grace-in-the-dark/"
+  status = 301
+
 [[redirects]]
   from = "/about"
   to = "/about/"
