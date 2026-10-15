@@ -721,13 +721,14 @@ Content format: reading time only (e.g., "8 min"). No dates. No "Read Time:" lab
 
 ```css
 .plate-ghost {
-  grid-column: span 5; min-height: 230px;
+  grid-column: 1 / -1; min-height: 230px;
   background: transparent;
   border: var(--border-weight-content) dashed var(--border);
   cursor: default;
 }
 .plate-ghost .plate-title {
-  color: var(--ink); font-size: var(--text-h2); opacity: .46;
+  color: var(--ink); font-size: var(--text-plate);
+  line-height: var(--lh-tight); opacity: .46;
 }
 html.dark-mode .plate-ghost .plate-title { opacity: .40; }
 .plate-ghost .teaser-date {
@@ -742,7 +743,7 @@ html.dark-mode .plate-ghost .plate-title { opacity: .40; }
 }
 ```
 
-Used to tease an upcoming article before its publish date. Contains title (muted), "Publishing [date]" microcopy, and "Coming Soon" meta rail. The dashed border and transparency signal *this space is held*.
+Used to tease an upcoming article before its publish date. Contains title (muted), "Publishing [date]" microcopy, and "Coming Soon" meta rail. The dashed border and transparency signal *this space is held*. It spans the full archive row on desktop and tablet, retaining the existing single-column mobile footprint (210px minimum height). The title uses the established plate scale, with balanced wrapping on narrow screens.
 
 **Rendered by `GhostPlate.astro`** for every entry `isUpcoming()` returns true for — status `published` or `upcoming` with a future `publishedDate`. It heads the cascade as its own `01 · Next` row, above `Latest`, because the cascade reads strictly newest-first and an upcoming essay is newer than the lead. Nothing to swap on launch day: the daily rebuild flips the entry past its date and the same essay renders as a normal plate. It is deliberately **static** — no `<a>`, no hover, no focus ring (see *Interaction States*) — and carries no `data-lane`, so a lane filter hides it and the published-only lane counts stay honest against what is on screen.
 

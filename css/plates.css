@@ -280,7 +280,7 @@ html.dark-mode .plate-title.inverse {
 /* ── Ghost plate (teaser) ──────────────────────────────────── */
 
 .plate-ghost {
-  grid-column: span 5;
+  grid-column: 1 / -1;
   min-height: 230px;
   background: transparent;
   border: var(--border-weight-content) dashed var(--border);
@@ -301,9 +301,10 @@ html.dark-mode .plate-title.inverse {
 
 .plate-ghost .plate-title {
   color: var(--ink);
-  /* Ghost plate is upcoming content — visually subordinate to published
-     plates. --text-h2 keeps it readable without driving row height. */
-  font-size: var(--text-h2);
+  /* The upcoming essay owns a full row. Use the established plate-title
+     scale; the muted ink and dashed frame carry its held state. */
+  font-size: var(--text-plate);
+  line-height: var(--lh-tight);
   /* The previous note here claimed .42 cleared AA large-text at 3.1:1 light and
      .35 cleared it at 3.7:1 dark. Both figures were wrong — composited against
      the page ground they measure 2.92:1 and 2.84:1, so this title failed the
@@ -403,8 +404,7 @@ html.dark-mode .plate-ghost .plate-title {
     grid-template-columns: repeat(8, 1fr);
   }
 
-  .plate-feature,
-  .plate-ghost {
+  .plate-feature {
     grid-column: span 4;
   }
 
