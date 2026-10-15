@@ -6,32 +6,44 @@ interface Props {
 }
 const { entry } = Astro.props;
 const d = entry.data;
+const isSermon = d.contentType === 'sermon-notes';
+const passage = d.sermonPassage?.split(' · ')[0];
+// Count the released study itself; the homepage never decides publication.
+const studies = import.meta.glob<{ default: { body: string } }>('../../data/sermons/*.json');
+const loadStudy = isSermon ? studies[`../../data/sermons/${entry.slug}.json`] : undefined;
+const study = loadStudy ? (await loadStudy()).default : undefined;
+const passageCount = study?.body.match(/<details\b[^>]*class="[^"]*\bpassage\b/g)?.length;
 const dateOnly = d.publishedDate.slice(0, 10);
 const dateLabel = new Date(dateOnly + 'T00:00:00Z').toLocaleDateString('en-US', {
-  month: 'short',
+  month: isSermon ? 'long' : 'short',
   day: 'numeric',
+  ...(isSermon ? { year: 'numeric' as const } : {}),
   timeZone: 'UTC',
 });
 const primaryLane = d.lanes[0];
 const laneList = d.lanes.map((l) => l.toLowerCase()).join(' ');
 ---
 <article>
-  <a class="plate plate-lead" href={`/words/${entry.slug}/`} aria-label={`Read: ${d.title}`} data-lane={laneList}>
+  <a class:list={['plate', 'plate-lead', { 'plate-lead-sermon': isSermon }]} href={`/words/${entry.slug}/`} aria-label={`Read${isSermon ? ' sermon notes' : ''}: ${d.title}`} data-lane={laneList}>
     <div class="lead-image" aria-hidden="true">
-      <div class="lead-badge">
+      {!isSermon && <div class="lead-badge">
         <span class="lead-badge-label">Latest</span>
         <span class="lead-badge-lane">{primaryLane}</span>
-      </div>
+      </div>}
     </div>
     <div class="lead-body">
       <div>
-        <div class="lead-eyebrow"><time datetime={dateOnly}>{dateLabel}</time> · {d.readTime} read</div>
+        <div class="lead-eyebrow">{isSermon ? <>Sermon notes{passage && <> · {passage}</>}</> : <><time datetime={dateOnly}>{dateLabel}</time> · {d.readTime} read</>}</div>
         <h2 class="lead-title">{d.title}</h2>
         <p class="lead-deck">{d.deck}</p>
+        {isSermon && <>
+          <p class="lead-study-summary">{passageCount ? `Expanded study, with all ${passageCount} Scripture passages in full.` : 'Expanded study, with Scripture passages in full.'}</p>
+          <p class="lead-context"><time datetime={dateOnly}>{dateLabel}</time>{d.sermonLocation && <> · <span>{d.sermonLocation}</span></>}</p>
+        </>}
       </div>
       <div class="lead-rail">
-        <span class="rail-meta">{d.contentType === 'sermon-notes' ? 'Sermon notes' : 'Essay'} · {d.readTime}</span>
-        <span class="rail-cta">Read →</span>
+        {!isSermon && <span class="rail-meta">Essay · {d.readTime}</span>}
+        <span class="rail-cta">{isSermon ? 'Read sermon notes →' : 'Read →'}</span>
       </div>
     </div>
   </a>

@@ -71,14 +71,14 @@
     if (lane === null) {
       plates.removeAttribute('data-filter');
       if (earlierWrap) earlierWrap.hidden = false;
-      live.textContent = 'Filter cleared. Showing all essays.';
+      live.textContent = 'Filter cleared. Showing all entries.';
     } else {
       plates.setAttribute('data-filter', lane);
       // A lane view spans the whole archive, so the chronological
       // "View Earlier" toggle doesn't apply — hide it while filtered.
       if (earlierWrap) earlierWrap.hidden = true;
       live.textContent =
-        'Filtered to ' + lane + '. ' + visible + (visible === 1 ? ' essay.' : ' essays.');
+        'Filtered to ' + lane + '. ' + visible + (visible === 1 ? ' entry.' : ' entries.');
     }
 
     for (var j = 0; j < buttons.length; j++) {

@@ -254,6 +254,8 @@ body[data-decks="off"] .plate-deck { display: none; }
  * editorial copy right. Collapses to stacked on tablet.
  * -------------------------------------------------------- */
 
+#archive { scroll-margin-top: calc(var(--space-3xl) + var(--space-md)); }
+
 .plate-lead {
   grid-column: span 12;
   min-height: 460px;
@@ -371,6 +373,28 @@ body[data-decks="off"] .plate-deck { display: none; }
   max-width: 42ch;
   text-wrap: pretty;
 }
+
+.plate-lead .lead-study-summary {
+  margin: var(--space-sm) 0 0;
+  font-family: var(--body);
+  font-size: var(--text-body);
+  line-height: var(--lh-normal);
+  color: var(--body-color);
+  max-width: 42ch;
+  text-wrap: pretty;
+}
+
+.plate-lead .lead-context {
+  margin: var(--space-lg) 0 0;
+  font-family: var(--mono);
+  font-size: var(--text-label);
+  line-height: 1.6;
+  color: var(--body-muted);
+  text-wrap: pretty;
+}
+
+.plate-lead-sermon .lead-eyebrow { line-height: 1.5; }
+.plate-lead.plate-lead-sermon .lead-rail .rail-cta { margin-left: 0; }
 
 .plate-lead .lead-rail {
   margin-top: var(--space-lg);
@@ -966,12 +990,21 @@ body[data-layout="archive"] .row-head { display: none; }
     border-bottom: var(--border-weight-content) solid var(--border);
     min-height: 240px;
   }
+  /* On narrow screens, the reading invitation precedes decorative texture. */
+  .plate-lead-sermon .lead-body { grid-row: 1; }
+  .plate-lead-sermon .lead-image {
+    grid-row: 2;
+    min-height: var(--space-3xl);
+    border-bottom: 0;
+    border-top: var(--border-weight-content) solid var(--border);
+  }
   .lane-index { grid-template-columns: repeat(3, 1fr); }
   .signature-strip { grid-template-columns: 1fr; }
   .signature-body { border-right: 0; border-bottom: var(--border-weight-chrome) solid var(--border); }
 }
 
 @media (max-width: 760px) {
+  #archive { scroll-margin-top: calc(var(--space-2xl) + var(--space-sm)); }
   .issue-head { grid-template-columns: 1fr; }
   .issue-meta { border-right: 0; border-bottom: var(--border-weight-chrome) solid var(--border); min-width: 0; }
   .lane-index { grid-template-columns: 1fr; }

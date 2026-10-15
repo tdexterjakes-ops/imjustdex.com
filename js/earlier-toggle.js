@@ -20,7 +20,7 @@
   const count = document.querySelector('[data-earlier-count]');
   const label = btn.querySelector('.btn-label');
   const more = hidden.length;
-  const plural = more === 1 ? 'Essay' : 'Essays';
+  const plural = more === 1 ? 'Entry' : 'Entries';
   if (count) count.textContent = '— ' + more + ' more';
   if (label) label.textContent = 'View Earlier ' + plural;
 
@@ -33,7 +33,7 @@
     });
     btn.setAttribute('aria-expanded', String(next));
     const total = hidden.length;
-    const pluralAfter = total === 1 ? 'Essay' : 'Essays';
+    const pluralAfter = total === 1 ? 'Entry' : 'Entries';
     btn.querySelector('.btn-label').textContent = next ? 'Show Less' : 'View Earlier ' + pluralAfter;
     if (count) count.textContent = next ? '— showing all' : '— ' + total + ' more';
     // The glyph is aria-hidden decoration, but it is the same affordance as the

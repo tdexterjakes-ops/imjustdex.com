@@ -26,7 +26,7 @@ const upcoming = all.filter((e) => isUpcoming(e, now));
 
 // Lead = newest published.
 const lead = published[0];
-if (!lead) throw new Error('No published essays — cannot render homepage.');
+if (!lead) throw new Error('No published entries — cannot render homepage.');
 
 const leadDate = new Date(lead.data.publishedDate);
 const leadYear = leadDate.getUTCFullYear();
@@ -48,8 +48,8 @@ const EARLIER_VISIBLE = 6;
 const earlierVisible = earlier.slice(0, EARLIER_VISIBLE);
 const earlierMore = earlier.slice(EARLIER_VISIBLE);
 
-// Upcoming essays, soonest first. Drives the ghost teaser plates at the head
-// of the cascade. Until 2026-08-27 this also drove a next-in-queue strip below
+// Upcoming essays, soonest first. Ghost teasers follow the published lead.
+// Until 2026-08-27 this also drove a next-in-queue strip below
 // the archive; that component was retired once the ghost plate took over the
 // job, because the two were the same announcement rendered twice. [F93/F94]
 const upcomingSoonestFirst = upcoming
@@ -63,13 +63,13 @@ const upcomingSoonestFirst = upcoming
 // conditional on Earlier, which cannot survive a section appearing above them.
 // Derive them from which sections actually render instead. [F93]
 const sectionOrder: string[] = [];
-if (upcomingSoonestFirst.length > 0) sectionOrder.push('next');
 sectionOrder.push('thisWeek');
+if (upcomingSoonestFirst.length > 0) sectionOrder.push('next');
 if (thisMonth.length > 0) sectionOrder.push('thisMonth');
 if (earlierVisible.length > 0) sectionOrder.push('earlier');
 const rowNum = (key: string) => String(sectionOrder.indexOf(key) + 1).padStart(2, '0');
 
-// Lane counts: published essays only, multi-lane articles count for each lane.
+// Lane counts: published entries only, multi-lane entries count for each lane.
 const laneCounts: Record<Lane, number> = {
   Faith: published.filter((e) => e.data.lanes.includes('Faith')).length,
   Identity: published.filter((e) => e.data.lanes.includes('Identity')).length,
@@ -77,7 +77,7 @@ const laneCounts: Record<Lane, number> = {
 };
 
 // Issue head: derive entry number + week label from lead.
-// Entry number = chronological position of lead among all published essays (zero-padded).
+// Entry number = chronological position of lead among all published entries (zero-padded).
 const entryNo = String(published.length).padStart(2, '0');
 const weekLabel = `Week of ${leadDate.toLocaleDateString('en-US', {
   month: 'long',
@@ -194,16 +194,16 @@ const coverFor = (entry: CollectionEntry<'words'>): ArchiveCover | null =>
   <LaneIndex counts={laneCounts} />
 
   <main id="archive" tabindex="-1">
-    <section class="plates" aria-label="Essay archive">
+    <section class="plates" aria-label="Words archive">
+      <RowHead num={rowNum('thisWeek')} label="Latest" variant="lead" />
+      <LeadPlate entry={lead} />
+
       {upcomingSoonestFirst.length > 0 && (
         <>
           <RowHead num={rowNum('next')} label="Next" />
           {upcomingSoonestFirst.map((entry) => <GhostPlate entry={entry} />)}
         </>
       )}
-
-      <RowHead num={rowNum('thisWeek')} label="Latest" variant="lead" />
-      <LeadPlate entry={lead} />
 
       {thisMonth.length > 0 && (
         <>
@@ -236,7 +236,7 @@ const coverFor = (entry: CollectionEntry<'words'>): ArchiveCover | null =>
           {earlierMore.length > 0 && (
             <div class="earlier-more-wrap">
               <button class="earlier-more-btn" type="button" data-earlier-toggle aria-expanded="false">
-                <span class="btn-label">View Earlier Essays</span>
+                <span class="btn-label">View Earlier Entries</span>
                 <span class="btn-count" data-earlier-count>{`— ${earlierMore.length} more`}</span>
                 <span class="btn-glyph" aria-hidden="true">↓</span>
               </button>

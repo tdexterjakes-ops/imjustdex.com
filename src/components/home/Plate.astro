@@ -30,6 +30,7 @@ interface Props {
 }
 const { entry, positionVariant, forcedLayout, forcedImage, hidden = false } = Astro.props;
 const d = entry.data;
+const isSermon = d.contentType === 'sermon-notes';
 
 // Variant resolution: forced layout > frontmatter > position fallback > 'wide'.
 // 'row' is encoded as wide-typography + plate-row modifier so the typography
@@ -78,17 +79,16 @@ const primaryLane = d.lanes[0];
 const laneList = d.lanes.map((l) => l.toLowerCase()).join(' ');
 ---
 <article {...(hidden ? { class: 'earlier-more', hidden: true } : {})}>
-  <a class={cls} href={`/words/${entry.slug}/`} aria-label={`Read: ${d.title}`} data-lane={laneList}>
-    <span class="plate-lane">{primaryLane}</span>
+  <a class={cls} href={`/words/${entry.slug}/`} aria-label={`Read${isSermon ? ' sermon notes' : ''}: ${d.title}`} data-lane={laneList}>
+    <span class="plate-lane">{isSermon ? `Sermon notes · ${primaryLane}` : primaryLane}</span>
     <div class="plate-body">
       <h2 class={titleCls.join(' ')}>{d.title}</h2>
       <p class="plate-deck">{d.deck}</p>
     </div>
     <div class="meta-rail">
-      {d.contentType === 'sermon-notes' && <><span>Sermon notes</span><span class="dot" aria-hidden="true">·</span></>}
       <time datetime={dateOnly}>{dateLabel}</time>
       <span class="dot" aria-hidden="true">·</span>
-      <span>{d.readTime}</span>
+      <span>{isSermon ? (d.sermonPassage?.split(' · ')[0] ?? 'Sermon notes') : d.readTime}</span>
     </div>
   </a>
 </article>
