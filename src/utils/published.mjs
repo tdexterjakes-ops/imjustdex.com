@@ -14,7 +14,7 @@
 // /sitemap-0.xml and the homepage cascade / feed.xml / [...slug].astro.
 
 /**
- * @typedef {{ status?: string, publishedDate?: string }} EntryDataLike
+ * @typedef {{ status?: string, publishedDate?: string, contentType?: string, preachedOn?: string, publicationAuthorized?: boolean, authorizedReleaseAt?: string }} EntryDataLike
  */
 
 /**
@@ -27,6 +27,7 @@
  */
 export function isPubliclyLiveData(data, now = new Date()) {
   if (!data || data.status !== 'published') return false;
+  if (!sermonReleaseReady(data, now)) return false;
   if (typeof data.publishedDate !== 'string' || data.publishedDate.length === 0) return false;
   const ts = new Date(data.publishedDate).getTime();
   return Number.isFinite(ts) && ts <= now.getTime();
@@ -43,8 +44,25 @@ export function isPubliclyLiveData(data, now = new Date()) {
  */
 export function isUpcomingData(data, now = new Date()) {
   if (!data) return false;
+  if (!sermonReleaseReady(data, now)) return false;
   if (data.status !== 'published' && data.status !== 'upcoming') return false;
   if (typeof data.publishedDate !== 'string' || data.publishedDate.length === 0) return false;
   const ts = new Date(data.publishedDate).getTime();
   return Number.isFinite(ts) && ts > now.getTime();
+}
+
+// An explicitly authorized service-time release is separate from confirmation
+// that a sermon was preached. Draft status still blocks every public consumer.
+function sermonReleaseReady(data, now) {
+  if (data.contentType !== 'sermon-notes') return true;
+  if (data.publicationAuthorized !== true) return false;
+  if (data.authorizedReleaseAt !== undefined) {
+    if (typeof data.authorizedReleaseAt !== 'string' ||
+        !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})$/.test(data.authorizedReleaseAt)) return false;
+    const release = new Date(data.authorizedReleaseAt).getTime();
+    return Number.isFinite(release) && release <= now.getTime();
+  }
+  if (!data.preachedOn) return false;
+  const preached = new Date(data.preachedOn).getTime();
+  return Number.isFinite(preached) && preached <= now.getTime();
 }

@@ -1,0 +1,16 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import ArticleLayout from '~/layouts/ArticleLayout.astro';
+
+// Local development only. Production builds generate no preview routes.
+export async function getStaticPaths() {
+  if (!import.meta.env.DEV) return [];
+  return (await getCollection('words'))
+    .filter(entry => entry.data.status === 'drafted')
+    .map(entry => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+interface Props { entry: CollectionEntry<'words'>; }
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+<ArticleLayout entry={entry} preview><Content /></ArticleLayout>

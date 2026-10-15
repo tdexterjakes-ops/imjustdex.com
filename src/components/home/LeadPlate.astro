@@ -30,7 +30,7 @@ const laneList = d.lanes.map((l) => l.toLowerCase()).join(' ');
         <p class="lead-deck">{d.deck}</p>
       </div>
       <div class="lead-rail">
-        <span class="rail-meta">Essay · {d.readTime}</span>
+        <span class="rail-meta">{d.contentType === 'sermon-notes' ? 'Sermon notes' : 'Essay'} · {d.readTime}</span>
         <span class="rail-cta">Read →</span>
       </div>
     </div>

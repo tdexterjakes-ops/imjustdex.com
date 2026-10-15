@@ -85,6 +85,7 @@ const laneList = d.lanes.map((l) => l.toLowerCase()).join(' ');
       <p class="plate-deck">{d.deck}</p>
     </div>
     <div class="meta-rail">
+      {d.contentType === 'sermon-notes' && <><span>Sermon notes</span><span class="dot" aria-hidden="true">·</span></>}
       <time datetime={dateOnly}>{dateLabel}</time>
       <span class="dot" aria-hidden="true">·</span>
       <span>{d.readTime}</span>

@@ -1,0 +1,9 @@
+The Returning Glory — self-hosted webfonts, all under the SIL Open Font License 1.1
+(free to use, embed, redistribute, and embed in exported PDFs).
+
+  Anton            — © The Anton Project Authors        (OFL 1.1)
+  IBM Plex Sans    — © IBM Corp.                          (OFL 1.1)
+  IBM Plex Mono    — © IBM Corp.                          (OFL 1.1)
+  Newsreader       — © Production Type / Google Fonts     (OFL 1.1)
+
+Full license: https://openfontlicense.org

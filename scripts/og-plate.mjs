@@ -8,6 +8,7 @@
 // readTime), renders the IMJUSTDEX OG plate (phase28 language: masthead,
 // bordered Anton title box with red-square period, deck, foot), and writes
 // img/og-<slug>.png at 1200×630.
+// Sermon-note plates are held in drafts/<slug>/ until explicitly released.
 //
 //   • VOL is auto-set to (count of published essays + 1) — i.e. "this is the
 //     next blog" — unless you pass --vol N to pin it.
@@ -16,7 +17,7 @@
 // Requires macOS (uses `sips`) and Google Chrome. Zero npm dependencies.
 // Renders at 2× through headless Chrome, then downscales for crisp type.
 // ─────────────────────────────────────────────────────────────────────────
-import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve, join } from 'node:path';
@@ -48,6 +49,8 @@ const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, 
 const title = unquote(field('title'));
 const deck = unquote(field('deck'));
 const readTime = unquote(field('readTime'));                    // "12 min"
+const sermonNotes = unquote(field('contentType')) === 'sermon-notes';
+const contentLabel = sermonNotes ? 'SERMON NOTES' : 'WORDS';
 const lanes = (field('lanes').match(/"([^"]+)"/g) || [])
   .map((s) => s.replace(/"/g, '').toUpperCase()).join(' + ');   // "FAITH + IDENTITY"
 
@@ -96,7 +99,7 @@ body{background-color:#f4f4f1;background-image:linear-gradient(rgba(10,10,10,.05
 </style></head><body>
 <div class="mast"><div class="brandblock">${DX}<span class="wm">IMJUSTDEX</span></div>
 <div class="vol">VOL · ${vol} · ${lanes}</div>
-<div class="words">WORDS · ${esc(readTime.toUpperCase())}</div></div>
+<div class="words">${contentLabel} · ${esc(readTime.toUpperCase())}</div></div>
 <div class="titlebox"><div class="title">${titleHtml}</div></div>
 <div class="foot"><div class="deck">${esc(deck)}</div><div class="url"><span class="sq"></span>IMJUSTDEX.COM</div></div>
 <script>
@@ -113,14 +116,18 @@ body{background-color:#f4f4f1;background-image:linear-gradient(rgba(10,10,10,.05
 // ── render: HTML → headless Chrome @2× → sips downscale → img/og-<slug>.png ─
 const tmpHtml = '/tmp/og-plate-' + slug + '.html';
 const tmp2x = '/tmp/og-' + slug + '@2x.png';
-const out = join(IMG, 'og-' + slug + '.png');
+// public/img is a symlink to img. Keep sermon cards out of both until release.
+const outDir = sermonNotes ? join(REPO, 'drafts', slug) : IMG;
+mkdirSync(outDir, { recursive: true });
+const out = join(outDir, 'og-' + slug + '.png');
 writeFileSync(tmpHtml, html);
 execFileSync(CHROME, ['--headless', '--disable-gpu', '--hide-scrollbars',
   '--force-device-scale-factor=2', '--window-size=1200,630', '--virtual-time-budget=8000',
   '--screenshot=' + tmp2x, 'file://' + tmpHtml], { stdio: 'ignore' });
 execFileSync('sips', ['-z', '630', '1200', tmp2x, '--out', out], { stdio: 'ignore' });
 
-console.log(`✓ og-${slug}.png  —  VOL · ${vol} · ${lanes}  ·  WORDS · ${readTime.toUpperCase()}`);
+console.log(`✓ og-${slug}.png  —  VOL · ${vol} · ${lanes}  ·  ${contentLabel} · ${readTime.toUpperCase()}`);
 console.log(`  title: "${title}"   deck: "${deck}"`);
 console.log(`  → ${out}`);
+if (sermonNotes) console.log('  Held outside public assets. Copy to img/ only at an authorized release.');
 console.log(`  (bump ogImagePhase in the essay's frontmatter to cache-bust if replacing a live plate)`);

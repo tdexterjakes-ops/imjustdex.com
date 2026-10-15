@@ -4,11 +4,17 @@ import { isPubliclyLive } from '~/utils/visibility';
 
 interface Props {
   entry: CollectionEntry<'words'>;
+  preview?: boolean;
 }
 
-const { entry } = Astro.props;
+const { entry, preview = false } = Astro.props;
 const d = entry.data;
 const slug = entry.slug;
+const sermonNotes = d.contentType === 'sermon-notes';
+const sermonDate = d.preachedOn ?? d.plannedSermonDate;
+const sermonDateLabel = sermonDate ? new Date(sermonDate + 'T00:00:00Z').toLocaleDateString('en-US', {
+  weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC',
+}) : null;
 
 // Effective "ghost" (coming-soon teaser) state for the Next link.
 // `next.ghost` is hand-authored in frontmatter and goes stale once the
@@ -69,7 +75,7 @@ const jsonLd = {
 };
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-content-type={d.contentType} data-publication-state={preview ? 'held' : undefined}>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -81,6 +87,7 @@ const jsonLd = {
 
   <title>{pageTitle}</title>
   <meta name="description" content={d.description}>
+  {preview && <meta name="robots" content="noindex, nofollow, noarchive">}
 
   <link rel="canonical" href={articleUrl}>
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
@@ -97,7 +104,7 @@ const jsonLd = {
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="DX">
   <meta property="article:author" content="Dexter Jakes">
-  <meta property="article:published_time" content={dateOnly}>
+  {!preview && <meta property="article:published_time" content={dateOnly}>}
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
@@ -127,9 +134,9 @@ const jsonLd = {
   <link rel="alternate" type="application/atom+xml" title="Dexter Jakes — Essays" href="/feed.xml">
 
   <!-- Structured data: BlogPosting -->
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd, null, 2)} />
+  {!preview && <script type="application/ld+json" set:html={JSON.stringify(jsonLd, null, 2)} />}
 </head>
-<body>
+<body id={sermonNotes ? 'top' : undefined}>
   <div class="reading-progress" aria-hidden="true" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
   <div class="section-indicator" aria-hidden="true"></div>
   <a href="#article" class="skip-link">Skip to article</a>
@@ -145,7 +152,7 @@ const jsonLd = {
           </span>
           <span class="brand-word">Words</span>
         </a>
-        <button class="mode-toggle" id="modeToggle" type="button" aria-label="Toggle editorial mode" aria-pressed="false">
+        <button class="mode-toggle" id="modeToggle" type="button" aria-label={sermonNotes ? undefined : 'Toggle editorial mode'} aria-pressed="false">
           Mode: Light
         </button>
       </nav>
@@ -156,19 +163,25 @@ const jsonLd = {
 
         <header class="article-header">
           <div class="article-eyebrow">
-            {[...d.lanes, ...d.tags].map((t) => <span class="article-tag">{t}</span>)}
-            <span class="article-date"><time datetime={dateOnly}>{new Date(dateOnly + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</time></span>
+            {[...d.lanes, ...d.tags, ...(sermonNotes ? ['Sermon notes'] : [])].map((t) => <span class="article-tag">{t}</span>)}
+            {!preview && <span class="article-date"><time datetime={dateOnly}>{new Date(dateOnly + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</time></span>}
             <span class="article-read">{d.readTime}</span>
           </div>
           <h1 class="article-title">{d.title}</h1>
           <p class="article-deck">{d.deck}</p>
+          {sermonNotes && <div class="sermon-meta">
+            <p>Dexter Jakes · {d.sermonPassage}</p>
+            <p>{d.sermonLocation}</p>
+            {sermonDateLabel && <p>{d.preachedOn ? 'Preached' : d.authorizedReleaseAt && !preview ? 'Sermon for' : 'Planned for'} {sermonDateLabel}</p>}
+          </div>}
+          {preview && <p class="preview-notice" data-publication-notice>Private review · Unpublished</p>}
         </header>
 
         <article class="article-body">
           <slot />
         </article>
 
-        <div class="share-bar" aria-label="Share this essay">
+        {!sermonNotes && <><div class="share-bar" aria-label="Share this essay">
           <span class="share-label">Share</span>
           <a href={`https://x.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(d.title + titleSuffix)}`} target="_blank" rel="noopener noreferrer" class="share-link">X</a>
           <button type="button" class="share-link" data-copy-link={articleUrl}>Copy link</button>
@@ -188,7 +201,7 @@ const jsonLd = {
           <div class="email-signup-hp" aria-hidden="true">
             <input type="text" name="website" tabindex="-1" value="">
           </div>
-        </form>
+        </form></>}
 
         {(d.prev || d.next) && (
           <nav class="article-nav" aria-label="Essay navigation">
@@ -221,10 +234,10 @@ const jsonLd = {
 
     <footer class="footer-strip" aria-label="Footer">
       <div class="footer-links">
-        <a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer">Instagram</a>
+        {!sermonNotes && <><a href="https://instagram.com/ImJustDex" target="_blank" rel="noopener noreferrer">Instagram</a>
         <span class="footer-sep" aria-hidden="true">&middot;</span>
         <a href="https://x.com/ImJustDex" target="_blank" rel="noopener noreferrer">X</a>
-        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <span class="footer-sep" aria-hidden="true">&middot;</span></>}
         <a href="/feed.xml" aria-label="RSS feed">Feed</a>
       </div>
       <span>Built by Dex &middot; Est. 2026</span>
@@ -232,9 +245,9 @@ const jsonLd = {
   </div>
 
   <!-- Long-form behavior -->
-  <script src="/js/progress.js?v=phase14" is:inline defer></script>
+  {!sermonNotes && <><script src="/js/progress.js?v=phase14" is:inline defer></script>
   <script src="/js/essay.js?v=phase15" is:inline defer></script>
-  <script src="/js/signup.js?v=phase16" is:inline defer></script>
+  <script src="/js/signup.js?v=phase16" is:inline defer></>}
 </body>
 </html>
 

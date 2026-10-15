@@ -76,3 +76,10 @@ The site was hand-maintained static HTML through 2026-04-21. Migrated to
 Astro + MDX in a single session (commit `eecabbb`). Legacy HTML retired at
 `2b6f651`. `ROTATIONS.md` (the old 6-region cascade protocol) was deleted at
 `67cff31` — replaced by automatic computation in `src/pages/index.astro`.
+
+## Scheduled sermon notes
+
+Grace in the Dark is scheduled for October 18, 2026 at 10 AM Central using a
+Netlify scheduled function. Its approved content is encrypted in this public
+repository and only materializes in the production build at or after release.
+See [the cloud release instructions](release/README.md). No local machine is needed.

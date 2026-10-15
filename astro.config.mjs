@@ -34,9 +34,13 @@ const liveWordsUrls = new Set(
       const fm = raw.split(/^---\s*$/m)[1] ?? '';
       const status = fm.match(/^status:\s*["']?([^"'\n\r]+)/m)?.[1]?.trim();
       const publishedDate = fm.match(/^publishedDate:\s*["']?([^"'\n\r]+)/m)?.[1]?.trim();
-      return { slug: f.replace(/\.mdx$/, ''), status, publishedDate };
+      const contentType = fm.match(/^contentType:\s*["']?([^"'\n\r]+)/m)?.[1]?.trim();
+      const preachedOn = fm.match(/^preachedOn:\s*["']?([^"'\n\r]+)/m)?.[1]?.trim();
+      const publicationAuthorized = /^publicationAuthorized:\s*true\s*$/m.test(fm);
+      const authorizedReleaseAt = fm.match(/^authorizedReleaseAt:\s*["']?([^"'\n\r]+)/m)?.[1]?.trim();
+      return { slug: f.replace(/\.mdx$/, ''), status, publishedDate, contentType, preachedOn, publicationAuthorized, authorizedReleaseAt };
     })
-    .filter(({ slug, status, publishedDate }) => {
+    .filter(({ slug, status, publishedDate, contentType, preachedOn, publicationAuthorized, authorizedReleaseAt }) => {
       // Fail loud on malformed frontmatter — same philosophy as the Zod
       // schema. The Zod check at build time is authoritative; this warn
       // surfaces sitemap-specific drift early.
@@ -48,13 +52,14 @@ const liveWordsUrls = new Set(
         );
         return false;
       }
-      return isPubliclyLiveData({ status, publishedDate }, now);
+      return isPubliclyLiveData({ status, publishedDate, contentType, preachedOn, publicationAuthorized, authorizedReleaseAt }, now);
     })
     .map(({ slug }) => `${SITE_ORIGIN}/words/${slug}/`)
 );
 
 export default defineConfig({
   site: SITE_ORIGIN,
+  devToolbar: { enabled: false },
   trailingSlash: 'always',
   build: {
     format: 'directory',

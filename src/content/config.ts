@@ -26,6 +26,13 @@ const words = defineCollection({
         wordCount: z.number().int().positive(),
         ogImagePhase: z.string().default('phase26'),
         status: z.enum(STATUSES).default('published'),
+        contentType: z.enum(['essay', 'sermon-notes']).default('essay'),
+        plannedSermonDate: z.string().optional(),
+        preachedOn: z.string().optional(),
+        publicationAuthorized: z.boolean().default(false),
+        authorizedReleaseAt: z.string().datetime({ offset: true }).optional(),
+        sermonLocation: z.string().optional(),
+        sermonPassage: z.string().optional(),
         // Homepage plate configuration. Positional fallback applied if omitted.
         plate: z
           .object({

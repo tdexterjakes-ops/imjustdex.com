@@ -1,0 +1,27 @@
+---
+import '../styles/sermon-notes.css';
+interface Props { study: { body: string; contents: string; copyright: string }; }
+const { study } = Astro.props;
+// Paragraph-length callouts use reading type; preserve the imported words and markup.
+const readingBody = study.body.replace(/<p class="landing">([\s\S]*?)<\/p>/g, (markup, content: string) => {
+  const words = content.replace(/<[^>]*>/g, '').trim().split(/\s+/).length;
+  return words >= 20 ? markup.replace('class="landing"', 'class="landing landing-reading"') : markup;
+});
+---
+<div class="sermon-study">
+  <span id="read" aria-hidden="true"></span>
+  <details class="mobile-contents" id="contents">
+    <summary><span>Contents · <span data-mobile-label>God has not left you</span></span><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m5 7 5 5 5-5" /></svg></summary>
+    <nav aria-label="Study movements" set:html={study.contents} />
+  </details>
+  <div class="reading-tools">
+    <button class="notes-button" type="button" data-fold-passages aria-pressed="false" hidden>Fold passages</button>
+    <a class="notes-button" href="#the-study-underneath">Begin study</a>
+    <button class="notes-button" type="button" data-print hidden>Print notes</button>
+  </div>
+  <Fragment set:html={readingBody} />
+  <footer class="notes-footer" set:html={study.copyright} />
+</div>
+<script>
+  import '../scripts/sermon-notes.js';
+</script>
