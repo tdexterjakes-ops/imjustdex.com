@@ -742,7 +742,8 @@ html.dark-mode .plate-ghost .plate-title { opacity: .40; }
 }
 .plate-ghost .meta-rail {
   background: transparent; color: var(--body-muted);
-  border-top: var(--border-weight-chrome) dashed var(--border); border-right: none;
+  border-top: var(--border-weight-chrome) dashed var(--border);
+  border-right: var(--border-weight-chrome) dashed var(--border);
 }
 ```
 

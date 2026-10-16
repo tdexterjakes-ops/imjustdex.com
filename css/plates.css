@@ -368,8 +368,15 @@ html.dark-mode .plate-ghost .plate-title {
   /* Was --ink at opacity .25 = 1.80:1 light / 1.97:1 dark — the worst ratio in
      the plate system and barely visible. Same fix as .teaser-date above. [F90] */
   color: var(--body-muted);
+  /* The badge is a corner tab: its own top and right borders close against the
+     plate's left and bottom to enclose it. Dropping border-right left the top
+     rule running 120px and stopping in mid-air, with no --meta-bg fill to
+     terminate it — so the one plate whose badge announced a held essay was the
+     only badge on the page that did not read as a badge. Dashed rather than
+     solid keeps the ghost's idiom; the fill stays transparent for the same
+     reason. */
   border-top: var(--border-weight-chrome) dashed var(--border);
-  border-right: none;
+  border-right: var(--border-weight-chrome) dashed var(--border);
 }
 
 /* ── Lane badge ────────────────────────────────────────────── *
