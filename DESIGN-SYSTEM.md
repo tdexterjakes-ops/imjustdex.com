@@ -731,6 +731,9 @@ Content format: reading time only (e.g., "8 min"). No dates. No "Read Time:" lab
   line-height: var(--lh-tight); opacity: .46;
 }
 html.dark-mode .plate-ghost .plate-title { opacity: .40; }
+.plate-ghost .plate-deck {
+  color: var(--body-muted);   /* 4.62:1 light, 5.11:1 dark */
+}
 .plate-ghost .teaser-date {
   font-family: var(--body); font-size: var(--text-citation);
   font-weight: var(--weight-bold); letter-spacing: var(--track-teaser);

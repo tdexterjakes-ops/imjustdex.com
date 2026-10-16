@@ -320,6 +320,28 @@ html.dark-mode .plate-ghost .plate-title {
   opacity: .40;
 }
 
+.plate-ghost .plate-deck {
+  /* The deck was absent until 2026-10-16, which is what made a full-row ghost
+     read as a hole: title, a rule, a date, and 230px of nothing. `deck` is
+     required by the Zod schema, so every entry has one, and it is already
+     public on the coming-soon page and in the entry's meta — showing it here
+     discloses nothing new.
+
+     Colour, not inheritance: the base rule is --body-color, which on a held
+     plate would make the deck the BRIGHTEST text on it, above its own
+     46%-opacity title, inverting the hierarchy the dashed frame sets up.
+     --body-muted keeps title → deck → date descending and carries small-text
+     contrast on its own alpha rather than an opacity multiplier — the
+     F85/F86/F88 defect shape, and the reason teaser-date reads the same way.
+     Measured against the page ground (the plate is transparent):
+     4.62:1 light, 5.11:1 dark — clears the 4.5:1 small-text floor in both
+     modes, and sits above the title's 3.31/3.40, so the plate's hierarchy is
+     scale-led rather than contrast-led.
+     max-width is left at the base 38ch so the ghost's measure matches the
+     published plates beside it. */
+  color: var(--body-muted);
+}
+
 .plate-ghost .teaser-rule {
   width: 40px; /* intrinsic rule width, scope-excluded */
   height: 2px;
