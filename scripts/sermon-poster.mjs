@@ -108,9 +108,25 @@ const DX = '<svg viewBox="0 0 1484.43 1027.42" xmlns="http://www.w3.org/2000/svg
 
 const isImage = Boolean(stillPath);
 
+// --ground dark | light. Dark is the default for the typographic plate and is
+// the system-correct choice, not a preference: image plates "stay dark in both
+// modes — no inversion" (DESIGN-SYSTEM.md §6), and this poster sits inside a
+// black letterbox and is replaced by a black player on play. A cream plate
+// read as a bright slab against the page in dark mode and matched neither the
+// stage nor the player in light mode.
+const ground = flag('--ground') || 'dark';
+if (!['dark', 'light'].includes(ground)) die('--ground must be dark or light');
+const P = ground === 'dark'
+  ? { paper: '#060606', ink: '#f5f5f1', grid: 'rgba(245,245,241,.055)',
+      brandBg: '#f5f5f1', brandFg: '#0a0a0a', rule: '#f5f5f1', boxBg: 'rgba(245,245,241,.035)' }
+  : { paper: '#f4f4f1', ink: '#0a0a0a', grid: 'rgba(10,10,10,.05)',
+      brandBg: '#0a0a0a', brandFg: '#f5f5f1', rule: '#0a0a0a', boxBg: '#f8f8f5' };
+// The mark is authored cream; recolour it to whatever the brandblock needs.
+const MARK = DX.replaceAll('#f5f5f1', P.brandFg);
+
 // Shared furniture: the masthead badge and the IMJUSTDEX.COM foot, lifted
 // from the share plate so the two artifacts read as one system.
-const mast = `<div class="mast"><div class="brandblock">${DX}<span class="wm">IMJUSTDEX</span></div>
+const mast = `<div class="mast"><div class="brandblock">${MARK}<span class="wm">IMJUSTDEX</span></div>
 <div class="vol">VOL · ${vol} · ${lanes}</div>
 <div class="words">SERMON NOTES · ${esc(readTime.toUpperCase())}</div></div>`;
 const heroWords = hero.split(/\s+/).map(esc);
@@ -128,28 +144,28 @@ const html = `<!doctype html><html><head><meta charset="utf-8"><style>
 html,body{width:${W}px;height:${H}px;overflow:hidden;}
 body{position:relative;font-family:'Plex',sans-serif;${isImage
   ? 'background:#000;'
-  : "background-color:#f4f4f1;background-image:linear-gradient(rgba(10,10,10,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(10,10,10,.05) 1px,transparent 1px);background-size:46px 46px;background-position:-1px -1px;"}}
+  : `background-color:${P.paper};background-image:linear-gradient(${P.grid} 1px,transparent 1px),linear-gradient(90deg,${P.grid} 1px,transparent 1px);background-size:46px 46px;background-position:-1px -1px;`}}
 /* Image plate ::before — grayscale pulls the broadcast's own colour branding
    down so the still reads as IMJUSTDEX furniture, not someone else's card. */
 .still{position:absolute;inset:0;background-image:url('file://${stillPath}');background-size:cover;background-position:center;filter:grayscale(1) contrast(1.15);transform:scale(1.02);z-index:0;}
 /* Image plate ::after — the documented bottom-heavy scrim, verbatim. */
 .scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78),rgba(0,0,0,.26) 55%,rgba(0,0,0,.34));z-index:1;}
 .frame{position:absolute;inset:0;z-index:2;padding:30px 32px;display:flex;flex-direction:column;}
-.mast{display:flex;align-items:stretch;height:60px;border:2px solid #0a0a0a;background:#f4f4f1;}
-.brandblock{display:flex;align-items:center;gap:13px;background:#0a0a0a;color:#f5f5f1;padding:0 22px;}
+.mast{display:flex;align-items:stretch;height:60px;border:2px solid ${isImage ? '#0a0a0a' : P.rule};background:${isImage ? '#f4f4f1' : P.paper};}
+.brandblock{display:flex;align-items:center;gap:13px;background:${isImage ? '#0a0a0a' : P.brandBg};color:${isImage ? '#f5f5f1' : P.brandFg};padding:0 22px;}
 .brandblock svg{height:26px;width:auto;display:block;}
 .brandblock .wm{font-weight:700;font-size:18px;letter-spacing:.18em;}
-.vol{flex:1;display:flex;align-items:center;padding:0 26px;font-size:15px;font-weight:500;letter-spacing:.17em;text-transform:uppercase;color:#0a0a0a;white-space:nowrap;}
-.words{display:flex;align-items:center;border-left:2px solid #0a0a0a;padding:0 24px;font-size:14px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#0a0a0a;white-space:nowrap;}
-.herobox{flex:1;margin:22px 0 20px;border:3px solid #0a0a0a;background:#f8f8f5;display:flex;align-items:center;padding:0 52px;overflow:hidden;}
-.hero{font-family:'Anton',sans-serif;color:#0a0a0a;text-transform:uppercase;line-height:.92;letter-spacing:.005em;font-size:172px;text-wrap:balance;}
+.vol{flex:1;display:flex;align-items:center;padding:0 26px;font-size:15px;font-weight:500;letter-spacing:.17em;text-transform:uppercase;color:${isImage ? '#0a0a0a' : P.ink};white-space:nowrap;}
+.words{display:flex;align-items:center;border-left:2px solid ${isImage ? '#0a0a0a' : P.rule};padding:0 24px;font-size:14px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:${isImage ? '#0a0a0a' : P.ink};white-space:nowrap;}
+.herobox{flex:1;margin:22px 0 20px;border:3px solid ${P.rule};background:${P.boxBg};display:flex;align-items:center;padding:0 52px;overflow:hidden;}
+.hero{font-family:'Anton',sans-serif;color:${P.ink};text-transform:uppercase;line-height:.92;letter-spacing:.005em;font-size:172px;text-wrap:balance;}
 /* Keep the final word welded to its red-square period so the mark can never
    wrap onto a line of its own. */
 .hero .nw{white-space:nowrap;}
 .redsq{display:inline-block;width:.19em;height:.19em;background:#c00;vertical-align:baseline;margin-left:.05em;}
 /* Bottom-left stays empty in both modes: the live PLAY block lands there. */
 .foot{margin-top:auto;display:flex;justify-content:flex-end;align-items:flex-end;height:38px;}
-.url{display:flex;align-items:center;gap:11px;font-size:15px;font-weight:700;letter-spacing:.13em;white-space:nowrap;color:${isImage ? '#f5f5f1' : '#0a0a0a'};${isImage ? 'text-shadow:0 2px 0 rgba(0,0,0,.45);' : ''}}
+.url{display:flex;align-items:center;gap:11px;font-size:15px;font-weight:700;letter-spacing:.13em;white-space:nowrap;color:${isImage ? '#f5f5f1' : P.ink};${isImage ? 'text-shadow:0 2px 0 rgba(0,0,0,.45);' : ''}}
 .url .sq{width:13px;height:13px;background:#c00;display:block;}
 </style></head><body>
 ${isImage ? '<div class="still"></div><div class="scrim"></div>' : ''}
@@ -191,5 +207,5 @@ execFileSync('sips', ['-z', String(H), String(W), tmp2x, '--out', out], { stdio:
 
 console.log(`✓ sermon-poster-${date}.png  —  VOL · ${vol} · ${lanes}  ·  SERMON NOTES · ${readTime.toUpperCase()}`);
 console.log(`  mode:  ${isImage ? 'image plate — ' + stillPath : 'typographic plate'}`);
-if (!isImage) console.log(`  hero:  ${hero}`);
+if (!isImage) console.log(`  hero:  ${hero}  (ground: ${ground})`);
 console.log(`  → ${out}  (${W}×${H}, 16:9)`);
