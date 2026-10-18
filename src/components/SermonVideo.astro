@@ -1,0 +1,242 @@
+---
+/**
+ * Click-to-play facade for a sermon's broadcast video.
+ *
+ * Why a facade instead of a bare <iframe>: the sermon-notes page makes no
+ * third-party requests at all. A YouTube iframe costs roughly a megabyte of
+ * Google script plus cookies on every page load, charged to every reader —
+ * including the ones who only came to read. This renders a local WebP still
+ * and contacts youtube-nocookie.com only once a reader asks for playback.
+ *
+ * Why the trigger is an <a> and not a <button>: with JavaScript unavailable
+ * the link still reaches the sermon. The bundled script upgrades it to
+ * in-page playback. The page is never a dead end.
+ *
+ * The embed requires `frame-src https://www.youtube-nocookie.com` in the
+ * netlify.toml CSP. The policy is self-only otherwise, and without that
+ * directive the player blanks with no visible error.
+ */
+interface Props {
+  videoId: string;
+  title: string;
+  channel: string;
+  dateLabel?: string;
+  poster: string;
+  posterNarrow?: string;
+  heading?: string;
+}
+
+const {
+  videoId,
+  title,
+  channel,
+  dateLabel,
+  poster,
+  posterNarrow,
+  heading = 'Watch the sermon',
+} = Astro.props;
+
+const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
+// nocookie host: no cross-site cookie before playback.
+// rel=0: no end-screen recommendations pulling readers off the study.
+const embedSrc = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+const posterSrcset = posterNarrow ? `${posterNarrow} 800w, ${poster} 1200w` : undefined;
+const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLabel}` : ''}`;
+---
+<section class="sermon-video" aria-labelledby="sermon-video-heading">
+  <h2 class="sermon-video-heading" id="sermon-video-heading">{heading}</h2>
+
+  <div
+    class="sermon-video-stage"
+    data-sermon-video
+    data-embed={embedSrc}
+    data-embed-title={`${title} — ${channel}`}
+  >
+    <a
+      class="sermon-video-trigger"
+      href={watchUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-sermon-video-trigger
+    >
+      <img
+        class="sermon-video-poster"
+        src={poster}
+        srcset={posterSrcset}
+        sizes="(max-width: 760px) 100vw, 728px"
+        width="1200"
+        height="675"
+        alt=""
+        {/* The stage sits directly under the article header, inside the first
+            viewport on phone and desktop alike, so it is the page's likely LCP
+            element. Lazy-loading it would deprioritize exactly the wrong image. */}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <span class="sermon-video-play" aria-hidden="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M8 5l12 7-12 7z" fill="currentColor" />
+        </svg>
+        <span>Play</span>
+      </span>
+      <span class="sr-only">{spokenName}</span>
+    </a>
+  </div>
+
+  <!-- Title, venue and date are all in the article header already, and the
+       poster art carries the channel's own branding — repeating any of it here
+       is noise. What a reader does not otherwise know is that pressing play
+       hands them to a third party, so that is what this line says. -->
+  <p class="sermon-video-meta">Plays from YouTube</p>
+
+  <p class="sermon-video-print">Watch: {watchUrl}</p>
+</section>
+
+<script>
+  import '../scripts/sermon-video.js';
+</script>
+
+<style>
+  /* Chrome register and spacing come from the sermon-notes system
+     (DESIGN-SYSTEM.md §15), not from local values: the notes were moved onto
+     --body/--mono/--display tokens, and --notes-muted/--notes-red no longer
+     exist. The PLAY block follows the .notes-button recipe, recoloured to the
+     accent because it sits on imagery rather than on --panel. */
+  .sermon-video {
+    margin: 0 0 var(--space-2xl);
+  }
+
+  .sermon-video-heading {
+    margin: 0 0 var(--space-md);
+    font-family: var(--mono);
+    font-size: var(--text-label);
+    font-weight: var(--weight-bold);
+    line-height: var(--lh-snug);
+    letter-spacing: var(--track-chrome);
+    text-transform: uppercase;
+    color: var(--body-muted);
+  }
+
+  /* Full-bleed inside the frame, the same way .landing and the Contents bar do it. */
+  .sermon-video-stage {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    margin-inline: calc(-1 * var(--space-lg));
+    border-block: var(--border-weight-content) solid var(--border);
+    /* Deliberately not a theme token: this is video letterbox, not a themed
+       surface. --ink inverts to cream in dark mode and framed the player in a
+       pale slab. Black is correct in both modes. */
+    background: #000;
+    overflow: hidden;
+  }
+
+  .sermon-video-trigger {
+    position: absolute;
+    inset: 0;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .sermon-video-poster {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .sermon-video-play {
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-end: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    min-height: 44px;
+    padding: var(--space-sm) var(--space-chrome);
+    background: var(--accent);
+    color: var(--on-accent);
+    font-family: var(--mono);
+    font-size: var(--text-label);
+    font-weight: var(--weight-bold);
+    line-height: var(--lh-snug);
+    letter-spacing: var(--track-chrome);
+    text-transform: uppercase;
+    transition: background var(--motion-fast) var(--ease-default);
+  }
+
+  .sermon-video-play svg {
+    width: 1em;
+    height: 1em;
+    flex: none;
+  }
+
+  .sermon-video-trigger:hover .sermon-video-play,
+  .sermon-video-trigger:focus-visible .sermon-video-play {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .sermon-video-trigger:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .sermon-video-meta {
+    margin: var(--space-sm) 0 0;
+    font-family: var(--mono);
+    font-size: var(--text-label);
+    line-height: var(--lh-snug);
+    letter-spacing: var(--track-chrome);
+    text-transform: uppercase;
+    color: var(--body-muted);
+  }
+
+  .sermon-video-print {
+    display: none;
+  }
+
+  @media (max-width: 760px) {
+    .sermon-video-stage {
+      margin-inline: calc(-1 * var(--space-md));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sermon-video-play {
+      transition: none;
+    }
+  }
+
+  /* The notes are built to be printed; a dead black rectangle is not. */
+  @media print {
+    .sermon-video-stage {
+      display: none;
+    }
+
+    .sermon-video-print {
+      display: block;
+      margin: var(--space-xs) 0 0;
+      font-family: var(--mono);
+      font-size: var(--text-label);
+      line-height: var(--lh-snug);
+    }
+  }
+</style>
+
+<!-- The player iframe is created by script after the reader presses play, so
+     Astro never stamps it with this component's scope attribute and a scoped
+     rule silently fails to match — the frame collapses to the browser default
+     300x150. Namespaced under the stage class to keep the global leak nil. -->
+<style is:global>
+  .sermon-video-stage > .sermon-video-embed {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+</style>
