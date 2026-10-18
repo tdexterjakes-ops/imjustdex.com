@@ -20,8 +20,3 @@ dist/
 # Local harness + tool artifacts (machine-local, never shipped)
 .claude/settings.local.json
 deno.lock
-
-# Generated only inside production builds after the authorized cloud release.
-/src/content/words/grace-in-the-dark.mdx
-/src/data/sermons/grace-in-the-dark.json
-/img/og-grace-in-the-dark.png

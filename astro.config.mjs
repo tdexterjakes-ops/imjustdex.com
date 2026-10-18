@@ -71,6 +71,16 @@ export default defineConfig({
     // policy. Phase: health audit.
     inlineStylesheets: 'never',
   },
+  // Same CSP reason for processed <script> blocks: Astro inlines any script
+  // under Vite's assetsInlineLimit (4kb), and script-src 'self' blocks inline
+  // scripts — which killed the sermon-notes reading progress, section label
+  // and Fold/Print buttons. Scripts always ship as /_astro/*.js; every other
+  // asset keeps Vite's default.
+  vite: {
+    build: {
+      assetsInlineLimit: (filePath) => (filePath.endsWith('.js') ? false : undefined),
+    },
+  },
   integrations: [
     mdx(),
     sitemap({
