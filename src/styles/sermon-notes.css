@@ -1,84 +1,114 @@
-/* Reading extension of the shared Words article, scoped to sermon notes. */
-@font-face{font-family:'Newsreader';src:url('../assets/fonts/Newsreader-Regular.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap}
-@font-face{font-family:'Newsreader';src:url('../assets/fonts/Newsreader-Italic.woff2') format('woff2');font-style:italic;font-weight:400;font-display:swap}
-@font-face{font-family:'IBM Plex Mono';src:url('../assets/fonts/IBMPlexMono-Regular.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap}
-@font-face{font-family:'IBM Plex Mono';src:url('../assets/fonts/IBMPlexMono-SemiBold.woff2') format('woff2');font-style:normal;font-weight:600;font-display:swap}
-html[data-content-type="sermon-notes"]{--mono:'IBM Plex Mono',monospace;--notes-muted:#575753;--notes-red:var(--accent-text);--notes-header-height:88px;scroll-padding-top:calc(var(--notes-header-height) + 76px)}
-html.dark-mode[data-content-type="sermon-notes"]{--notes-muted:#aaa79e}
+/* Reading extension of the shared Words article, scoped to sermon notes.
+   Same type system, tokens and components as the essays: --body / --mono /
+   --display only, SectionHead kickers for movements, the essay Scripture,
+   StudyNote, pull-quote and callout recipes. What stays notes-only is listed
+   in DESIGN-SYSTEM.md §15 (Sermon notes). */
+/* Masthead height and the Contents-bar clearance: layout geometry, scope-excluded. */
+html[data-content-type="sermon-notes"]{--notes-header-height:88px;scroll-padding-top:calc(var(--notes-header-height) + 76px)}
 [data-content-type="sermon-notes"] .masthead{background:var(--bg)}
 [data-content-type="sermon-notes"] .reading-progress{width:100%;transform:scaleX(0);transform-origin:left;transition:none}
 [data-content-type="sermon-notes"] .article-eyebrow{flex-wrap:wrap}
-[data-content-type="sermon-notes"] .article-date,
-[data-content-type="sermon-notes"] .article-read,
-[data-content-type="sermon-notes"] .article-deck{color:var(--notes-muted)}
 [data-content-type="sermon-notes"] .mode-toggle{min-height:44px}
-[data-content-type="sermon-notes"] .article-body{font-size:18px;line-height:1.8;overflow-wrap:break-word}
-.sermon-meta{margin-top:24px;font:12px/1.8 var(--mono);color:var(--notes-muted)}
+/* The Contents bar opens the body flush under the header: no empty framed strip. */
+[data-content-type="sermon-notes"] .article-body{padding-top:0;overflow-wrap:break-word}
+
+/* Header meta: the essay chrome register (date, read time). */
+.sermon-meta{margin-top:var(--space-lg);font-family:var(--mono);font-size:var(--text-label);line-height:var(--lh-snug);letter-spacing:var(--track-chrome);text-transform:uppercase;color:var(--body-muted)}
 .sermon-meta p{margin:0}
-.preview-notice{margin-top:16px;font:600 12px/1.8 var(--mono);text-transform:uppercase;color:var(--notes-muted)}
-.sermon-study .mobile-contents{position:sticky;top:var(--notes-header-height);z-index:40;margin:0 -24px 24px;border:2px solid var(--border);background:var(--panel)}
-.sermon-study .mobile-contents>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:12px 16px;cursor:pointer;list-style:none;font:600 12px/1.5 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
+.preview-notice{margin-top:var(--space-md);font-family:var(--mono);font-size:var(--text-label);font-weight:var(--weight-bold);letter-spacing:var(--track-chrome);text-transform:uppercase;color:var(--body-muted)}
+
+/* Contents: sticky disclosure, full-bleed inside the frame. */
+/* Pulled up one chrome rule so, at rest, its top rule merges into the header's 3px frame. */
+.sermon-study .mobile-contents{position:sticky;top:var(--notes-header-height);z-index:40;margin:calc(-1 * var(--border-weight-chrome)) calc(-1 * var(--space-lg)) var(--space-lg);border:solid var(--border);border-width:var(--border-weight-chrome) 0;background:var(--panel)}
+.sermon-study .mobile-contents>summary{display:flex;align-items:center;justify-content:space-between;gap:var(--space-sm);min-height:48px; /* tap target, scope-excluded */padding:var(--space-sm) var(--space-lg);cursor:pointer;list-style:none;font-family:var(--mono);font-size:var(--text-label);font-weight:var(--weight-bold);line-height:var(--lh-snug);letter-spacing:var(--track-chrome);text-transform:uppercase;color:var(--ink)}
 .sermon-study summary::-webkit-details-marker{display:none}
 .sermon-study .mobile-contents nav{max-height:60dvh;overflow:auto}
-.sermon-study .movement-nav{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
-.sermon-study .movement-nav li{margin:0;padding:0;border-bottom:1px solid var(--rule)}
-.sermon-study .movement-nav a{display:grid;grid-template-columns:43px 1fr;gap:8px;min-height:48px;padding:12px 16px;color:var(--ink);font:400 13px/1.5 var(--body);text-decoration:none}
-.sermon-study .nav-order{font:12px/1.6 var(--mono);color:var(--notes-muted)}
+.sermon-study .movement-nav{list-style:none;margin:0;padding:0;border-top:var(--border-weight-chrome) solid var(--body-faint)}
+.sermon-study .movement-nav li{margin:0;padding:0;border-bottom:var(--border-weight-chrome) solid var(--body-faint)}
+.sermon-study .movement-nav a{display:grid;grid-template-columns:var(--space-2xl) 1fr;gap:var(--space-xs);min-height:48px; /* tap target, scope-excluded */padding:var(--space-sm) var(--space-lg);color:var(--ink);font-family:var(--body);font-size:var(--text-nav);font-weight:var(--weight-regular);line-height:var(--lh-snug);text-decoration:none}
+.sermon-study .nav-order{font-family:var(--mono);font-size:var(--text-micro);font-weight:var(--weight-bold);letter-spacing:var(--track-tag);color:var(--body-muted)}
 .sermon-study .movement-nav a[aria-current="location"]{background:var(--ink);color:var(--bg)}
 .sermon-study .movement-nav a[aria-current="location"] .nav-order{color:inherit}
-.sermon-study .reading-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 32px}
-.sermon-study .notes-button{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 12px;border:2px solid var(--border);border-radius:0;background:var(--panel);color:var(--ink);font:700 12px/1.25 var(--body);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;cursor:pointer}
-.sermon-study .notes-button:hover{background:var(--ink);color:var(--bg)}
+
+/* Reading tools: the essay Back-button recipe. */
+.sermon-study .reading-tools{display:flex;flex-wrap:wrap;gap:var(--space-xs);margin:0 0 var(--space-xl)}
+.sermon-study .notes-button{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:var(--space-sm) var(--space-chrome);border:var(--border-weight-chrome) solid var(--border);border-radius:0;background:var(--panel);color:var(--ink);font-family:var(--mono);font-size:var(--text-label);font-weight:var(--weight-bold);line-height:var(--lh-snug);letter-spacing:var(--track-chrome);text-transform:uppercase;text-decoration:none;cursor:pointer;transition:border-color var(--motion-fast) var(--ease-default)}
+.sermon-study .notes-button:hover{border-color:var(--accent)}
+/* "Begin study" is an <a>: keep its label ink like the buttons (article links turn red on hover). */
+.sermon-study a.notes-button:hover{color:var(--ink)}
 .sermon-study [hidden]{display:none!important}
-.sermon-study h2{font:400 clamp(28px,3vw,36px)/1.12 var(--display);text-transform:uppercase;letter-spacing:-.02em;margin:72px 0 28px;padding-top:24px;border-top:3px solid var(--border);text-wrap:balance}
-.sermon-study h3{font:700 20px/1.4 var(--body);letter-spacing:-.01em;margin:36px 0 16px;text-wrap:balance}
+
+/* Movements: the essay SectionHead — red mono kicker beside a red rule. */
+.sermon-study h2{position:relative;display:flex;align-items:center;gap:var(--space-chrome);margin:var(--space-2xl) 0 var(--space-lg);padding:0;border:0;font-family:var(--mono);font-size:var(--text-label);font-weight:var(--weight-bold);line-height:var(--lh-snug);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--accent-text);text-wrap:balance}
+.sermon-study h2::after{content:"";flex:1;min-width:var(--space-xl);border-top:var(--border-weight-content) solid var(--accent)}
+/* Keep the empty #the-study-underneath alias out of the flex row. */
+.sermon-study h2>span[id]:empty{position:absolute;top:0;left:0}
+.sermon-study h3{font-family:var(--body);font-size:var(--text-h3);font-weight:var(--weight-bold);line-height:var(--lh-snug);margin:var(--space-xl) 0 var(--space-md);color:var(--ink);text-wrap:balance}
 .sermon-study strong{color:var(--ink)}
-.sermon-study p{margin-bottom:24px}
-.sermon-study .landing{margin:40px -24px;padding:28px 24px;border-block:3px solid var(--border);background:var(--body-tint);font:400 clamp(25px,3vw,32px)/1.2 var(--display);letter-spacing:-.02em;text-transform:uppercase;text-wrap:balance;color:var(--ink)}
-.sermon-study .landing strong{font-weight:400}
-.sermon-study .landing-reading{font:400 1.25rem/1.65 var(--body);letter-spacing:normal;text-transform:none;text-wrap:pretty}
-.sermon-study .passage{margin:32px 0;border:2px solid var(--rule);background:var(--body-tint)}
-.sermon-study .passage summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:52px;padding:12px 16px;cursor:pointer;font:600 13px/1.5 var(--mono);list-style:none;color:var(--ink)}
+
+/* Landings: the essay pull quote; paragraph-length ones are the callout. */
+.sermon-study .landing{margin:var(--space-2xl) calc(-1 * var(--space-lg));padding:var(--space-xl) var(--space-lg);border-block:var(--border-weight-content) solid var(--border);background:var(--body-tint);font-family:var(--display);font-size:var(--text-h2);font-weight:var(--weight-regular);line-height:1.1;letter-spacing:var(--track-title);text-transform:uppercase;text-wrap:balance;color:var(--ink)}
+.sermon-study .landing strong{font-weight:var(--weight-regular)}
+.sermon-study .landing-reading{margin:var(--space-xl) 0;padding:0 0 0 var(--space-md);border:0;border-left:var(--border-weight-content) solid var(--accent);background:none;font-family:var(--body);font-size:var(--text-quote);font-weight:var(--weight-bold);line-height:var(--lh-snug);letter-spacing:normal;text-transform:none;text-wrap:pretty;color:var(--ink)}
+.sermon-study .landing-reading strong{font-weight:var(--weight-bold)}
+
+/* Passages: the essay StudyNote disclosure holding the Scripture block. */
+.sermon-study .passage{margin:var(--space-xl) 0;border:var(--border-weight-chrome) solid var(--body-faint);background:var(--body-tint)}
+.sermon-study .passage summary{display:flex;align-items:center;gap:var(--space-sm);min-height:44px;padding:var(--space-sm) var(--space-lg);cursor:pointer;list-style:none;font-family:var(--mono);font-size:var(--text-label);font-weight:var(--weight-bold);line-height:var(--lh-snug);letter-spacing:var(--track-chrome);text-transform:uppercase;color:var(--ink);transition:background var(--motion-fast) var(--ease-default)}
 .sermon-study .passage summary:hover{background:var(--body-tint)}
-.sermon-study :is(.passage,.mobile-contents)>summary svg{width:16px;height:16px;flex:none;transition:transform var(--motion-fast) var(--ease-default)}
-.sermon-study :is(.passage,.mobile-contents)[open]>summary svg{transform:rotate(180deg)}
-.sermon-study .passage[open] summary{border-bottom:1px solid var(--rule)}
-.article-body .sermon-study .scripture{margin:0;padding:20px 20px 24px;border:0;background:transparent;font:400 20px/1.7 'Newsreader',Georgia,serif;color:var(--body-color)}
-.sermon-study .scripture sup{font:400 12px/1 var(--mono);color:var(--notes-red);vertical-align:super}
-.article-body .sermon-study .scripture cite{display:block;margin-top:16px;font:400 13px/1.7 var(--mono);color:var(--notes-red);letter-spacing:.06em}
-.sermon-study>ol{padding-left:24px;font-size:16px;line-height:1.8}
-.sermon-study>ol li{padding-left:4px;margin-bottom:8px}
-.sermon-study>ol a{display:inline-flex;align-items:center;min-height:44px;padding:6px 0}
-.sermon-study .notes-footer{margin-top:40px;padding-top:24px;border-top:1px solid var(--rule);font:12px/1.8 var(--mono);color:var(--notes-muted)}
+.sermon-study .passage[open] summary{border-bottom:var(--border-weight-chrome) solid var(--body-faint)}
+.sermon-study :is(.passage,.mobile-contents)>summary svg{display:none}
+.sermon-study :is(.passage,.mobile-contents)>summary::after{content:'+';content:'+' / '';margin-left:auto;width:20px;flex:none;text-align:center;font-family:var(--mono);font-size:var(--text-body);font-weight:var(--weight-bold);line-height:1;color:var(--body-muted)}
+.sermon-study :is(.passage,.mobile-contents)[open]>summary::after{content:'\2212';content:'\2212' / ''}
+.article-body .sermon-study .scripture{margin:0;padding:var(--space-md) var(--space-lg) var(--space-lg);border:0;background:transparent;font-family:var(--body);font-size:var(--text-lede);font-style:italic;font-weight:var(--weight-regular);line-height:var(--lh-normal);color:var(--body-color)}
+.sermon-study .scripture sup{font:normal var(--weight-regular) var(--text-label)/1 var(--mono);color:var(--body-muted);vertical-align:super}
+.article-body .sermon-study .scripture cite{display:block;margin-top:var(--space-md);font-family:var(--mono);font-style:normal;font-size:var(--text-micro);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--accent-text)}
+
+/* Passage index and the Scripture credit (the StudyNote sources register). */
+.sermon-study>ol{padding-left:var(--space-lg);font-size:var(--text-body);line-height:var(--lh-normal)}
+.sermon-study>ol li{padding-left:var(--space-hairline);margin-bottom:var(--space-xs)}
+.sermon-study>ol a{display:inline-flex;align-items:center;min-height:44px;text-decoration-color:var(--body-faint)}
+/* 43 links in a row: red only on hover, or the index alone breaks the 1–2-per-viewport red budget. */
+.sermon-study>ol a:hover{text-decoration-color:var(--accent)}
+.sermon-study .notes-footer{margin-top:var(--space-2xl);padding-top:var(--space-sm);border-top:var(--border-weight-chrome) solid var(--body-faint);font-family:var(--mono);font-size:var(--text-micro);line-height:var(--lh-snug);color:var(--body-muted)}
 .sermon-study .notes-footer p{margin:0}
-.sermon-study :is(a,button,summary):focus-visible{outline:2px solid var(--focus-ring);outline-offset:4px}
+
+.sermon-study :is(a,button,summary):focus-visible{outline:var(--focus-ring-width) solid var(--focus-ring);outline-offset:2px}
+/* Inset where the row sits in a scroll container or a framed disclosure. */
+.sermon-study :is(summary,.movement-nav a):focus-visible{outline-offset:-2px}
+
 @media(max-width:760px){
  html[data-content-type="sermon-notes"]{--notes-header-height:64px}
- .sermon-study .mobile-contents{margin-inline:-16px}
- .sermon-study .landing{margin-inline:-16px;padding-inline:16px}
+ .sermon-study .mobile-contents{margin-inline:calc(-1 * var(--space-md))}
+ .sermon-study .mobile-contents>summary,.sermon-study .movement-nav a{padding-inline:var(--space-md)}
+ .sermon-study .landing{margin:var(--space-xl) calc(-1 * var(--space-md));padding:var(--space-lg) var(--space-md)}
+ .sermon-study .landing-reading{margin-inline:0;padding:0 0 0 var(--space-md)}
+ /* Full-bleed inside the frame, like the pull quote: Scripture keeps the prose measure. */
+ .sermon-study .passage{margin-inline:calc(-1 * var(--space-md));border-inline:0}
+ .sermon-study .passage summary{padding-inline:var(--space-md)}
+ .article-body .sermon-study .scripture{padding:var(--space-md)}
 }
 @media(max-width:600px){
- [data-content-type="sermon-notes"] .page-shell{padding-inline:env(safe-area-inset-left,0px) env(safe-area-inset-right,0px)}
- [data-content-type="sermon-notes"] .masthead{padding-inline:16px}
  /* Reserve two lines so changing movement labels cannot shift anchor targets. */
- .sermon-study .mobile-contents>summary{min-height:60px}
- .sermon-study h2{margin-top:56px;font-size:29px}
- .sermon-study h3{font-size:19px}
- /* Move the frame into the article inset; keep the Scripture column unchanged. */
- .sermon-study .passage{--passage-gutter:12px;margin-inline:calc(-1 * var(--passage-gutter))}
- .sermon-study .passage summary{padding:12px}
- .article-body .sermon-study .scripture{padding:16px var(--passage-gutter)}
+ .sermon-study .mobile-contents>summary{min-height:60px} /* two-line reserve, scope-excluded */
+ /* Long kickers wrap: label above a full-width rule. */
+ .sermon-study h2{flex-wrap:wrap;row-gap:var(--space-xs)}
+ .sermon-study h2::after{flex-basis:100%}
 }
-@media(prefers-reduced-motion:reduce){.sermon-study :is(.passage,.mobile-contents)>summary svg{transition:none}}
 @media print{
+ /* color-scheme beats mode.js's inline dark scheme, which paints dark page margins. */
+ :root[data-content-type="sermon-notes"]{color-scheme:light!important;--bg:var(--print-paper);--panel:var(--print-paper);--ink:var(--print-ink);--border:var(--print-ink);--body-color:var(--print-ink);--body-muted:var(--print-ink);--accent-text:var(--accent);--rule:var(--print-muted);--body-faint:var(--print-muted);--body-tint:transparent}
  .sermon-study .mobile-contents,.sermon-study .reading-tools{display:none!important}
  .sermon-study h2,.sermon-study h3,.sermon-study summary{break-after:avoid}
- .sermon-study .passage{margin-inline:0;background:none;border:1px solid #aaa;break-inside:auto}
+ .sermon-study .passage{margin-inline:0;background:none;border:var(--border-weight-chrome) solid var(--print-muted);break-inside:auto}
  .sermon-study .passage::details-content{display:block;content-visibility:visible}
  .sermon-study .passage:not([open])>*:not(summary){display:block!important}
- .sermon-study summary svg{display:none}
- .article-body .sermon-study .scripture{color:#000;font-size:12pt}
- .sermon-study .scripture sup,.article-body .sermon-study .scripture cite{color:#333}
- .sermon-study .landing{margin:24px 0;padding:16px 0;background:none}
- .sermon-meta,.preview-notice,.sermon-study .notes-footer{color:#333}
+ .sermon-study :is(.passage,.mobile-contents)>summary::after,.sermon-study :is(.passage,.mobile-contents)[open]>summary::after{content:none}
+ .sermon-study .passage>blockquote{break-before:avoid}
+ .article-body .sermon-study .scripture{color:var(--print-ink);font-size:12pt}
+ .sermon-study .scripture sup{color:var(--print-ink)}
+ .article-body .sermon-study .scripture cite{color:var(--accent)}
+ .sermon-study .landing{margin:var(--space-lg) 0;padding:var(--space-md) 0;background:none}
+ .sermon-study .landing-reading{padding:0 0 0 var(--space-md)}
+ .sermon-meta,.preview-notice,.sermon-study .notes-footer{color:var(--print-ink)}
 }

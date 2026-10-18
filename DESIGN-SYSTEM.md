@@ -62,6 +62,8 @@ All fonts ship from `/fonts/` as WOFF2 with Latin subsetting. No Google Fonts. N
 
 The difference is editorial judgment in component selection, not code.
 
+**Sermon notes** (`/words/{slug}/`, `contentType: sermon-notes`) — Dexter's sermon study, on the article template. Same frame, tokens and components as an essay: movements are SectionHead kickers, emphasis lines are pull quotes (callouts when paragraph-length), passages are StudyNote-style disclosures holding the Scripture block, chrome is the essay register. The notes-only layer is `src/styles/sermon-notes.css` + `src/scripts/sermon-notes.js`, imported by `SermonStudy.astro`; its deliberate deviations are listed in §15.
+
 **About** (`/about/`) — Same article frame, stripped of article-specific chrome (no reading progress bar, no section indicator). Content page, not an essay.
 
 ### Shared Shell (All Pages)
@@ -143,7 +145,7 @@ Red marks editorial emphasis. Never decoration.
 - Body text
 - Tags or metadata
 
-**Sanctioned exception to "Backgrounds" and "Tags or metadata" — the `.latest-tag` chip.** The homepage standfirst bar carries one `background: var(--accent)` tag: the `LATEST` chip in `LatestBar.astro`. It is a deliberate editorial signature, not drift — the single red mark that points at the newest essay — and it is the only sanctioned violation of either bullet. Any *further* red-filled tag or metadata background is still prohibited; this is an exception, not an opening.
+**Sanctioned exception to "Backgrounds" and "Tags or metadata" — the `.latest-tag` chip.** When the newest entry is sermon notes the chip reads `Sermon notes` instead of `Latest` (Dexter, 2026-10-15: notes are explicitly labeled); it is still exactly one chip pointing at the newest entry. The homepage standfirst bar carries one `background: var(--accent)` tag: the `LATEST` chip in `LatestBar.astro`. It is a deliberate editorial signature, not drift — the single red mark that points at the newest essay — and it is the only sanctioned violation of either bullet. Any *further* red-filled tag or metadata background is still prohibited; this is an exception, not an opening.
 
 Because it puts small text on the accent fill, it carries a mode-specific rule the rest of the accent doctrine does not need. `color: var(--bg)` resolves to cream on `#c00` in light mode (5.17:1, clears AA) but to `#060606` on `#c00` in dark (3.44:1, fails the 4.5:1 floor for 11.5px text). `css/home-augment.css` therefore pins the chip's dark-mode text to `var(--ink)`, so it renders identically in both modes at 5.17:1 (it moved there from `home-v2.css` so `/brand/` gets it too [F87]). The same override covers the three controls that invert onto the accent fill on hover — `.latest-cta`, `.identity-hero .hero-link.primary`, and the lead plate's `.rail-cta` [F108].
 
@@ -749,7 +751,7 @@ html.dark-mode .plate-ghost .plate-title { opacity: .40; }
 
 Used to tease an upcoming article before its publish date. Contains title (muted), "Publishing [date]" microcopy, and "Coming Soon" meta rail. The dashed border and transparency signal *this space is held*. It spans the full archive row on desktop and tablet, retaining the existing single-column mobile footprint (210px minimum height). The title uses the established plate scale, with balanced wrapping on narrow screens.
 
-**Rendered by `GhostPlate.astro`** for every entry `isUpcoming()` returns true for — status `published` or `upcoming` with a future `publishedDate`. It heads the cascade as its own `01 · Next` row, above `Latest`, because the cascade reads strictly newest-first and an upcoming essay is newer than the lead. Nothing to swap on launch day: the daily rebuild flips the entry past its date and the same essay renders as a normal plate. It is deliberately **static** — no `<a>`, no hover, no focus ring (see *Interaction States*) — and carries no `data-lane`, so a lane filter hides it and the published-only lane counts stay honest against what is on screen.
+**Rendered by `GhostPlate.astro`** for every entry `isUpcoming()` returns true for — status `published` or `upcoming` with a future `publishedDate`. It follows the lead as its own `02 · Next` row, below `Latest` (moved in `4090371`, HOMEPAGE-PLAN.md): the newest published entry leads, and the held space reads as what comes after it. Nothing to swap on launch day: the daily rebuild flips the entry past its date and the same essay renders as a normal plate. It is deliberately **static** — no `<a>`, no hover, no focus ring (see *Interaction States*) — and carries no `data-lane`, so a lane filter hides it and the published-only lane counts stay honest against what is on screen.
 
 **Muting comes from `--body-muted`, not an opacity multiplier**, on the date and the meta rail — the same reasoning as the lane badge below. Stacking a multiplier on an already alpha-tuned token drove these to 1.80–2.37:1. The title keeps a multiplier because it is a display face on a held plate, but at `.46` / `.40` rather than `.35`, which failed the 3:1 large-text floor in both modes.
 
@@ -1471,7 +1473,21 @@ The standard governs all production pages. Exceptions are permitted only under t
 
 ### Active Exceptions
 
-(None)
+**Sermon notes** (`contentType: sermon-notes`; first: `/words/grace-in-the-dark/`, 2026-10-18). A 60-minute study page with 43 passages, so it keeps a small reading layer the essays do not need. Everything else uses the essay components and tokens (brought into line 2026-10-18; the page had shipped with its own Plex Mono and Newsreader faces, page-local greys and Anton movement heads, all removed).
+- A sticky **Contents** disclosure replaces the section indicator; the masthead is opaque over it (the shell's own ≤760px rule, applied at all widths) and the mode toggle keeps a 44px target.
+- Passages are native disclosures (StudyNote anatomy, `+`/`−` glyph) with **Fold** and **Print** tools; Scripture is set at `--text-lede` rather than `--text-body` because passages run to 15+ verses; verse numerals are `--body-muted`, so red stays on the cite.
+- Paragraph-length landings (20+ words, flagged by `SermonStudy.astro`) take the callout recipe instead of the pull quote.
+- Landings are not capped at two: a 60-minute study carries roughly one per movement (5 pull quotes, 2 callouts on Grace).
+- Sub-points are `h3`: Plex Sans bold at `--text-h3` with `--lh-snug` (27 of them wrap often; `--lh-tight` is for display type).
+- Passage summaries carry the reference in the chrome register (mono, bold, `--track-chrome`, uppercase, ink), with no red `STUDY NOTE` label; red stays on the cite.
+- Phones: movement kickers stack the label above a full-width rule (the essay SectionHead drops its rule when a long label wraps); passages go full-bleed inside the frame like the pull quote, so Scripture keeps the prose measure.
+- The passage index (`Every passage, in order`, 43 links) shows a `--body-faint` underline at rest and red on hover, so red stays at 1–2 per viewport.
+- The Contents bar opens the body flush under the header (body `padding-top:0`), its top rule merging into the header frame at rest.
+- The header eyebrow carries a second tag, `Sermon notes` (Dexter, 2026-10-15), outside the single-word §13 tag vocabulary.
+- No share bar, signup band or social links. Dexter's 2026-10-15 ruling was "outbound links unchanged" (the page had none); leaving out the same-origin signup is an editorial choice.
+- The sermon date line reads `Sermon · <date>` (or `Planned` / `Preached`); never infer a preached date.
+- Home: the sermon lead plate has a red eyebrow `Sermon notes · <passage>`, a study summary, an uppercase mono date-and-venue line, a left-aligned `Read sermon notes →` and no image badge; the strip CTA reads `Read notes →`.
+- OG plate: `scripts/og-plate.mjs` labels it `SERMON NOTES` and holds it in `drafts/<slug>/` until release; pin `--vol N` (auto-VOL counts the entry itself); when replacing a live plate, set the entry's `ogImagePhase` one past the repo's `?v=phase` high-water.
 
 ---
 

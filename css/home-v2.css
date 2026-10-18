@@ -385,10 +385,14 @@ body[data-decks="off"] .plate-deck { display: none; }
 }
 
 .plate-lead .lead-context {
+  /* The rail-meta register: every mono line on the home page is uppercase and tracked. */
   margin: var(--space-lg) 0 0;
   font-family: var(--mono);
-  font-size: var(--text-label);
-  line-height: 1.6;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-tag);
+  text-transform: uppercase;
+  line-height: var(--lh-snug);
   color: var(--body-muted);
   text-wrap: pretty;
 }

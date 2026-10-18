@@ -13,7 +13,7 @@ const slug = entry.slug;
 const sermonNotes = d.contentType === 'sermon-notes';
 const sermonDate = d.preachedOn ?? d.plannedSermonDate;
 const sermonDateLabel = sermonDate ? new Date(sermonDate + 'T00:00:00Z').toLocaleDateString('en-US', {
-  weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC',
+  month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
 }) : null;
 
 // Effective "ghost" (coming-soon teaser) state for the Next link.
@@ -138,7 +138,7 @@ const jsonLd = {
 </head>
 <body id={sermonNotes ? 'top' : undefined}>
   <div class="reading-progress" aria-hidden="true" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
-  <div class="section-indicator" aria-hidden="true"></div>
+  {!sermonNotes && <div class="section-indicator" aria-hidden="true"></div>}
   <a href="#article" class="skip-link">Skip to article</a>
   <div class="ruler-top" aria-hidden="true"></div>
   <div class="ruler-left" aria-hidden="true"></div>
@@ -172,7 +172,7 @@ const jsonLd = {
           {sermonNotes && <div class="sermon-meta">
             <p>Dexter Jakes · {d.sermonPassage}</p>
             <p>{d.sermonLocation}</p>
-            {sermonDateLabel && <p>{d.preachedOn ? 'Preached' : d.authorizedReleaseAt && !preview ? 'Sermon for' : 'Planned for'} {sermonDateLabel}</p>}
+            {sermonDateLabel && <p>{d.preachedOn ? 'Preached' : d.authorizedReleaseAt && !preview ? 'Sermon' : 'Planned'} · {sermonDateLabel}</p>}
           </div>}
           {preview && <p class="preview-notice" data-publication-notice>Private review · Unpublished</p>}
         </header>

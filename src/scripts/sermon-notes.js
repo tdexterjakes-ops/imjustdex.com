@@ -36,8 +36,6 @@
   const headings = [...article.querySelectorAll('h2')];
   const links = [...document.querySelectorAll('.movement-nav a')];
   const progress = document.querySelector('.reading-progress');
-  const percent = document.querySelector('[data-progress-text]');
-  const current = document.querySelector('[data-current-section]');
   const mobileLabel = document.querySelector('[data-mobile-label]');
   const mobile = document.querySelector('.mobile-contents');
   let pending = false;
@@ -54,15 +52,14 @@
       if (a.hash === '#' + active.id) a.setAttribute('aria-current','location');
       else a.removeAttribute('aria-current');
     });
-    const label = active.textContent.replace(/^Movement (One|Two|Three|Four) · /, '');
-    if (current) current.textContent = label;
+    // The bar always reads exactly as the matching Contents entry.
+    const label = links.find(a => a.hash === '#' + active.id)?.lastElementChild?.textContent ?? active.textContent;
     if (mobileLabel) mobileLabel.textContent = label;
     const rect = article.getBoundingClientRect();
     const travelled = -rect.top + threshold;
     const total = Math.max(1, article.offsetHeight - window.innerHeight + threshold);
     const value = Math.max(0, Math.min(1, travelled / total));
     progress.style.transform = `scaleX(${value})`;
-    if (percent) percent.textContent = `${Math.round(value * 100)}% read`;
   }
   const requestUpdate = () => {
     if (!pending) { pending = true; requestAnimationFrame(updateReading); }
