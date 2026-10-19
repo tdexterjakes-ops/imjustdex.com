@@ -47,6 +47,11 @@ html[data-content-type="sermon-notes"]{--notes-header-height:88px;scroll-padding
 .sermon-study strong{color:var(--ink)}
 
 /* Landings: the essay pull quote; paragraph-length ones are the callout. */
+/* The preacher's note before the study opens: body voice, not chrome and not a
+   landing. Set apart by an ink rule rather than the accent, since the first
+   movement's red kicker sits a line below and the viewport keeps its red budget. */
+.sermon-study .study-preface{margin:var(--space-xl) 0;padding:0 0 0 var(--space-md);border-left:var(--border-weight-content) solid var(--ink)}
+.sermon-study .study-preface p:last-child{margin-bottom:0}
 .sermon-study .landing{margin:var(--space-2xl) calc(-1 * var(--space-lg));padding:var(--space-xl) var(--space-lg);border-block:var(--border-weight-content) solid var(--border);background:var(--body-tint);font-family:var(--display);font-size:var(--text-h2);font-weight:var(--weight-regular);line-height:1.1;letter-spacing:var(--track-title);text-transform:uppercase;text-wrap:balance;color:var(--ink)}
 .sermon-study .landing strong{font-weight:var(--weight-regular)}
 .sermon-study .landing-reading{margin:var(--space-xl) 0;padding:0 0 0 var(--space-md);border:0;border-left:var(--border-weight-content) solid var(--accent);background:none;font-family:var(--body);font-size:var(--text-quote);font-weight:var(--weight-bold);line-height:var(--lh-snug);letter-spacing:normal;text-transform:none;text-wrap:pretty;color:var(--ink)}
@@ -70,6 +75,10 @@ html[data-content-type="sermon-notes"]{--notes-header-height:88px;scroll-padding
 .sermon-study>ol a{display:inline-flex;align-items:center;min-height:44px;text-decoration-color:var(--body-faint)}
 /* 43 links in a row: red only on hover, or the index alone breaks the 1–2-per-viewport red budget. */
 .sermon-study>ol a:hover{text-decoration-color:var(--accent)}
+/* Top-of-body attribution: the footer recipe, mirrored — rule below, since it
+   opens the body rather than closing the page. */
+.sermon-study .notes-credit{margin:0 0 var(--space-xl);padding-bottom:var(--space-sm);border-bottom:var(--border-weight-chrome) solid var(--body-faint);font-family:var(--mono);font-size:var(--text-micro);line-height:var(--lh-snug);color:var(--body-muted)}
+.sermon-study .notes-credit p{margin:0}
 .sermon-study .notes-footer{margin-top:var(--space-2xl);padding-top:var(--space-sm);border-top:var(--border-weight-chrome) solid var(--body-faint);font-family:var(--mono);font-size:var(--text-micro);line-height:var(--lh-snug);color:var(--body-muted)}
 .sermon-study .notes-footer p{margin:0}
 

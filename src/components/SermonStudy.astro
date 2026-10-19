@@ -1,5 +1,6 @@
 ---
 import '../styles/sermon-notes.css';
+import prefaces from '../data/sermons/prefaces.json';
 interface Props { study: { body: string; contents: string; copyright: string }; }
 const { study } = Astro.props;
 // Paragraph-length callouts use reading type; preserve the imported words and markup.
@@ -7,6 +8,16 @@ const readingBody = study.body.replace(/<p class="landing">([\s\S]*?)<\/p>/g, (m
   const words = content.replace(/<[^>]*>/g, '').trim().split(/\s+/).length;
   return words >= 20 ? markup.replace('class="landing"', 'class="landing landing-reading"') : markup;
 });
+// The preacher's note stands between the orientation paragraphs and the first
+// movement. It is composed here rather than written into study.body: that body
+// is regenerated from the canonical Sermons package by import-sermon-study.py,
+// which asserts byte-equality in --check mode, so prose typed into it would
+// both fail that check and be overwritten on the next import.
+const slug = Astro.url.pathname.replace(/\/+$/, '').split('/').pop() ?? '';
+const prefaceLines: string[] = (prefaces as Record<string, string[]>)[slug] ?? [];
+const firstMovement = readingBody.search(/<h2[\s>]/);
+const intro = firstMovement < 0 ? readingBody : readingBody.slice(0, firstMovement);
+const movements = firstMovement < 0 ? '' : readingBody.slice(firstMovement);
 ---
 <div class="sermon-study">
   <span id="read" aria-hidden="true"></span>
@@ -19,7 +30,17 @@ const readingBody = study.body.replace(/<p class="landing">([\s\S]*?)<\/p>/g, (m
     <a class="notes-button" href="#the-study-underneath">Begin study</a>
     <button class="notes-button" type="button" data-print hidden>Print notes</button>
   </div>
-  <Fragment set:html={readingBody} />
+  {/* The attribution also stands here, at the top of the body. The footer notice
+      is ~100 screens down a 60-minute study, so a reader who finishes and closes
+      the tab never reaches it. Same imported sentence, not a second wording. */}
+  <div class="notes-credit" set:html={study.copyright} />
+  <Fragment set:html={intro} />
+  {prefaceLines.length > 0 && (
+    <aside class="study-preface">
+      {prefaceLines.map((line) => <p>{line}</p>)}
+    </aside>
+  )}
+  <Fragment set:html={movements} />
   <footer class="notes-footer" set:html={study.copyright} />
 </div>
 <script>
