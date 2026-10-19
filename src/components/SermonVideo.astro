@@ -37,7 +37,7 @@ const {
   posterNarrow,
   posterVersion,
   duration,
-  heading = 'Sermon video',
+  heading = 'Watch Sermon',
 } = Astro.props;
 
 // /img/* ships under `Cache-Control: max-age=31536000, immutable` and the
@@ -53,22 +53,38 @@ const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
 const embedSrc = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
 const posterSrc = `${poster}${v}`;
 const posterSrcset = posterNarrow ? `${posterNarrow}${v} 800w, ${posterSrc} 1200w` : undefined;
-const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLabel}` : ''}`;
 ---
 <section class="sermon-video" aria-labelledby="sermon-video-heading">
-  <h2 class="sermon-video-heading" id="sermon-video-heading">{heading}</h2>
+  {/* A link, not a button: with JavaScript unavailable a heading button would
+      be a dead control, while this still reaches the sermon. The script
+      upgrades it to in-page playback, the same shape the poster uses. */}
+  <h2 class="sermon-video-heading" id="sermon-video-heading">
+    <a
+      class="sermon-video-headlink"
+      href={watchUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-sermon-video-trigger
+    >{heading}</a>
+  </h2>
 
   <div
     class="sermon-video-stage"
     data-sermon-video
     data-embed={embedSrc}
-    data-embed-title={`${title} — ${channel}`}
+    data-embed-title={`${title} — ${channel}${dateLabel ? `, ${dateLabel}` : ''}`}
   >
+    {/* The heading above is the named control. This is the same destination
+        again, so it is the card pattern's redundant second link: kept
+        clickable for the mouse, taken out of the tab order and the
+        accessibility tree so it is not announced twice. */}
     <a
       class="sermon-video-trigger"
       href={watchUrl}
       target="_blank"
       rel="noopener noreferrer"
+      tabindex="-1"
+      aria-hidden="true"
       data-sermon-video-trigger
     >
       <img
@@ -97,8 +113,6 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
         </span>
         <span class="sermon-video-track"></span>
       </span>
-      <span class="sr-only">{spokenName}</span>
-
     </a>
   </div>
 
@@ -163,6 +177,27 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
      ~1.5px of half-leading above the caps and ~2.1px below the baseline, so
      equal margins still read top-crowded. 8/8 lands the caps on the band's
      optical centre and keeps the band the same height it was at 0/16. */
+  /* The passage-index pattern: a faint underline at rest, red on hover, so the
+     resting viewport keeps its 1-2 red budget while the chip already spends one. */
+  .sermon-video-headlink {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--body-faint);
+    text-underline-offset: 4px;
+    transition: color var(--motion-fast) var(--ease-default),
+      text-decoration-color var(--motion-fast) var(--ease-default);
+  }
+
+  .sermon-video-headlink:hover {
+    color: var(--accent-text);
+    text-decoration-color: currentColor;
+  }
+
+  .sermon-video-headlink:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
   .sermon-video-heading {
     margin: 0 0 var(--space-xs);
     font-family: var(--mono);
@@ -389,7 +424,8 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .sermon-video-play {
+    .sermon-video-play,
+    .sermon-video-headlink {
       transition: none;
     }
   }
