@@ -24,6 +24,7 @@ interface Props {
   poster: string;
   posterNarrow?: string;
   posterVersion?: string;
+  duration?: string;
   heading?: string;
 }
 
@@ -35,6 +36,7 @@ const {
   poster,
   posterNarrow,
   posterVersion,
+  duration,
   heading = 'Watch the sermon',
 } = Astro.props;
 
@@ -84,13 +86,19 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
         fetchpriority="high"
         decoding="async"
       />
-      <span class="sermon-video-play" aria-hidden="true">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M8 5l12 7-12 7z" fill="currentColor" />
-        </svg>
-        <span>Play</span>
+      {/* Chip and track read as one control bar. Stacked, the knob sat
+          directly under the chip and looked like a fragment of it. */}
+      <span class="sermon-video-bar" aria-hidden="true">
+        <span class="sermon-video-play">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8 5l12 7-12 7z" fill="currentColor" />
+          </svg>
+          <span>Play</span>
+        </span>
+        <span class="sermon-video-track"></span>
       </span>
       <span class="sr-only">{spokenName}</span>
+
     </a>
   </div>
 
@@ -104,7 +112,7 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
        exists to catch - a blocked frame, a filtered network, a privacy
        extension. A route out that is always there cannot mis-detect. -->
   <p class="sermon-video-chrome">
-    <span class="sermon-video-meta">Plays from <a href={watchUrl} target="_blank" rel="noopener noreferrer">YouTube</a></span>
+    <span class="sermon-video-meta">Plays from <a href={watchUrl} target="_blank" rel="noopener noreferrer">YouTube</a>{duration ? ` · ${duration}` : ''}</span>
     <button class="sermon-video-dismiss" type="button" data-sermon-video-dismiss hidden>Close player</button>
   </p>
 
@@ -186,11 +194,33 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
     object-position: center bottom;
   }
 
-  .sermon-video-play {
+  /* One control bar across the stage's foot: chip, then the track running to
+     the far edge. A play chip alone reads as a badge on a still; the timeline
+     is what says "timed medium" at a glance. */
+  .sermon-video-bar {
     position: absolute;
-    inset-inline-start: 0;
+    inset-inline: 0;
     inset-block-end: 0;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .sermon-video-track {
+    position: relative;
+    flex: 1;
+    align-self: center;
+    height: var(--sermon-video-track, 4px);
+    background: rgba(245, 245, 241, .32);
+  }
+
+  /* No knob and no fill. At zero a knob marks nothing, and a red square set
+     immediately beside the red chip reads as a fragment breaking off it
+     rather than a control - it was misread twice in review. The track, the
+     chip and the runtime carry the video grammar without it. */
+
+  .sermon-video-play {
     display: inline-flex;
+    flex: none;
     align-items: center;
     justify-content: center;
     gap: var(--space-xs);
@@ -230,6 +260,10 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
 
   .sermon-video-stage[data-state='playing'] {
     --sermon-video-ratio: 16 / 9;
+  }
+
+  .sermon-video-stage[data-state='playing'] .sermon-video-track {
+    display: none;
   }
 
   .sermon-video-stage[data-state='playing'] .sermon-video-trigger[hidden] {
