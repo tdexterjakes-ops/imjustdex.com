@@ -257,10 +257,15 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
     flex: none;
   }
 
+  /* Inverts to the accent PAIR, not to --ink/--bg. The poster ground is dark
+     in both modes while --ink follows the theme, so in light mode the hover
+     fill computed 1.01:1 against the plate behind it - the chip dissolved into
+     the poster and only the text flip survived. --on-accent/--accent are
+     mode-independent, so this holds at 18.5:1 on the plate either way. */
   .sermon-video-trigger:hover .sermon-video-play,
   .sermon-video-trigger:focus-visible .sermon-video-play {
-    background: var(--ink);
-    color: var(--bg);
+    background: var(--on-accent);
+    color: var(--accent);
   }
 
   /* Drawn INSIDE the trigger. The stage clips overflow, and the trigger fills
@@ -355,6 +360,28 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
   @media (max-width: 760px) {
     .sermon-video-stage {
       margin-inline: calc(-1 * var(--space-md));
+    }
+
+    /* The crop is anchored to the plate's bottom, so the margin under the hero
+       type (120 of 675px) scales with width alone: clearance works out to
+       stageWidth / 10 - chipHeight, independent of the ratio. At 44px the chip
+       sat 10px into the last line at 375 and 15px at 320. Shrinking it here
+       clears both; the chip is decorative anyway - the whole stage is the
+       <a>, so this is not a touch target. */
+    .sermon-video-play {
+      min-height: 24px;
+      padding: var(--space-hairline) var(--space-xs);
+    }
+  }
+
+  /* 320px is the reflow floor the rest of this page is held to, and at 25px
+     the formula above leaves zero there - the chip abuts the type. Trimming
+     the block padding is what actually shrinks it; min-height cannot, since
+     the box is already taller than any min-height worth setting. */
+  @media (max-width: 420px) {
+    .sermon-video-play {
+      padding-block: 0;
+      gap: var(--space-hairline);
     }
   }
 
