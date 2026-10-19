@@ -121,12 +121,25 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
      --body/--mono/--display tokens, and --notes-muted/--notes-red no longer
      exist. The PLAY block follows the .notes-button recipe, recoloured to the
      accent because it sits on imagery rather than on --panel. */
+  /* The chrome band under the stage is bounded by the stage's rule above and
+     the Contents bar's rule below, so this bottom margin is not separation
+     between blocks - it is dead space inside a framed strip. Matched to the
+     band above the stage instead. */
   .sermon-video {
-    margin: 0 0 var(--space-2xl);
+    /* Padding, not a margin on the heading: .article-body has no top border or
+       padding (padding-top:0 is deliberate, so the Contents bar can weld to the
+       header frame), so a top margin here collapses straight out of the body
+       and the label stays crowded against the rule above it. */
+    padding-top: var(--space-xs);
+    margin: 0 0 var(--space-xs);
   }
 
+  /* Even above and below the glyph, not the line box: uppercase mono leaves
+     ~1.5px of half-leading above the caps and ~2.1px below the baseline, so
+     equal margins still read top-crowded. 8/8 lands the caps on the band's
+     optical centre and keeps the band the same height it was at 0/16. */
   .sermon-video-heading {
-    margin: 0 0 var(--space-md);
+    margin: 0 0 var(--space-xs);
     font-family: var(--mono);
     font-size: var(--text-label);
     font-weight: var(--weight-bold);
@@ -243,7 +256,7 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
     align-items: center;
     justify-content: space-between;
     gap: var(--space-xs);
-    margin: var(--space-sm) 0 0;
+    margin: var(--space-xs) 0 0;
   }
 
   .sermon-video-dismiss {
