@@ -9,8 +9,11 @@
 
   for (const stage of stages) {
     const trigger = stage.querySelector('[data-sermon-video-trigger]');
-    const dismiss = stage.parentElement
-      && stage.parentElement.querySelector('[data-sermon-video-dismiss]');
+    const parent = stage.parentElement;
+    const dismiss = parent && parent.querySelector('[data-sermon-video-dismiss]');
+    // The way out of a blocked or broken player. Hidden at rest so the page
+    // keeps its no-outbound-links rule until a player is actually present.
+    const escape = parent && parent.querySelector('[data-sermon-video-escape]');
     const src = stage.dataset.embed;
     if (!trigger || !src) continue;
 
@@ -19,6 +22,7 @@
     function stop() {
       if (frame) { frame.remove(); frame = null; }
       if (dismiss) dismiss.hidden = true;
+      if (escape) escape.hidden = true;
       trigger.hidden = false;
       delete stage.dataset.state;
       trigger.focus();
@@ -41,6 +45,7 @@
       trigger.hidden = true;
       stage.dataset.state = 'playing';
       if (dismiss) dismiss.hidden = false;
+      if (escape) escape.hidden = false;
       frame.focus();
     }
 

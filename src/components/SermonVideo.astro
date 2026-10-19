@@ -106,14 +106,28 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
        poster art carries the channel's own branding — repeating any of it here
        is noise. What a reader does not otherwise know is that pressing play
        hands them to a third party, so that is what this line says. -->
-  <!-- The link is always present, never revealed by detection. An iframe fires
-       `load` even when the browser renders its own network-error page inside
-       it, so a timer cleared on load is dead code for exactly the failures it
-       exists to catch - a blocked frame, a filtered network, a privacy
-       extension. A route out that is always there cannot mis-detect. -->
+  <!-- At rest this page carries no visible outbound link, which is the rule for
+       sermon notes. The escape hatch appears only once a player is actually in
+       the stage, where a blocked or broken frame is the thing a reader needs
+       rescuing from. It is revealed by the same state the Close control uses,
+       never by trying to detect whether the frame painted: an iframe fires
+       `load` even when the browser renders its own error page inside it, so
+       detection is unreliable for exactly the failures it would exist to
+       catch. With JavaScript unavailable the poster is still an <a> to the
+       sermon, so the no-JS path keeps its route out. -->
   <p class="sermon-video-chrome">
-    <span class="sermon-video-meta">Plays from <a href={watchUrl} target="_blank" rel="noopener noreferrer">YouTube</a>{duration ? ` · ${duration}` : ''}</span>
-    <button class="sermon-video-dismiss" type="button" data-sermon-video-dismiss hidden>Close player</button>
+    <span class="sermon-video-meta">Plays from YouTube{duration ? ` · ${duration}` : ''}</span>
+    <span class="sermon-video-actions">
+      <a
+        class="sermon-video-escape"
+        href={watchUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-sermon-video-escape
+        hidden
+      >Watch on YouTube</a>
+      <button class="sermon-video-dismiss" type="button" data-sermon-video-dismiss hidden>Close player</button>
+    </span>
   </p>
 
   <p class="sermon-video-print">Watch: {watchUrl}</p>
@@ -270,20 +284,6 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
     display: none;
   }
 
-  .sermon-video-meta a {
-    color: inherit;
-    text-underline-offset: 3px;
-  }
-
-  .sermon-video-meta a:hover {
-    color: var(--accent-text);
-  }
-
-  .sermon-video-meta a:focus-visible {
-    outline: var(--focus-ring-width) solid var(--focus-ring);
-    outline-offset: 2px;
-  }
-
   .sermon-video-chrome {
     display: flex;
     flex-wrap: wrap;
@@ -293,8 +293,19 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
     margin: var(--space-xs) 0 0;
   }
 
+  .sermon-video-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .sermon-video-escape,
   .sermon-video-dismiss {
     appearance: none;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
     min-height: 44px;
     padding: var(--space-sm) var(--space-chrome);
     border: var(--border-weight-chrome) solid var(--border);
@@ -311,15 +322,18 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
     transition: border-color var(--motion-fast) var(--ease-default);
   }
 
+  .sermon-video-escape:hover,
   .sermon-video-dismiss:hover {
     border-color: var(--accent);
   }
 
+  .sermon-video-escape:focus-visible,
   .sermon-video-dismiss:focus-visible {
     outline: var(--focus-ring-width) solid var(--focus-ring);
     outline-offset: 2px;
   }
 
+  .sermon-video-escape[hidden],
   .sermon-video-dismiss[hidden] {
     display: none;
   }
