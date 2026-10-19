@@ -50,7 +50,12 @@
     # img-src 'self' data: https: — allows SVG data URIs and any https image we hotlink
     # connect-src 'self' + Netlify RUM collector (ingesteer) — Dexter opted into
     # Netlify Real User Monitoring 2026-09-18 [F105]; no other beacons allowed
-    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://ingesteer.services-prod.nsvcs.net; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+    # frame-src youtube-nocookie — sermon-notes broadcast embeds only. There was
+    # no frame-src before, so iframes fell back to default-src 'self' and the
+    # player blanked silently. The nocookie host sets no cross-site cookie until
+    # the reader presses play, and SermonVideo.astro injects the frame on click
+    # so no page load touches Google. Do not widen this to www.youtube.com.
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://ingesteer.services-prod.nsvcs.net; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
 
     # Prevent cross-origin info leaks
     Cross-Origin-Opener-Policy = "same-origin"

@@ -1,6 +1,8 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { isPubliclyLive } from '~/utils/visibility';
+import SermonVideo from '~/components/SermonVideo.astro';
+import sermonVideos from '~/data/sermons/videos.json';
 
 interface Props {
   entry: CollectionEntry<'words'>;
@@ -15,6 +17,25 @@ const sermonDate = d.preachedOn ?? d.plannedSermonDate;
 const sermonDateLabel = sermonDate ? new Date(sermonDate + 'T00:00:00Z').toLocaleDateString('en-US', {
   month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
 }) : null;
+
+// Broadcast video, keyed by slug in site data rather than in the entry's own
+// frontmatter. A sermon entry's MDX and study JSON are generated from the
+// canonical Sermons package and regenerated on re-import, so hand-added
+// frontmatter does not survive; this also leaves the words collection schema
+// unchanged. Adding a video is then an ordinary commit touching no content.
+interface SermonVideoData {
+  videoId: string;
+  title: string;
+  channel: string;
+  dateLabel?: string;
+  poster: string;
+  posterNarrow?: string;
+  posterVersion?: string;
+  duration?: string;
+}
+const sermonVideo: SermonVideoData | null = sermonNotes
+  ? (sermonVideos as Record<string, SermonVideoData>)[slug] ?? null
+  : null;
 
 // Effective "ghost" (coming-soon teaser) state for the Next link.
 // `next.ghost` is hand-authored in frontmatter and goes stale once the
@@ -178,6 +199,7 @@ const jsonLd = {
         </header>
 
         <article class="article-body">
+          {sermonVideo && <SermonVideo {...sermonVideo} />}
           <slot />
         </article>
 
