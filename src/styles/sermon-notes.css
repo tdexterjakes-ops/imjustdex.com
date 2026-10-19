@@ -24,11 +24,26 @@ html[data-content-type="sermon-notes"]{--notes-header-height:88px;scroll-padding
 .sermon-study summary::-webkit-details-marker{display:none}
 .sermon-study .mobile-contents nav{max-height:60dvh;overflow:auto}
 .sermon-study .movement-nav{list-style:none;margin:0;padding:0;border-top:var(--border-weight-chrome) solid var(--body-faint)}
-.sermon-study .movement-nav li{margin:0;padding:0;border-bottom:var(--border-weight-chrome) solid var(--body-faint)}
-.sermon-study .movement-nav a{display:grid;grid-template-columns:var(--space-2xl) 1fr;gap:var(--space-xs);min-height:48px; /* tap target, scope-excluded */padding:var(--space-sm) var(--space-lg);color:var(--ink);font-family:var(--body);font-size:var(--text-nav);font-weight:var(--weight-regular);line-height:var(--lh-snug);text-decoration:none}
+.sermon-study .movement-nav li{margin:0;padding:0}
+.sermon-study .movement-nav>li{border-bottom:var(--border-weight-chrome) solid var(--body-faint)}
+/* The tools row below closes the outline, so the last movement does not double its rule. */
+.sermon-study .movement-nav>li:last-child{border-bottom:0}
+.sermon-study .movement-nav>li>a{display:grid;grid-template-columns:var(--space-2xl) 1fr;gap:var(--space-xs);min-height:48px; /* tap target, scope-excluded */padding:var(--space-sm) var(--space-lg);color:var(--ink);font-family:var(--body);font-size:var(--text-nav);font-weight:var(--weight-regular);line-height:var(--lh-snug);text-decoration:none}
 .sermon-study .nav-order{font-family:var(--mono);font-size:var(--text-micro);font-weight:var(--weight-bold);letter-spacing:var(--track-tag);color:var(--body-muted)}
-.sermon-study .movement-nav a[aria-current="location"]{background:var(--ink);color:var(--bg)}
-.sermon-study .movement-nav a[aria-current="location"] .nav-order{color:inherit}
+.sermon-study .movement-nav>li>a[aria-current="location"]{background:var(--ink);color:var(--bg)}
+.sermon-study .movement-nav>li>a[aria-current="location"] .nav-order{color:inherit}
+
+/* Sub-points: the 27 h3s, subordinate under their movement. Labels hang on the
+   movement label's own column (left padding + order column + gap), lighter type,
+   no order chip. Red is already spent on the movement kickers and the cite, so
+   the current row takes an ink edge instead and the panel keeps its red budget. */
+.sermon-study .sub-nav{list-style:none;margin:0;padding:0}
+.sermon-study .sub-nav a{display:flex;align-items:center;min-height:44px; /* tap target, scope-excluded */padding:var(--space-xs) var(--space-lg) var(--space-xs) calc(var(--space-lg) + var(--space-2xl) + var(--space-xs));border-top:var(--border-weight-chrome) solid var(--body-tint);color:var(--body-color);font-family:var(--body);font-size:var(--text-label);font-weight:var(--weight-regular);line-height:var(--lh-snug);text-decoration:none}
+.sermon-study .sub-nav a:hover{color:var(--ink)}
+.sermon-study .sub-nav a[aria-current="location"]{border-left:var(--border-weight-content) solid var(--ink);padding-left:calc(var(--space-lg) + var(--space-2xl) + var(--space-xs) - var(--border-weight-content));background:var(--body-tint);color:var(--ink);font-weight:var(--weight-bold)}
+
+/* Folding reaches the reader from the sticky bar, not only from the page top. */
+.sermon-study .contents-tools{display:flex;flex-wrap:wrap;gap:var(--space-xs);padding:var(--space-sm) var(--space-lg);border-top:var(--border-weight-chrome) solid var(--body-faint)}
 
 /* Reading tools: the essay Back-button recipe. */
 .sermon-study .reading-tools{display:flex;flex-wrap:wrap;gap:var(--space-xs);margin:0 0 var(--space-xl)}
@@ -89,7 +104,9 @@ html[data-content-type="sermon-notes"]{--notes-header-height:88px;scroll-padding
 @media(max-width:760px){
  html[data-content-type="sermon-notes"]{--notes-header-height:64px}
  .sermon-study .mobile-contents{margin-inline:calc(-1 * var(--space-md))}
- .sermon-study .mobile-contents>summary,.sermon-study .movement-nav a{padding-inline:var(--space-md)}
+ .sermon-study .mobile-contents>summary,.sermon-study .movement-nav>li>a,.sermon-study .contents-tools{padding-inline:var(--space-md)}
+ .sermon-study .sub-nav a{padding-left:calc(var(--space-md) + var(--space-2xl) + var(--space-xs));padding-right:var(--space-md)}
+ .sermon-study .sub-nav a[aria-current="location"]{padding-left:calc(var(--space-md) + var(--space-2xl) + var(--space-xs) - var(--border-weight-content))}
  .sermon-study .landing{margin:var(--space-xl) calc(-1 * var(--space-md));padding:var(--space-lg) var(--space-md)}
  .sermon-study .landing-reading{margin-inline:0;padding:0 0 0 var(--space-md)}
  /* Full-bleed inside the frame, like the pull quote: Scripture keeps the prose measure. */
@@ -107,7 +124,7 @@ html[data-content-type="sermon-notes"]{--notes-header-height:88px;scroll-padding
 @media print{
  /* color-scheme beats mode.js's inline dark scheme, which paints dark page margins. */
  :root[data-content-type="sermon-notes"]{color-scheme:light!important;--bg:var(--print-paper);--panel:var(--print-paper);--ink:var(--print-ink);--border:var(--print-ink);--body-color:var(--print-ink);--body-muted:var(--print-ink);--accent-text:var(--accent);--rule:var(--print-muted);--body-faint:var(--print-muted);--body-tint:transparent}
- .sermon-study .mobile-contents,.sermon-study .reading-tools{display:none!important}
+ .sermon-study .mobile-contents,.sermon-study .reading-tools,.sermon-study .contents-tools{display:none!important}
  .sermon-study h2,.sermon-study h3,.sermon-study summary{break-after:avoid}
  .sermon-study .passage{margin-inline:0;background:none;border:var(--border-weight-chrome) solid var(--print-muted);break-inside:auto}
  .sermon-study .passage::details-content{display:block;content-visibility:visible}

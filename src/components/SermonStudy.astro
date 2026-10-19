@@ -8,6 +8,25 @@ const readingBody = study.body.replace(/<p class="landing">([\s\S]*?)<\/p>/g, (m
   const words = content.replace(/<[^>]*>/g, '').trim().split(/\s+/).length;
   return words >= 20 ? markup.replace('class="landing"', 'class="landing landing-reading"') : markup;
 });
+// Contents ships the 8 movements. The 27 sub-points already carry ids in the
+// body, so the outline is read back off those headings rather than duplicated
+// into the study data — a regenerated JSON cannot fall out of step with it.
+const subPoints = new Map<string, { id: string; label: string }[]>();
+const headings = /<(h2|h3)\b[^>]*\bid="([^"]+)"[^>]*>([\s\S]*?)<\/\1>/g;
+let heading: RegExpExecArray | null;
+let movement: string | null = null;
+while ((heading = headings.exec(study.body)) !== null) {
+  const [, tag, id, inner] = heading;
+  if (tag === 'h2') { movement = id; subPoints.set(id, []); continue; }
+  // Scripture-reference ids and anything outside a movement are not outline rows.
+  if (movement) subPoints.get(movement)!.push({ id, label: inner.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim() });
+}
+const contentsOutline = study.contents.replace(/<li><a href="#([^"]+)"[\s\S]*?<\/a><\/li>/g, (row, id: string) => {
+  const points = subPoints.get(id) ?? [];
+  if (!points.length) return row;
+  const items = points.map(point => `<li><a href="#${point.id}">${point.label}</a></li>`).join('');
+  return row.replace('</li>', `<ul class="sub-nav">${items}</ul></li>`);
+});
 // The preacher's note stands between the orientation paragraphs and the first
 // movement. It is composed here rather than written into study.body: that body
 // is regenerated from the canonical Sermons package by import-sermon-study.py,
@@ -23,10 +42,15 @@ const movements = firstMovement < 0 ? '' : readingBody.slice(firstMovement);
   <span id="read" aria-hidden="true"></span>
   <details class="mobile-contents" id="contents">
     <summary><span>Contents · <span data-mobile-label>God has not left you</span></span><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m5 7 5 5 5-5" /></svg></summary>
-    <nav aria-label="Study movements" set:html={study.contents} />
+    <nav aria-label="Study contents" set:html={contentsOutline} />
+    {/* Folding belongs with the outline: on a 57-screen study the only control
+        the reader can always reach is the one welded to the sticky bar. */}
+    <div class="contents-tools" hidden>
+      <button class="notes-button" type="button" data-fold-passages hidden>Fold passages</button>
+    </div>
   </details>
   <div class="reading-tools">
-    <button class="notes-button" type="button" data-fold-passages aria-pressed="false" hidden>Fold passages</button>
+    <button class="notes-button" type="button" data-resume hidden><span>Resume · <span data-resume-label></span></span></button>
     <a class="notes-button" href="#the-study-underneath">Begin study</a>
     <button class="notes-button" type="button" data-print hidden>Print notes</button>
   </div>
