@@ -37,7 +37,7 @@ const {
   posterNarrow,
   posterVersion,
   duration,
-  heading = 'Watch the sermon',
+  heading = 'Sermon video',
 } = Astro.props;
 
 // /img/* ships under `Cache-Control: max-age=31536000, immutable` and the
@@ -106,7 +106,10 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
        poster art carries the channel's own branding — repeating any of it here
        is noise. What a reader does not otherwise know is that pressing play
        hands them to a third party, so that is what this line says. -->
-  <!-- At rest this page carries no visible outbound link, which is the rule for
+  <!-- The line names the provider and the runtime and stops there: §13 bans
+       verbs in metadata ("8 min", not "Takes 8 minutes to read"), so "Plays
+       from YouTube" was out of register.
+       At rest this page carries no visible outbound link, which is the rule for
        sermon notes. The escape hatch appears only once a player is actually in
        the stage, where a blocked or broken frame is the thing a reader needs
        rescuing from. It is revealed by the same state the Close control uses,
@@ -116,7 +119,7 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
        catch. With JavaScript unavailable the poster is still an <a> to the
        sermon, so the no-JS path keeps its route out. -->
   <p class="sermon-video-chrome">
-    <span class="sermon-video-meta">Plays from YouTube{duration ? ` · ${duration}` : ''}</span>
+    <span class="sermon-video-meta">YouTube{duration ? ` · ${duration}` : ''}</span>
     <span class="sermon-video-actions">
       <a
         class="sermon-video-escape"
