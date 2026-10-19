@@ -23,6 +23,7 @@ interface Props {
   dateLabel?: string;
   poster: string;
   posterNarrow?: string;
+  posterVersion?: string;
   heading?: string;
 }
 
@@ -33,14 +34,23 @@ const {
   dateLabel,
   poster,
   posterNarrow,
+  posterVersion,
   heading = 'Watch the sermon',
 } = Astro.props;
+
+// /img/* ships under `Cache-Control: max-age=31536000, immutable` and the
+// poster path carries no content hash, so replacing its bytes in place strands
+// every reader who already holds the old plate — for a year. The article OG
+// plates solve this with ?v=<ogImagePhase>; posters use the same convention.
+// Bump posterVersion in videos.json whenever the image is re-rendered.
+const v = posterVersion ? `?v=${posterVersion}` : '';
 
 const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
 // nocookie host: no cross-site cookie before playback.
 // rel=0: no end-screen recommendations pulling readers off the study.
 const embedSrc = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
-const posterSrcset = posterNarrow ? `${posterNarrow} 800w, ${poster} 1200w` : undefined;
+const posterSrc = `${poster}${v}`;
+const posterSrcset = posterNarrow ? `${posterNarrow}${v} 800w, ${posterSrc} 1200w` : undefined;
 const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLabel}` : ''}`;
 ---
 <section class="sermon-video" aria-labelledby="sermon-video-heading">
@@ -61,7 +71,7 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
     >
       <img
         class="sermon-video-poster"
-        src={poster}
+        src={posterSrc}
         srcset={posterSrcset}
         sizes="(max-width: 760px) 100vw, 728px"
         width="1200"
@@ -88,7 +98,15 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
        poster art carries the channel's own branding — repeating any of it here
        is noise. What a reader does not otherwise know is that pressing play
        hands them to a third party, so that is what this line says. -->
-  <p class="sermon-video-meta">Plays from YouTube</p>
+  <!-- The link is always present, never revealed by detection. An iframe fires
+       `load` even when the browser renders its own network-error page inside
+       it, so a timer cleared on load is dead code for exactly the failures it
+       exists to catch - a blocked frame, a filtered network, a privacy
+       extension. A route out that is always there cannot mis-detect. -->
+  <p class="sermon-video-chrome">
+    <span class="sermon-video-meta">Plays from <a href={watchUrl} target="_blank" rel="noopener noreferrer">YouTube</a></span>
+    <button class="sermon-video-dismiss" type="button" data-sermon-video-dismiss hidden>Close player</button>
+  </p>
 
   <p class="sermon-video-print">Watch: {watchUrl}</p>
 </section>
@@ -119,9 +137,17 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
   }
 
   /* Full-bleed inside the frame, the same way .landing and the Contents bar do it. */
+  /* Collapsed until asked for: at 16/9 the block pushed the wayfinding layer
+     down a surface people come to READ. The crop is anchored to the bottom of
+     the plate (object-position below), which drops the plate's own masthead -
+     the lockup it was duplicating from the page header 200px above - while
+     keeping the hero line whole and preserving the plate's bottom margin, so
+     the PLAY chip still lands on empty ground instead of over the type.
+     2.1/1 is the tightest ratio that does all three. Expanding on click is a
+     user-initiated shift, not CLS. */
   .sermon-video-stage {
     position: relative;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: var(--sermon-video-ratio, 2.1 / 1);
     margin-inline: calc(-1 * var(--space-lg));
     border-block: var(--border-weight-content) solid var(--border);
     /* Deliberately not a theme token: this is video letterbox, not a themed
@@ -144,6 +170,7 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center bottom;
   }
 
   .sermon-video-play {
@@ -179,13 +206,79 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
     color: var(--bg);
   }
 
+  /* Drawn INSIDE the trigger. The stage clips overflow, and the trigger fills
+     it edge to edge, so a positive offset put the ring outside the clip and it
+     never painted. Negative offset is the system's own answer for full-bleed
+     controls (sermon-notes.css: summary and .movement-nav a both use -2px). */
   .sermon-video-trigger:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring);
+    outline-offset: -3px;
+  }
+
+  .sermon-video-stage[data-state='playing'] {
+    --sermon-video-ratio: 16 / 9;
+  }
+
+  .sermon-video-stage[data-state='playing'] .sermon-video-trigger[hidden] {
+    display: none;
+  }
+
+  .sermon-video-meta a {
+    color: inherit;
+    text-underline-offset: 3px;
+  }
+
+  .sermon-video-meta a:hover {
+    color: var(--accent-text);
+  }
+
+  .sermon-video-meta a:focus-visible {
     outline: var(--focus-ring-width) solid var(--focus-ring);
     outline-offset: 2px;
   }
 
-  .sermon-video-meta {
+  .sermon-video-chrome {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs);
     margin: var(--space-sm) 0 0;
+  }
+
+  .sermon-video-dismiss {
+    appearance: none;
+    min-height: 44px;
+    padding: var(--space-sm) var(--space-chrome);
+    border: var(--border-weight-chrome) solid var(--border);
+    border-radius: 0;
+    background: var(--panel);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: var(--text-label);
+    font-weight: var(--weight-bold);
+    line-height: var(--lh-snug);
+    letter-spacing: var(--track-chrome);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color var(--motion-fast) var(--ease-default);
+  }
+
+  .sermon-video-dismiss:hover {
+    border-color: var(--accent);
+  }
+
+  .sermon-video-dismiss:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .sermon-video-dismiss[hidden] {
+    display: none;
+  }
+
+  .sermon-video-meta {
+    margin: 0;
     font-family: var(--mono);
     font-size: var(--text-label);
     line-height: var(--lh-snug);

@@ -30,6 +30,7 @@ interface SermonVideoData {
   dateLabel?: string;
   poster: string;
   posterNarrow?: string;
+  posterVersion?: string;
 }
 const sermonVideo: SermonVideoData | null = sermonNotes
   ? (sermonVideos as Record<string, SermonVideoData>)[slug] ?? null
