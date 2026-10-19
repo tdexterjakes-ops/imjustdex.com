@@ -4,7 +4,7 @@
    StudyNote, pull-quote and callout recipes. What stays notes-only is listed
    in DESIGN-SYSTEM.md §15 (Sermon notes). */
 /* Masthead height and the Contents-bar clearance: layout geometry, scope-excluded. */
-html[data-content-type="sermon-notes"]{--notes-header-height:88px;scroll-padding-top:calc(var(--notes-header-height) + 76px)}
+html[data-content-type="sermon-notes"]{--notes-header-height:88px;--notes-panel-chrome:128px;scroll-padding-top:calc(var(--notes-header-height) + 76px)}
 [data-content-type="sermon-notes"] .masthead{background:var(--bg)}
 [data-content-type="sermon-notes"] .reading-progress{width:100%;transform:scaleX(0);transform-origin:left;transition:none}
 [data-content-type="sermon-notes"] .article-eyebrow{flex-wrap:wrap}
@@ -22,7 +22,14 @@ html[data-content-type="sermon-notes"]{--notes-header-height:88px;scroll-padding
 .sermon-study .mobile-contents{position:sticky;top:var(--notes-header-height);z-index:40;margin:calc(-1 * var(--border-weight-chrome)) calc(-1 * var(--space-lg)) var(--space-lg);border:solid var(--border);border-width:var(--border-weight-chrome) 0;background:var(--panel)}
 .sermon-study .mobile-contents>summary{display:flex;align-items:center;justify-content:space-between;gap:var(--space-sm);min-height:48px; /* tap target, scope-excluded */padding:var(--space-sm) var(--space-lg);cursor:pointer;list-style:none;font-family:var(--mono);font-size:var(--text-label);font-weight:var(--weight-bold);line-height:var(--lh-snug);letter-spacing:var(--track-chrome);text-transform:uppercase;color:var(--ink)}
 .sermon-study summary::-webkit-details-marker{display:none}
-.sermon-study .mobile-contents nav{max-height:60dvh;overflow:auto}
+/* The tools row is a sibling after this nav, so it sits outside the only
+   scrollable box in a pinned panel: page scroll cannot move a sticky element
+   and the nav's own scrollbar does not contain the row. Left at a flat 60dvh
+   the panel overran short viewports and the Fold control was stranded 15px of
+   45 on screen at every scroll position. The nav now also yields to whatever
+   the panel needs below it; 60dvh still governs everywhere taller, so nothing
+   changes above ~490px of viewport. */
+.sermon-study .mobile-contents nav{max-height:min(60dvh,calc(100dvh - var(--notes-header-height) - var(--notes-panel-chrome)));overflow:auto}
 .sermon-study .movement-nav{list-style:none;margin:0;padding:0;border-top:var(--border-weight-chrome) solid var(--body-faint)}
 .sermon-study .movement-nav li{margin:0;padding:0}
 .sermon-study .movement-nav>li{border-bottom:var(--border-weight-chrome) solid var(--body-faint)}
