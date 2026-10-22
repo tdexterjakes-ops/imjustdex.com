@@ -8,23 +8,37 @@
   if (!stages.length) return;
 
   for (const stage of stages) {
-    const trigger = stage.querySelector('[data-sermon-video-trigger]');
-    const dismiss = stage.parentElement
-      && stage.parentElement.querySelector('[data-sermon-video-dismiss]');
+    const parent = stage.parentElement;
+    // Two ways in: the heading link and the poster itself. Only the poster
+    // hides during playback - the heading stays, because it labels the region.
+    const triggers = [...(parent || stage).querySelectorAll('[data-sermon-video-trigger]')];
+    const trigger = stage.querySelector('.sermon-video-trigger');
+    // The named control. The poster is aria-hidden, so focus must not land
+    // there when the player closes.
+    const headlink = (parent || stage).querySelector('.sermon-video-headlink');
+    const dismiss = parent && parent.querySelector('[data-sermon-video-dismiss]');
+    // The way out of a blocked or broken player. Hidden at rest so the page
+    // keeps its no-outbound-links rule until a player is actually present.
+    const escape = parent && parent.querySelector('[data-sermon-video-escape]');
     const src = stage.dataset.embed;
-    if (!trigger || !src) continue;
+    if (!triggers.length || !trigger || !src) continue;
 
     let frame = null;
 
     function stop() {
       if (frame) { frame.remove(); frame = null; }
       if (dismiss) dismiss.hidden = true;
+      if (escape) escape.hidden = true;
       trigger.hidden = false;
       delete stage.dataset.state;
-      trigger.focus();
+      (headlink || trigger).focus();
     }
 
     function play() {
+      // Already running: a second press takes the reader to the player
+      // rather than rebuilding it underneath them.
+      if (frame) { frame.scrollIntoView({ block: 'center' }); frame.focus(); return; }
+
       frame = document.createElement('iframe');
       frame.className = 'sermon-video-embed';
       frame.src = src;
@@ -41,16 +55,19 @@
       trigger.hidden = true;
       stage.dataset.state = 'playing';
       if (dismiss) dismiss.hidden = false;
+      if (escape) escape.hidden = false;
       frame.focus();
     }
 
-    trigger.addEventListener('click', event => {
-      // Let modified clicks and middle-clicks open YouTube the way the
-      // reader asked; only plain activation plays in place.
-      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
-      event.preventDefault();
-      play();
-    });
+    for (const el of triggers) {
+      el.addEventListener('click', event => {
+        // Let modified clicks and middle-clicks open YouTube the way the
+        // reader asked; only plain activation plays in place.
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+        event.preventDefault();
+        play();
+      });
+    }
 
     if (dismiss) dismiss.addEventListener('click', stop);
   }

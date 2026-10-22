@@ -37,7 +37,7 @@ const {
   posterNarrow,
   posterVersion,
   duration,
-  heading = 'Watch the sermon',
+  heading = 'Watch Sermon',
 } = Astro.props;
 
 // /img/* ships under `Cache-Control: max-age=31536000, immutable` and the
@@ -53,22 +53,38 @@ const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
 const embedSrc = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
 const posterSrc = `${poster}${v}`;
 const posterSrcset = posterNarrow ? `${posterNarrow}${v} 800w, ${posterSrc} 1200w` : undefined;
-const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLabel}` : ''}`;
 ---
 <section class="sermon-video" aria-labelledby="sermon-video-heading">
-  <h2 class="sermon-video-heading" id="sermon-video-heading">{heading}</h2>
+  {/* A link, not a button: with JavaScript unavailable a heading button would
+      be a dead control, while this still reaches the sermon. The script
+      upgrades it to in-page playback, the same shape the poster uses. */}
+  <h2 class="sermon-video-heading" id="sermon-video-heading">
+    <a
+      class="sermon-video-headlink"
+      href={watchUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-sermon-video-trigger
+    >{heading}</a>
+  </h2>
 
   <div
     class="sermon-video-stage"
     data-sermon-video
     data-embed={embedSrc}
-    data-embed-title={`${title} — ${channel}`}
+    data-embed-title={`${title} — ${channel}${dateLabel ? `, ${dateLabel}` : ''}`}
   >
+    {/* The heading above is the named control. This is the same destination
+        again, so it is the card pattern's redundant second link: kept
+        clickable for the mouse, taken out of the tab order and the
+        accessibility tree so it is not announced twice. */}
     <a
       class="sermon-video-trigger"
       href={watchUrl}
       target="_blank"
       rel="noopener noreferrer"
+      tabindex="-1"
+      aria-hidden="true"
       data-sermon-video-trigger
     >
       <img
@@ -97,8 +113,6 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
         </span>
         <span class="sermon-video-track"></span>
       </span>
-      <span class="sr-only">{spokenName}</span>
-
     </a>
   </div>
 
@@ -106,14 +120,31 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
        poster art carries the channel's own branding — repeating any of it here
        is noise. What a reader does not otherwise know is that pressing play
        hands them to a third party, so that is what this line says. -->
-  <!-- The link is always present, never revealed by detection. An iframe fires
-       `load` even when the browser renders its own network-error page inside
-       it, so a timer cleared on load is dead code for exactly the failures it
-       exists to catch - a blocked frame, a filtered network, a privacy
-       extension. A route out that is always there cannot mis-detect. -->
+  <!-- The line names the provider and the runtime and stops there: §13 bans
+       verbs in metadata ("8 min", not "Takes 8 minutes to read"), so "Plays
+       from YouTube" was out of register.
+       At rest this page carries no visible outbound link, which is the rule for
+       sermon notes. The escape hatch appears only once a player is actually in
+       the stage, where a blocked or broken frame is the thing a reader needs
+       rescuing from. It is revealed by the same state the Close control uses,
+       never by trying to detect whether the frame painted: an iframe fires
+       `load` even when the browser renders its own error page inside it, so
+       detection is unreliable for exactly the failures it would exist to
+       catch. With JavaScript unavailable the poster is still an <a> to the
+       sermon, so the no-JS path keeps its route out. -->
   <p class="sermon-video-chrome">
-    <span class="sermon-video-meta">Plays from <a href={watchUrl} target="_blank" rel="noopener noreferrer">YouTube</a>{duration ? ` · ${duration}` : ''}</span>
-    <button class="sermon-video-dismiss" type="button" data-sermon-video-dismiss hidden>Close player</button>
+    <span class="sermon-video-meta">YouTube{duration ? ` · ${duration}` : ''}</span>
+    <span class="sermon-video-actions">
+      <a
+        class="sermon-video-escape"
+        href={watchUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-sermon-video-escape
+        hidden
+      >Watch on YouTube</a>
+      <button class="sermon-video-dismiss" type="button" data-sermon-video-dismiss hidden>Close player</button>
+    </span>
   </p>
 
   <p class="sermon-video-print">Watch: {watchUrl}</p>
@@ -146,6 +177,27 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
      ~1.5px of half-leading above the caps and ~2.1px below the baseline, so
      equal margins still read top-crowded. 8/8 lands the caps on the band's
      optical centre and keeps the band the same height it was at 0/16. */
+  /* The passage-index pattern: a faint underline at rest, red on hover, so the
+     resting viewport keeps its 1-2 red budget while the chip already spends one. */
+  .sermon-video-headlink {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--body-faint);
+    text-underline-offset: 4px;
+    transition: color var(--motion-fast) var(--ease-default),
+      text-decoration-color var(--motion-fast) var(--ease-default);
+  }
+
+  .sermon-video-headlink:hover {
+    color: var(--accent-text);
+    text-decoration-color: currentColor;
+  }
+
+  .sermon-video-headlink:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
   .sermon-video-heading {
     margin: 0 0 var(--space-xs);
     font-family: var(--mono);
@@ -243,10 +295,15 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
     flex: none;
   }
 
+  /* Inverts to the accent PAIR, not to --ink/--bg. The poster ground is dark
+     in both modes while --ink follows the theme, so in light mode the hover
+     fill computed 1.01:1 against the plate behind it - the chip dissolved into
+     the poster and only the text flip survived. --on-accent/--accent are
+     mode-independent, so this holds at 18.5:1 on the plate either way. */
   .sermon-video-trigger:hover .sermon-video-play,
   .sermon-video-trigger:focus-visible .sermon-video-play {
-    background: var(--ink);
-    color: var(--bg);
+    background: var(--on-accent);
+    color: var(--accent);
   }
 
   /* Drawn INSIDE the trigger. The stage clips overflow, and the trigger fills
@@ -270,20 +327,6 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
     display: none;
   }
 
-  .sermon-video-meta a {
-    color: inherit;
-    text-underline-offset: 3px;
-  }
-
-  .sermon-video-meta a:hover {
-    color: var(--accent-text);
-  }
-
-  .sermon-video-meta a:focus-visible {
-    outline: var(--focus-ring-width) solid var(--focus-ring);
-    outline-offset: 2px;
-  }
-
   .sermon-video-chrome {
     display: flex;
     flex-wrap: wrap;
@@ -293,8 +336,19 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
     margin: var(--space-xs) 0 0;
   }
 
+  .sermon-video-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .sermon-video-escape,
   .sermon-video-dismiss {
     appearance: none;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
     min-height: 44px;
     padding: var(--space-sm) var(--space-chrome);
     border: var(--border-weight-chrome) solid var(--border);
@@ -311,15 +365,18 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
     transition: border-color var(--motion-fast) var(--ease-default);
   }
 
+  .sermon-video-escape:hover,
   .sermon-video-dismiss:hover {
     border-color: var(--accent);
   }
 
+  .sermon-video-escape:focus-visible,
   .sermon-video-dismiss:focus-visible {
     outline: var(--focus-ring-width) solid var(--focus-ring);
     outline-offset: 2px;
   }
 
+  .sermon-video-escape[hidden],
   .sermon-video-dismiss[hidden] {
     display: none;
   }
@@ -342,10 +399,33 @@ const spokenName = `Play “${title}” — ${channel}${dateLabel ? `, ${dateLab
     .sermon-video-stage {
       margin-inline: calc(-1 * var(--space-md));
     }
+
+    /* The crop is anchored to the plate's bottom, so the margin under the hero
+       type (120 of 675px) scales with width alone: clearance works out to
+       stageWidth / 10 - chipHeight, independent of the ratio. At 44px the chip
+       sat 10px into the last line at 375 and 15px at 320. Shrinking it here
+       clears both; the chip is decorative anyway - the whole stage is the
+       <a>, so this is not a touch target. */
+    .sermon-video-play {
+      min-height: 24px;
+      padding: var(--space-hairline) var(--space-xs);
+    }
+  }
+
+  /* 320px is the reflow floor the rest of this page is held to, and at 25px
+     the formula above leaves zero there - the chip abuts the type. Trimming
+     the block padding is what actually shrinks it; min-height cannot, since
+     the box is already taller than any min-height worth setting. */
+  @media (max-width: 420px) {
+    .sermon-video-play {
+      padding-block: 0;
+      gap: var(--space-hairline);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .sermon-video-play {
+    .sermon-video-play,
+    .sermon-video-headlink {
       transition: none;
     }
   }
