@@ -78,6 +78,10 @@
   for (const el of article.querySelectorAll('h2, h3')) {
     if (el.tagName === 'H2') openMovement = el; else movementOf.set(el, openMovement);
   }
+  /* An outline anchor holds more than its label: the sub-point rows also carry
+     the delivery state as .sr-only words and an aria-hidden mark. textContent
+     concatenates all of that regardless of CSS, so read the labelled span. */
+  const linkLabel = link => ((link?.querySelector('[data-label]') ?? link?.lastElementChild)?.textContent ?? '').trim();
   // 35 rows now, so only touch the attribute that actually changed.
   function mark(links, heading) {
     links.forEach(a => {
@@ -124,14 +128,14 @@
     mark(movementLinks, active);
     mark(subLinks, activeSub);
     // The bar always reads exactly as the matching Contents entry.
-    const label = movementLinks.find(a => a.hash === '#' + active.id)?.lastElementChild?.textContent ?? active.textContent;
+    const label = linkLabel(movementLinks.find(a => a.hash === '#' + active.id)) || active.textContent;
     if (mobileLabel) mobileLabel.textContent = label;
     const anchor = activeSub ?? active;
     place = {
       heading: anchor.id,
       offset: Math.round(-anchor.getBoundingClientRect().top),
       // Name the finest-grained place the reader can recognise coming back.
-      label: activeSub ? (subLinks.find(a => a.hash === '#' + activeSub.id)?.textContent ?? label) : label,
+      label: activeSub ? (linkLabel(subLinks.find(a => a.hash === '#' + activeSub.id)) || label) : label,
     };
     remember(false);
     const rect = article.getBoundingClientRect();
@@ -168,7 +172,12 @@
     // A place from another season is not where the reader is now.
     if (!saved.at || Date.now() - saved.at > 90 * 24 * 60 * 60 * 1000) return;
     const label = resume.querySelector('[data-resume-label]');
-    if (label) label.textContent = saved.label || 'where you left off';
+    /* Re-derive from the live outline rather than trusting the stored string: a
+       place recorded before the outline carried state words has them run into
+       the label. Rewriting the key instead would discard the fold choice and
+       the position with it. */
+    const fresh = linkLabel([...subLinks, ...movementLinks].find(a => a.hash === '#' + saved.heading));
+    if (label) label.textContent = fresh || saved.label || 'where you left off';
     resume.hidden = false;
     resume.addEventListener('click', () => {
       // Land keyboard and screen-reader users where the page goes.

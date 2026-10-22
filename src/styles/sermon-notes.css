@@ -45,7 +45,7 @@ html[data-content-type="sermon-notes"]{--notes-header-height:88px;--notes-panel-
    no order chip. Red is already spent on the movement kickers and the cite, so
    the current row takes an ink edge instead and the panel keeps its red budget. */
 .sermon-study .sub-nav{list-style:none;margin:0;padding:0}
-.sermon-study .sub-nav a{display:flex;align-items:center;min-height:44px; /* tap target, scope-excluded */padding:var(--space-xs) var(--space-lg) var(--space-xs) calc(var(--space-lg) + var(--space-2xl) + var(--space-xs));border-top:var(--border-weight-chrome) solid var(--body-tint);color:var(--body-color);font-family:var(--body);font-size:var(--text-label);font-weight:var(--weight-regular);line-height:var(--lh-snug);text-decoration:none}
+.sermon-study .sub-nav a{display:flex;align-items:center;column-gap:var(--space-sm);min-height:44px; /* tap target, scope-excluded */padding:var(--space-xs) var(--space-lg) var(--space-xs) calc(var(--space-lg) + var(--space-2xl) + var(--space-xs));border-top:var(--border-weight-chrome) solid var(--body-tint);color:var(--body-color);font-family:var(--body);font-size:var(--text-label);font-weight:var(--weight-regular);line-height:var(--lh-snug);text-decoration:none}
 .sermon-study .sub-nav a:hover{color:var(--ink)}
 .sermon-study .sub-nav a[aria-current="location"]{border-left:var(--border-weight-content) solid var(--ink);padding-left:calc(var(--space-lg) + var(--space-2xl) + var(--space-xs) - var(--border-weight-content));background:var(--body-tint);color:var(--ink);font-weight:var(--weight-bold)}
 
@@ -53,14 +53,27 @@ html[data-content-type="sermon-notes"]{--notes-header-height:88px;--notes-panel-
    fuller than the hour is the page's purpose, not a shortfall it apologises for.
    Ink only — the movement kickers and the Scripture cites already hold the
    viewport's red budget, and a status mark is not where the accent belongs. */
-.sermon-study .sub-mark{flex:none;width:11px;height:11px;border:var(--border-weight-chrome) solid var(--body-muted);border-radius:50%;background:transparent}
+.sermon-study .sub-mark{position:relative;overflow:hidden;flex:none;width:11px;height:11px;border:var(--border-weight-chrome) solid var(--body-muted);border-radius:50%;background:transparent}
 .sermon-study .sub-mark[data-state="full"]{background:var(--body-muted)}
-/* Half-filled: a hard inset edge, so it reads as "part" at 11px without a gradient. */
-.sermon-study .sub-mark[data-state="part"]{background:linear-gradient(to right,var(--body-muted) 50%,transparent 50%)}
+/* Half-filled as a solid block rather than a gradient: in forced-colors mode a
+   background-color set to a system keyword survives and a gradient does not,
+   and in the outline this mark is the only visible carrier of state. */
+.sermon-study .sub-mark[data-state="part"]::before{content:"";position:absolute;inset:0 50% 0 0;background:var(--body-muted)}
 .sermon-study .sub-nav a .sub-mark{margin-inline-start:auto}
 .sermon-study .sub-nav a[aria-current="location"] .sub-mark{border-color:var(--ink)}
 .sermon-study .sub-nav a[aria-current="location"] .sub-mark[data-state="full"]{background:var(--ink)}
-.sermon-study .sub-nav a[aria-current="location"] .sub-mark[data-state="part"]{background:linear-gradient(to right,var(--ink) 50%,transparent 50%)}
+.sermon-study .sub-nav a[aria-current="location"] .sub-mark[data-state="part"]::before{background:var(--ink)}
+/* Without this the forced palette flattens fill and leaves three identical
+   rings — the two ends of the scale indistinguishable to the readers most
+   likely to be running it. System keywords are not overridden. */
+@media (forced-colors: active){
+ .sermon-study .sub-mark,
+ .sermon-study .sub-nav a[aria-current="location"] .sub-mark{border-color:CanvasText;background:Canvas}
+ .sermon-study .sub-mark[data-state="full"],
+ .sermon-study .sub-nav a[aria-current="location"] .sub-mark[data-state="full"]{background:CanvasText}
+ .sermon-study .sub-mark[data-state="part"]::before,
+ .sermon-study .sub-nav a[aria-current="location"] .sub-mark[data-state="part"]::before{background:CanvasText}
+}
 
 /* The heading tag: chrome register, never competing with the sub-point itself.
    The gap is a margin, not whitespace — whitespace between a text node and an
@@ -71,7 +84,7 @@ html[data-content-type="sermon-notes"]{--notes-header-height:88px;--notes-panel-
 /* Legend: the key, beside the note that explains why the marks exist. */
 .sermon-study .delivery-legend{margin:var(--space-lg) 0 var(--space-2xl);padding-top:var(--space-sm);border-top:var(--border-weight-chrome) solid var(--body-faint)}
 .sermon-study .delivery-legend ul{display:flex;flex-wrap:wrap;gap:var(--space-sm) var(--space-lg);list-style:none;margin:0;padding:0}
-.sermon-study .delivery-legend li{display:flex;align-items:center;gap:var(--space-xs);margin:0;font-family:var(--mono);font-size:var(--text-micro);font-weight:var(--weight-bold);letter-spacing:var(--track-chrome);text-transform:uppercase;color:var(--body-muted)}
+.sermon-study .delivery-legend li{display:flex;align-items:center;gap:var(--space-xs);margin:0;font-family:var(--mono);font-size:var(--text-micro);font-weight:var(--weight-bold);line-height:var(--lh-snug);letter-spacing:var(--track-chrome);text-transform:uppercase;color:var(--body-muted)}
 .sermon-study .delivery-legend p{margin:var(--space-sm) 0 0;font-family:var(--mono);font-size:var(--text-micro);line-height:var(--lh-snug);color:var(--body-muted)}
 
 /* Folding reaches the reader from the sticky bar, not only from the page top. */

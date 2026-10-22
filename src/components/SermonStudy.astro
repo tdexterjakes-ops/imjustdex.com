@@ -21,6 +21,15 @@ const DELIVERY_LABEL: Record<string, { sr: string; text: string }> = {
 };
 const entry = (delivery as Record<string, { legend: string; points: Record<string, string> }>)[slug];
 const deliveryPoints: Record<string, string> = entry?.points ?? {};
+// Those keys are sub-point ids from study.body, which import-sermon-study.py
+// regenerates — reword a heading upstream and its id changes. A silent miss
+// would render a legend keying marks that are no longer there, so fail loudly,
+// the way the importer already asserts its 43 open passages.
+const bodyHeadingIds = new Set([...study.body.matchAll(/<h3\b[^>]*\bid="([^"]+)"/g)].map(m => m[1]));
+const orphanedPoints = Object.keys(deliveryPoints).filter(id => !bodyHeadingIds.has(id));
+if (orphanedPoints.length) {
+  throw new Error(`delivery.json lists sub-points absent from "${slug}": ${orphanedPoints.join(', ')}`);
+}
 // Contents ships the 8 movements. The 27 sub-points already carry ids in the
 // body, so the outline is read back off those headings rather than duplicated
 // into the study data — a regenerated JSON cannot fall out of step with it.
@@ -45,7 +54,7 @@ const contentsOutline = study.contents.replace(/<li><a href="#([^"]+)"[\s\S]*?<\
       ? `<span class="sr-only">${copy.sr.toLowerCase()}${copy.text}</span>` +
         `<span class="sub-mark" data-state="${state}" aria-hidden="true"></span>`
       : '';
-    return `<li><a href="#${point.id}"><span>${point.label}</span>${mark}</a></li>`;
+    return `<li><a href="#${point.id}"><span data-label>${point.label}</span>${mark}</a></li>`;
   }).join('');
   return row.replace('</li>', `<ul class="sub-nav">${items}</ul></li>`);
 });
@@ -56,8 +65,11 @@ const contentsOutline = study.contents.replace(/<li><a href="#([^"]+)"[\s\S]*?<\
 // both fail that check and be overwritten on the next import.
 const prefaceLines: string[] = (prefaces as Record<string, string[]>)[slug] ?? [];
 // Appended inside the h3 so heading navigation announces the state with the
-// heading. No literal space before the tag: the gap is a margin, which cannot
-// be eaten the way whitespace between flex items is.
+// heading. The gap is a margin rather than a literal space, so the separator
+// cannot collapse; the accessible name still reads "<heading> preached in
+// full" because name computation joins child nodes with a space. The h3 is a
+// block, not a flex container — the whitespace-stripping that forced the same
+// choice on .notes-button does not apply here.
 const taggedBody = readingBody.replace(/(<h3\b[^>]*\bid="([^"]+)"[^>]*>)([\s\S]*?)(<\/h3>)/g,
   (markup: string, open: string, id: string, label: string, close: string) => {
     const state = deliveryPoints[id];
