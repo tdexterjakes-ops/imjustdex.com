@@ -1,6 +1,7 @@
 ---
 import '../styles/sermon-notes.css';
 import prefaces from '../data/sermons/prefaces.json';
+import delivery from '../data/sermons/delivery.json';
 interface Props { study: { body: string; contents: string; copyright: string }; }
 const { study } = Astro.props;
 // Paragraph-length callouts use reading type; preserve the imported words and markup.
@@ -8,6 +9,18 @@ const readingBody = study.body.replace(/<p class="landing">([\s\S]*?)<\/p>/g, (m
   const words = content.replace(/<[^>]*>/g, '').trim().split(/\s+/).length;
   return words >= 20 ? markup.replace('class="landing"', 'class="landing landing-reading"') : markup;
 });
+const slug = Astro.url.pathname.replace(/\/+$/, '').split('/').pop() ?? '';
+// What was preached and what stayed in the notes, sub-point by sub-point. Same
+// reason as the preface for living outside study.body: the importer regenerates
+// that body and asserts byte-equality, so a tag written into it would be lost.
+// Marked against the recording; Dexter is the authority on all 27.
+const DELIVERY_LABEL: Record<string, { sr: string; text: string }> = {
+  full: { sr: 'Preached ', text: 'in full' },
+  part: { sr: 'Preached ', text: 'in part' },
+  page: { sr: 'Kept ', text: 'on the page' },
+};
+const entry = (delivery as Record<string, { legend: string; points: Record<string, string> }>)[slug];
+const deliveryPoints: Record<string, string> = entry?.points ?? {};
 // Contents ships the 8 movements. The 27 sub-points already carry ids in the
 // body, so the outline is read back off those headings rather than duplicated
 // into the study data — a regenerated JSON cannot fall out of step with it.
@@ -24,7 +37,16 @@ while ((heading = headings.exec(study.body)) !== null) {
 const contentsOutline = study.contents.replace(/<li><a href="#([^"]+)"[\s\S]*?<\/a><\/li>/g, (row, id: string) => {
   const points = subPoints.get(id) ?? [];
   if (!points.length) return row;
-  const items = points.map(point => `<li><a href="#${point.id}">${point.label}</a></li>`).join('');
+  const items = points.map(point => {
+    const state = deliveryPoints[point.id];
+    const copy = state ? DELIVERY_LABEL[state] : undefined;
+    // The mark sits at the row's end, clear of the current-row edge and the indent.
+    const mark = copy
+      ? `<span class="sr-only">${copy.sr.toLowerCase()}${copy.text}</span>` +
+        `<span class="sub-mark" data-state="${state}" aria-hidden="true"></span>`
+      : '';
+    return `<li><a href="#${point.id}"><span>${point.label}</span>${mark}</a></li>`;
+  }).join('');
   return row.replace('</li>', `<ul class="sub-nav">${items}</ul></li>`);
 });
 // The preacher's note stands between the orientation paragraphs and the first
@@ -32,11 +54,21 @@ const contentsOutline = study.contents.replace(/<li><a href="#([^"]+)"[\s\S]*?<\
 // is regenerated from the canonical Sermons package by import-sermon-study.py,
 // which asserts byte-equality in --check mode, so prose typed into it would
 // both fail that check and be overwritten on the next import.
-const slug = Astro.url.pathname.replace(/\/+$/, '').split('/').pop() ?? '';
 const prefaceLines: string[] = (prefaces as Record<string, string[]>)[slug] ?? [];
-const firstMovement = readingBody.search(/<h2[\s>]/);
-const intro = firstMovement < 0 ? readingBody : readingBody.slice(0, firstMovement);
-const movements = firstMovement < 0 ? '' : readingBody.slice(firstMovement);
+// Appended inside the h3 so heading navigation announces the state with the
+// heading. No literal space before the tag: the gap is a margin, which cannot
+// be eaten the way whitespace between flex items is.
+const taggedBody = readingBody.replace(/(<h3\b[^>]*\bid="([^"]+)"[^>]*>)([\s\S]*?)(<\/h3>)/g,
+  (markup: string, open: string, id: string, label: string, close: string) => {
+    const state = deliveryPoints[id];
+    const copy = state ? DELIVERY_LABEL[state] : undefined;
+    if (!copy) return markup;
+    return `${open}${label}<span class="delivery-tag" data-state="${state}">` +
+      `<span class="sr-only">${copy.sr}</span>${copy.text}</span>${close}`;
+  });
+const firstMovement = taggedBody.search(/<h2[\s>]/);
+const intro = firstMovement < 0 ? taggedBody : taggedBody.slice(0, firstMovement);
+const movements = firstMovement < 0 ? '' : taggedBody.slice(firstMovement);
 ---
 <div class="sermon-study">
   <span id="read" aria-hidden="true"></span>
@@ -62,6 +94,18 @@ const movements = firstMovement < 0 ? '' : readingBody.slice(firstMovement);
   {prefaceLines.length > 0 && (
     <aside class="study-preface">
       {prefaceLines.map((line) => <p>{line}</p>)}
+    </aside>
+  )}
+  {/* The key to the marks, next to the note that explains why they exist. The
+      three read as peers: none of them is the page apologising for itself. */}
+  {entry && (
+    <aside class="delivery-legend" aria-label="How the sub-points are marked">
+      <ul>
+        {(['full', 'part', 'page'] as const).map((state) => (
+          <li><span class="sub-mark" data-state={state} aria-hidden="true"></span>{DELIVERY_LABEL[state].text}</li>
+        ))}
+      </ul>
+      <p>{entry.legend}</p>
     </aside>
   )}
   <Fragment set:html={movements} />

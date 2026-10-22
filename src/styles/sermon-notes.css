@@ -49,6 +49,31 @@ html[data-content-type="sermon-notes"]{--notes-header-height:88px;--notes-panel-
 .sermon-study .sub-nav a:hover{color:var(--ink)}
 .sermon-study .sub-nav a[aria-current="location"]{border-left:var(--border-weight-content) solid var(--ink);padding-left:calc(var(--space-lg) + var(--space-2xl) + var(--space-xs) - var(--border-weight-content));background:var(--body-tint);color:var(--ink);font-weight:var(--weight-bold)}
 
+/* Preached, or kept for the page. Three states, read as peers: the notes being
+   fuller than the hour is the page's purpose, not a shortfall it apologises for.
+   Ink only — the movement kickers and the Scripture cites already hold the
+   viewport's red budget, and a status mark is not where the accent belongs. */
+.sermon-study .sub-mark{flex:none;width:11px;height:11px;border:var(--border-weight-chrome) solid var(--body-muted);border-radius:50%;background:transparent}
+.sermon-study .sub-mark[data-state="full"]{background:var(--body-muted)}
+/* Half-filled: a hard inset edge, so it reads as "part" at 11px without a gradient. */
+.sermon-study .sub-mark[data-state="part"]{background:linear-gradient(to right,var(--body-muted) 50%,transparent 50%)}
+.sermon-study .sub-nav a .sub-mark{margin-inline-start:auto}
+.sermon-study .sub-nav a[aria-current="location"] .sub-mark{border-color:var(--ink)}
+.sermon-study .sub-nav a[aria-current="location"] .sub-mark[data-state="full"]{background:var(--ink)}
+.sermon-study .sub-nav a[aria-current="location"] .sub-mark[data-state="part"]{background:linear-gradient(to right,var(--ink) 50%,transparent 50%)}
+
+/* The heading tag: chrome register, never competing with the sub-point itself.
+   The gap is a margin, not whitespace — whitespace between a text node and an
+   element inside a flex container is stripped, and this has to survive that. */
+.sermon-study .delivery-tag{display:inline-block;margin-inline-start:var(--space-sm);transform:translateY(-0.15em);font-family:var(--mono);font-size:var(--text-micro);font-weight:var(--weight-bold);line-height:var(--lh-snug);letter-spacing:var(--track-chrome);text-transform:uppercase;white-space:nowrap;color:var(--body-muted)}
+.sermon-study .delivery-tag[data-state="page"]{color:var(--ink)}
+
+/* Legend: the key, beside the note that explains why the marks exist. */
+.sermon-study .delivery-legend{margin:var(--space-lg) 0 var(--space-2xl);padding-top:var(--space-sm);border-top:var(--border-weight-chrome) solid var(--body-faint)}
+.sermon-study .delivery-legend ul{display:flex;flex-wrap:wrap;gap:var(--space-sm) var(--space-lg);list-style:none;margin:0;padding:0}
+.sermon-study .delivery-legend li{display:flex;align-items:center;gap:var(--space-xs);margin:0;font-family:var(--mono);font-size:var(--text-micro);font-weight:var(--weight-bold);letter-spacing:var(--track-chrome);text-transform:uppercase;color:var(--body-muted)}
+.sermon-study .delivery-legend p{margin:var(--space-sm) 0 0;font-family:var(--mono);font-size:var(--text-micro);line-height:var(--lh-snug);color:var(--body-muted)}
+
 /* Folding reaches the reader from the sticky bar, not only from the page top. */
 .sermon-study .contents-tools{display:flex;flex-wrap:wrap;gap:var(--space-xs);padding:var(--space-sm) var(--space-lg);border-top:var(--border-weight-chrome) solid var(--body-faint)}
 
@@ -132,6 +157,10 @@ html[data-content-type="sermon-notes"]{--notes-header-height:88px;--notes-panel-
  /* color-scheme beats mode.js's inline dark scheme, which paints dark page margins. */
  :root[data-content-type="sermon-notes"]{color-scheme:light!important;--bg:var(--print-paper);--panel:var(--print-paper);--ink:var(--print-ink);--border:var(--print-ink);--body-color:var(--print-ink);--body-muted:var(--print-ink);--accent-text:var(--accent);--rule:var(--print-muted);--body-faint:var(--print-muted);--body-tint:transparent}
  .sermon-study .mobile-contents,.sermon-study .reading-tools,.sermon-study .contents-tools{display:none!important}
+ /* The legend keys an on-screen mark; on paper the heading tags carry it in words. */
+ .sermon-study .delivery-legend{display:none!important}
+ .sermon-study .delivery-tag{color:var(--print-muted)}
+ .sermon-study .delivery-tag[data-state="page"]{color:var(--print-ink)}
  .sermon-study h2,.sermon-study h3,.sermon-study summary{break-after:avoid}
  .sermon-study .passage{margin-inline:0;background:none;border:var(--border-weight-chrome) solid var(--print-muted);break-inside:auto}
  .sermon-study .passage::details-content{display:block;content-visibility:visible}
