@@ -63,6 +63,17 @@ html[data-content-type="sermon-notes"]{--notes-header-height:88px;--notes-panel-
 /* Movements: the essay SectionHead — red mono kicker beside a red rule. */
 .sermon-study h2{position:relative;display:flex;align-items:center;gap:var(--space-chrome);margin:var(--space-2xl) 0 var(--space-lg);padding:0;border:0;font-family:var(--mono);font-size:var(--text-label);font-weight:var(--weight-bold);line-height:var(--lh-snug);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--accent-text);text-wrap:balance}
 .sermon-study h2::after{content:"";flex:1;min-width:var(--space-xl);border-top:var(--border-weight-content) solid var(--accent)}
+/* A movement is the organising unit of this study, but it shipped as a 12px mono
+   kicker while its own sub-points took 20px bold ink: the structure read quietest
+   on the page. The kicker keeps the label register and the rule; the title takes a
+   step above the h3 so a reader scanning for a movement is scanning for the loudest
+   mark, not the faintest. Set in the body face, never Anton — this page had its
+   Anton movement heads deliberately removed (S15) and that ruling stands. */
+.sermon-study h2.movement{display:block;margin-top:var(--space-3xl)}
+.sermon-study h2.movement::after{content:none}
+.sermon-study h2.movement .movement-kicker{display:flex;align-items:center;gap:var(--space-chrome)}
+.sermon-study h2.movement .movement-kicker::after{content:"";flex:1;min-width:var(--space-xl);border-top:var(--border-weight-content) solid var(--accent)}
+.sermon-study h2.movement .movement-title{display:block;margin-top:var(--space-sm);font-family:var(--body);font-size:var(--text-h2);font-weight:var(--weight-bold);line-height:var(--lh-tight);letter-spacing:var(--track-title);text-transform:none;color:var(--ink)}
 /* Keep the empty #the-study-underneath alias out of the flex row. */
 .sermon-study h2>span[id]:empty{position:absolute;top:0;left:0}
 .sermon-study h3{font-family:var(--body);font-size:var(--text-h3);font-weight:var(--weight-bold);line-height:var(--lh-snug);margin:var(--space-xl) 0 var(--space-md);color:var(--ink);text-wrap:balance}
@@ -99,7 +110,7 @@ html[data-content-type="sermon-notes"]{--notes-header-height:88px;--notes-panel-
 .sermon-study>ol a:hover{text-decoration-color:var(--accent)}
 /* Top-of-body attribution: the footer recipe, mirrored — rule below, since it
    opens the body rather than closing the page. */
-.sermon-study .notes-credit{margin:0 0 var(--space-xl);padding-bottom:var(--space-sm);border-bottom:var(--border-weight-chrome) solid var(--body-faint);font-family:var(--mono);font-size:var(--text-micro);line-height:var(--lh-snug);color:var(--body-muted)}
+.sermon-study .notes-credit{margin:0 0 var(--space-xl);padding-bottom:var(--space-sm);border-bottom:var(--border-weight-chrome) solid var(--body-faint);font-family:var(--mono);font-size:var(--text-nav);line-height:var(--lh-snug);color:var(--body-muted)}
 .sermon-study .notes-credit p{margin:0}
 .sermon-study .notes-footer{margin-top:var(--space-2xl);padding-top:var(--space-sm);border-top:var(--border-weight-chrome) solid var(--body-faint);font-family:var(--mono);font-size:var(--text-micro);line-height:var(--lh-snug);color:var(--body-muted)}
 .sermon-study .notes-footer p{margin:0}
@@ -127,6 +138,8 @@ html[data-content-type="sermon-notes"]{--notes-header-height:88px;--notes-panel-
  /* Long kickers wrap: label above a full-width rule. */
  .sermon-study h2{flex-wrap:wrap;row-gap:var(--space-xs)}
  .sermon-study h2::after{flex-basis:100%}
+ .sermon-study h2.movement .movement-kicker{flex-wrap:wrap;row-gap:var(--space-xs)}
+ .sermon-study h2.movement .movement-kicker::after{flex-basis:100%}
 }
 @media print{
  /* color-scheme beats mode.js's inline dark scheme, which paints dark page margins. */
