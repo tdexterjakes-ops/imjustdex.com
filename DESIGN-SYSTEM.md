@@ -1272,9 +1272,10 @@ When images replace the current CSS-generated textures, they must follow these r
 default-src 'self';
 script-src 'self';
 style-src 'self';
-img-src 'self' data: https:;
+img-src 'self' data:;
 font-src 'self';
 connect-src 'self' https://ingesteer.services-prod.nsvcs.net;
+frame-src https://www.youtube-nocookie.com;
 frame-ancestors 'none';
 base-uri 'self';
 form-action 'self';
@@ -1282,7 +1283,7 @@ object-src 'none';
 upgrade-insecure-requests
 ```
 
-Every script lives in `/js/*`. Every stylesheet lives in `/css/*`. Every font lives in `/fonts/*`. No inline `<style>` blocks. No inline `<script>` blocks. No inline `onclick` / `onload` / `onerror` attributes. No Google Fonts. No CDNs. One analytics beacon, by choice: Netlify Real User Monitoring, whose edge-injected `/.netlify/scripts/rum` posts to `ingesteer.services-prod.nsvcs.net` — the only third-party origin in `connect-src` (opted in 2026-09-18, F105). No other analytics beacons.
+Every script lives in `/js/*`. Every stylesheet lives in `/css/*`. Every font lives in `/fonts/*`. Every image is served from imjustdex.com; no hotlinked images, because a third-party image hands each reader's IP to its host the way Google Fonts does. No inline `<style>` blocks. No inline `<script>` blocks. No inline `onclick` / `onload` / `onerror` attributes. No Google Fonts. No CDNs. One analytics beacon, by choice: Netlify Real User Monitoring, whose edge-injected `/.netlify/scripts/rum` posts to `ingesteer.services-prod.nsvcs.net` — the only third-party origin in `connect-src` (opted in 2026-09-18, F105). No other analytics beacons.
 
 When adding behavior, the rule is: write it in `/js/*.js`, gate it on the DOM elements it targets (no-op if absent), and load it with `<script src>`. When adding copy-to-clipboard or similar interactions, use `data-*` attributes read by the script — never inline handlers.
 
