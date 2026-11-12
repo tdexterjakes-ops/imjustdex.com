@@ -34,9 +34,26 @@ const contentsOutline = study.contents.replace(/<li><a href="#([^"]+)"[\s\S]*?<\
 // both fail that check and be overwritten on the next import.
 const slug = Astro.url.pathname.replace(/\/+$/, '').split('/').pop() ?? '';
 const prefaceLines: string[] = (prefaces as Record<string, string[]>)[slug] ?? [];
-const firstMovement = readingBody.search(/<h2[\s>]/);
-const intro = firstMovement < 0 ? readingBody : readingBody.slice(0, firstMovement);
-const movements = firstMovement < 0 ? '' : readingBody.slice(firstMovement);
+// The movement heads ship as "Kicker · Title" on one 12px mono line, which left
+// the 8 movements reading quieter than the 27 sub-points they organise. Split at
+// render: the kicker stays the label and keeps its rule, the title takes a step
+// above the h3. Headings with no kicker — the video block, the passage index —
+// are left alone. Done here because study.body is byte-locked by the importer.
+const MOVEMENT_SEP = /\s(?:\u00b7|&#183;|&middot;)\s/;
+const movementBody = readingBody.replace(
+  /(<h2\b[^>]*>)((?:<[^>]*>)*)([^<]*)(<\/h2>)/g,
+  (whole: string, open: string, lead: string, text: string, close: string) => {
+    const at = MOVEMENT_SEP.exec(text);
+    if (!at) return whole;
+    const tag = /\sclass=/.test(open) ? open : open.replace(/^<h2/, '<h2 class="movement"');
+    const kicker = text.slice(0, at.index);
+    const title = text.slice(at.index + at[0].length);
+    return `${tag}${lead}<span class="movement-kicker">${kicker}</span><span class="movement-title">${title}</span>${close}`;
+  },
+);
+const firstMovement = movementBody.search(/<h2[\s>]/);
+const intro = firstMovement < 0 ? movementBody : movementBody.slice(0, firstMovement);
+const movements = firstMovement < 0 ? '' : movementBody.slice(firstMovement);
 ---
 <div class="sermon-study">
   <span id="read" aria-hidden="true"></span>
